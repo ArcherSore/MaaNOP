@@ -1,0 +1,3213 @@
+{
+    "Leveling": {
+        "next": "Step001"
+    },
+    "Step001": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_1.png",
+                "roi": [ 1138, 250, 191, 122 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step002"
+    },
+    "Step002": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step003"
+    },
+    "Step003": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wear_1.png",
+                "roi": [ 1161, 548, 165, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step004"
+    },
+    "Step004": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step005"
+    },
+    "Step005": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step006"
+    },
+    "Step006": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_hide.png",
+                "roi": [ 1223, 53, 106, 109 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step007"
+    },
+    "Step007": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_2.png",
+                "roi": [ 1141, 252, 176, 118 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step008"
+    },
+    "Step008": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step009"
+    },
+    "Step009": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_3.png",
+                "roi": [ 1141, 254, 177, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step010"
+    },
+    "Step010": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step011"
+    },
+    "Step011": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step012"
+    },
+    "Step012": {
+        "post_delay": 1000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_click.png",
+                "roi": [ 544, 505, 242, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step013"
+    },
+    "Step013": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "system_renzhe.png",
+                "roi": [ 1132, 635, 138, 85 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step014"
+    },
+    "Step014": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_recruit.png",
+                "roi": [ 514, 418, 163, 117 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step015"
+    },
+    "Step015": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_recruit_accept_1.png",
+                "roi": [ 530, 371, 150, 118 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step016"
+    },
+    "Step016": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_recruit_accept_2.png",
+                "roi": [ 530, 489, 157, 119 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step017"
+    },
+    "Step017": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_group.png",
+                "roi": [ 863, 49, 136, 137 ]
+            }
+        },
+        "action": "Click",
+        "next": "FindStart1"
+    },
+    "FindStart1": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "char_mingren.png",
+                "roi": [ 705, 234, 139, 149 ]
+            }
+        },
+        "next": "FindEnd1"
+    },
+    "FindEnd1": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "circle_1.png",
+                "roi": [ 370, 347, 176, 137 ]
+            }
+        },
+        "next": "Step018"
+    },
+    "Step018": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": "FindStart1",
+                "end": "FindEnd1",
+                "duration": 1000
+            }
+        },
+        "next": "Step019"
+    },
+    "Step019": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_close.png",
+                "roi": [ 1041, 59, 116, 116 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step020"
+    },
+    "Step020": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_4.png",
+                "roi": [ 1143, 266, 186, 117 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step021"
+    },
+    "Step021": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step022"
+    },
+    "Step022": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_5.png",
+                "roi": [ 1172, 268, 151, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step023"
+    },
+    "Step023": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_1.png",
+                "roi": [ 425, 297, 171, 117 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step024"
+    },
+    "Step024": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step025"
+    },
+    "Step025": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step026"
+        ]
+    },
+    "Step026": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_1.png",
+                "roi": [ 1222, 187, 107, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step027"
+    },
+    "Step027": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step028"
+    },
+    "Step028": {
+        "post_delay": 1200,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step029"
+    },
+    "Step029": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 81
+            }
+        },
+        "next": "Step030"
+    },
+    "Step030": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step031"
+    },
+    "Step031": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step032"
+    },
+    "Step032": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step033"
+    },
+    "Step033": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step034"
+    },
+    "Step034": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_6.png",
+                "roi": [ 1145, 255, 177, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step035"
+    },
+    "Step035": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "Step036", "Step037" ]
+    },
+    "Step036": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wear_1.png",
+                "roi": [ 1161, 548, 165, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step037"
+    },
+    "Step037": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step038"
+    },
+    "Step038": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_7.png",
+                "roi": [ 1144, 255, 178, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step039"
+    },
+    "Step039": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step040"
+    },
+    "Step040": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step041"
+    },
+    "Step041": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_click.png",
+                "roi": [ 544, 505, 242, 121 ]
+            }
+        },
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": [ "Step042", "Step043" ]
+    },
+    "Step042": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wear_1.png",
+                "roi": [ 1161, 548, 165, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step043"
+    },
+    "Step043": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_8.png",
+                "roi": [ 1154, 269, 171, 111 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step044"
+    },
+    "Step044": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step045"
+    },
+    "Step045": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_9.png",
+                "roi": [ 1172, 269, 142, 111 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step046"
+    },
+    "Step046": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_1.png",
+                "roi": [ 594, 297, 172, 116 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step047"
+    },
+    "Step047": {
+        "pre_delay": 600,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step048"
+    },
+    "Step048": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step049"
+    },
+    "Step049": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 81
+            }
+        },
+        "next": "Step050"
+    },
+    "Step050": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step051"
+    },
+    "Step051": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step052"
+    },
+    "Step052": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "char_jingye.png",
+                "roi": [ 708, 395, 160, 128 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step053"
+    },
+    "Step053": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 81
+            }
+        },
+        "next": "Step054"
+    },
+    "Step054": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step055"
+    },
+    "Step055": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step056"
+    },
+    "Step056": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step057"
+    },
+    "Step057": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step058"
+    },
+    "Step058": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step059"
+    },
+    "Step059": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_10.png",
+                "roi": [ 1144, 255, 162, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step060"
+    },
+    "Step060": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step061"
+    },
+    "Step061": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "system_renzhe.png",
+                "roi": [ 1132, 635, 138, 85 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step062"
+    },
+    "Step062": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_recruit.png",
+                "roi": [ 514, 418, 163, 117 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step063"
+    },
+    "Step063": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_recruit_accept_1.png",
+                "roi": [ 530, 371, 150, 118 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step064"
+    },
+    "Step064": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_recruit_accept_2.png",
+                "roi": [ 530, 489, 157, 119 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step065"
+    },
+    "Step065": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_group.png",
+                "roi": [ 863, 49, 136, 137 ]
+            }
+        },
+        "action": "Click",
+        "next": "FindStart2"
+    },
+    "FindStart2": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "char_zuozhu.png",
+                "roi": [ 709, 232, 139, 151 ]
+            }
+        },
+        "next": "FindEnd2"
+    },
+    "FindEnd2": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "circle_7.png",
+                "roi": [ 345, 442, 192, 144 ]
+            }
+        },
+        "next": "Step066"
+    },
+    "Step066": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": "FindStart2",
+                "end": "FindEnd2",
+                "duration": 1000
+            }
+        },
+        "next": "Step067"
+    },
+    "Step067": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "system_nurish.png",
+                "roi": [ 906, 55, 139, 129 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step068"
+    },
+    "Step068": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "char_zuozhu.png",
+                "roi": [ 936, 240, 137, 151 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step069"
+    },
+    "Step069": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_eat_one.png",
+                "roi": [ 520, 289, 140, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step070"
+    },
+    "Step070": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_close.png",
+                "roi": [ 1041, 59, 116, 116 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step071"
+    },
+    "Step071": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_11.png",
+                "roi": [ 1153, 268, 172, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step072"
+    },
+    "Step072": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step073"
+    },
+    "Step073": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_12.png",
+                "roi": [ 1145, 255, 164, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step074"
+    },
+    "Step074": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "Step075", "Step076" ]
+    },
+    "Step075": {
+        "post_delay": 1500,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wear_1.png",
+                "roi": [ 1161, 548, 165, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step076"
+    },
+    "Step076": {
+        "post_delay": 1500,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "Step077", "Step078" ]
+    },
+    "Step077": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step078"
+    },
+    "Step078": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_14.png",
+                "roi": [ 1172, 268, 136, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step079"
+    },
+    "Step079": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_1.png",
+                "roi": [ 765, 296, 169, 117 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step080"
+    },
+    "Step080": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_2.png",
+                "roi": [ 1214, 129, 115, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step081"
+    },
+    "Step081": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step082"
+        ]
+    },
+    "Step082": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_3.png",
+                "roi": [ 1199, 111, 111, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step083"
+    },
+    "Step083": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step084"
+        ]
+    },
+    "Step084": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_4.png",
+                "roi": [ 1164, 117, 112, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step085"
+    },
+    "Step085": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step086"
+        ]
+    },
+    "Step086": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step087"
+    },
+    "Step087": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step088"
+    },
+    "Step088": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step089"
+    },
+    "Step089": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step090"
+    },
+    "Step090": {
+        "post_delay": 1200,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_click.png",
+                "roi": [ 544, 505, 242, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step091"
+    },
+    "Step091": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "system_char.png",
+                "roi": [ 1094, 634, 126, 86 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step092"
+    },
+    "Step092": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "system_talent.png",
+                "roi": [ 424, 523, 168, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step093"
+    },
+    "Step093": {
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "connection_1.png",
+                "roi": [ 443, 302, 133, 131 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step094"
+    },
+    "Step094": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "title_passive.png",
+                "roi": [ 413, 329, 119, 175 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step095"
+    },
+    "Step095": {
+        "pre_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "connection_3.png",
+                "roi": [ 693, 302, 133, 133 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step096"
+    },
+    "Step096": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_close.png",
+                "roi": [ 815, 149, 121, 122 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step097"
+    },
+    "Step097": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_close.png",
+                "roi": [ 933, 169, 120, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step098"
+    },
+    "Step098": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_15.png",
+                "roi": [ 1147, 255, 172, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step099"
+    },
+    "Step099": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "Step100", "Step101" ]
+    },
+    "Step100": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wear_1.png",
+                "roi": [ 1161, 548, 165, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step101"
+    },
+    "Step101": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_16.png",
+                "roi": [ 1143, 254, 171, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step102"
+    },
+    "Step102": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step103"
+    },
+    "Step103": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step104"
+    },
+    "Step104": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_17.png",
+                "roi": [ 1171, 267, 145, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step105"
+    },
+    "Step105": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_1.png",
+                "roi": [ 426, 401, 170, 116 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step106"
+    },
+    "Step106": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step107"
+    },
+    "Step107": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step108"
+    },
+    "Step108": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step109"
+        ]
+    },
+    "Step109": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_5.png",
+                "roi": [ 1199, 148, 123, 119 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step110"
+    },
+    "Step110": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step111"
+    },
+    "Step111": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step112"
+        ]
+    },
+    "Step112": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_6.png",
+                "roi": [ 1194, 129, 115, 115 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step113"
+    },
+    "Step113": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step114"
+    },
+    "Step114": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step115"
+        ]
+    },
+    "Step115": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step116"
+    },
+    "Step116": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step117"
+    },
+    "Step117": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step118"
+    },
+    "Step118": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step119"
+    },
+    "Step119": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step120"
+    },
+    "Step120": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_click.png",
+                "roi": [ 544, 505, 242, 121 ]
+            }
+        },
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": [ "Step121_1", "Step121" ]
+    },
+    "Step121_1": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wear_1.png",
+                "roi": [ 1161, 548, 165, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step121_2"
+    },
+    "Step121_2": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_18.png",
+                "roi": [ 1147, 257, 157, 109 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step121"
+    },
+    "Step121": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step122"
+    },
+    "Step122": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_19.png",
+                "roi": [ 1147, 255, 182, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step123"
+    },
+    "Step123": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step124"
+    },
+    "Step124": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_20.png",
+                "roi": [ 1147, 255, 182, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step125"
+    },
+    "Step125": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step126"
+    },
+    "Step126": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step127"
+    },
+    "Step127": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step128"
+    },
+    "Step128": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_21.png",
+                "roi": [ 1173, 268, 150, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step129"
+    },
+    "Step129": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_2.png",
+                "roi": [ 594, 400, 170, 117 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step130"
+    },
+    "Step130": {
+        "pre_delay": 800,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step131"
+    },
+    "Step131": {
+        "pre_delay": 800,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_7.png",
+                "roi": [ 655, 232, 119, 173 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step132"
+    },
+    "Step132": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step133"
+    },
+    "Step133": {
+        "post_delay": 500,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step134"
+    },
+    "Step134": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 81
+            }
+        },
+        "next": "Step135"
+    },
+    "Step135": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step136"
+    },
+    "Step136": {
+        "post_delay": 3000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_8.png",
+                "roi": [ 1245, 117, 84, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "Step137", "Step138" ]
+    },
+    "Step137": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_9.png",
+                "roi": [ 980, 210, 220, 230 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step139"
+    },
+    "Step138": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_10.png",
+                "roi": [ 980, 210, 220, 230 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step139"
+    },
+    "Step139": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step140"
+    },
+    "Step140": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step141"
+    },
+    "Step141": {
+        "post_delay": 500,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step142"
+    },
+    "Step142": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 81
+            }
+        },
+        "next": "Step143"
+    },
+    "Step143": {
+        "pre_delay": 800,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step144"
+    },
+    "Step144": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step145"
+    },
+    "Step145": {
+        "post_delay": 500,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step146"
+    },
+    "Step146": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 81
+            }
+        },
+        "next": "Step147"
+    },
+    "Step147": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step148"
+    },
+    "Step148": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step149"
+    },
+    "Step149": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step150"
+    },
+    "Step150": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step151"
+    },
+    "Step151": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step152"
+    },
+    "Step152": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step153"
+    },
+    "Step153": {
+        "post_delay": 1000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 663, 417, 162, 119 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step154"
+    },
+    "Step154": {
+        "post_delay": 1000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 663, 417, 162, 119 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step155"
+    },
+    "Step155": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 663, 417, 162, 119 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "Step156", "Step157" ]
+    },
+    "Step156": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wear_1.png",
+                "roi": [ 1161, 548, 165, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step157"
+    },
+    "Step157": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_22.png",
+                "roi": [ 1154, 286, 175, 110 ],
+                "threshold": 0.4
+            }
+        },
+        "action": "Click",
+        "next": "Step158"
+    },
+    "Step158": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step159"
+    },
+    "Step159": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_23.png",
+                "roi": [ 1155, 286, 174, 109 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step160"
+    },
+    "Step160": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step161"
+    },
+    "Step161": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_24.png",
+                "roi": [ 1172, 286, 144, 109 ],
+                "threshold": 0.4
+            }
+        },
+        "action": "Click",
+        "next": "Step162"
+    },
+    "Step162": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_2.png",
+                "roi": [ 425, 296, 169, 115 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step163"
+    },
+    "Step163": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step164"
+    },
+    "Step164": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_11.png",
+                "roi": [ 1206, 166, 119, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step165"
+    },
+    "Step165": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step166"
+        ]
+    },
+    "Step166": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_12.png",
+                "roi": [ 1229, 199, 100, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step167"
+    },
+    "Step167": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step168"
+        ]
+    },
+    "Step168": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_13.png",
+                "roi": [ 1306, 264, 7, 9 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step169"
+    },
+    "Step169": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step170"
+    },
+    "Step170": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step171"
+    },
+    "Step171": {
+        "post_delay": 1200,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": "Step172"
+    },
+    "Step172": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 81
+            }
+        },
+        "next": "Step173"
+    },
+    "Step173": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step174"
+    },
+    "Step174": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step175"
+    },
+    "Step175": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step176"
+    },
+    "Step176": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step177"
+    },
+    "Step177": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_25.png",
+                "roi": [ 1147, 256, 165, 110 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step178"
+    },
+    "Step178": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step179"
+    },
+    "Step179": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step180"
+    },
+    "Step180": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step181"
+    },
+    "Step181": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_27.png",
+                "roi": [ 1172, 286, 134, 110 ],
+                "threshold": 0.4
+            }
+        },
+        "action": "Click",
+        "next": "Step182"
+    },
+    "Step182": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_1.png",
+                "roi": [ 594, 297, 172, 116 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step183"
+    },
+    "Step183": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_14.png",
+                "roi": [ 1237, 140, 92, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step184"
+    },
+    "Step184": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step185"
+        ]
+    },
+    "Step185": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_15.png",
+                "roi": [ 1226, 115, 103, 110 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step186"
+    },
+    "Step186": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step187"
+        ]
+    },
+    "Step187": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_16.png",
+                "roi": [ 1190, 139, 111, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step188"
+    },
+    "Step188": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step189"
+    },
+    "Step189": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_16.png",
+                "roi": [ 1190, 139, 111, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step190"
+    },
+    "Step190": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]ManulBattle",
+            "Step191"
+        ]
+    },
+    "Step191": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step192"
+    },
+    "Step192": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step193"
+    },
+    "Step193": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "Step194", "Step195" ]
+    },
+    "Step194": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wear_1.png",
+                "roi": [ 1161, 548, 165, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step195"
+    },
+    "Step195": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_28.png",
+                "roi": [ 1147, 258, 158, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step196"
+    },
+    "Step196": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step197"
+    },
+    "Step197": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_28.png",
+                "roi": [ 1147, 258, 158, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step198"
+    },
+    "Step198": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step199"
+    },
+    "Step199": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step200"
+    },
+    "Step200": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step201"
+    },
+    "Step201": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step202"
+    },
+    "Step202": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_30.png",
+                "roi": [ 1172, 286, 142, 110 ],
+                "threshold": 0.4
+            }
+        },
+        "action": "Click",
+        "next": "Step203"
+    },
+    "Step203": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_2.png",
+                "roi": [ 765, 296, 168, 117 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step204"
+    },
+    "Step204": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step205"
+    },
+    "Step205": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_17.png",
+                "roi": [ 1276, 235, 12, 11 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step206"
+    },
+    "Step206": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step207"
+    },
+    "Step207": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step208"
+    },
+    "Step208": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step209"
+    },
+    "Step209": {
+        "post_delay": 1200,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": "Step210"
+    },
+    "Step210": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 81
+            }
+        },
+        "next": "Step211"
+    },
+    "Step211": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step212"
+    },
+    "Step212": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step213"
+    },
+    "Step213": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": "Step214"
+    },
+    "Step214": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 81
+            }
+        },
+        "next": "Step215"
+    },
+    "Step215": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step216"
+    },
+    "Step216": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step217"
+    },
+    "Step217": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step218"
+    },
+    "Step218": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step219"
+    },
+    "Step219": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step220"
+    },
+    "Step220": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step221"
+    },
+    "Step221": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step222"
+    },
+    "Step222": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_31.png",
+                "roi": [ 1147, 256, 164, 110 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step223"
+    },
+    "Step223": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step224"
+    },
+    "Step224": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step225"
+    },
+    "Step225": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step226"
+    },
+    "Step226": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_32.png",
+                "roi": [ 1172, 286, 134, 109 ],
+                "threshold": 0.4
+            }
+        },
+        "action": "Click",
+        "next": "Step227"
+    },
+    "Step227": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_1.png",
+                "roi": [ 426, 399, 169, 118 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step228"
+    },
+    "Step228": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_18.png",
+                "roi": [ 1219, 110, 110, 110 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step229"
+    },
+    "Step229": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]AutoBattle",
+            "Step230"
+        ]
+    },
+    "Step230": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_19.png",
+                "roi": [ 1190, 121, 111, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step231"
+    },
+    "Step231": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]AutoBattle",
+            "Step232"
+        ]
+    },
+    "Step232": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_20.png",
+                "roi": [ 1150, 137, 113, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": [
+            "[JumpBack]AutoBattle",
+            "Step233"
+        ]
+    },
+    "Step234": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]AutoBattle",
+            "Step233"
+        ]
+    },
+    "Step233": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step235"
+    },
+    "Step235": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step236"
+    },
+    "Step236": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step237"
+    },
+    "Step237": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_33.png",
+                "roi": [ 1147, 255, 158, 111 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step238"
+    },
+    "Step238": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step239"
+    },
+    "Step239": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_34.png",
+                "roi": [ 1147, 255, 158, 111 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step240"
+    },
+    "Step240": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step241"
+    },
+    "Step241": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step242"
+    },
+    "Step242": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step243"
+    },
+    "Step243": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 690, 425, 177, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step244"
+    },
+    "Step244": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_36.png",
+                "roi": [ 1172, 270, 134, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step245"
+    },
+    "Step245": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_1.png",
+                "roi": [ 595, 399, 169, 117 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step246"
+    },
+    "Step246": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_21.png",
+                "roi": [ 1200, 142, 111, 111 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step247"
+    },
+    "Step247": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]AutoBattle",
+            "Step248"
+        ]
+    },
+    "Step248": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_22.png",
+                "roi": [ 1191, 174, 118, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step249"
+    },
+    "Step249": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]AutoBattle",
+            "Step250"
+        ]
+    },
+    "Step250": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_23.png",
+                "roi": [ 1290, 200, 18, 18 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step251"
+    },
+    "Step251": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]AutoBattle",
+            "Step252"
+        ]
+    },
+    "Step252": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step253"
+    },
+    "Step253": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step254"
+    },
+    "Step254": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step255"
+    },
+    "Step255": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_complete_1.png",
+                "roi": [ 662, 417, 164, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step256"
+    },
+    "Step256": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_37.png",
+                "roi": [ 1156, 302, 173, 111 ],
+                "threshold": 0.4
+            }
+        },
+        "action": "Click",
+        "next": "Step257"
+    },
+    "Step257": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step258"
+    },
+    "Step258": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_38.png",
+                "roi": [ 1155, 302, 174, 110 ],
+                "threshold": 0.4
+            }
+        },
+        "action": "Click",
+        "next": "Step259"
+    },
+    "Step259": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_accept_1.png",
+                "roi": [ 691, 425, 174, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step260"
+    },
+    "Step260": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "task_39.png",
+                "roi": [ 1200, 315, 100, 100 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step261"
+    },
+    "Step261": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "copy_1.png",
+                "roi": [ 765, 399, 169, 117 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step262"
+    },
+    "Step262": {
+        "post_delay": 3000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_24.png",
+                "roi": [ 810, 341, 114, 113 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step263"
+    },
+    "Step263": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_25.png",
+                "roi": [ 667, 520, 154, 171 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step264"
+    },
+    "Step264": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]AutoBattle",
+            "Step265"
+        ]
+    },
+    "Step265": {
+        "post_delay": 3000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_26.png",
+                "roi": [ 578, 517, 110, 118 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step266"
+    },
+    "Step266": {
+        "post_delay": 3000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_27.png",
+                "roi": [ 374, 396, 111, 117 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step267"
+    },
+    "Step267": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_28.png",
+                "roi": [ 501, 514, 201, 138 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step268"
+    },
+    "Step268": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]AutoBattle",
+            "Step269"
+        ]
+    },
+    "Step269": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_29.png",
+                "roi": [ 1212, 163, 111, 109 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step270"
+    },
+    "Step270": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "next": [
+            "[JumpBack]AutoBattle",
+            "Step271"
+        ]
+    },
+    "Step271": {
+        "post_delay": 3000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_30.png",
+                "roi": [ 340, 630, 310, 80 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step272"
+    },
+    "Step272": {
+        "post_delay": 3000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "enermy_31.png",
+                "roi": [ 501, 502, 113, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step273"
+    },
+    "Step273": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_return.png",
+                "roi": [ 565, 519, 190, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step274"
+    },
+    "Step274": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step275"
+    },
+    "Step275": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step276"
+    },
+    "Step276": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step277"
+    },
+    "Step277": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_pass.png",
+                "roi": [ 875, 612, 133, 108 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step278"
+    },
+    "Step278": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "system_complement.png",
+                "roi": [ 864, 50, 133, 129 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step279"
+    },
+    "Step279": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_claim_1.png",
+                "roi": [ 585, 485, 177, 122 ]
+            }
+        },
+        "action": "Click",
+        "next": "Step280"
+    },
+    "Step280": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_close.png",
+                "roi": [ 818, 226, 119, 117 ]
+            }
+        },
+        "action": "Click"
+    }
+}

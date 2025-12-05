@@ -1,0 +1,69 @@
+{
+    "ManulBattle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": "ManulBattleStart"
+    },
+    "ManulBattleStart": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "flag_battle_end.png",
+                "roi": [ 629, 81, 129, 113 ]
+            }
+        },
+        "next": "Skill1"
+    },
+    "Skill1": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 81
+            }
+        },
+        "next": "Skill2"
+    },
+    "Skill2": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 87
+            }
+        },
+        "next": "Skill3"
+    },
+    "Skill3": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 69
+            }
+        },
+        "next": "Skill4"
+    },
+    "Skill4": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 82
+            }
+        },
+        "next": [ "ManulBattleEnd", "Skill1" ]
+    },
+    "ManulBattleEnd": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "flag_battle_end.png",
+                "roi": [ 629, 81, 129, 113 ]
+            }
+        },
+        "inverse": true
+    }
+}

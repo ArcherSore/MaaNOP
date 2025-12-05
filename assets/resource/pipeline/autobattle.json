@@ -1,0 +1,68 @@
+{
+    "AutoBattle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_battle_start.png",
+                "roi": [ 535, 393, 140, 120 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "AutoOn", "AutoOff" ]
+    },
+    "AutoOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "auto_on.png",
+                "roi": [ 793, 594, 135, 125 ]
+            }
+        },
+        "next": "SpeedUp"
+    },
+    "AutoOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "auto_off.png",
+                "roi": [ 793, 594, 135, 125 ]
+            }
+        },
+        "action": "Click",
+        "next": "SpeedUp"
+    },
+    "SpeedUp": {
+        "next": [ "SpeedOn", "SpeedOff" ]
+    },
+    "SpeedOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "speedup_on.png",
+                "roi": [ 886, 658, 22, 20 ]
+            }
+        },
+        "next": "AutoBattleEnd"
+    },
+    "SpeedOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "speedup_off.png",
+                "roi": [ 886, 658, 22, 20 ]
+            }
+        },
+        "action": "Click",
+        "next": "AutoBattleEnd"
+    },
+    "AutoBattleEnd": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "flag_battle_end.png",
+                "roi": [ 629, 81, 129, 113 ]
+            }
+        },
+        "inverse": true
+    }
+}
