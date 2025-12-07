@@ -1,8 +1,8 @@
 {
     "Leveling": {
-        "next": "Step001"
+        "next": "LVstep001"
     },
-    "Step001": {
+    "LVstep001": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -11,9 +11,12 @@
             }
         },
         "action": "Click",
-        "next": "Step002"
+        "next": "LVstep002",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step002": {
+    "LVstep002": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -22,9 +25,12 @@
             }
         },
         "action": "Click",
-        "next": "Step003"
+        "next": "LVstep003",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step003": {
+    "LVstep003": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -33,9 +39,12 @@
             }
         },
         "action": "Click",
-        "next": "Step004"
+        "next": "LVstep004",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step004": {
+    "LVstep004": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -44,9 +53,12 @@
             }
         },
         "action": "Click",
-        "next": "Step005"
+        "next": "LVstep005",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step005": {
+    "LVstep005": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -54,10 +66,13 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到2级"
+        },
         "action": "Click",
-        "next": "Step006"
+        "next": "LVstep006"
     },
-    "Step006": {
+    "LVstep006": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -66,9 +81,12 @@
             }
         },
         "action": "Click",
-        "next": "Step007"
+        "next": "LVstep007",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step007": {
+    "LVstep007": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -77,9 +95,12 @@
             }
         },
         "action": "Click",
-        "next": "Step008"
+        "next": "LVstep008",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step008": {
+    "LVstep008": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -88,9 +109,12 @@
             }
         },
         "action": "Click",
-        "next": "Step009"
+        "next": "LVstep009",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step009": {
+    "LVstep009": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -99,9 +123,12 @@
             }
         },
         "action": "Click",
-        "next": "Step010"
+        "next": "LVstep010",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step010": {
+    "LVstep010": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -110,9 +137,12 @@
             }
         },
         "action": "Click",
-        "next": "Step011"
+        "next": "LVstep011",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step011": {
+    "LVstep011": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -120,10 +150,13 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到3级"
+        },
         "action": "Click",
-        "next": "Step012"
+        "next": "LVstep012"
     },
-    "Step012": {
+    "LVstep012": {
         "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
@@ -133,9 +166,12 @@
             }
         },
         "action": "Click",
-        "next": "Step013"
+        "next": "LVstep013",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step013": {
+    "LVstep013": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -144,9 +180,12 @@
             }
         },
         "action": "Click",
-        "next": "Step014"
+        "next": "LVstep014",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step014": {
+    "LVstep014": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -155,9 +194,12 @@
             }
         },
         "action": "Click",
-        "next": "Step015"
+        "next": "LVstep015",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step015": {
+    "LVstep015": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -166,9 +208,12 @@
             }
         },
         "action": "Click",
-        "next": "Step016"
+        "next": "LVstep016",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step016": {
+    "LVstep016": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -177,9 +222,12 @@
             }
         },
         "action": "Click",
-        "next": "Step017"
+        "next": "LVstep017",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step017": {
+    "LVstep017": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -188,7 +236,10 @@
             }
         },
         "action": "Click",
-        "next": "FindStart1"
+        "next": "FindStart1",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
     "FindStart1": {
         "recognition": {
@@ -208,9 +259,9 @@
                 "roi": [ 370, 347, 176, 137 ]
             }
         },
-        "next": "Step018"
+        "next": "LVstep018"
     },
-    "Step018": {
+    "LVstep018": {
         "action": {
             "type": "Swipe",
             "param": {
@@ -219,9 +270,12 @@
                 "duration": 1000
             }
         },
-        "next": "Step019"
+        "next": "LVstep019",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step019": {
+    "LVstep019": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -230,9 +284,12 @@
             }
         },
         "action": "Click",
-        "next": "Step020"
+        "next": "LVstep020",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step020": {
+    "LVstep020": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -241,9 +298,12 @@
             }
         },
         "action": "Click",
-        "next": "Step021"
+        "next": "LVstep021",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step021": {
+    "LVstep021": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -252,9 +312,12 @@
             }
         },
         "action": "Click",
-        "next": "Step022"
+        "next": "LVstep022",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step022": {
+    "LVstep022": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -263,9 +326,12 @@
             }
         },
         "action": "Click",
-        "next": "Step023"
+        "next": "LVstep023",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step023": {
+    "LVstep023": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -273,10 +339,13 @@
                 "roi": [ 425, 297, 171, 117 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【木叶丸三人组】"
+        },
         "action": "Click",
-        "next": "Step024"
+        "next": "LVstep024"
     },
-    "Step024": {
+    "LVstep024": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -285,9 +354,12 @@
             }
         },
         "action": "Click",
-        "next": "Step025"
+        "next": "LVstep025",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step025": {
+    "LVstep025": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -295,12 +367,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step026"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep026" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step026": {
+    "LVstep026": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -309,9 +381,12 @@
             }
         },
         "action": "Click",
-        "next": "Step027"
+        "next": "LVstep027",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step027": {
+    "LVstep027": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -320,9 +395,12 @@
             }
         },
         "action": "Click",
-        "next": "Step028"
+        "next": "LVstep028",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step028": {
+    "LVstep028": {
         "post_delay": 1200,
         "recognition": {
             "type": "TemplateMatch",
@@ -332,18 +410,24 @@
             }
         },
         "action": "Click",
-        "next": "Step029"
+        "next": "LVstep029",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step029": {
+    "LVstep029": {
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 81
             }
         },
-        "next": "Step030"
+        "next": "LVstep030",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step030": {
+    "LVstep030": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -352,9 +436,12 @@
             }
         },
         "action": "Click",
-        "next": "Step031"
+        "next": "LVstep031",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step031": {
+    "LVstep031": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -362,10 +449,27 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【捉兔大赛】"
+        },
         "action": "Click",
-        "next": "Step032"
+        "next": "LVstep032"
     },
-    "Step032": {
+    "LVstep032": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到4级"
+        },
+        "action": "Click",
+        "next": "LVstep033"
+    },
+    "LVstep033": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -374,20 +478,12 @@
             }
         },
         "action": "Click",
-        "next": "Step033"
+        "next": "LVstep034",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step033": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "upgrade_confirm.png",
-                "roi": [ 583, 428, 163, 121 ]
-            }
-        },
-        "action": "Click",
-        "next": "Step034"
-    },
-    "Step034": {
+    "LVstep034": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -396,9 +492,12 @@
             }
         },
         "action": "Click",
-        "next": "Step035"
+        "next": "LVstep035",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step035": {
+    "LVstep035": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -407,9 +506,12 @@
             }
         },
         "action": "Click",
-        "next": [ "Step036", "Step037" ]
+        "next": [ "LVstep036", "LVstep037" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step036": {
+    "LVstep036": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -418,9 +520,12 @@
             }
         },
         "action": "Click",
-        "next": "Step037"
+        "next": "LVstep037",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step037": {
+    "LVstep037": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -429,9 +534,12 @@
             }
         },
         "action": "Click",
-        "next": "Step038"
+        "next": "LVstep038",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step038": {
+    "LVstep038": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -440,9 +548,12 @@
             }
         },
         "action": "Click",
-        "next": "Step039"
+        "next": "LVstep039",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step039": {
+    "LVstep039": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -451,9 +562,12 @@
             }
         },
         "action": "Click",
-        "next": "Step040"
+        "next": "LVstep040",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step040": {
+    "LVstep040": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -461,10 +575,13 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到5级"
+        },
         "action": "Click",
-        "next": "Step041"
+        "next": "LVstep041"
     },
-    "Step041": {
+    "LVstep041": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -478,9 +595,12 @@
                 "key": 27
             }
         },
-        "next": [ "Step042", "Step043" ]
+        "next": [ "LVstep042", "LVstep043" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step042": {
+    "LVstep042": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -489,9 +609,12 @@
             }
         },
         "action": "Click",
-        "next": "Step043"
+        "next": "LVstep043",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step043": {
+    "LVstep043": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -500,9 +623,12 @@
             }
         },
         "action": "Click",
-        "next": "Step044"
+        "next": "LVstep044",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step044": {
+    "LVstep044": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -511,9 +637,12 @@
             }
         },
         "action": "Click",
-        "next": "Step045"
+        "next": "LVstep045",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step045": {
+    "LVstep045": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -522,9 +651,12 @@
             }
         },
         "action": "Click",
-        "next": "Step046"
+        "next": "LVstep046",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step046": {
+    "LVstep046": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -532,10 +664,13 @@
                 "roi": [ 594, 297, 172, 116 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【宇智波佐助】"
+        },
         "action": "Click",
-        "next": "Step047"
+        "next": "LVstep047"
     },
-    "Step047": {
+    "LVstep047": {
         "pre_delay": 600,
         "recognition": {
             "type": "TemplateMatch",
@@ -545,9 +680,12 @@
             }
         },
         "action": "Click",
-        "next": "Step048"
+        "next": "LVstep048",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step048": {
+    "LVstep048": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -556,18 +694,24 @@
             }
         },
         "action": "Click",
-        "next": "Step049"
+        "next": "LVstep049",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step049": {
+    "LVstep049": {
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 81
             }
         },
-        "next": "Step050"
+        "next": "LVstep050",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step050": {
+    "LVstep050": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -576,9 +720,12 @@
             }
         },
         "action": "Click",
-        "next": "Step051"
+        "next": "LVstep051",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step051": {
+    "LVstep051": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -587,9 +734,12 @@
             }
         },
         "action": "Click",
-        "next": "Step052"
+        "next": "LVstep052",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step052": {
+    "LVstep052": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -598,18 +748,24 @@
             }
         },
         "action": "Click",
-        "next": "Step053"
+        "next": "LVstep053",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step053": {
+    "LVstep053": {
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 81
             }
         },
-        "next": "Step054"
+        "next": "LVstep054",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step054": {
+    "LVstep054": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -618,9 +774,12 @@
             }
         },
         "action": "Click",
-        "next": "Step055"
+        "next": "LVstep055",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step055": {
+    "LVstep055": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -629,9 +788,12 @@
             }
         },
         "action": "Click",
-        "next": "Step056"
+        "next": "LVstep056",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step056": {
+    "LVstep056": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -639,10 +801,27 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【宇智波佐助】"
+        },
         "action": "Click",
-        "next": "Step057"
+        "next": "LVstep057"
     },
-    "Step057": {
+    "LVstep057": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到6级"
+        },
+        "action": "Click",
+        "next": "LVstep058"
+    },
+    "LVstep058": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -651,20 +830,12 @@
             }
         },
         "action": "Click",
-        "next": "Step058"
+        "next": "LVstep059",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step058": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "upgrade_confirm.png",
-                "roi": [ 583, 428, 163, 121 ]
-            }
-        },
-        "action": "Click",
-        "next": "Step059"
-    },
-    "Step059": {
+    "LVstep059": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -673,9 +844,12 @@
             }
         },
         "action": "Click",
-        "next": "Step060"
+        "next": "LVstep060",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step060": {
+    "LVstep060": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -684,9 +858,12 @@
             }
         },
         "action": "Click",
-        "next": "Step061"
+        "next": "LVstep061",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step061": {
+    "LVstep061": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -695,9 +872,12 @@
             }
         },
         "action": "Click",
-        "next": "Step062"
+        "next": "LVstep062",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step062": {
+    "LVstep062": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -706,9 +886,12 @@
             }
         },
         "action": "Click",
-        "next": "Step063"
+        "next": "LVstep063",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step063": {
+    "LVstep063": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -717,9 +900,12 @@
             }
         },
         "action": "Click",
-        "next": "Step064"
+        "next": "LVstep064",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step064": {
+    "LVstep064": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -728,9 +914,12 @@
             }
         },
         "action": "Click",
-        "next": "Step065"
+        "next": "LVstep065",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step065": {
+    "LVstep065": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -739,7 +928,10 @@
             }
         },
         "action": "Click",
-        "next": "FindStart2"
+        "next": "FindStart2",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
     "FindStart2": {
         "recognition": {
@@ -759,9 +951,9 @@
                 "roi": [ 345, 442, 192, 144 ]
             }
         },
-        "next": "Step066"
+        "next": "LVstep066"
     },
-    "Step066": {
+    "LVstep066": {
         "action": {
             "type": "Swipe",
             "param": {
@@ -770,9 +962,12 @@
                 "duration": 1000
             }
         },
-        "next": "Step067"
+        "next": "LVstep067",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step067": {
+    "LVstep067": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -781,9 +976,12 @@
             }
         },
         "action": "Click",
-        "next": "Step068"
+        "next": "LVstep068",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step068": {
+    "LVstep068": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -792,9 +990,12 @@
             }
         },
         "action": "Click",
-        "next": "Step069"
+        "next": "LVstep069",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step069": {
+    "LVstep069": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -803,9 +1004,12 @@
             }
         },
         "action": "Click",
-        "next": "Step070"
+        "next": "LVstep070",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step070": {
+    "LVstep070": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -814,9 +1018,12 @@
             }
         },
         "action": "Click",
-        "next": "Step071"
+        "next": "LVstep071",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step071": {
+    "LVstep071": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -825,9 +1032,12 @@
             }
         },
         "action": "Click",
-        "next": "Step072"
+        "next": "LVstep072",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step072": {
+    "LVstep072": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -836,9 +1046,12 @@
             }
         },
         "action": "Click",
-        "next": "Step073"
+        "next": "LVstep073",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step073": {
+    "LVstep073": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -847,9 +1060,12 @@
             }
         },
         "action": "Click",
-        "next": "Step074"
+        "next": "LVstep074",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step074": {
+    "LVstep074": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -858,9 +1074,12 @@
             }
         },
         "action": "Click",
-        "next": [ "Step075", "Step076" ]
+        "next": [ "LVstep075", "LVstep076" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step075": {
+    "LVstep075": {
         "post_delay": 1500,
         "recognition": {
             "type": "TemplateMatch",
@@ -870,9 +1089,12 @@
             }
         },
         "action": "Click",
-        "next": "Step076"
+        "next": "LVstep076",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step076": {
+    "LVstep076": {
         "post_delay": 1500,
         "recognition": {
             "type": "TemplateMatch",
@@ -882,9 +1104,12 @@
             }
         },
         "action": "Click",
-        "next": [ "Step077", "Step078" ]
+        "next": [ "LVstep077", "LVstep078" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step077": {
+    "LVstep077": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -893,9 +1118,12 @@
             }
         },
         "action": "Click",
-        "next": "Step078"
+        "next": "LVstep078",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step078": {
+    "LVstep078": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -904,9 +1132,12 @@
             }
         },
         "action": "Click",
-        "next": "Step079"
+        "next": "LVstep079",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step079": {
+    "LVstep079": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -914,10 +1145,13 @@
                 "roi": [ 765, 296, 169, 117 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【狼群退治】"
+        },
         "action": "Click",
-        "next": "Step080"
+        "next": "LVstep080"
     },
-    "Step080": {
+    "LVstep080": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -926,9 +1160,12 @@
             }
         },
         "action": "Click",
-        "next": "Step081"
+        "next": "LVstep081",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step081": {
+    "LVstep081": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -936,12 +1173,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step082"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep082" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step082": {
+    "LVstep082": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -950,9 +1187,12 @@
             }
         },
         "action": "Click",
-        "next": "Step083"
+        "next": "LVstep083",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step083": {
+    "LVstep083": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -960,12 +1200,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step084"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep084" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step084": {
+    "LVstep084": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -974,9 +1214,12 @@
             }
         },
         "action": "Click",
-        "next": "Step085"
+        "next": "LVstep085",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step085": {
+    "LVstep085": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -984,12 +1227,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step086"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep086" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step086": {
+    "LVstep086": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -997,10 +1240,27 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【狼群退治】"
+        },
         "action": "Click",
-        "next": "Step087"
+        "next": "LVstep087"
     },
-    "Step087": {
+    "LVstep087": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到7级"
+        },
+        "action": "Click",
+        "next": "LVstep088"
+    },
+    "LVstep088": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1009,9 +1269,12 @@
             }
         },
         "action": "Click",
-        "next": "Step088"
+        "next": "LVstep089",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step088": {
+    "LVstep089": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1020,20 +1283,12 @@
             }
         },
         "action": "Click",
-        "next": "Step089"
+        "next": "LVstep090",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step089": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "upgrade_confirm.png",
-                "roi": [ 583, 428, 163, 121 ]
-            }
-        },
-        "action": "Click",
-        "next": "Step090"
-    },
-    "Step090": {
+    "LVstep090": {
         "post_delay": 1200,
         "recognition": {
             "type": "TemplateMatch",
@@ -1043,9 +1298,12 @@
             }
         },
         "action": "Click",
-        "next": "Step091"
+        "next": "LVstep091",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step091": {
+    "LVstep091": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1054,9 +1312,12 @@
             }
         },
         "action": "Click",
-        "next": "Step092"
+        "next": "LVstep092",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step092": {
+    "LVstep092": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1065,9 +1326,12 @@
             }
         },
         "action": "Click",
-        "next": "Step093"
+        "next": "LVstep093",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step093": {
+    "LVstep093": {
         "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
@@ -1077,9 +1341,12 @@
             }
         },
         "action": "Click",
-        "next": "Step094"
+        "next": "LVstep094",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step094": {
+    "LVstep094": {
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
@@ -1090,9 +1357,12 @@
             }
         },
         "action": "Click",
-        "next": "Step095"
+        "next": "LVstep095",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step095": {
+    "LVstep095": {
         "pre_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
@@ -1102,9 +1372,12 @@
             }
         },
         "action": "Click",
-        "next": "Step096"
+        "next": "LVstep096",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step096": {
+    "LVstep096": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1113,9 +1386,12 @@
             }
         },
         "action": "Click",
-        "next": "Step097"
+        "next": "LVstep097",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step097": {
+    "LVstep097": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1124,9 +1400,12 @@
             }
         },
         "action": "Click",
-        "next": "Step098"
+        "next": "LVstep098",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step098": {
+    "LVstep098": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1135,9 +1414,12 @@
             }
         },
         "action": "Click",
-        "next": "Step099"
+        "next": "LVstep099",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step099": {
+    "LVstep099": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1146,9 +1428,12 @@
             }
         },
         "action": "Click",
-        "next": [ "Step100", "Step101" ]
+        "next": [ "LVstep100", "LVstep101" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step100": {
+    "LVstep100": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1157,9 +1442,12 @@
             }
         },
         "action": "Click",
-        "next": "Step101"
+        "next": "LVstep101",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step101": {
+    "LVstep101": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1168,9 +1456,12 @@
             }
         },
         "action": "Click",
-        "next": "Step102"
+        "next": "LVstep102",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step102": {
+    "LVstep102": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1179,9 +1470,12 @@
             }
         },
         "action": "Click",
-        "next": "Step103"
+        "next": "LVstep103",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step103": {
+    "LVstep103": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1190,9 +1484,12 @@
             }
         },
         "action": "Click",
-        "next": "Step104"
+        "next": "LVstep104",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step104": {
+    "LVstep104": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1201,9 +1498,12 @@
             }
         },
         "action": "Click",
-        "next": "Step105"
+        "next": "LVstep105",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step105": {
+    "LVstep105": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1211,10 +1511,13 @@
                 "roi": [ 426, 401, 170, 116 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【猪鹿蝶组合】"
+        },
         "action": "Click",
-        "next": "Step106"
+        "next": "LVstep106"
     },
-    "Step106": {
+    "LVstep106": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1223,9 +1526,12 @@
             }
         },
         "action": "Click",
-        "next": "Step107"
+        "next": "LVstep107",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step107": {
+    "LVstep107": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1234,9 +1540,12 @@
             }
         },
         "action": "Click",
-        "next": "Step108"
+        "next": "LVstep108",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step108": {
+    "LVstep108": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1244,12 +1553,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step109"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep109" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step109": {
+    "LVstep109": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1258,9 +1567,12 @@
             }
         },
         "action": "Click",
-        "next": "Step110"
+        "next": "LVstep110",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step110": {
+    "LVstep110": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1269,9 +1581,12 @@
             }
         },
         "action": "Click",
-        "next": "Step111"
+        "next": "LVstep111",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step111": {
+    "LVstep111": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1279,12 +1594,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step112"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep112" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step112": {
+    "LVstep112": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1293,9 +1608,12 @@
             }
         },
         "action": "Click",
-        "next": "Step113"
+        "next": "LVstep113",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step113": {
+    "LVstep113": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1304,9 +1622,12 @@
             }
         },
         "action": "Click",
-        "next": "Step114"
+        "next": "LVstep114",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step114": {
+    "LVstep114": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1314,12 +1635,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step115"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep115" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step115": {
+    "LVstep115": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1328,9 +1649,12 @@
             }
         },
         "action": "Click",
-        "next": "Step116"
+        "next": "LVstep116",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step116": {
+    "LVstep116": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1338,10 +1662,27 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【猪鹿蝶组合】"
+        },
         "action": "Click",
-        "next": "Step117"
+        "next": "LVstep117"
     },
-    "Step117": {
+    "LVstep117": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到8级"
+        },
+        "action": "Click",
+        "next": "LVstep118"
+    },
+    "LVstep118": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1350,9 +1691,12 @@
             }
         },
         "action": "Click",
-        "next": "Step118"
+        "next": "LVstep119",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step118": {
+    "LVstep119": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1361,20 +1705,12 @@
             }
         },
         "action": "Click",
-        "next": "Step119"
+        "next": "LVstep120",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step119": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "upgrade_confirm.png",
-                "roi": [ 583, 428, 163, 121 ]
-            }
-        },
-        "action": "Click",
-        "next": "Step120"
-    },
-    "Step120": {
+    "LVstep120": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1388,9 +1724,12 @@
                 "key": 27
             }
         },
-        "next": [ "Step121_1", "Step121" ]
+        "next": [ "LVstep121_1", "LVstep121" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step121_1": {
+    "LVstep121_1": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1399,9 +1738,12 @@
             }
         },
         "action": "Click",
-        "next": "Step121_2"
+        "next": "LVstep121_2",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step121_2": {
+    "LVstep121_2": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1410,9 +1752,12 @@
             }
         },
         "action": "Click",
-        "next": "Step121"
+        "next": "LVstep121",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step121": {
+    "LVstep121": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1421,9 +1766,12 @@
             }
         },
         "action": "Click",
-        "next": "Step122"
+        "next": "LVstep122",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step122": {
+    "LVstep122": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1432,9 +1780,12 @@
             }
         },
         "action": "Click",
-        "next": "Step123"
+        "next": "LVstep123",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step123": {
+    "LVstep123": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1443,9 +1794,12 @@
             }
         },
         "action": "Click",
-        "next": "Step124"
+        "next": "LVstep124",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step124": {
+    "LVstep124": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1454,9 +1808,12 @@
             }
         },
         "action": "Click",
-        "next": "Step125"
+        "next": "LVstep125",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step125": {
+    "LVstep125": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1465,9 +1822,12 @@
             }
         },
         "action": "Click",
-        "next": "Step126"
+        "next": "LVstep126",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step126": {
+    "LVstep126": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1476,9 +1836,12 @@
             }
         },
         "action": "Click",
-        "next": "Step127"
+        "next": "LVstep127",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step127": {
+    "LVstep127": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1486,10 +1849,13 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到10级"
+        },
         "action": "Click",
-        "next": "Step128"
+        "next": "LVstep128"
     },
-    "Step128": {
+    "LVstep128": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1498,9 +1864,12 @@
             }
         },
         "action": "Click",
-        "next": "Step129"
+        "next": "LVstep129",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step129": {
+    "LVstep129": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1508,10 +1877,13 @@
                 "roi": [ 594, 400, 170, 117 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【卡卡西的试炼】"
+        },
         "action": "Click",
-        "next": "Step130"
+        "next": "LVstep130"
     },
-    "Step130": {
+    "LVstep130": {
         "pre_delay": 800,
         "recognition": {
             "type": "TemplateMatch",
@@ -1521,9 +1893,12 @@
             }
         },
         "action": "Click",
-        "next": "Step131"
+        "next": "LVstep131",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step131": {
+    "LVstep131": {
         "pre_delay": 800,
         "recognition": {
             "type": "TemplateMatch",
@@ -1533,9 +1908,12 @@
             }
         },
         "action": "Click",
-        "next": "Step132"
+        "next": "LVstep132",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step132": {
+    "LVstep132": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1544,9 +1922,12 @@
             }
         },
         "action": "Click",
-        "next": "Step133"
+        "next": "LVstep133",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step133": {
+    "LVstep133": {
         "post_delay": 500,
         "recognition": {
             "type": "TemplateMatch",
@@ -1556,18 +1937,24 @@
             }
         },
         "action": "Click",
-        "next": "Step134"
+        "next": "LVstep134",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step134": {
+    "LVstep134": {
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 81
             }
         },
-        "next": "Step135"
+        "next": "LVstep135",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step135": {
+    "LVstep135": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1576,9 +1963,12 @@
             }
         },
         "action": "Click",
-        "next": "Step136"
+        "next": "LVstep136",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step136": {
+    "LVstep136": {
         "post_delay": 3000,
         "recognition": {
             "type": "TemplateMatch",
@@ -1588,9 +1978,12 @@
             }
         },
         "action": "Click",
-        "next": [ "Step137", "Step138" ]
+        "next": [ "LVstep137", "LVstep138" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step137": {
+    "LVstep137": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1599,9 +1992,12 @@
             }
         },
         "action": "Click",
-        "next": "Step139"
+        "next": "LVstep139",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step138": {
+    "LVstep138": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1610,9 +2006,12 @@
             }
         },
         "action": "Click",
-        "next": "Step139"
+        "next": "LVstep139",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step139": {
+    "LVstep139": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1621,9 +2020,12 @@
             }
         },
         "action": "Click",
-        "next": "Step140"
+        "next": "LVstep140",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step140": {
+    "LVstep140": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1632,9 +2034,12 @@
             }
         },
         "action": "Click",
-        "next": "Step141"
+        "next": "LVstep141",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step141": {
+    "LVstep141": {
         "post_delay": 500,
         "recognition": {
             "type": "TemplateMatch",
@@ -1644,18 +2049,24 @@
             }
         },
         "action": "Click",
-        "next": "Step142"
+        "next": "LVstep142",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step142": {
+    "LVstep142": {
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 81
             }
         },
-        "next": "Step143"
+        "next": "LVstep143",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step143": {
+    "LVstep143": {
         "pre_delay": 800,
         "recognition": {
             "type": "TemplateMatch",
@@ -1665,9 +2076,12 @@
             }
         },
         "action": "Click",
-        "next": "Step144"
+        "next": "LVstep144",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step144": {
+    "LVstep144": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1676,9 +2090,12 @@
             }
         },
         "action": "Click",
-        "next": "Step145"
+        "next": "LVstep145",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step145": {
+    "LVstep145": {
         "post_delay": 500,
         "recognition": {
             "type": "TemplateMatch",
@@ -1688,18 +2105,24 @@
             }
         },
         "action": "Click",
-        "next": "Step146"
+        "next": "LVstep146",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step146": {
+    "LVstep146": {
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 81
             }
         },
-        "next": "Step147"
+        "next": "LVstep147",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step147": {
+    "LVstep147": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1708,9 +2131,12 @@
             }
         },
         "action": "Click",
-        "next": "Step148"
+        "next": "LVstep148",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step148": {
+    "LVstep148": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1718,10 +2144,13 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【卡卡西的试炼】"
+        },
         "action": "Click",
-        "next": "Step149"
+        "next": "LVstep149"
     },
-    "Step149": {
+    "LVstep149": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1730,9 +2159,12 @@
             }
         },
         "action": "Click",
-        "next": "Step150"
+        "next": "LVstep150",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step150": {
+    "LVstep150": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1741,9 +2173,12 @@
             }
         },
         "action": "Click",
-        "next": "Step151"
+        "next": "LVstep151",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step151": {
+    "LVstep151": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1752,9 +2187,12 @@
             }
         },
         "action": "Click",
-        "next": "Step152"
+        "next": "LVstep152",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step152": {
+    "LVstep152": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1762,10 +2200,13 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到11级"
+        },
         "action": "Click",
-        "next": "Step153"
+        "next": "LVstep153"
     },
-    "Step153": {
+    "LVstep153": {
         "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
@@ -1775,9 +2216,12 @@
             }
         },
         "action": "Click",
-        "next": "Step154"
+        "next": "LVstep154",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step154": {
+    "LVstep154": {
         "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
@@ -1787,9 +2231,12 @@
             }
         },
         "action": "Click",
-        "next": "Step155"
+        "next": "LVstep155",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step155": {
+    "LVstep155": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1798,9 +2245,12 @@
             }
         },
         "action": "Click",
-        "next": [ "Step156", "Step157" ]
+        "next": [ "LVstep156", "LVstep157" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step156": {
+    "LVstep156": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1809,9 +2259,12 @@
             }
         },
         "action": "Click",
-        "next": "Step157"
+        "next": "LVstep157",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step157": {
+    "LVstep157": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1821,9 +2274,12 @@
             }
         },
         "action": "Click",
-        "next": "Step158"
+        "next": "LVstep158",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step158": {
+    "LVstep158": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1832,9 +2288,12 @@
             }
         },
         "action": "Click",
-        "next": "Step159"
+        "next": "LVstep159",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step159": {
+    "LVstep159": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1843,9 +2302,12 @@
             }
         },
         "action": "Click",
-        "next": "Step160"
+        "next": "LVstep160",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step160": {
+    "LVstep160": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1854,9 +2316,12 @@
             }
         },
         "action": "Click",
-        "next": "Step161"
+        "next": "LVstep161",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step161": {
+    "LVstep161": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1866,9 +2331,12 @@
             }
         },
         "action": "Click",
-        "next": "Step162"
+        "next": "LVstep162",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step162": {
+    "LVstep162": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1876,10 +2344,13 @@
                 "roi": [ 425, 296, 169, 115 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【前往波之国】"
+        },
         "action": "Click",
-        "next": "Step163"
+        "next": "LVstep163"
     },
-    "Step163": {
+    "LVstep163": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1888,9 +2359,12 @@
             }
         },
         "action": "Click",
-        "next": "Step164"
+        "next": "LVstep164",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step164": {
+    "LVstep164": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1899,9 +2373,12 @@
             }
         },
         "action": "Click",
-        "next": "Step165"
+        "next": "LVstep165",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step165": {
+    "LVstep165": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1909,12 +2386,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step166"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep166" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step166": {
+    "LVstep166": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1923,9 +2400,12 @@
             }
         },
         "action": "Click",
-        "next": "Step167"
+        "next": "LVstep167",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step167": {
+    "LVstep167": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1933,12 +2413,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step168"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep168" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step168": {
+    "LVstep168": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1947,9 +2427,12 @@
             }
         },
         "action": "Click",
-        "next": "Step169"
+        "next": "LVstep169",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step169": {
+    "LVstep169": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1958,9 +2441,12 @@
             }
         },
         "action": "Click",
-        "next": "Step170"
+        "next": "LVstep170",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step170": {
+    "LVstep170": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1969,9 +2455,12 @@
             }
         },
         "action": "Click",
-        "next": "Step171"
+        "next": "LVstep171",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step171": {
+    "LVstep171": {
         "post_delay": 1200,
         "recognition": {
             "type": "TemplateMatch",
@@ -1980,18 +2469,24 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": "Step172"
+        "next": "LVstep172",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step172": {
+    "LVstep172": {
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 81
             }
         },
-        "next": "Step173"
+        "next": "LVstep173",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step173": {
+    "LVstep173": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2000,9 +2495,12 @@
             }
         },
         "action": "Click",
-        "next": "Step174"
+        "next": "LVstep174",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step174": {
+    "LVstep174": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2010,10 +2508,13 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【前往波之国】"
+        },
         "action": "Click",
-        "next": "Step175"
+        "next": "LVstep175"
     },
-    "Step175": {
+    "LVstep175": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2022,9 +2523,12 @@
             }
         },
         "action": "Click",
-        "next": "Step176"
+        "next": "LVstep176",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step176": {
+    "LVstep176": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2033,9 +2537,12 @@
             }
         },
         "action": "Click",
-        "next": "Step177"
+        "next": "LVstep177",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step177": {
+    "LVstep177": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2044,9 +2551,12 @@
             }
         },
         "action": "Click",
-        "next": "Step178"
+        "next": "LVstep178",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step178": {
+    "LVstep178": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2055,9 +2565,12 @@
             }
         },
         "action": "Click",
-        "next": "Step179"
+        "next": "LVstep179",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step179": {
+    "LVstep179": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2066,9 +2579,12 @@
             }
         },
         "action": "Click",
-        "next": "Step180"
+        "next": "LVstep180",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step180": {
+    "LVstep180": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2076,10 +2592,13 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到12级"
+        },
         "action": "Click",
-        "next": "Step181"
+        "next": "LVstep181"
     },
-    "Step181": {
+    "LVstep181": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2089,9 +2608,12 @@
             }
         },
         "action": "Click",
-        "next": "Step182"
+        "next": "LVstep182",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step182": {
+    "LVstep182": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2099,10 +2621,13 @@
                 "roi": [ 594, 297, 172, 116 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【海边侦察】"
+        },
         "action": "Click",
-        "next": "Step183"
+        "next": "LVstep183"
     },
-    "Step183": {
+    "LVstep183": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2111,9 +2636,12 @@
             }
         },
         "action": "Click",
-        "next": "Step184"
+        "next": "LVstep184",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step184": {
+    "LVstep184": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2121,12 +2649,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step185"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep185" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step185": {
+    "LVstep185": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2135,9 +2663,12 @@
             }
         },
         "action": "Click",
-        "next": "Step186"
+        "next": "LVstep186",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step186": {
+    "LVstep186": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2145,12 +2676,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step187"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep187" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step187": {
+    "LVstep187": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2159,9 +2690,12 @@
             }
         },
         "action": "Click",
-        "next": "Step188"
+        "next": "LVstep188",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step188": {
+    "LVstep188": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2170,9 +2704,12 @@
             }
         },
         "action": "Click",
-        "next": "Step189"
+        "next": "LVstep189",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step189": {
+    "LVstep189": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2181,9 +2718,12 @@
             }
         },
         "action": "Click",
-        "next": "Step190"
+        "next": "LVstep190",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step190": {
+    "LVstep190": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2191,12 +2731,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]ManulBattle",
-            "Step191"
-        ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep191" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step191": {
+    "LVstep191": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2204,10 +2744,13 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【海边侦察】"
+        },
         "action": "Click",
-        "next": "Step192"
+        "next": "LVstep192"
     },
-    "Step192": {
+    "LVstep192": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2216,9 +2759,12 @@
             }
         },
         "action": "Click",
-        "next": "Step193"
+        "next": "LVstep193",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step193": {
+    "LVstep193": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2227,9 +2773,12 @@
             }
         },
         "action": "Click",
-        "next": [ "Step194", "Step195" ]
+        "next": [ "LVstep194", "LVstep195" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step194": {
+    "LVstep194": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2238,9 +2787,12 @@
             }
         },
         "action": "Click",
-        "next": "Step195"
+        "next": "LVstep195",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step195": {
+    "LVstep195": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2249,9 +2801,12 @@
             }
         },
         "action": "Click",
-        "next": "Step196"
+        "next": "LVstep196",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step196": {
+    "LVstep196": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2260,9 +2815,12 @@
             }
         },
         "action": "Click",
-        "next": "Step197"
+        "next": "LVstep197",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step197": {
+    "LVstep197": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2271,9 +2829,12 @@
             }
         },
         "action": "Click",
-        "next": "Step198"
+        "next": "LVstep198",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step198": {
+    "LVstep198": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2282,9 +2843,12 @@
             }
         },
         "action": "Click",
-        "next": "Step199"
+        "next": "LVstep199",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step199": {
+    "LVstep199": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2293,9 +2857,12 @@
             }
         },
         "action": "Click",
-        "next": "Step200"
+        "next": "LVstep200",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step200": {
+    "LVstep200": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2303,10 +2870,13 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到13级"
+        },
         "action": "Click",
-        "next": "Step201"
+        "next": "LVstep201"
     },
-    "Step201": {
+    "LVstep201": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2315,9 +2885,12 @@
             }
         },
         "action": "Click",
-        "next": "Step202"
+        "next": "LVstep202",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step202": {
+    "LVstep202": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2327,9 +2900,12 @@
             }
         },
         "action": "Click",
-        "next": "Step203"
+        "next": "LVstep203",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step203": {
+    "LVstep203": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2337,10 +2913,13 @@
                 "roi": [ 765, 296, 168, 117 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【鬼人再不斩】"
+        },
         "action": "Click",
-        "next": "Step204"
+        "next": "LVstep204"
     },
-    "Step204": {
+    "LVstep204": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2349,9 +2928,12 @@
             }
         },
         "action": "Click",
-        "next": "Step205"
+        "next": "LVstep205",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step205": {
+    "LVstep205": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2360,9 +2942,12 @@
             }
         },
         "action": "Click",
-        "next": "Step206"
+        "next": "LVstep206",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step206": {
+    "LVstep206": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2371,9 +2956,12 @@
             }
         },
         "action": "Click",
-        "next": "Step207"
+        "next": "LVstep207",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step207": {
+    "LVstep207": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2382,9 +2970,12 @@
             }
         },
         "action": "Click",
-        "next": "Step208"
+        "next": "LVstep208",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step208": {
+    "LVstep208": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2393,9 +2984,12 @@
             }
         },
         "action": "Click",
-        "next": "Step209"
+        "next": "LVstep209",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step209": {
+    "LVstep209": {
         "post_delay": 1200,
         "recognition": {
             "type": "TemplateMatch",
@@ -2404,18 +2998,24 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": "Step210"
+        "next": "LVstep210",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step210": {
+    "LVstep210": {
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 81
             }
         },
-        "next": "Step211"
+        "next": "LVstep211",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step211": {
+    "LVstep211": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2424,9 +3024,12 @@
             }
         },
         "action": "Click",
-        "next": "Step212"
+        "next": "LVstep212",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step212": {
+    "LVstep212": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2435,9 +3038,12 @@
             }
         },
         "action": "Click",
-        "next": "Step213"
+        "next": "LVstep213",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step213": {
+    "LVstep213": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2445,18 +3051,24 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": "Step214"
+        "next": "LVstep214",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step214": {
+    "LVstep214": {
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 81
             }
         },
-        "next": "Step215"
+        "next": "LVstep215",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step215": {
+    "LVstep215": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2465,9 +3077,12 @@
             }
         },
         "action": "Click",
-        "next": "Step216"
+        "next": "LVstep216",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step216": {
+    "LVstep216": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2475,10 +3090,13 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【鬼人再不斩】"
+        },
         "action": "Click",
-        "next": "Step217"
+        "next": "LVstep217"
     },
-    "Step217": {
+    "LVstep217": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2487,9 +3105,12 @@
             }
         },
         "action": "Click",
-        "next": "Step218"
+        "next": "LVstep218",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step218": {
+    "LVstep218": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2498,9 +3119,12 @@
             }
         },
         "action": "Click",
-        "next": "Step219"
+        "next": "LVstep219",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step219": {
+    "LVstep219": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2509,9 +3133,12 @@
             }
         },
         "action": "Click",
-        "next": "Step220"
+        "next": "LVstep220",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step220": {
+    "LVstep220": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2520,9 +3147,12 @@
             }
         },
         "action": "Click",
-        "next": "Step221"
+        "next": "LVstep221",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step221": {
+    "LVstep221": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2531,9 +3161,12 @@
             }
         },
         "action": "Click",
-        "next": "Step222"
+        "next": "LVstep222",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step222": {
+    "LVstep222": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2542,9 +3175,12 @@
             }
         },
         "action": "Click",
-        "next": "Step223"
+        "next": "LVstep223",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step223": {
+    "LVstep223": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2553,9 +3189,12 @@
             }
         },
         "action": "Click",
-        "next": "Step224"
+        "next": "LVstep224",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step224": {
+    "LVstep224": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2564,9 +3203,12 @@
             }
         },
         "action": "Click",
-        "next": "Step225"
+        "next": "LVstep225",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step225": {
+    "LVstep225": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2574,10 +3216,13 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到14级"
+        },
         "action": "Click",
-        "next": "Step226"
+        "next": "LVstep226"
     },
-    "Step226": {
+    "LVstep226": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2587,9 +3232,12 @@
             }
         },
         "action": "Click",
-        "next": "Step227"
+        "next": "LVstep227",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step227": {
+    "LVstep227": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2597,10 +3245,13 @@
                 "roi": [ 426, 399, 169, 118 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【保护大桥】"
+        },
         "action": "Click",
-        "next": "Step228"
+        "next": "LVstep228"
     },
-    "Step228": {
+    "LVstep228": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2609,9 +3260,12 @@
             }
         },
         "action": "Click",
-        "next": "Step229"
+        "next": "LVstep229",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step229": {
+    "LVstep229": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2619,12 +3273,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]AutoBattle",
-            "Step230"
-        ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep230" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step230": {
+    "LVstep230": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2633,9 +3287,12 @@
             }
         },
         "action": "Click",
-        "next": "Step231"
+        "next": "LVstep231",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step231": {
+    "LVstep231": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2643,12 +3300,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]AutoBattle",
-            "Step232"
-        ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep232" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step232": {
+    "LVstep232": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2657,12 +3314,12 @@
             }
         },
         "action": "Click",
-        "next": [
-            "[JumpBack]AutoBattle",
-            "Step233"
-        ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep233" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step234": {
+    "LVstep234": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2670,12 +3327,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]AutoBattle",
-            "Step233"
-        ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep233" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step233": {
+    "LVstep233": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2683,10 +3340,13 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【保护大桥】"
+        },
         "action": "Click",
-        "next": "Step235"
+        "next": "LVstep235"
     },
-    "Step235": {
+    "LVstep235": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2695,9 +3355,12 @@
             }
         },
         "action": "Click",
-        "next": "Step236"
+        "next": "LVstep236",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step236": {
+    "LVstep236": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2706,9 +3369,12 @@
             }
         },
         "action": "Click",
-        "next": "Step237"
+        "next": "LVstep237",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step237": {
+    "LVstep237": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2717,9 +3383,12 @@
             }
         },
         "action": "Click",
-        "next": "Step238"
+        "next": "LVstep238",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step238": {
+    "LVstep238": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2728,9 +3397,12 @@
             }
         },
         "action": "Click",
-        "next": "Step239"
+        "next": "LVstep239",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step239": {
+    "LVstep239": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2739,9 +3411,12 @@
             }
         },
         "action": "Click",
-        "next": "Step240"
+        "next": "LVstep240",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step240": {
+    "LVstep240": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2750,9 +3425,12 @@
             }
         },
         "action": "Click",
-        "next": "Step241"
+        "next": "LVstep241",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step241": {
+    "LVstep241": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2761,9 +3439,12 @@
             }
         },
         "action": "Click",
-        "next": "Step242"
+        "next": "LVstep242",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step242": {
+    "LVstep242": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2771,10 +3452,13 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到15级"
+        },
         "action": "Click",
-        "next": "Step243"
+        "next": "LVstep243"
     },
-    "Step243": {
+    "LVstep243": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2783,9 +3467,12 @@
             }
         },
         "action": "Click",
-        "next": "Step244"
+        "next": "LVstep244",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step244": {
+    "LVstep244": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2794,9 +3481,12 @@
             }
         },
         "action": "Click",
-        "next": "Step245"
+        "next": "LVstep245",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step245": {
+    "LVstep245": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2804,10 +3494,13 @@
                 "roi": [ 595, 399, 169, 117 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【独自修行】"
+        },
         "action": "Click",
-        "next": "Step246"
+        "next": "LVstep246"
     },
-    "Step246": {
+    "LVstep246": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2816,9 +3509,12 @@
             }
         },
         "action": "Click",
-        "next": "Step247"
+        "next": "LVstep247",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step247": {
+    "LVstep247": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2826,12 +3522,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]AutoBattle",
-            "Step248"
-        ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep248" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step248": {
+    "LVstep248": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2840,9 +3536,12 @@
             }
         },
         "action": "Click",
-        "next": "Step249"
+        "next": "LVstep249",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step249": {
+    "LVstep249": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2850,12 +3549,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]AutoBattle",
-            "Step250"
-        ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep250" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step250": {
+    "LVstep250": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2864,9 +3563,12 @@
             }
         },
         "action": "Click",
-        "next": "Step251"
+        "next": "LVstep251",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step251": {
+    "LVstep251": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2874,12 +3576,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]AutoBattle",
-            "Step252"
-        ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep252" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step252": {
+    "LVstep252": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2887,10 +3589,13 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【独自修行】"
+        },
         "action": "Click",
-        "next": "Step253"
+        "next": "LVstep253"
     },
-    "Step253": {
+    "LVstep253": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2899,9 +3604,12 @@
             }
         },
         "action": "Click",
-        "next": "Step254"
+        "next": "LVstep254",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step254": {
+    "LVstep254": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2910,9 +3618,12 @@
             }
         },
         "action": "Click",
-        "next": "Step255"
+        "next": "LVstep255",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step255": {
+    "LVstep255": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2921,9 +3632,12 @@
             }
         },
         "action": "Click",
-        "next": "Step256"
+        "next": "LVstep256",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step256": {
+    "LVstep256": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2933,9 +3647,12 @@
             }
         },
         "action": "Click",
-        "next": "Step257"
+        "next": "LVstep257",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step257": {
+    "LVstep257": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2944,9 +3661,12 @@
             }
         },
         "action": "Click",
-        "next": "Step258"
+        "next": "LVstep258",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step258": {
+    "LVstep258": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2956,9 +3676,12 @@
             }
         },
         "action": "Click",
-        "next": "Step259"
+        "next": "LVstep259",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step259": {
+    "LVstep259": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2967,9 +3690,12 @@
             }
         },
         "action": "Click",
-        "next": "Step260"
+        "next": "LVstep260",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step260": {
+    "LVstep260": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2978,9 +3704,12 @@
             }
         },
         "action": "Click",
-        "next": "Step261"
+        "next": "LVstep261",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step261": {
+    "LVstep261": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2988,10 +3717,13 @@
                 "roi": [ 765, 399, 169, 117 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 进入副本【捉兔大赛】"
+        },
         "action": "Click",
-        "next": "Step262"
+        "next": "LVstep262"
     },
-    "Step262": {
+    "LVstep262": {
         "post_delay": 3000,
         "recognition": {
             "type": "TemplateMatch",
@@ -3001,9 +3733,12 @@
             }
         },
         "action": "Click",
-        "next": "Step263"
+        "next": "LVstep263",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step263": {
+    "LVstep263": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3012,9 +3747,12 @@
             }
         },
         "action": "Click",
-        "next": "Step264"
+        "next": "LVstep264",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step264": {
+    "LVstep264": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3022,12 +3760,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]AutoBattle",
-            "Step265"
-        ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep265" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step265": {
+    "LVstep265": {
         "post_delay": 3000,
         "recognition": {
             "type": "TemplateMatch",
@@ -3037,9 +3775,12 @@
             }
         },
         "action": "Click",
-        "next": "Step266"
+        "next": "LVstep266",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step266": {
+    "LVstep266": {
         "post_delay": 3000,
         "recognition": {
             "type": "TemplateMatch",
@@ -3049,9 +3790,12 @@
             }
         },
         "action": "Click",
-        "next": "Step267"
+        "next": "LVstep267",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step267": {
+    "LVstep267": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3060,9 +3804,12 @@
             }
         },
         "action": "Click",
-        "next": "Step268"
+        "next": "LVstep268",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step268": {
+    "LVstep268": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3070,12 +3817,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]AutoBattle",
-            "Step269"
-        ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep269" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step269": {
+    "LVstep269": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3084,9 +3831,12 @@
             }
         },
         "action": "Click",
-        "next": "Step270"
+        "next": "LVstep270",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step270": {
+    "LVstep270": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3094,12 +3844,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [
-            "[JumpBack]AutoBattle",
-            "Step271"
-        ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep271" ],
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step271": {
+    "LVstep271": {
         "post_delay": 3000,
         "recognition": {
             "type": "TemplateMatch",
@@ -3109,9 +3859,12 @@
             }
         },
         "action": "Click",
-        "next": "Step272"
+        "next": "LVstep272",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step272": {
+    "LVstep272": {
         "post_delay": 3000,
         "recognition": {
             "type": "TemplateMatch",
@@ -3121,9 +3874,12 @@
             }
         },
         "action": "Click",
-        "next": "Step273"
+        "next": "LVstep273",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step273": {
+    "LVstep273": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3131,10 +3887,27 @@
                 "roi": [ 565, 519, 190, 125 ]
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 完成副本【捉兔大赛】"
+        },
         "action": "Click",
-        "next": "Step274"
+        "next": "LVstep274"
     },
-    "Step274": {
+    "LVstep274": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "upgrade_confirm.png",
+                "roi": [ 583, 428, 163, 121 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 升到16级"
+        },
+        "action": "Click",
+        "next": "LVstep275"
+    },
+    "LVstep275": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3143,9 +3916,12 @@
             }
         },
         "action": "Click",
-        "next": "Step275"
+        "next": "LVstep276",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step275": {
+    "LVstep276": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3154,20 +3930,12 @@
             }
         },
         "action": "Click",
-        "next": "Step276"
+        "next": "LVstep277",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step276": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "upgrade_confirm.png",
-                "roi": [ 583, 428, 163, 121 ]
-            }
-        },
-        "action": "Click",
-        "next": "Step277"
-    },
-    "Step277": {
+    "LVstep277": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3176,9 +3944,12 @@
             }
         },
         "action": "Click",
-        "next": "Step278"
+        "next": "LVstep278",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step278": {
+    "LVstep278": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3187,9 +3958,12 @@
             }
         },
         "action": "Click",
-        "next": "Step279"
+        "next": "LVstep279",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step279": {
+    "LVstep279": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3198,9 +3972,12 @@
             }
         },
         "action": "Click",
-        "next": "Step280"
+        "next": "LVstep280",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     },
-    "Step280": {
+    "LVstep280": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3208,6 +3985,9 @@
                 "roi": [ 818, 226, 119, 117 ]
             }
         },
-        "action": "Click"
+        "action": "Click",
+        "focus": {
+            "Node.Action.Succeeded": "{name}: 执行成功"
+        }
     }
 }

@@ -1,5 +1,8 @@
 {
-    "interface_version": 2,
+    "name": "MaaNOP",
+    "version": "v1.0.2",
+    "url": "https://github.com/ArcherSore/MaaNOP",
+    "custom_title": "MaaNOP",
     "controller": [
         {
             "name": "桌面端",
@@ -7,25 +10,46 @@
             "win32": {
                 "class_regex": ".*",
                 "window_regex": "火影忍者Online",
+                "screencap": "PrintWindow",
                 "mouse": "Seize",
-                "keyboard": "Seize",
-                "screencap": "FramePool"
+                "keyboard": "Seize"
             }
         }
     ],
     "resource": [
         {
             "name": "QQ游戏大厅",
-            "path": [
-                "{PROJECT_DIR}/resource"
-            ]
+            "path": "{PROJECT_DIR}/resource/base"
         }
     ],
     "task": [
         {
             "name": "练小号",
-            "entry": "Leveling"
+            "entry": "Leveling",
+            "option": [ "起始点设置" ]
         }
     ],
-    "version": "v0.0.1"
+    "option": {
+        "起始点设置": {
+            "type": "input",
+            "label": "选择起始点",
+            "description": "输入要从哪一步开始执行，例如：LVstep001",
+            "inputs": [
+                {
+                    "name": "start_step",
+                    "label": "起始步骤名称",
+                    "description": "请输入Stepxxx格式的步骤名称",
+                    "default": "LVstep001",
+                    "pipeline_type": "string",
+                    "verify": "^LVstep\\d{3}$",
+                    "pattern_msg": "步骤名称格式错误，应为LVstepxxx（xxx为3位数字）"
+                }
+            ],
+            "pipeline_override": {
+                "练小号": {
+                    "entry": "{start_step}"
+                }
+            }
+        }
+    }
 }
