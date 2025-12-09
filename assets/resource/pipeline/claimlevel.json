@@ -1,0 +1,100 @@
+{
+    "ClaimLevel": {
+        "next": [ "[JumpBack]HasAnnouncement", "AtClaimLevel", "NoAtClaimLevel", "OutGift" ]
+    },
+    "HasAnnouncement": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "announcement.png",
+                "roi": [ 626, 283, 225, 135 ]
+            }
+        },
+        "next": "CloseAnnouncement"
+    },
+    "CloseAnnouncement": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_close.png",
+                "roi": [ 903, 298, 116, 115 ]
+            }
+        },
+        "action": "Click"
+    },
+    "OutGift": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "system_gift.png",
+                "roi": [ 909, 81, 251, 59 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "AtClaimLevel", "NoAtClaimLevel" ]
+    },
+    "NoAtClaimLevel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "off_claim_level.png",
+                "roi": [ 357, 423, 157, 116 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "[JumpBack]HasAnnouncement", "NoNeedClaimLevel", "NeedClaimLevel" ]
+    },
+    "AtClaimLevel": {
+        "post_delay": 1500,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "flag_claim_level.png",
+                "roi": [ 456, 289, 180, 115 ]
+            }
+        },
+        "next": [ "[JumpBack]HasAnnouncement", "NoNeedClaimLevel", "NeedClaimLevel" ]
+    },
+    "NoNeedClaimLevel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_claim_level.png",
+                "roi": [ 699, 290, 153, 112 ]
+            }
+        },
+        "inverse": true,
+        "next": "ExitClaimLevel"
+    },
+    "NeedClaimLevel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_claim_level.png",
+                "roi": [ 699, 290, 153, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "EnsureClaimLevel"
+    },
+    "EnsureClaimLevel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "button_yes.png",
+                "roi": [ 532, 372, 148, 114 ]
+            }
+        },
+        "action": "Click",
+        "next": "ExitClaimLevel"
+    },
+    "ExitClaimLevel": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": [ "Login" ]
+    }
+}

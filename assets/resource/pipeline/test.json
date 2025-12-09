@@ -1,0 +1,11 @@
+{
+    "Test": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [ ".*984.*" ],
+                "roi": [ 708, 329, 207, 116 ]
+            }
+        }
+    }
+}

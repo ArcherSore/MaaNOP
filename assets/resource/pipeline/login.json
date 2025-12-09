@@ -1,0 +1,92 @@
+{
+    "AccountTraining": {
+        "next": "ParseServer"
+    },
+    "ParseServer": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "ParseServerRange"
+            }
+        },
+        "next": "Login"
+    },
+    "Login": {
+        "next": "RefreshPage"
+    },
+    "RefreshPage": {
+        "post_delay": 3000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "refresh.png",
+                "roi": [ 796, 0, 131, 110 ]
+            }
+        },
+        "action": "Click",
+        "next": "ReChooseServer"
+    },
+    "ReChooseServer": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "reselect.png",
+                "roi": [ 606, 545, 142, 112 ]
+            }
+        },
+        "action": "Click",
+        "next": "GetNextServer"
+    },
+    "GetNextServer": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "GetNextServer"
+            }
+        },
+        "next": [ "AllServerCompleted", "DeterminePage" ]
+    },
+    "DeterminePage": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "DetectServerPage"
+            }
+        },
+        "action": "Click",
+        "next": "ScrollToTarget"
+    },
+    "ScrollToTarget": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "ScrollToTargetServer"
+            }
+        },
+        "next": "ChooseServer"
+    },
+    "ChooseServer": {
+        "post_delay": 2000,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "LocateServerButton"
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "Leveling", "ClaimLevel" ]
+    },
+    "AllServerCompleted": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "AllCompleted"
+            }
+        }
+    }
+}

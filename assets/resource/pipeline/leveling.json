@@ -3988,6 +3988,7 @@
         "action": "Click",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        },
+        "next": [ "ClaimLevel", "Login" ]
     }
 }
