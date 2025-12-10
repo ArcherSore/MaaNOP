@@ -1,0 +1,130 @@
+{
+    "interface_version": 2,
+    "name": "MaaNOP",
+    "version": "v1.0.2",
+    "url": "https://github.com/ArcherSore/MaaNOP",
+    "custom_title": "MaaNOP",
+    "controller": [
+        {
+            "name": "桌面端",
+            "type": "Win32",
+            "win32": {
+                "class_regex": ".*",
+                "window_regex": "火影忍者Online",
+                "screencap": "PrintWindow",
+                "mouse": "Seize",
+                "keyboard": "Seize"
+            }
+        }
+    ],
+    "resource": [
+        {
+            "name": "QQ游戏大厅",
+            "path": [ "./resource/base/" ]
+        }
+    ],
+    "agent": {
+        "child_exec": "python",
+        "child_args": [
+            "../agent/main.py"
+        ]
+    },
+    "task": [
+        {
+            "name": "练小号",
+            "entry": "AccountTraining",
+            "option": [ "服务器选择", "练级", "领经验" ]
+        }
+    ],
+    "option": {
+        "服务器选择": {
+            "type": "input",
+            "label": "服务器范围",
+            "description": "请输入服务器范围",
+            "inputs": [
+                {
+                    "name": "server_range",
+                    "label": "服务器范围",
+                    "description": "输入服务器范围, 格式如: 10-16,18-20",
+                    "default": "978-1012",
+                    "pipeline_type": "string",
+                    "verify": "^(\\d+-\\d+)(,\\d+-\\d+)*$",
+                    "pattern_msg": "请输入正确格式, 如: 10-16,18-20"
+                }
+            ],
+            "pipeline_override": {
+                "ParseServer": {
+                    "recognition": {
+                        "type": "Custom",
+                        "param": {
+                            "custom_recognition": "ParseServerRange",
+                            "custom_recognition_param": "{server_range}"
+                        }
+                    }
+                }
+            }
+        },
+        "练级": {
+            "type": "select",
+            "label": "练级",
+            "description": "自动升到16级",
+            "cases": [
+                {
+                    "name": "No",
+                    "label": "不练级",
+                    "pipeline_override": {
+                        "Leveling": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "Yes",
+                    "label": "练级",
+                    "option": [ "练级起始步骤" ]
+                }
+            ]
+        },
+        "练级起始步骤": {
+            "type": "input",
+            "label": "起始步骤",
+            "description": "输入练级起始步骤",
+            "inputs": [
+                {
+                    "name": "start_step",
+                    "label": "起始步骤",
+                    "description": "请输入LVstepxxx格式的步骤名称",
+                    "default": "LVstep001",
+                    "pipeline_type": "string",
+                    "verify": "^LVstep\\d{3}$",
+                    "pattern_msg": "请输入正确格式: LVstepxxx"
+                }
+            ],
+            "pipeline_override": {
+                "Leveling": {
+                    "next": "{start_step}"
+                }
+            }
+        },
+        "领经验": {
+            "type": "switch",
+            "label": "领经验",
+            "description": "是否需要领取日常任务经验",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "label": "领取"
+                },
+                {
+                    "name": "No",
+                    "label": "不领取",
+                    "pipeline_override": {
+                        "ClaimLevel": {
+                            "enabled": false
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
