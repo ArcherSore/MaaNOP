@@ -12,7 +12,7 @@
         "next": "Login"
     },
     "Login": {
-        "next": "RefreshPage"
+        "next": [ "ReChooseServer", "RefreshPage" ]
     },
     "RefreshPage": {
         "post_delay": 3000,
@@ -23,7 +23,12 @@
                 "roi": [ 796, 0, 131, 110 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "ReChooseServer"
     },
     "ReChooseServer": {
@@ -34,7 +39,12 @@
                 "roi": [ 606, 545, 142, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "GetNextServer"
     },
     "GetNextServer": {
@@ -53,7 +63,12 @@
                 "custom_recognition": "DetectServerPage"
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "ScrollToTarget"
     },
     "ScrollToTarget": {
@@ -77,6 +92,25 @@
             "type": "Custom",
             "param": {
                 "custom_action": "PreciseClick"
+            }
+        },
+        "next": "LoginPopupAppears",
+    },
+    "LoginPopupAppears": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "flag_welfare.png",
+                "roi": [ 806, 192, 145, 140 ]
+            }
+        },
+        "next": "CloseLoginPopup"
+    },
+    "CloseLoginPopup": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "HandleLoginPopups"
             }
         },
         "next": [ "Leveling", "ClaimLevel" ]

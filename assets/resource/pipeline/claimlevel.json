@@ -1,28 +1,8 @@
 {
     "ClaimLevel": {
-        "next": [ "[JumpBack]HasAnnouncement", "AtClaimLevel", "NoAtClaimLevel", "OutGift" ]
+        "next": "ClickOnWelfare"
     },
-    "HasAnnouncement": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "announcement.png",
-                "roi": [ 626, 283, 225, 135 ]
-            }
-        },
-        "next": "CloseAnnouncement"
-    },
-    "CloseAnnouncement": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "button_close.png",
-                "roi": [ 903, 298, 116, 115 ]
-            }
-        },
-        "action": "Click"
-    },
-    "OutGift": {
+    "ClickOnWelfare": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -30,7 +10,12 @@
                 "roi": [ 909, 81, 251, 59 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": [ "AtClaimLevel", "NoAtClaimLevel" ]
     },
     "NoAtClaimLevel": {
@@ -41,11 +26,15 @@
                 "roi": [ 357, 423, 157, 116 ]
             }
         },
-        "action": "Click",
-        "next": [ "[JumpBack]HasAnnouncement", "NoNeedClaimLevel", "NeedClaimLevel" ]
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "NoNeedClaimLevel", "NeedClaimLevel" ]
     },
     "AtClaimLevel": {
-        "post_delay": 1500,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -53,7 +42,7 @@
                 "roi": [ 456, 289, 180, 115 ]
             }
         },
-        "next": [ "[JumpBack]HasAnnouncement", "NoNeedClaimLevel", "NeedClaimLevel" ]
+        "next": [ "NoNeedClaimLevel", "NeedClaimLevel" ]
     },
     "NoNeedClaimLevel": {
         "recognition": {
@@ -74,7 +63,12 @@
                 "roi": [ 699, 290, 153, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "EnsureClaimLevel"
     },
     "EnsureClaimLevel": {
@@ -85,7 +79,12 @@
                 "roi": [ 532, 372, 148, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "ExitClaimLevel"
     },
     "ExitClaimLevel": {

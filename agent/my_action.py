@@ -53,6 +53,72 @@ class ScrollToTargetServer(CustomAction):
                 return False
         return True
     
+@AgentServer.custom_action("HandleLoginPopups")
+class HandleLoginPopups(CustomAction):
+
+    def run(
+        self,
+        context: Context,
+        argv: CustomAction.RunArg,
+    ) -> bool:
+        
+        controller = context.tasker.controller
+
+        # 保证登录弹窗已出现
+        while True:
+            image = controller.post_screencap().wait().get()
+            # step1 检测【更新公告】
+            reco_anno = context.run_recognition(
+                "CheckAnnouncement",
+                image,
+                pipeline_override={
+                    "CheckAnnouncement": {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "button_close.png",
+                                "roi" : [903,297,115,117]
+                            }
+                        }
+                    }
+                }
+            )
+            if reco_anno and reco_anno.hit and reco_anno.best_result:
+                print("检测到更新公告，点击关闭")
+                box = reco_anno.best_result.box
+                x, y = box[0] + box[2] // 2, box[1] + box[3] // 2
+                controller.post_click(x, y).wait()
+                time.sleep(1.0)
+                continue
+            
+            # step2 检测【福利大厅】
+            reco_welf = context.run_recognition(
+                "CheckWelfare",
+                image,
+                pipeline_override={
+                    "CheckWelfare": {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "flag_welfare.png",
+                                "roi": [ 806, 192, 145, 140 ]
+                            }
+                        }
+                    }
+                }
+            )
+            if reco_welf and reco_welf.hit and reco_welf.best_result:
+                print("检测到福利大厅，尝试关闭")
+                controller.post_click_key(27).wait()
+                continue
+            else:
+                print("弹窗已全部关闭")
+                break
+        
+        return True
+
+            
+    
 @AgentServer.custom_action("PreciseClick")
 class PreciseClick(CustomAction):
 
