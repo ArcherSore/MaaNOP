@@ -1,9 +1,7 @@
 {
     "interface_version": 2,
     "name": "MaaNOP",
-    "version": "v1.0.2",
-    "url": "https://github.com/ArcherSore/MaaNOP",
-    "custom_title": "MaaNOP",
+    "version": "v1.1.0",
     "controller": [
         {
             "name": "桌面端",
