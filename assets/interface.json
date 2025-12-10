@@ -18,7 +18,7 @@
     "resource": [
         {
             "name": "QQ游戏大厅",
-            "path": [ "./resource/base/" ]
+            "path": [ "./resource/" ]
         }
     ],
     "agent": {
