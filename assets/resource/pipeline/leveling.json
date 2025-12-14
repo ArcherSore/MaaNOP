@@ -10,7 +10,12 @@
                 "roi": [ 1138, 250, 191, 122 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep002",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -24,7 +29,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep003",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -38,7 +48,12 @@
                 "roi": [ 1161, 548, 165, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep004",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -52,7 +67,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep005",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -69,7 +89,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到2级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep006"
     },
     "LVstep006": {
@@ -80,7 +105,12 @@
                 "roi": [ 1223, 53, 106, 109 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep007",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -94,7 +124,12 @@
                 "roi": [ 1141, 252, 176, 118 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep008",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -108,7 +143,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep009",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -122,7 +162,12 @@
                 "roi": [ 1141, 254, 177, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep010",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -136,7 +181,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep011",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -153,7 +203,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到3级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep012"
     },
     "LVstep012": {
@@ -165,7 +220,12 @@
                 "roi": [ 544, 505, 242, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep013",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -179,7 +239,12 @@
                 "roi": [ 1132, 635, 138, 85 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep014",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -193,7 +258,12 @@
                 "roi": [ 514, 418, 163, 117 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep015",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -207,7 +277,12 @@
                 "roi": [ 530, 371, 150, 118 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep016",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -221,7 +296,12 @@
                 "roi": [ 530, 489, 157, 119 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep017",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -235,7 +315,12 @@
                 "roi": [ 863, 49, 136, 137 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "FindStart1",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -283,7 +368,12 @@
                 "roi": [ 1041, 59, 116, 116 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep020",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -297,7 +387,12 @@
                 "roi": [ 1143, 266, 186, 117 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep021",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -311,7 +406,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep022",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -325,7 +425,12 @@
                 "roi": [ 1172, 268, 151, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep023",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -342,7 +447,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【木叶丸三人组】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep024"
     },
     "LVstep024": {
@@ -353,7 +463,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep025",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -380,7 +495,12 @@
                 "roi": [ 1222, 187, 107, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep027",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -394,7 +514,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep028",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -409,7 +534,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep029",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -435,7 +565,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep031",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -452,7 +587,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【捉兔大赛】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep032"
     },
     "LVstep032": {
@@ -466,7 +606,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到4级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep033"
     },
     "LVstep033": {
@@ -477,7 +622,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep034",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -491,7 +641,12 @@
                 "roi": [ 1145, 255, 177, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep035",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -505,7 +660,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": [ "LVstep036", "LVstep037" ],
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -519,7 +679,12 @@
                 "roi": [ 1161, 548, 165, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep037",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -533,7 +698,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep038",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -547,7 +717,12 @@
                 "roi": [ 1144, 255, 178, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep039",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -561,7 +736,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep040",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -578,7 +758,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到5级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep041"
     },
     "LVstep041": {
@@ -608,7 +793,12 @@
                 "roi": [ 1161, 548, 165, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep043",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -622,7 +812,12 @@
                 "roi": [ 1154, 269, 171, 111 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep044",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -636,7 +831,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep045",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -650,7 +850,12 @@
                 "roi": [ 1172, 269, 142, 111 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep046",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -667,7 +872,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【宇智波佐助】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep047"
     },
     "LVstep047": {
@@ -679,7 +889,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep048",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -693,7 +908,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep049",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -719,7 +939,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep051",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -733,7 +958,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep052",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -747,7 +977,12 @@
                 "roi": [ 708, 395, 160, 128 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep053",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -773,7 +1008,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep055",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -787,7 +1027,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep056",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -804,7 +1049,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【宇智波佐助】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep057"
     },
     "LVstep057": {
@@ -818,7 +1068,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到6级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep058"
     },
     "LVstep058": {
@@ -829,7 +1084,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep059",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -843,7 +1103,12 @@
                 "roi": [ 1144, 255, 162, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep060",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -857,7 +1122,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep061",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -871,7 +1141,12 @@
                 "roi": [ 1132, 635, 138, 85 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep062",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -885,7 +1160,12 @@
                 "roi": [ 514, 418, 163, 117 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep063",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -899,7 +1179,12 @@
                 "roi": [ 530, 371, 150, 118 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep064",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -913,7 +1198,12 @@
                 "roi": [ 530, 489, 157, 119 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep065",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -927,7 +1217,12 @@
                 "roi": [ 863, 49, 136, 137 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "FindStart2",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -975,7 +1270,12 @@
                 "roi": [ 906, 55, 139, 129 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep068",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -989,7 +1289,12 @@
                 "roi": [ 936, 240, 137, 151 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep069",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1003,7 +1308,12 @@
                 "roi": [ 520, 289, 140, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep070",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1017,7 +1327,12 @@
                 "roi": [ 1041, 59, 116, 116 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep071",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1031,7 +1346,12 @@
                 "roi": [ 1153, 268, 172, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep072",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1045,7 +1365,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep073",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1059,7 +1384,12 @@
                 "roi": [ 1145, 255, 164, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep074",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1073,7 +1403,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": [ "LVstep075", "LVstep076" ],
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1088,7 +1423,12 @@
                 "roi": [ 1161, 548, 165, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep076",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1103,7 +1443,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": [ "LVstep077", "LVstep078" ],
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1117,7 +1462,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep078",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1131,7 +1481,12 @@
                 "roi": [ 1172, 268, 136, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep079",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1148,7 +1503,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【狼群退治】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep080"
     },
     "LVstep080": {
@@ -1159,7 +1519,12 @@
                 "roi": [ 1214, 129, 115, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep081",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1186,7 +1551,12 @@
                 "roi": [ 1199, 111, 111, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep083",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1213,7 +1583,12 @@
                 "roi": [ 1164, 117, 112, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep085",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1243,7 +1618,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【狼群退治】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep087"
     },
     "LVstep087": {
@@ -1257,7 +1637,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到7级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep088"
     },
     "LVstep088": {
@@ -1268,7 +1653,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep089",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1282,7 +1672,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep090",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1297,7 +1692,12 @@
                 "roi": [ 544, 505, 242, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep091",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1311,7 +1711,12 @@
                 "roi": [ 1094, 634, 126, 86 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep092",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1325,7 +1730,12 @@
                 "roi": [ 424, 523, 168, 120 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep093",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1340,7 +1750,12 @@
                 "roi": [ 443, 302, 133, 131 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep094",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1356,7 +1771,12 @@
                 "roi": [ 413, 329, 119, 175 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep095",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1371,7 +1791,12 @@
                 "roi": [ 693, 302, 133, 133 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep096",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1385,7 +1810,12 @@
                 "roi": [ 815, 149, 121, 122 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep097",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1399,7 +1829,12 @@
                 "roi": [ 933, 169, 120, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep098",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1413,7 +1848,12 @@
                 "roi": [ 1147, 255, 172, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep099",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1427,7 +1867,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": [ "LVstep100", "LVstep101" ],
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1441,7 +1886,12 @@
                 "roi": [ 1161, 548, 165, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep101",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1455,7 +1905,12 @@
                 "roi": [ 1143, 254, 171, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep102",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1469,7 +1924,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep103",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1483,7 +1943,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep104",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1497,7 +1962,12 @@
                 "roi": [ 1171, 267, 145, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep105",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1514,7 +1984,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【猪鹿蝶组合】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep106"
     },
     "LVstep106": {
@@ -1525,7 +2000,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep107",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1539,7 +2019,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep108",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1566,7 +2051,12 @@
                 "roi": [ 1199, 148, 123, 119 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep110",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1580,7 +2070,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep111",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1607,7 +2102,12 @@
                 "roi": [ 1194, 129, 115, 115 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep113",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1621,7 +2121,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep114",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1648,7 +2153,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep116",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1665,7 +2175,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【猪鹿蝶组合】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep117"
     },
     "LVstep117": {
@@ -1679,7 +2194,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到8级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep118"
     },
     "LVstep118": {
@@ -1690,7 +2210,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep119",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1704,7 +2229,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep120",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1737,7 +2267,12 @@
                 "roi": [ 1161, 548, 165, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep121_2",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1751,7 +2286,12 @@
                 "roi": [ 1147, 257, 157, 109 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep121",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1765,7 +2305,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep122",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1779,7 +2324,12 @@
                 "roi": [ 1147, 255, 182, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep123",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1793,7 +2343,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep124",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1807,7 +2362,12 @@
                 "roi": [ 1147, 255, 182, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep125",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1821,7 +2381,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep126",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1835,7 +2400,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep127",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1852,7 +2422,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到10级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep128"
     },
     "LVstep128": {
@@ -1863,7 +2438,12 @@
                 "roi": [ 1173, 268, 150, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep129",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1880,7 +2460,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【卡卡西的试炼】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep130"
     },
     "LVstep130": {
@@ -1892,7 +2477,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep131",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1907,7 +2497,12 @@
                 "roi": [ 655, 232, 119, 173 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep132",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1921,7 +2516,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep133",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1936,7 +2536,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep134",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1962,7 +2567,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep136",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1977,7 +2587,12 @@
                 "roi": [ 1245, 117, 84, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": [ "LVstep137", "LVstep138" ],
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -1991,7 +2606,12 @@
                 "roi": [ 980, 210, 220, 230 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep139",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2005,7 +2625,12 @@
                 "roi": [ 980, 210, 220, 230 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep139",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2019,7 +2644,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep140",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2033,7 +2663,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep141",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2048,7 +2683,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep142",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2075,7 +2715,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep144",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2089,7 +2734,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep145",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2104,7 +2754,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep146",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2130,7 +2785,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep148",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2147,7 +2807,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【卡卡西的试炼】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep149"
     },
     "LVstep149": {
@@ -2158,7 +2823,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep150",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2172,7 +2842,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep151",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2186,7 +2861,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep152",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2203,7 +2883,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到11级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep153"
     },
     "LVstep153": {
@@ -2215,7 +2900,12 @@
                 "roi": [ 663, 417, 162, 119 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep154",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2230,7 +2920,12 @@
                 "roi": [ 663, 417, 162, 119 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep155",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2244,7 +2939,12 @@
                 "roi": [ 663, 417, 162, 119 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": [ "LVstep156", "LVstep157" ],
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2258,7 +2958,12 @@
                 "roi": [ 1161, 548, 165, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep157",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2273,7 +2978,12 @@
                 "threshold": 0.4
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep158",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2287,7 +2997,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep159",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2301,7 +3016,12 @@
                 "roi": [ 1155, 286, 174, 109 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep160",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2315,7 +3035,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep161",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2330,7 +3055,12 @@
                 "threshold": 0.4
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep162",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2347,7 +3077,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【前往波之国】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep163"
     },
     "LVstep163": {
@@ -2358,7 +3093,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep164",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2372,7 +3112,12 @@
                 "roi": [ 1206, 166, 119, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep165",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2399,7 +3144,12 @@
                 "roi": [ 1229, 199, 100, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep167",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2426,7 +3176,12 @@
                 "roi": [ 1306, 264, 7, 9 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep169",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2440,7 +3195,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep170",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2454,7 +3214,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep171",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2494,7 +3259,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep174",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2511,7 +3281,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【前往波之国】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep175"
     },
     "LVstep175": {
@@ -2522,7 +3297,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep176",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2536,7 +3316,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep177",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2550,7 +3335,12 @@
                 "roi": [ 1147, 256, 165, 110 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep178",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2564,7 +3354,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep179",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2578,7 +3373,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep180",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2595,7 +3395,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到12级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep181"
     },
     "LVstep181": {
@@ -2607,7 +3412,12 @@
                 "threshold": 0.4
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep182",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2624,7 +3434,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【海边侦察】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep183"
     },
     "LVstep183": {
@@ -2635,7 +3450,12 @@
                 "roi": [ 1237, 140, 92, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep184",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2662,7 +3482,12 @@
                 "roi": [ 1226, 115, 103, 110 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep186",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2689,7 +3514,12 @@
                 "roi": [ 1190, 139, 111, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep188",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2703,7 +3533,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep189",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2717,7 +3552,12 @@
                 "roi": [ 1190, 139, 111, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep190",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2747,7 +3587,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【海边侦察】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep192"
     },
     "LVstep192": {
@@ -2758,7 +3603,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep193",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2772,7 +3622,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": [ "LVstep194", "LVstep195" ],
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2786,7 +3641,12 @@
                 "roi": [ 1161, 548, 165, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep195",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2800,7 +3660,12 @@
                 "roi": [ 1147, 258, 158, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep196",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2814,7 +3679,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep197",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2828,7 +3698,12 @@
                 "roi": [ 1147, 258, 158, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep198",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2842,7 +3717,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep199",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2856,7 +3736,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep200",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2873,7 +3758,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到13级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep201"
     },
     "LVstep201": {
@@ -2884,7 +3774,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep202",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2899,7 +3794,12 @@
                 "threshold": 0.4
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep203",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2916,7 +3816,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【鬼人再不斩】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep204"
     },
     "LVstep204": {
@@ -2927,7 +3832,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep205",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2941,7 +3851,12 @@
                 "roi": [ 1276, 235, 12, 11 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep206",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2955,7 +3870,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep207",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2969,7 +3889,12 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep208",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -2983,7 +3908,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep209",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3023,7 +3953,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep212",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3037,7 +3972,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep213",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3076,7 +4016,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep216",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3093,7 +4038,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【鬼人再不斩】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep217"
     },
     "LVstep217": {
@@ -3104,7 +4054,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep218",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3118,7 +4073,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep219",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3132,7 +4092,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep220",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3146,7 +4111,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep221",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3160,7 +4130,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep222",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3174,7 +4149,12 @@
                 "roi": [ 1147, 256, 164, 110 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep223",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3188,7 +4168,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep224",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3202,7 +4187,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep225",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3219,7 +4209,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到14级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep226"
     },
     "LVstep226": {
@@ -3231,7 +4226,12 @@
                 "threshold": 0.4
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep227",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3248,7 +4248,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【保护大桥】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep228"
     },
     "LVstep228": {
@@ -3259,7 +4264,12 @@
                 "roi": [ 1219, 110, 110, 110 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep229",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3286,7 +4296,12 @@
                 "roi": [ 1190, 121, 111, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep231",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3313,7 +4328,12 @@
                 "roi": [ 1150, 137, 113, 114 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": [ "[JumpBack]AutoBattle", "LVstep233" ],
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3343,7 +4363,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【保护大桥】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep235"
     },
     "LVstep235": {
@@ -3354,7 +4379,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep236",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3368,7 +4398,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep237",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3382,7 +4417,12 @@
                 "roi": [ 1147, 255, 158, 111 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep238",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3396,7 +4436,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep239",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3410,7 +4455,12 @@
                 "roi": [ 1147, 255, 158, 111 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep240",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3424,7 +4474,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep241",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3438,7 +4493,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep242",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3455,7 +4515,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到15级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep243"
     },
     "LVstep243": {
@@ -3466,7 +4531,12 @@
                 "roi": [ 690, 425, 177, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep244",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3480,7 +4550,12 @@
                 "roi": [ 1172, 270, 134, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep245",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3497,7 +4572,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【独自修行】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep246"
     },
     "LVstep246": {
@@ -3508,7 +4588,12 @@
                 "roi": [ 1200, 142, 111, 111 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep247",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3535,7 +4620,12 @@
                 "roi": [ 1191, 174, 118, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep249",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3562,7 +4652,12 @@
                 "roi": [ 1290, 200, 18, 18 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep251",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3592,7 +4687,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【独自修行】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep253"
     },
     "LVstep253": {
@@ -3603,7 +4703,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep254",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3617,7 +4722,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep255",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3631,7 +4741,12 @@
                 "roi": [ 662, 417, 164, 120 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep256",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3646,7 +4761,12 @@
                 "threshold": 0.4
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep257",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3660,7 +4780,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep258",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3675,7 +4800,12 @@
                 "threshold": 0.4
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep259",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3689,7 +4819,12 @@
                 "roi": [ 691, 425, 174, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep260",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3703,7 +4838,12 @@
                 "roi": [ 1200, 315, 100, 100 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep261",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3720,7 +4860,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 进入副本【捉兔大赛】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep262"
     },
     "LVstep262": {
@@ -3732,7 +4877,12 @@
                 "roi": [ 810, 341, 114, 113 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep263",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3746,7 +4896,12 @@
                 "roi": [ 667, 520, 154, 171 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep264",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3774,7 +4929,12 @@
                 "roi": [ 578, 517, 110, 118 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep266",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3789,7 +4949,12 @@
                 "roi": [ 374, 396, 111, 117 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep267",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3803,7 +4968,12 @@
                 "roi": [ 501, 514, 201, 138 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep268",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3830,7 +5000,12 @@
                 "roi": [ 1212, 163, 111, 109 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep270",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3858,7 +5033,12 @@
                 "roi": [ 340, 630, 310, 80 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep272",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3873,7 +5053,12 @@
                 "roi": [ 501, 502, 113, 112 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep273",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3890,7 +5075,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 完成副本【捉兔大赛】"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep274"
     },
     "LVstep274": {
@@ -3904,7 +5094,12 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 升到16级"
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep275"
     },
     "LVstep275": {
@@ -3915,7 +5110,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep276",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3929,7 +5129,12 @@
                 "roi": [ 583, 428, 163, 121 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep277",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3943,7 +5148,12 @@
                 "roi": [ 875, 612, 133, 108 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep278",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3957,7 +5167,12 @@
                 "roi": [ 864, 50, 133, 129 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep279",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3971,7 +5186,12 @@
                 "roi": [ 585, 485, 177, 122 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "LVstep280",
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
@@ -3985,10 +5205,15 @@
                 "roi": [ 818, 226, 119, 117 ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
         },
-        "next": [ "ClaimLevel", "Login" ]
+        "next": [ "ClaimLevel", "ClickOnTrending", "Login" ]
     }
 }

@@ -62,10 +62,10 @@ class HandleLoginPopups(CustomAction):
         argv: CustomAction.RunArg,
     ) -> bool:
         
-        controller = context.tasker.controller
-
         # 保证登录弹窗已出现
         while True:
+            controller = context.tasker.controller
+
             image = controller.post_screencap().wait().get()
             # step1 检测【更新公告】
             reco_anno = context.run_recognition(
@@ -109,7 +109,10 @@ class HandleLoginPopups(CustomAction):
             )
             if reco_welf and reco_welf.hit and reco_welf.best_result:
                 print("检测到福利大厅，尝试关闭")
+                controller.post_click(680, 400).wait()
+                time.sleep(0.1)
                 controller.post_click_key(27).wait()
+
                 continue
             else:
                 print("弹窗已全部关闭")
@@ -128,6 +131,8 @@ class PreciseClick(CustomAction):
         argv: CustomAction.RunArg,
     ) -> bool:
         box = argv.box
+
+        print(box)
           
         if box:  
             center_x = box[0] + box[2] // 2  
@@ -138,5 +143,4 @@ class PreciseClick(CustomAction):
               
             return True  
         else:  
-            print("未识别到服务器区号")
             return False

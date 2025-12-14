@@ -1,0 +1,59 @@
+{
+    "ClickOnTrending": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "trend/system_hotspot.png",
+                "roi": [ 289, 47, 122, 119 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "ClickOnGloryWelfare" ]
+    },
+    "ClickOnGloryWelfare": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "trend/button_glorywelfare.png",
+                "roi": [ 889, 317, 124, 135 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "ClickOnGloryClaim"
+    },
+    "ClickOnGloryClaim": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "trend/button_claim.png",
+                "roi": [ 710, 407, 208, 132 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "ExitTrending"
+    },
+    "ExitTrending": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": [ "Login" ]
+    }
+}

@@ -94,6 +94,6 @@
                 "key": 27
             }
         },
-        "next": [ "Login" ]
+        "next": [ "ClickOnTrending", "Login" ]
     }
 }
