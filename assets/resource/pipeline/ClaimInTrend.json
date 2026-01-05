@@ -1,4 +1,7 @@
 {
+    "TrendingEntry": {
+        "next": [ "[JumpBack]LoginPopupAppears", "ClickOnTrending" ]
+    },
     "ClickOnTrending": {
         "recognition": {
             "type": "TemplateMatch",
@@ -54,6 +57,6 @@
                 "key": 27
             }
         },
-        "next": [ "Login" ]
+        "next": [ "ClaimLevel", "Login" ]
     }
 }

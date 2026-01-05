@@ -2,6 +2,7 @@ from typing import List
 from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
+import json
 
 # 服务器ID到ROI的映射表
 SERVER_ROI_MAP = {
@@ -40,8 +41,13 @@ SERVER_ROI_MAP = {
     980: [708, 345, 205, 118],
     979: [384, 366, 207, 117],
     978: [492, 365, 207, 117],
+    977: [610, 365, 143, 115],
+    976: [719, 365, 141, 115]
 }
 
+"""
+For server detection
+"""
 
 @AgentServer.custom_recognition("ParseServerRange")
 class ParseServerRange(CustomRecognition):
@@ -61,7 +67,6 @@ class ParseServerRange(CustomRecognition):
     ) -> CustomRecognition.AnalyzeResult:
         server_range_str = argv.custom_recognition_param
         server_range_str = server_range_str.strip('"')
-        print(f"解析服务器范围字符串: {server_range_str}")
         
         self.server_list = []
         for range_part in server_range_str.split(','):
@@ -71,6 +76,8 @@ class ParseServerRange(CustomRecognition):
                 self.server_list.extend(range(start, end + 1))
             else:
                 self.server_list.append(int(range_part))
+
+        print(f"服务器列表：{self.server_list}")
         
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 100, 100),
@@ -100,8 +107,6 @@ class GetNextServer(CustomRecognition):
             current_server_index = 0
         else :
             current_server_index = node_detail.recognition.best_result.detail.get("server_index")
-
-        print(f"当前服务器索引: {current_server_index}, 服务器列表: {server_list}")
         
         if current_server_index >= len(server_list):
             return CustomRecognition.AnalyzeResult(
@@ -252,7 +257,7 @@ class AllCompleted(CustomRecognition):
                 detail={}
             )
         finished = node_detail.recognition.best_result.detail.get("finished")
-        print(f"AllCompleted 识别 finished 状态: {finished}")
+
         if not finished:  
             return CustomRecognition.AnalyzeResult(
                 box=None,
@@ -263,3 +268,39 @@ class AllCompleted(CustomRecognition):
                 box=(0, 0, 0, 0),
                 detail={"finished": True}
             )
+        
+"""
+For Creating Account 
+"""
+
+@AgentServer.custom_recognition("GenerateAccountName")
+class GenerateAccountName(CustomRecognition):
+    """
+    拼接游戏名称 prefix_serverID
+    返回游戏名称
+    """
+
+    def analyze(
+        self,
+        context: Context,
+        argv: CustomRecognition.AnalyzeArg
+    ) -> bool:
+        # 获取当前 server_id
+        node_detail = context.tasker.get_latest_node("GetNextServer")
+        if not node_detail or not node_detail.recognition:
+            return False
+        server_id = node_detail.recognition.best_result.detail.get("server_id")
+        if server_id is None:
+            return False
+        
+        prefix = argv.custom_recognition_param
+        prefix = prefix.strip('"')
+
+        account_name = f"{prefix}_{server_id}"
+
+        print(f"账号名称: {account_name}")
+
+        return CustomRecognition.AnalyzeResult(
+            box=(0, 0, 0, 0),
+            detail={"AccountName": account_name}
+        )

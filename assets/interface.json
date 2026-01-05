@@ -31,6 +31,7 @@
         {
             "name": "练小号",
             "entry": "AccountTraining",
+            "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 练级（小号1-16级）功能需要提前注册好</span><br><span>3. 领经验等功能必须能领取</span>",
             "option": [ "服务器选择", "练级", "领经验", "领周年" ]
         }
     ],
@@ -46,7 +47,7 @@
                     "description": "输入服务器范围, 格式如: 10-16,18-20",
                     "default": "978-1012",
                     "pipeline_type": "string",
-                    "verify": "^(\\d+-\\d+)(,\\d+-\\d+)*$",
+                    "verify": "^(?:\\d+(?:-\\d+)?)(?:,\\d+(?:-\\d+)?)*$",
                     "pattern_msg": "请输入正确格式, 如: 10-16,18-20"
                 }
             ],
@@ -79,7 +80,7 @@
                 {
                     "name": "Yes",
                     "label": "练级",
-                    "option": [ "练级起始步骤" ]
+                    "option": [ "练级起始步骤", "账号前缀" ]
                 }
             ]
         },
@@ -99,8 +100,32 @@
                 }
             ],
             "pipeline_override": {
-                "Leveling": {
+                "EnterGame": {
                     "next": "{start_step}"
+                }
+            }
+        },
+        "账号前缀": {
+            "type": "input",
+            "label": "账号前缀",
+            "description": "实际名称为{前缀}_{server_id}",
+            "inputs": [
+                {
+                    "name": "name_prefix",
+                    "label": "账号前缀",
+                    "default": "X",
+                    "pipeline_type": "string"
+                }
+            ],
+            "pipeline_override": {
+                "GetAccountPrefix": {
+                    "recognition": {
+                        "type": "Custom",
+                        "param": {
+                            "custom_recognition": "GenerateAccountName",
+                            "custom_recognition_param": "{name_prefix}"
+                        }
+                    }
                 }
             }
         },

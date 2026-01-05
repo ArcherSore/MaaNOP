@@ -119,8 +119,6 @@ class HandleLoginPopups(CustomAction):
                 break
         
         return True
-
-            
     
 @AgentServer.custom_action("PreciseClick")
 class PreciseClick(CustomAction):
@@ -144,3 +142,24 @@ class PreciseClick(CustomAction):
             return True  
         else:  
             return False
+        
+@AgentServer.custom_action("PasteAccountName")
+class PasteAccountName(CustomAction):
+
+    def run(
+        self,
+        context: Context,
+        argv: CustomAction.RunArg,
+    ) -> bool:
+        # 获取拼接后的账号名称
+        node_detail = context.tasker.get_latest_node("GetAccountName")
+        if not node_detail or not node_detail.recognition:
+            return False
+        account_name = node_detail.recognition.best_result.detail.get("AccountName")
+        if account_name is None:
+            return False
+        
+        controller = context.tasker.controller  
+        controller.post_input_text(account_name).wait()
+
+        return True

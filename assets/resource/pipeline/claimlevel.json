@@ -1,4 +1,7 @@
 {
+    "ClaimLevelEntry": {
+        "next": [ "[JumpBack]LoginPopupAppears", "ClaimLevel" ]
+    },
     "ClaimLevel": {
         "next": "ClickOnWelfare"
     },
@@ -94,6 +97,6 @@
                 "key": 27
             }
         },
-        "next": [ "ClickOnTrending", "Login" ]
+        "next": [ "Login" ]
     }
 }

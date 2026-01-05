@@ -1,6 +1,86 @@
 {
+    "LevelingEntry": {
+        "next": [ "Leveling" ]
+    },
     "Leveling": {
-        "next": "LVstep001"
+        "next": "GetAccountName"
+    },
+    "GetAccountName": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "GenerateAccountName",
+                "custom_recognition_param": "{name_prefix}"
+            }
+        },
+        "next": [ "ClickOnChar", "NoClickOnChar" ]
+    },
+    "ClickOnChar": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "register/need_choose_char.png",
+                "roi": [ 678, 454, 135, 130 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "ClickOnTyping" ]
+    },
+    "NoClickOnChar": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "register/no_need_choose_char.png",
+                "roi": [ 709, 150, 157, 198 ]
+            }
+        },
+        "next": [ "ClickOnTyping" ]
+    },
+    "ClickOnTyping": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "register/typing.png",
+                "roi": [ 563, 530, 199, 122 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "PasteName" ]
+    },
+    "PasteName": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PasteAccountName"
+            }
+        },
+        "next": [ "EnterGame" ]
+    },
+    "EnterGame": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "register/confirm.png",
+                "roi": [ 704, 527, 198, 126 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "LVstep001" ]
     },
     "LVstep001": {
         "recognition": {
@@ -5214,6 +5294,6 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
         },
-        "next": [ "ClaimLevel", "ClickOnTrending", "Login" ]
+        "next": [ "ClickOnTrending", "ClaimLevel", "Login" ]
     }
 }

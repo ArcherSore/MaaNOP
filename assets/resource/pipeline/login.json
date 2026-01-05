@@ -94,7 +94,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LoginPopupAppears"
+        "next": [ "LevelingEntry", "TrendingEntry", "ClaimLevelEntry" ]
     },
     "LoginPopupAppears": {
         "recognition": {
@@ -112,8 +112,7 @@
             "param": {
                 "custom_action": "HandleLoginPopups"
             }
-        },
-        "next": [ "Leveling", "ClaimLevel", "ClickOnTrending" ]
+        }
     },
     "AllServerCompleted": {
         "recognition": {
