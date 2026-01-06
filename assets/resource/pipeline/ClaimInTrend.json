@@ -1,6 +1,6 @@
 {
     "TrendingEntry": {
-        "next": [ "[JumpBack]LoginPopupAppears", "ClickOnTrending" ]
+        "next": [ "ClickOnTrending" ]
     },
     "ClickOnTrending": {
         "recognition": {
@@ -57,6 +57,6 @@
                 "key": 27
             }
         },
-        "next": [ "ClaimLevel", "Login" ]
+        "next": [ "ClaimReturnGiftEntry", "ClaimLevelEntry", "Login" ]
     }
 }

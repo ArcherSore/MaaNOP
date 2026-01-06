@@ -94,14 +94,14 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LevelingEntry", "TrendingEntry", "ClaimLevelEntry" ]
+        "next": [ "LevelingEntry", "LoginPopupAppears" ]
     },
     "LoginPopupAppears": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "flag_welfare.png",
-                "roi": [ 806, 192, 145, 140 ]
+                "template": [ "popup/welfare.png", "popup/return.png", "popup/announcement.png" ],
+                "roi": [ 541, 187, 402, 244 ]
             }
         },
         "next": "CloseLoginPopup"
@@ -112,7 +112,8 @@
             "param": {
                 "custom_action": "HandleLoginPopups"
             }
-        }
+        },
+        "next": [ "TrendingEntry", "ClaimReturnGiftEntry", "ClaimLevelEntry" ]
     },
     "AllServerCompleted": {
         "recognition": {

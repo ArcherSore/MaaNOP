@@ -1,0 +1,98 @@
+{
+    "ClaimReturnGiftEntry": {
+        "next": [ "ClickOnReturnGift" ]
+    },
+    "ClickOnReturnGift": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "returngift/returngift.png",
+                "roi": [ 908, 67, 212, 75 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "SwitchToReturnGiftTab" ]
+    },
+    "SwitchToReturnGiftTab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "returngift/gifttab.png",
+                "roi": [ 458, 220, 172, 117 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "isClaimReturnGift", "noClaimReturnGift" ]
+    },
+    "isClaimReturnGift": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "returngift/toclaim.png",
+                "roi": [ 420, 415, 134, 130 ]
+            }
+        },
+        "next": [ "ClaimReturnGift" ]
+    },
+    "ClaimReturnGift": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "returngift/claimbutton.png",
+                "roi": [ 572, 504, 165, 120 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "ConfirmClaimReturnGift" ]
+    },
+    "ConfirmClaimReturnGift": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "returngift/confirmbutton.png",
+                "roi": [ 588, 369, 152, 120 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "CloseReturnGift" ]
+    },
+    "noClaimReturnGift": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "returngift/claimed.png",
+                "roi": [ 417, 410, 139, 144 ]
+            }
+        },
+        "next": [ "CloseReturnGift" ]
+    },
+    "CloseReturnGift": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "fastESC"
+            }
+        },
+        "next": [ "ClaimLevelEntry", "Login" ]
+    }
+}

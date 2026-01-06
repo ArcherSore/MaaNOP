@@ -3,16 +3,6 @@
         "next": [ "Leveling" ]
     },
     "Leveling": {
-        "next": "GetAccountName"
-    },
-    "GetAccountName": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "GenerateAccountName",
-                "custom_recognition_param": "{name_prefix}"
-            }
-        },
         "next": [ "ClickOnChar", "NoClickOnChar" ]
     },
     "ClickOnChar": {
@@ -53,6 +43,16 @@
             "type": "Custom",
             "param": {
                 "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "GetAccountPrefix" ]
+    },
+    "GetAccountPrefix": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "GenerateAccountName",
+                "custom_recognition_param": "{name_prefix}"
             }
         },
         "next": [ "PasteName" ]
@@ -5294,6 +5294,6 @@
         "focus": {
             "Node.Action.Succeeded": "{name}: 执行成功"
         },
-        "next": [ "ClickOnTrending", "ClaimLevel", "Login" ]
+        "next": [ "TrendingEntry", "ClaimReturnGiftEntry", "ClaimLevelEntry", "Login" ]
     }
 }

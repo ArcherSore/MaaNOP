@@ -32,7 +32,7 @@
             "name": "练小号",
             "entry": "AccountTraining",
             "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 练级（小号1-16级）功能需要提前注册好</span><br><span>3. 领经验等功能必须能领取</span>",
-            "option": [ "服务器选择", "练级", "领经验", "领周年" ]
+            "option": [ "服务器选择", "练级", "领经验", "领周年", "领回归" ]
         }
     ],
     "option": {
@@ -72,7 +72,7 @@
                     "name": "No",
                     "label": "不练级",
                     "pipeline_override": {
-                        "Leveling": {
+                        "LevelingEntry": {
                             "enabled": false
                         }
                     }
@@ -142,7 +142,7 @@
                     "name": "No",
                     "label": "不领取",
                     "pipeline_override": {
-                        "ClaimLevel": {
+                        "ClaimLevelEntry": {
                             "enabled": false
                         }
                     }
@@ -162,7 +162,27 @@
                     "name": "No",
                     "label": "不领取",
                     "pipeline_override": {
-                        "ClickOnTrending": {
+                        "TrendingEntry": {
+                            "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "领回归": {
+            "type": "switch",
+            "label": "领回归",
+            "description": "是否需要领取回归奖励",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "label": "领取"
+                },
+                {
+                    "name": "No",
+                    "label": "不领取",
+                    "pipeline_override": {
+                        "ClaimReturnGiftEntry": {
                             "enabled": false
                         }
                     }
