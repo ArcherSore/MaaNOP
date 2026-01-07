@@ -93,6 +93,6 @@
                 "custom_action": "fastESC"
             }
         },
-        "next": [ "ClaimLevelEntry", "Login" ]
+        "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
     }
 }

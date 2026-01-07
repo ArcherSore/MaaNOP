@@ -32,7 +32,7 @@
             "name": "练小号",
             "entry": "AccountTraining",
             "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 练级（小号1-16级）功能需要提前注册好</span><br><span>3. 领经验等功能必须能领取</span>",
-            "option": [ "服务器选择", "练级", "领经验", "领回归" ]
+            "option": [ "服务器选择", "练级", "领经验", "领邮件", "领幻象", "领回归" ]
         }
     ],
     "option": {
@@ -183,6 +183,46 @@
                     "label": "不领取",
                     "pipeline_override": {
                         "ClaimReturnGiftEntry": {
+                            "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "领邮件": {
+            "type": "switch",
+            "label": "领邮件",
+            "description": "是否需要领取邮件附件",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "label": "领取"
+                },
+                {
+                    "name": "No",
+                    "label": "不领取",
+                    "pipeline_override": {
+                        "ClaimMailEntry": {
+                            "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "领幻象": {
+            "type": "switch",
+            "label": "领幻象",
+            "description": "是否需要领取幻象奖励",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "label": "领取"
+                },
+                {
+                    "name": "No",
+                    "label": "不领取",
+                    "pipeline_override": {
+                        "ClaimInfiniteIllusionEntry": {
                             "enabled": false
                         }
                     }

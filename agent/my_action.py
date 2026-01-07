@@ -111,7 +111,7 @@ class HandleLoginPopups(CustomAction):
                 flag = True
                 print("检测到福利大厅，尝试关闭")
                 controller.post_click(680, 400).wait()
-                time.sleep(0.1)
+                time.sleep(0.2)
                 controller.post_click_key(27).wait()
 
             # step3 检测【回归好礼】

@@ -1,0 +1,137 @@
+{
+    "ClaimInfiniteIllusionEntry": {
+        "next": [ "ClickOnInfiniteIllusion" ]
+    },
+    "ClickOnInfiniteIllusion": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "illusion/infiniteillusion.png",
+                "roi": [ 650, 70, 466, 85 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "InfiniteIllusionSweep1" ]
+    },
+    "InfiniteIllusionSweep1": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "illusion/sweep.png",
+                "roi": [ 910, 575, 153, 122 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "InfiniteIllusionConfirm1"
+    },
+    "InfiniteIllusionConfirm1": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": "InfiniteIllusionSwitchTo2"
+    },
+    "InfiniteIllusionSwitchTo2": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "illusion/tab2.png",
+                "roi": [ 440, 94, 135, 118 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "InfiniteIllusionSweep2" ]
+    },
+    "InfiniteIllusionSweep2": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "illusion/sweep.png",
+                "roi": [ 910, 575, 153, 122 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "InfiniteIllusionConfirm2"
+    },
+    "InfiniteIllusionConfirm2": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": "InfiniteIllusionSwitchTo3"
+    },
+    "InfiniteIllusionSwitchTo3": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "illusion/tab3.png",
+                "roi": [ 504, 93, 133, 136 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "InfiniteIllusionSweep3" ]
+    },
+    "InfiniteIllusionSweep3": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "illusion/sweep.png",
+                "roi": [ 910, 575, 153, 122 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "InfiniteIllusionConfirm3"
+    },
+    "InfiniteIllusionConfirm3": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": "ExitInfiniteIllusion"
+    },
+    "ExitInfiniteIllusion": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": [ "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
+    }
+}

@@ -96,10 +96,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep002",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep002"
     },
     "LVstep002": {
         "recognition": {
@@ -115,10 +112,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep003",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep003"
     },
     "LVstep003": {
         "recognition": {
@@ -134,10 +128,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep004",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep004"
     },
     "LVstep004": {
         "recognition": {
@@ -153,10 +144,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep005",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep005"
     },
     "LVstep005": {
         "recognition": {
@@ -191,10 +179,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep007",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep007"
     },
     "LVstep007": {
         "recognition": {
@@ -210,10 +195,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep008",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep008"
     },
     "LVstep008": {
         "recognition": {
@@ -229,10 +211,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep009",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep009"
     },
     "LVstep009": {
         "recognition": {
@@ -248,10 +227,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep010",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep010"
     },
     "LVstep010": {
         "recognition": {
@@ -267,10 +243,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep011",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep011"
     },
     "LVstep011": {
         "recognition": {
@@ -306,10 +279,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep013",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep013"
     },
     "LVstep013": {
         "recognition": {
@@ -325,10 +295,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep014",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep014"
     },
     "LVstep014": {
         "recognition": {
@@ -344,10 +311,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep015",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep015"
     },
     "LVstep015": {
         "recognition": {
@@ -363,10 +327,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep016",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep016"
     },
     "LVstep016": {
         "recognition": {
@@ -382,10 +343,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep017",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep017"
     },
     "LVstep017": {
         "recognition": {
@@ -401,10 +359,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "FindStart1",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "FindStart1"
     },
     "FindStart1": {
         "recognition": {
@@ -435,10 +390,7 @@
                 "duration": 1000
             }
         },
-        "next": "LVstep019",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep019"
     },
     "LVstep019": {
         "recognition": {
@@ -454,10 +406,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep020",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep020"
     },
     "LVstep020": {
         "recognition": {
@@ -473,10 +422,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep021",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep021"
     },
     "LVstep021": {
         "recognition": {
@@ -492,10 +438,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep022",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep022"
     },
     "LVstep022": {
         "recognition": {
@@ -511,10 +454,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep023",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep023"
     },
     "LVstep023": {
         "recognition": {
@@ -549,10 +489,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep025",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep025"
     },
     "LVstep025": {
         "recognition": {
@@ -562,10 +499,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep026" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep026" ]
     },
     "LVstep026": {
         "recognition": {
@@ -581,10 +515,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep027",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep027"
     },
     "LVstep027": {
         "recognition": {
@@ -600,10 +531,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep028",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep028"
     },
     "LVstep028": {
         "post_delay": 1200,
@@ -620,10 +548,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep029",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep029"
     },
     "LVstep029": {
         "action": {
@@ -632,10 +557,7 @@
                 "key": 81
             }
         },
-        "next": "LVstep030",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep030"
     },
     "LVstep030": {
         "recognition": {
@@ -651,10 +573,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep031",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep031"
     },
     "LVstep031": {
         "recognition": {
@@ -708,10 +627,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep034",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep034"
     },
     "LVstep034": {
         "recognition": {
@@ -727,10 +643,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep035",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep035"
     },
     "LVstep035": {
         "recognition": {
@@ -746,10 +659,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep036", "LVstep037" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "LVstep036", "LVstep037" ]
     },
     "LVstep036": {
         "recognition": {
@@ -765,10 +675,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep037",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep037"
     },
     "LVstep037": {
         "recognition": {
@@ -784,10 +691,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep038",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep038"
     },
     "LVstep038": {
         "recognition": {
@@ -803,10 +707,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep039",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep039"
     },
     "LVstep039": {
         "recognition": {
@@ -822,10 +723,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep040",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep040"
     },
     "LVstep040": {
         "recognition": {
@@ -860,10 +758,7 @@
                 "key": 27
             }
         },
-        "next": [ "LVstep042", "LVstep043" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "LVstep042", "LVstep043" ]
     },
     "LVstep042": {
         "recognition": {
@@ -879,10 +774,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep043",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep043"
     },
     "LVstep043": {
         "recognition": {
@@ -898,10 +790,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep044",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep044"
     },
     "LVstep044": {
         "recognition": {
@@ -917,10 +806,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep045",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep045"
     },
     "LVstep045": {
         "recognition": {
@@ -936,10 +822,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep046",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep046"
     },
     "LVstep046": {
         "recognition": {
@@ -975,10 +858,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep048",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep048"
     },
     "LVstep048": {
         "recognition": {
@@ -994,10 +874,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep049",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep049"
     },
     "LVstep049": {
         "action": {
@@ -1006,10 +883,7 @@
                 "key": 81
             }
         },
-        "next": "LVstep050",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep050"
     },
     "LVstep050": {
         "recognition": {
@@ -1025,10 +899,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep051",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep051"
     },
     "LVstep051": {
         "recognition": {
@@ -1044,10 +915,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep052",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep052"
     },
     "LVstep052": {
         "recognition": {
@@ -1063,10 +931,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep053",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep053"
     },
     "LVstep053": {
         "action": {
@@ -1075,10 +940,7 @@
                 "key": 81
             }
         },
-        "next": "LVstep054",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep054"
     },
     "LVstep054": {
         "recognition": {
@@ -1094,10 +956,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep055",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep055"
     },
     "LVstep055": {
         "recognition": {
@@ -1113,10 +972,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep056",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep056"
     },
     "LVstep056": {
         "recognition": {
@@ -1170,10 +1026,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep059",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep059"
     },
     "LVstep059": {
         "recognition": {
@@ -1189,10 +1042,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep060",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep060"
     },
     "LVstep060": {
         "recognition": {
@@ -1208,10 +1058,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep061",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep061"
     },
     "LVstep061": {
         "recognition": {
@@ -1227,10 +1074,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep062",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep062"
     },
     "LVstep062": {
         "recognition": {
@@ -1246,10 +1090,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep063",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep063"
     },
     "LVstep063": {
         "recognition": {
@@ -1265,10 +1106,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep064",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep064"
     },
     "LVstep064": {
         "recognition": {
@@ -1284,10 +1122,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep065",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep065"
     },
     "LVstep065": {
         "recognition": {
@@ -1303,10 +1138,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "FindStart2",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "FindStart2"
     },
     "FindStart2": {
         "recognition": {
@@ -1337,10 +1169,7 @@
                 "duration": 1000
             }
         },
-        "next": "LVstep067",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep067"
     },
     "LVstep067": {
         "recognition": {
@@ -1356,10 +1185,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep068",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep068"
     },
     "LVstep068": {
         "recognition": {
@@ -1375,10 +1201,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep069",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep069"
     },
     "LVstep069": {
         "recognition": {
@@ -1394,10 +1217,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep070",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep070"
     },
     "LVstep070": {
         "recognition": {
@@ -1413,10 +1233,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep071",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep071"
     },
     "LVstep071": {
         "recognition": {
@@ -1432,10 +1249,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep072",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep072"
     },
     "LVstep072": {
         "recognition": {
@@ -1451,10 +1265,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep073",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep073"
     },
     "LVstep073": {
         "recognition": {
@@ -1470,10 +1281,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep074",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep074"
     },
     "LVstep074": {
         "recognition": {
@@ -1489,10 +1297,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep075", "LVstep076" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "LVstep075", "LVstep076" ]
     },
     "LVstep075": {
         "post_delay": 1500,
@@ -1509,10 +1314,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep076",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep076"
     },
     "LVstep076": {
         "post_delay": 1500,
@@ -1529,10 +1331,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep077", "LVstep078" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "LVstep077", "LVstep078" ]
     },
     "LVstep077": {
         "recognition": {
@@ -1548,10 +1347,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep078",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep078"
     },
     "LVstep078": {
         "recognition": {
@@ -1567,10 +1363,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep079",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep079"
     },
     "LVstep079": {
         "recognition": {
@@ -1605,10 +1398,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep081",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep081"
     },
     "LVstep081": {
         "recognition": {
@@ -1618,10 +1408,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep082" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep082" ]
     },
     "LVstep082": {
         "recognition": {
@@ -1637,10 +1424,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep083",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep083"
     },
     "LVstep083": {
         "recognition": {
@@ -1650,10 +1434,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep084" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep084" ]
     },
     "LVstep084": {
         "recognition": {
@@ -1669,10 +1450,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep085",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep085"
     },
     "LVstep085": {
         "recognition": {
@@ -1682,10 +1460,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep086" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep086" ]
     },
     "LVstep086": {
         "recognition": {
@@ -1739,10 +1514,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep089",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep089"
     },
     "LVstep089": {
         "recognition": {
@@ -1758,10 +1530,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep090",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep090"
     },
     "LVstep090": {
         "post_delay": 1200,
@@ -1778,10 +1547,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep091",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep091"
     },
     "LVstep091": {
         "recognition": {
@@ -1797,10 +1563,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep092",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep092"
     },
     "LVstep092": {
         "recognition": {
@@ -1816,10 +1579,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep093",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep093"
     },
     "LVstep093": {
         "post_delay": 0,
@@ -1836,10 +1596,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep094",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep094"
     },
     "LVstep094": {
         "pre_delay": 0,
@@ -1857,10 +1614,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep095",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep095"
     },
     "LVstep095": {
         "pre_delay": 0,
@@ -1877,10 +1631,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep096",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep096"
     },
     "LVstep096": {
         "recognition": {
@@ -1896,10 +1647,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep097",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep097"
     },
     "LVstep097": {
         "recognition": {
@@ -1915,10 +1663,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep098",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep098"
     },
     "LVstep098": {
         "recognition": {
@@ -1934,10 +1679,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep099",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep099"
     },
     "LVstep099": {
         "recognition": {
@@ -1953,10 +1695,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep100", "LVstep101" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "LVstep100", "LVstep101" ]
     },
     "LVstep100": {
         "recognition": {
@@ -1972,10 +1711,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep101",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep101"
     },
     "LVstep101": {
         "recognition": {
@@ -1991,10 +1727,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep102",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep102"
     },
     "LVstep102": {
         "recognition": {
@@ -2010,10 +1743,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep103",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep103"
     },
     "LVstep103": {
         "recognition": {
@@ -2029,10 +1759,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep104",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep104"
     },
     "LVstep104": {
         "recognition": {
@@ -2048,10 +1775,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep105",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep105"
     },
     "LVstep105": {
         "recognition": {
@@ -2086,10 +1810,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep107",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep107"
     },
     "LVstep107": {
         "recognition": {
@@ -2105,10 +1826,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep108",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep108"
     },
     "LVstep108": {
         "recognition": {
@@ -2118,10 +1836,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep109" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep109" ]
     },
     "LVstep109": {
         "recognition": {
@@ -2137,10 +1852,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep110",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep110"
     },
     "LVstep110": {
         "recognition": {
@@ -2156,10 +1868,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep111",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep111"
     },
     "LVstep111": {
         "recognition": {
@@ -2169,10 +1878,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep112" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep112" ]
     },
     "LVstep112": {
         "recognition": {
@@ -2188,10 +1894,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep113",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep113"
     },
     "LVstep113": {
         "recognition": {
@@ -2207,10 +1910,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep114",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep114"
     },
     "LVstep114": {
         "recognition": {
@@ -2220,10 +1920,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep115" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep115" ]
     },
     "LVstep115": {
         "recognition": {
@@ -2239,10 +1936,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep116",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep116"
     },
     "LVstep116": {
         "recognition": {
@@ -2296,10 +1990,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep119",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep119"
     },
     "LVstep119": {
         "recognition": {
@@ -2315,10 +2006,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep120",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep120"
     },
     "LVstep120": {
         "recognition": {
@@ -2334,10 +2022,7 @@
                 "key": 27
             }
         },
-        "next": [ "LVstep121_1", "LVstep121" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "LVstep121_1", "LVstep121" ]
     },
     "LVstep121_1": {
         "recognition": {
@@ -2353,10 +2038,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep121_2",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep121_2"
     },
     "LVstep121_2": {
         "recognition": {
@@ -2372,10 +2054,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep121",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep121"
     },
     "LVstep121": {
         "recognition": {
@@ -2391,10 +2070,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep122",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep122"
     },
     "LVstep122": {
         "recognition": {
@@ -2410,10 +2086,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep123",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep123"
     },
     "LVstep123": {
         "recognition": {
@@ -2429,10 +2102,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep124",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep124"
     },
     "LVstep124": {
         "recognition": {
@@ -2448,10 +2118,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep125",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep125"
     },
     "LVstep125": {
         "recognition": {
@@ -2467,10 +2134,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep126",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep126"
     },
     "LVstep126": {
         "recognition": {
@@ -2486,10 +2150,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep127",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep127"
     },
     "LVstep127": {
         "recognition": {
@@ -2524,10 +2185,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep129",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep129"
     },
     "LVstep129": {
         "recognition": {
@@ -2563,10 +2221,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep131",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep131"
     },
     "LVstep131": {
         "pre_delay": 800,
@@ -2583,10 +2238,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep132",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep132"
     },
     "LVstep132": {
         "recognition": {
@@ -2602,10 +2254,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep133",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep133"
     },
     "LVstep133": {
         "post_delay": 500,
@@ -2622,10 +2271,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep134",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep134"
     },
     "LVstep134": {
         "action": {
@@ -2634,10 +2280,7 @@
                 "key": 81
             }
         },
-        "next": "LVstep135",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep135"
     },
     "LVstep135": {
         "recognition": {
@@ -2653,10 +2296,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep136",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep136"
     },
     "LVstep136": {
         "post_delay": 3000,
@@ -2673,10 +2313,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep137", "LVstep138" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "LVstep137", "LVstep138" ]
     },
     "LVstep137": {
         "recognition": {
@@ -2692,10 +2329,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep139",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep139"
     },
     "LVstep138": {
         "recognition": {
@@ -2711,10 +2345,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep139",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep139"
     },
     "LVstep139": {
         "recognition": {
@@ -2730,10 +2361,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep140",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep140"
     },
     "LVstep140": {
         "recognition": {
@@ -2749,10 +2377,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep141",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep141"
     },
     "LVstep141": {
         "post_delay": 500,
@@ -2769,10 +2394,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep142",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep142"
     },
     "LVstep142": {
         "action": {
@@ -2781,10 +2403,7 @@
                 "key": 81
             }
         },
-        "next": "LVstep143",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep143"
     },
     "LVstep143": {
         "pre_delay": 800,
@@ -2801,10 +2420,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep144",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep144"
     },
     "LVstep144": {
         "recognition": {
@@ -2820,10 +2436,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep145",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep145"
     },
     "LVstep145": {
         "post_delay": 500,
@@ -2840,10 +2453,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep146",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep146"
     },
     "LVstep146": {
         "action": {
@@ -2852,10 +2462,7 @@
                 "key": 81
             }
         },
-        "next": "LVstep147",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep147"
     },
     "LVstep147": {
         "recognition": {
@@ -2871,10 +2478,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep148",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep148"
     },
     "LVstep148": {
         "recognition": {
@@ -2909,10 +2513,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep150",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep150"
     },
     "LVstep150": {
         "recognition": {
@@ -2928,10 +2529,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep151",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep151"
     },
     "LVstep151": {
         "recognition": {
@@ -2947,10 +2545,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep152",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep152"
     },
     "LVstep152": {
         "recognition": {
@@ -2986,10 +2581,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep154",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep154"
     },
     "LVstep154": {
         "post_delay": 1000,
@@ -3006,10 +2598,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep155",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep155"
     },
     "LVstep155": {
         "recognition": {
@@ -3025,10 +2614,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep156", "LVstep157" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "LVstep156", "LVstep157" ]
     },
     "LVstep156": {
         "recognition": {
@@ -3044,10 +2630,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep157",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep157"
     },
     "LVstep157": {
         "recognition": {
@@ -3064,10 +2647,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep158",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep158"
     },
     "LVstep158": {
         "recognition": {
@@ -3083,10 +2663,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep159",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep159"
     },
     "LVstep159": {
         "recognition": {
@@ -3102,10 +2679,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep160",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep160"
     },
     "LVstep160": {
         "recognition": {
@@ -3121,10 +2695,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep161",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep161"
     },
     "LVstep161": {
         "recognition": {
@@ -3141,10 +2712,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep162",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep162"
     },
     "LVstep162": {
         "recognition": {
@@ -3179,10 +2747,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep164",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep164"
     },
     "LVstep164": {
         "recognition": {
@@ -3198,10 +2763,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep165",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep165"
     },
     "LVstep165": {
         "recognition": {
@@ -3211,10 +2773,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep166" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep166" ]
     },
     "LVstep166": {
         "recognition": {
@@ -3230,10 +2789,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep167",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep167"
     },
     "LVstep167": {
         "recognition": {
@@ -3243,10 +2799,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep168" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep168" ]
     },
     "LVstep168": {
         "recognition": {
@@ -3262,10 +2815,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep169",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep169"
     },
     "LVstep169": {
         "recognition": {
@@ -3281,10 +2831,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep170",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep170"
     },
     "LVstep170": {
         "recognition": {
@@ -3300,10 +2847,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep171",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep171"
     },
     "LVstep171": {
         "post_delay": 1200,
@@ -3314,10 +2858,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": "LVstep172",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep172"
     },
     "LVstep172": {
         "action": {
@@ -3326,10 +2867,7 @@
                 "key": 81
             }
         },
-        "next": "LVstep173",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep173"
     },
     "LVstep173": {
         "recognition": {
@@ -3345,10 +2883,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep174",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep174"
     },
     "LVstep174": {
         "recognition": {
@@ -3383,10 +2918,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep176",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep176"
     },
     "LVstep176": {
         "recognition": {
@@ -3402,10 +2934,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep177",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep177"
     },
     "LVstep177": {
         "recognition": {
@@ -3421,10 +2950,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep178",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep178"
     },
     "LVstep178": {
         "recognition": {
@@ -3440,10 +2966,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep179",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep179"
     },
     "LVstep179": {
         "recognition": {
@@ -3459,10 +2982,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep180",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep180"
     },
     "LVstep180": {
         "recognition": {
@@ -3498,10 +3018,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep182",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep182"
     },
     "LVstep182": {
         "recognition": {
@@ -3536,10 +3053,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep184",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep184"
     },
     "LVstep184": {
         "recognition": {
@@ -3549,10 +3063,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep185" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep185" ]
     },
     "LVstep185": {
         "recognition": {
@@ -3568,10 +3079,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep186",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep186"
     },
     "LVstep186": {
         "recognition": {
@@ -3581,10 +3089,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep187" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep187" ]
     },
     "LVstep187": {
         "recognition": {
@@ -3600,10 +3105,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep188",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep188"
     },
     "LVstep188": {
         "recognition": {
@@ -3619,10 +3121,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep189",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep189"
     },
     "LVstep189": {
         "recognition": {
@@ -3638,10 +3137,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep190",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep190"
     },
     "LVstep190": {
         "recognition": {
@@ -3651,10 +3147,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep191" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]ManulBattle", "LVstep191" ]
     },
     "LVstep191": {
         "recognition": {
@@ -3689,10 +3182,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep193",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep193"
     },
     "LVstep193": {
         "recognition": {
@@ -3708,10 +3198,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep194", "LVstep195" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "LVstep194", "LVstep195" ]
     },
     "LVstep194": {
         "recognition": {
@@ -3727,10 +3214,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep195",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep195"
     },
     "LVstep195": {
         "recognition": {
@@ -3746,10 +3230,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep196",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep196"
     },
     "LVstep196": {
         "recognition": {
@@ -3765,10 +3246,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep197",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep197"
     },
     "LVstep197": {
         "recognition": {
@@ -3784,10 +3262,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep198",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep198"
     },
     "LVstep198": {
         "recognition": {
@@ -3803,10 +3278,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep199",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep199"
     },
     "LVstep199": {
         "recognition": {
@@ -3822,10 +3294,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep200",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep200"
     },
     "LVstep200": {
         "recognition": {
@@ -3860,10 +3329,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep202",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep202"
     },
     "LVstep202": {
         "recognition": {
@@ -3880,10 +3346,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep203",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep203"
     },
     "LVstep203": {
         "recognition": {
@@ -3918,10 +3381,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep205",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep205"
     },
     "LVstep205": {
         "recognition": {
@@ -3937,10 +3397,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep206",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep206"
     },
     "LVstep206": {
         "recognition": {
@@ -3956,10 +3413,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep207",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep207"
     },
     "LVstep207": {
         "recognition": {
@@ -3975,10 +3429,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep208",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep208"
     },
     "LVstep208": {
         "recognition": {
@@ -3994,10 +3445,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep209",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep209"
     },
     "LVstep209": {
         "post_delay": 1200,
@@ -4008,10 +3456,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": "LVstep210",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep210"
     },
     "LVstep210": {
         "action": {
@@ -4020,10 +3465,7 @@
                 "key": 81
             }
         },
-        "next": "LVstep211",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep211"
     },
     "LVstep211": {
         "recognition": {
@@ -4039,10 +3481,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep212",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep212"
     },
     "LVstep212": {
         "recognition": {
@@ -4058,10 +3497,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep213",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep213"
     },
     "LVstep213": {
         "recognition": {
@@ -4071,10 +3507,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": "LVstep214",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep214"
     },
     "LVstep214": {
         "action": {
@@ -4083,10 +3516,7 @@
                 "key": 81
             }
         },
-        "next": "LVstep215",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep215"
     },
     "LVstep215": {
         "recognition": {
@@ -4102,10 +3532,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep216",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep216"
     },
     "LVstep216": {
         "recognition": {
@@ -4140,10 +3567,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep218",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep218"
     },
     "LVstep218": {
         "recognition": {
@@ -4159,10 +3583,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep219",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep219"
     },
     "LVstep219": {
         "recognition": {
@@ -4178,10 +3599,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep220",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep220"
     },
     "LVstep220": {
         "recognition": {
@@ -4197,10 +3615,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep221",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep221"
     },
     "LVstep221": {
         "recognition": {
@@ -4216,10 +3631,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep222",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep222"
     },
     "LVstep222": {
         "recognition": {
@@ -4235,10 +3647,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep223",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep223"
     },
     "LVstep223": {
         "recognition": {
@@ -4254,10 +3663,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep224",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep224"
     },
     "LVstep224": {
         "recognition": {
@@ -4273,10 +3679,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep225",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep225"
     },
     "LVstep225": {
         "recognition": {
@@ -4312,10 +3715,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep227",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep227"
     },
     "LVstep227": {
         "recognition": {
@@ -4350,10 +3750,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep229",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep229"
     },
     "LVstep229": {
         "recognition": {
@@ -4363,10 +3760,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep230" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]AutoBattle", "LVstep230" ]
     },
     "LVstep230": {
         "recognition": {
@@ -4382,10 +3776,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep231",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep231"
     },
     "LVstep231": {
         "recognition": {
@@ -4395,10 +3786,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep232" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]AutoBattle", "LVstep232" ]
     },
     "LVstep232": {
         "recognition": {
@@ -4414,10 +3802,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep233" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]AutoBattle", "LVstep233" ]
     },
     "LVstep234": {
         "recognition": {
@@ -4427,10 +3812,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep233" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]AutoBattle", "LVstep233" ]
     },
     "LVstep233": {
         "recognition": {
@@ -4465,10 +3847,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep236",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep236"
     },
     "LVstep236": {
         "recognition": {
@@ -4484,10 +3863,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep237",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep237"
     },
     "LVstep237": {
         "recognition": {
@@ -4503,10 +3879,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep238",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep238"
     },
     "LVstep238": {
         "recognition": {
@@ -4522,10 +3895,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep239",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep239"
     },
     "LVstep239": {
         "recognition": {
@@ -4541,10 +3911,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep240",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep240"
     },
     "LVstep240": {
         "recognition": {
@@ -4560,10 +3927,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep241",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep241"
     },
     "LVstep241": {
         "recognition": {
@@ -4579,10 +3943,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep242",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep242"
     },
     "LVstep242": {
         "recognition": {
@@ -4617,10 +3978,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep244",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep244"
     },
     "LVstep244": {
         "recognition": {
@@ -4636,10 +3994,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep245",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep245"
     },
     "LVstep245": {
         "recognition": {
@@ -4674,10 +4029,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep247",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep247"
     },
     "LVstep247": {
         "recognition": {
@@ -4687,10 +4039,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep248" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]AutoBattle", "LVstep248" ]
     },
     "LVstep248": {
         "recognition": {
@@ -4706,10 +4055,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep249",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep249"
     },
     "LVstep249": {
         "recognition": {
@@ -4719,10 +4065,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep250" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]AutoBattle", "LVstep250" ]
     },
     "LVstep250": {
         "recognition": {
@@ -4738,10 +4081,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep251",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep251"
     },
     "LVstep251": {
         "recognition": {
@@ -4751,10 +4091,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep252" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]AutoBattle", "LVstep252" ]
     },
     "LVstep252": {
         "recognition": {
@@ -4789,10 +4126,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep254",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep254"
     },
     "LVstep254": {
         "recognition": {
@@ -4808,10 +4142,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep255",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep255"
     },
     "LVstep255": {
         "recognition": {
@@ -4827,10 +4158,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep256",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep256"
     },
     "LVstep256": {
         "recognition": {
@@ -4847,10 +4175,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep257",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep257"
     },
     "LVstep257": {
         "recognition": {
@@ -4866,10 +4191,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep258",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep258"
     },
     "LVstep258": {
         "recognition": {
@@ -4886,10 +4208,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep259",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep259"
     },
     "LVstep259": {
         "recognition": {
@@ -4905,10 +4224,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep260",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep260"
     },
     "LVstep260": {
         "recognition": {
@@ -4924,10 +4240,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep261",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep261"
     },
     "LVstep261": {
         "recognition": {
@@ -4963,10 +4276,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep263",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep263"
     },
     "LVstep263": {
         "recognition": {
@@ -4982,10 +4292,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep264",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep264"
     },
     "LVstep264": {
         "recognition": {
@@ -4995,10 +4302,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep265" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]AutoBattle", "LVstep265" ]
     },
     "LVstep265": {
         "post_delay": 3000,
@@ -5015,10 +4319,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep266",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep266"
     },
     "LVstep266": {
         "post_delay": 3000,
@@ -5035,10 +4336,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep267",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep267"
     },
     "LVstep267": {
         "recognition": {
@@ -5054,10 +4352,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep268",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep268"
     },
     "LVstep268": {
         "recognition": {
@@ -5067,10 +4362,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep269" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]AutoBattle", "LVstep269" ]
     },
     "LVstep269": {
         "recognition": {
@@ -5086,10 +4378,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep270",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep270"
     },
     "LVstep270": {
         "recognition": {
@@ -5099,10 +4388,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep271" ],
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": [ "[JumpBack]AutoBattle", "LVstep271" ]
     },
     "LVstep271": {
         "post_delay": 3000,
@@ -5119,10 +4405,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep272",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep272"
     },
     "LVstep272": {
         "post_delay": 3000,
@@ -5139,10 +4422,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep273",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep273"
     },
     "LVstep273": {
         "recognition": {
@@ -5196,10 +4476,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep276",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep276"
     },
     "LVstep276": {
         "recognition": {
@@ -5215,10 +4492,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep277",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep277"
     },
     "LVstep277": {
         "recognition": {
@@ -5234,10 +4508,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep278",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep278"
     },
     "LVstep278": {
         "recognition": {
@@ -5253,10 +4524,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep279",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep279"
     },
     "LVstep279": {
         "recognition": {
@@ -5272,10 +4540,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep280",
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        }
+        "next": "LVstep280"
     },
     "LVstep280": {
         "recognition": {
@@ -5291,9 +4556,6 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "focus": {
-            "Node.Action.Succeeded": "{name}: 执行成功"
-        },
-        "next": [ "TrendingEntry", "ClaimReturnGiftEntry", "ClaimLevelEntry", "Login" ]
+        "next": [ "Login" ]
     }
 }
