@@ -1,0 +1,83 @@
+{
+    "ClaimMailEntry": {
+        "next": [ "ClickOnMail" ]
+    },
+    "ClickOnMail": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "mail/mail.png",
+                "roi": [ 1169, 53, 113, 109 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "ClickOnAttachments", "NoAttachments" ]
+    },
+    "ClickOnAttachments": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "mail/attachments.png",
+                "roi": [ 725, 516, 152, 122 ],
+                "threshold": 0.95
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "MailClaimAll"
+    },
+    "MailClaimAll": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "mail/claimall.png",
+                "roi": [ 723, 491, 154, 121 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "CloseAttachments"
+    },
+    "NoAttachments": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "mail/noattachments.png",
+                "roi": [ 724, 516, 153, 122 ],
+                "threshold": 0.95
+            }
+        },
+        "next": "CloseAttachments"
+    },
+    "CloseAttachments": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": "CloseMail"
+    },
+    "CloseMail": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": [ "ClaimLevelEntry", "Login" ]
+    }
+}
