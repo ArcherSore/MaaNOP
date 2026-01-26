@@ -557,7 +557,6 @@
                 "key": 81
             }
         },
-        "repeat": 3,
         "next": [ "LVstep030", "LVstep029" ]
     },
     "LVstep030": {
@@ -759,7 +758,6 @@
                 "key": 27
             }
         },
-        "repeat": 3,
         "next": [ "LVstep042", "LVstep043", "LVstep041" ]
     },
     "LVstep042": {
@@ -885,7 +883,6 @@
                 "key": 81
             }
         },
-        "repeat": 3,
         "next": [ "LVstep050", "LVstep049" ]
     },
     "LVstep050": {
@@ -943,7 +940,6 @@
                 "key": 81
             }
         },
-        "repeat": 3,
         "next": [ "LVstep054", "LVstep053" ]
     },
     "LVstep054": {
@@ -2026,7 +2022,6 @@
                 "key": 27
             }
         },
-        "repeat": 3,
         "next": [ "LVstep121_1", "LVstep121", "LVstep120" ]
     },
     "LVstep121_1": {
@@ -2285,7 +2280,6 @@
                 "key": 81
             }
         },
-        "repeat": 3,
         "next": [ "LVstep135", "LVstep134" ]
     },
     "LVstep135": {
@@ -2409,7 +2403,6 @@
                 "key": 81
             }
         },
-        "repeat": 3,
         "next": [ "LVstep143", "LVstep142" ]
     },
     "LVstep143": {
@@ -2469,7 +2462,6 @@
                 "key": 81
             }
         },
-        "repeat": 3,
         "next": [ "LVstep147", "LVstep146" ]
     },
     "LVstep147": {
@@ -2875,7 +2867,6 @@
                 "key": 81
             }
         },
-        "repeat": 3,
         "next": [ "LVstep173", "LVstep172" ]
     },
     "LVstep173": {
@@ -3002,7 +2993,7 @@
             }
         },
         "focus": {
-            "Node.Action.Succeeded": "{name}: 升到12级"
+            "Node.Action.Succeeded": "{name}: 升到11级"
         },
         "action": {
             "type": "Custom",
@@ -3314,7 +3305,7 @@
             }
         },
         "focus": {
-            "Node.Action.Succeeded": "{name}: 升到13级"
+            "Node.Action.Succeeded": "{name}: 升到12级"
         },
         "action": {
             "type": "Custom",
@@ -3474,7 +3465,6 @@
                 "key": 81
             }
         },
-        "repeat": 3,
         "next": [ "LVstep211", "LVstep210" ]
     },
     "LVstep211": {
@@ -3526,7 +3516,6 @@
                 "key": 81
             }
         },
-        "repeat": 3,
         "next": [ "LVstep215", "LVstep214" ]
     },
     "LVstep215": {
@@ -3701,7 +3690,7 @@
             }
         },
         "focus": {
-            "Node.Action.Succeeded": "{name}: 升到14级"
+            "Node.Action.Succeeded": "{name}: 升到13级"
         },
         "action": {
             "type": "Custom",
