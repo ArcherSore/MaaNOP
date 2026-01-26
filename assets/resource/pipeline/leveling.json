@@ -1,9 +1,9 @@
 {
     "LevelingEntry": {
-        "next": [ "Leveling" ]
+        "next": [ "Leveling", "LevelingEntry" ]
     },
     "Leveling": {
-        "next": [ "ClickOnChar", "NoClickOnChar" ]
+        "next": [ "ClickOnChar", "NoClickOnChar", "Leveling" ]
     },
     "ClickOnChar": {
         "recognition": {
@@ -19,7 +19,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "ClickOnTyping" ]
+        "next": [ "ClickOnTyping", "ClickOnChar" ]
     },
     "NoClickOnChar": {
         "recognition": {
@@ -29,7 +29,7 @@
                 "roi": [ 709, 150, 157, 198 ]
             }
         },
-        "next": [ "ClickOnTyping" ]
+        "next": [ "ClickOnTyping", "NoClickOnChar" ]
     },
     "ClickOnTyping": {
         "recognition": {
@@ -45,7 +45,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "GetAccountPrefix" ]
+        "next": [ "GetAccountPrefix", "ClickOnTyping" ]
     },
     "GetAccountPrefix": {
         "recognition": {
@@ -55,7 +55,7 @@
                 "custom_recognition_param": "{name_prefix}"
             }
         },
-        "next": [ "PasteName" ]
+        "next": [ "PasteName", "GetAccountPrefix" ]
     },
     "PasteName": {
         "action": {
@@ -64,7 +64,7 @@
                 "custom_action": "PasteAccountName"
             }
         },
-        "next": [ "EnterGame" ]
+        "next": [ "EnterGame", "PasteName" ]
     },
     "EnterGame": {
         "recognition": {
@@ -80,7 +80,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep001" ]
+        "next": [ "LVstep001", "EnterGame" ]
     },
     "LVstep001": {
         "recognition": {
@@ -96,7 +96,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep002"
+        "next": [ "LVstep002", "LVstep001" ]
     },
     "LVstep002": {
         "recognition": {
@@ -112,7 +112,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep003"
+        "next": [ "LVstep003", "LVstep002" ]
     },
     "LVstep003": {
         "recognition": {
@@ -128,7 +128,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep004"
+        "next": [ "LVstep004", "LVstep003" ]
     },
     "LVstep004": {
         "recognition": {
@@ -144,7 +144,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep005"
+        "next": [ "LVstep005", "LVstep004" ]
     },
     "LVstep005": {
         "recognition": {
@@ -163,7 +163,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep006"
+        "next": [ "LVstep006", "LVstep005" ]
     },
     "LVstep006": {
         "recognition": {
@@ -179,7 +179,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep007"
+        "next": [ "LVstep007", "LVstep006" ]
     },
     "LVstep007": {
         "recognition": {
@@ -195,7 +195,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep008"
+        "next": [ "LVstep008", "LVstep007" ]
     },
     "LVstep008": {
         "recognition": {
@@ -211,7 +211,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep009"
+        "next": [ "LVstep009", "LVstep008" ]
     },
     "LVstep009": {
         "recognition": {
@@ -227,7 +227,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep010"
+        "next": [ "LVstep010", "LVstep009" ]
     },
     "LVstep010": {
         "recognition": {
@@ -243,7 +243,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep011"
+        "next": [ "LVstep011", "LVstep010" ]
     },
     "LVstep011": {
         "recognition": {
@@ -262,7 +262,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep012"
+        "next": [ "LVstep012", "LVstep011" ]
     },
     "LVstep012": {
         "post_delay": 1000,
@@ -279,7 +279,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep013"
+        "next": [ "LVstep013", "LVstep012" ]
     },
     "LVstep013": {
         "recognition": {
@@ -295,7 +295,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep014"
+        "next": [ "LVstep014", "LVstep013" ]
     },
     "LVstep014": {
         "recognition": {
@@ -311,7 +311,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep015"
+        "next": [ "LVstep015", "LVstep014" ]
     },
     "LVstep015": {
         "recognition": {
@@ -327,7 +327,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep016"
+        "next": [ "LVstep016", "LVstep015" ]
     },
     "LVstep016": {
         "recognition": {
@@ -343,7 +343,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep017"
+        "next": [ "LVstep017", "LVstep016" ]
     },
     "LVstep017": {
         "recognition": {
@@ -359,7 +359,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "FindStart1"
+        "next": [ "FindStart1", "LVstep017" ]
     },
     "FindStart1": {
         "recognition": {
@@ -369,7 +369,7 @@
                 "roi": [ 705, 234, 139, 149 ]
             }
         },
-        "next": "FindEnd1"
+        "next": [ "FindEnd1", "FindStart1" ]
     },
     "FindEnd1": {
         "recognition": {
@@ -379,7 +379,7 @@
                 "roi": [ 370, 347, 176, 137 ]
             }
         },
-        "next": "LVstep018"
+        "next": [ "LVstep018", "FindEnd1" ]
     },
     "LVstep018": {
         "action": {
@@ -390,7 +390,7 @@
                 "duration": 1000
             }
         },
-        "next": "LVstep019"
+        "next": [ "LVstep019", "LVstep018" ]
     },
     "LVstep019": {
         "recognition": {
@@ -406,7 +406,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep020"
+        "next": [ "LVstep020", "LVstep019" ]
     },
     "LVstep020": {
         "recognition": {
@@ -422,7 +422,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep021"
+        "next": [ "LVstep021", "LVstep020" ]
     },
     "LVstep021": {
         "recognition": {
@@ -438,7 +438,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep022"
+        "next": [ "LVstep022", "LVstep021" ]
     },
     "LVstep022": {
         "recognition": {
@@ -454,7 +454,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep023"
+        "next": [ "LVstep023", "LVstep022" ]
     },
     "LVstep023": {
         "recognition": {
@@ -473,7 +473,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep024"
+        "next": [ "LVstep024", "LVstep023" ]
     },
     "LVstep024": {
         "recognition": {
@@ -489,7 +489,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep025"
+        "next": [ "LVstep025", "LVstep024" ]
     },
     "LVstep025": {
         "recognition": {
@@ -499,7 +499,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep026" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep026", "LVstep025" ]
     },
     "LVstep026": {
         "recognition": {
@@ -515,7 +515,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep027"
+        "next": [ "LVstep027", "LVstep026" ]
     },
     "LVstep027": {
         "recognition": {
@@ -531,7 +531,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep028"
+        "next": [ "LVstep028", "LVstep027" ]
     },
     "LVstep028": {
         "post_delay": 1200,
@@ -548,7 +548,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep029"
+        "next": [ "LVstep029", "LVstep028" ]
     },
     "LVstep029": {
         "action": {
@@ -557,7 +557,8 @@
                 "key": 81
             }
         },
-        "next": "LVstep030"
+        "repeat": 3,
+        "next": [ "LVstep030", "LVstep029" ]
     },
     "LVstep030": {
         "recognition": {
@@ -573,7 +574,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep031"
+        "next": [ "LVstep031", "LVstep030" ]
     },
     "LVstep031": {
         "recognition": {
@@ -592,7 +593,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep032"
+        "next": [ "LVstep032", "LVstep031" ]
     },
     "LVstep032": {
         "recognition": {
@@ -611,7 +612,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep033"
+        "next": [ "LVstep033", "LVstep032" ]
     },
     "LVstep033": {
         "recognition": {
@@ -627,7 +628,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep034"
+        "next": [ "LVstep034", "LVstep033" ]
     },
     "LVstep034": {
         "recognition": {
@@ -643,7 +644,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep035"
+        "next": [ "LVstep035", "LVstep034" ]
     },
     "LVstep035": {
         "recognition": {
@@ -659,7 +660,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep036", "LVstep037" ]
+        "next": [ "LVstep036", "LVstep037", "LVstep035" ]
     },
     "LVstep036": {
         "recognition": {
@@ -675,7 +676,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep037"
+        "next": [ "LVstep037", "LVstep036" ]
     },
     "LVstep037": {
         "recognition": {
@@ -691,7 +692,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep038"
+        "next": [ "LVstep038", "LVstep037" ]
     },
     "LVstep038": {
         "recognition": {
@@ -707,7 +708,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep039"
+        "next": [ "LVstep039", "LVstep038" ]
     },
     "LVstep039": {
         "recognition": {
@@ -723,7 +724,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep040"
+        "next": [ "LVstep040", "LVstep039" ]
     },
     "LVstep040": {
         "recognition": {
@@ -742,7 +743,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep041"
+        "next": [ "LVstep041", "LVstep040" ]
     },
     "LVstep041": {
         "recognition": {
@@ -758,7 +759,8 @@
                 "key": 27
             }
         },
-        "next": [ "LVstep042", "LVstep043" ]
+        "repeat": 3,
+        "next": [ "LVstep042", "LVstep043", "LVstep041" ]
     },
     "LVstep042": {
         "recognition": {
@@ -774,7 +776,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep043"
+        "next": [ "LVstep043", "LVstep042" ]
     },
     "LVstep043": {
         "recognition": {
@@ -790,7 +792,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep044"
+        "next": [ "LVstep044", "LVstep043" ]
     },
     "LVstep044": {
         "recognition": {
@@ -806,7 +808,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep045"
+        "next": [ "LVstep045", "LVstep044" ]
     },
     "LVstep045": {
         "recognition": {
@@ -822,7 +824,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep046"
+        "next": [ "LVstep046", "LVstep045" ]
     },
     "LVstep046": {
         "recognition": {
@@ -841,7 +843,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep047"
+        "next": [ "LVstep047", "LVstep046" ]
     },
     "LVstep047": {
         "pre_delay": 600,
@@ -858,7 +860,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep048"
+        "next": [ "LVstep048", "LVstep047" ]
     },
     "LVstep048": {
         "recognition": {
@@ -874,7 +876,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep049"
+        "next": [ "LVstep049", "LVstep048" ]
     },
     "LVstep049": {
         "action": {
@@ -883,7 +885,8 @@
                 "key": 81
             }
         },
-        "next": "LVstep050"
+        "repeat": 3,
+        "next": [ "LVstep050", "LVstep049" ]
     },
     "LVstep050": {
         "recognition": {
@@ -899,7 +902,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep051"
+        "next": [ "LVstep051", "LVstep050" ]
     },
     "LVstep051": {
         "recognition": {
@@ -915,7 +918,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep052"
+        "next": [ "LVstep052", "LVstep051" ]
     },
     "LVstep052": {
         "recognition": {
@@ -931,7 +934,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep053"
+        "next": [ "LVstep053", "LVstep052" ]
     },
     "LVstep053": {
         "action": {
@@ -940,7 +943,8 @@
                 "key": 81
             }
         },
-        "next": "LVstep054"
+        "repeat": 3,
+        "next": [ "LVstep054", "LVstep053" ]
     },
     "LVstep054": {
         "recognition": {
@@ -956,7 +960,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep055"
+        "next": [ "LVstep055", "LVstep054" ]
     },
     "LVstep055": {
         "recognition": {
@@ -972,7 +976,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep056"
+        "next": [ "LVstep056", "LVstep055" ]
     },
     "LVstep056": {
         "recognition": {
@@ -991,7 +995,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep057"
+        "next": [ "LVstep057", "LVstep056" ]
     },
     "LVstep057": {
         "recognition": {
@@ -1010,7 +1014,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep058"
+        "next": [ "LVstep058", "LVstep057" ]
     },
     "LVstep058": {
         "recognition": {
@@ -1026,7 +1030,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep059"
+        "next": [ "LVstep059", "LVstep058" ]
     },
     "LVstep059": {
         "recognition": {
@@ -1042,7 +1046,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep060"
+        "next": [ "LVstep060", "LVstep059" ]
     },
     "LVstep060": {
         "recognition": {
@@ -1058,7 +1062,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep061"
+        "next": [ "LVstep061", "LVstep060" ]
     },
     "LVstep061": {
         "recognition": {
@@ -1074,7 +1078,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep062"
+        "next": [ "LVstep062", "LVstep061" ]
     },
     "LVstep062": {
         "recognition": {
@@ -1090,7 +1094,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep063"
+        "next": [ "LVstep063", "LVstep062" ]
     },
     "LVstep063": {
         "recognition": {
@@ -1106,7 +1110,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep064"
+        "next": [ "LVstep064", "LVstep063" ]
     },
     "LVstep064": {
         "recognition": {
@@ -1122,7 +1126,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep065"
+        "next": [ "LVstep065", "LVstep064" ]
     },
     "LVstep065": {
         "recognition": {
@@ -1138,7 +1142,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "FindStart2"
+        "next": [ "FindStart2", "LVstep065" ]
     },
     "FindStart2": {
         "recognition": {
@@ -1148,7 +1152,7 @@
                 "roi": [ 709, 232, 139, 151 ]
             }
         },
-        "next": "FindEnd2"
+        "next": [ "FindEnd2", "FindStart2" ]
     },
     "FindEnd2": {
         "recognition": {
@@ -1158,7 +1162,7 @@
                 "roi": [ 345, 442, 192, 144 ]
             }
         },
-        "next": "LVstep066"
+        "next": [ "LVstep066", "FindEnd2" ]
     },
     "LVstep066": {
         "action": {
@@ -1169,7 +1173,7 @@
                 "duration": 1000
             }
         },
-        "next": "LVstep067"
+        "next": [ "LVstep067", "LVstep066" ]
     },
     "LVstep067": {
         "recognition": {
@@ -1185,7 +1189,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep068"
+        "next": [ "LVstep068", "LVstep067" ]
     },
     "LVstep068": {
         "recognition": {
@@ -1201,7 +1205,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep069"
+        "next": [ "LVstep069", "LVstep068" ]
     },
     "LVstep069": {
         "recognition": {
@@ -1217,7 +1221,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep070"
+        "next": [ "LVstep070", "LVstep069" ]
     },
     "LVstep070": {
         "recognition": {
@@ -1233,7 +1237,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep071"
+        "next": [ "LVstep071", "LVstep070" ]
     },
     "LVstep071": {
         "recognition": {
@@ -1249,7 +1253,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep072"
+        "next": [ "LVstep072", "LVstep071" ]
     },
     "LVstep072": {
         "recognition": {
@@ -1265,7 +1269,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep073"
+        "next": [ "LVstep073", "LVstep072" ]
     },
     "LVstep073": {
         "recognition": {
@@ -1281,7 +1285,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep074"
+        "next": [ "LVstep074", "LVstep073" ]
     },
     "LVstep074": {
         "recognition": {
@@ -1297,7 +1301,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep075", "LVstep076" ]
+        "next": [ "LVstep075", "LVstep076", "LVstep074" ]
     },
     "LVstep075": {
         "post_delay": 1500,
@@ -1314,7 +1318,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep076"
+        "next": [ "LVstep076", "LVstep075" ]
     },
     "LVstep076": {
         "post_delay": 1500,
@@ -1331,7 +1335,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep077", "LVstep078" ]
+        "next": [ "LVstep077", "LVstep078", "LVstep076" ]
     },
     "LVstep077": {
         "recognition": {
@@ -1347,7 +1351,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep078"
+        "next": [ "LVstep078", "LVstep077" ]
     },
     "LVstep078": {
         "recognition": {
@@ -1363,7 +1367,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep079"
+        "next": [ "LVstep079", "LVstep078" ]
     },
     "LVstep079": {
         "recognition": {
@@ -1382,7 +1386,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep080"
+        "next": [ "LVstep080", "LVstep079" ]
     },
     "LVstep080": {
         "recognition": {
@@ -1398,7 +1402,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep081"
+        "next": [ "LVstep081", "LVstep080" ]
     },
     "LVstep081": {
         "recognition": {
@@ -1408,7 +1412,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep082" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep082", "LVstep081" ]
     },
     "LVstep082": {
         "recognition": {
@@ -1424,7 +1428,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep083"
+        "next": [ "LVstep083", "LVstep082" ]
     },
     "LVstep083": {
         "recognition": {
@@ -1434,7 +1438,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep084" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep084", "LVstep083" ]
     },
     "LVstep084": {
         "recognition": {
@@ -1450,7 +1454,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep085"
+        "next": [ "LVstep085", "LVstep084" ]
     },
     "LVstep085": {
         "recognition": {
@@ -1460,7 +1464,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep086" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep086", "LVstep085" ]
     },
     "LVstep086": {
         "recognition": {
@@ -1479,7 +1483,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep087"
+        "next": [ "LVstep087", "LVstep086" ]
     },
     "LVstep087": {
         "recognition": {
@@ -1498,7 +1502,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep088"
+        "next": [ "LVstep088", "LVstep087" ]
     },
     "LVstep088": {
         "recognition": {
@@ -1514,7 +1518,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep089"
+        "next": [ "LVstep089", "LVstep088" ]
     },
     "LVstep089": {
         "recognition": {
@@ -1530,7 +1534,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep090"
+        "next": [ "LVstep090", "LVstep089" ]
     },
     "LVstep090": {
         "post_delay": 1200,
@@ -1547,7 +1551,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep091"
+        "next": [ "LVstep091", "LVstep090" ]
     },
     "LVstep091": {
         "recognition": {
@@ -1563,7 +1567,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep092"
+        "next": [ "LVstep092", "LVstep091" ]
     },
     "LVstep092": {
         "recognition": {
@@ -1579,7 +1583,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep093"
+        "next": [ "LVstep093", "LVstep092" ]
     },
     "LVstep093": {
         "post_delay": 0,
@@ -1596,7 +1600,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep094"
+        "next": [ "LVstep094", "LVstep093" ]
     },
     "LVstep094": {
         "pre_delay": 0,
@@ -1614,7 +1618,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep095"
+        "next": [ "LVstep095", "LVstep094" ]
     },
     "LVstep095": {
         "pre_delay": 0,
@@ -1631,7 +1635,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep096"
+        "next": [ "LVstep096", "LVstep095" ]
     },
     "LVstep096": {
         "recognition": {
@@ -1647,7 +1651,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep097"
+        "next": [ "LVstep097", "LVstep096" ]
     },
     "LVstep097": {
         "recognition": {
@@ -1663,7 +1667,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep098"
+        "next": [ "LVstep098", "LVstep097" ]
     },
     "LVstep098": {
         "recognition": {
@@ -1679,7 +1683,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep099"
+        "next": [ "LVstep099", "LVstep098" ]
     },
     "LVstep099": {
         "recognition": {
@@ -1695,7 +1699,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep100", "LVstep101" ]
+        "next": [ "LVstep100", "LVstep101", "LVstep099" ]
     },
     "LVstep100": {
         "recognition": {
@@ -1711,7 +1715,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep101"
+        "next": [ "LVstep101", "LVstep100" ]
     },
     "LVstep101": {
         "recognition": {
@@ -1727,7 +1731,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep102"
+        "next": [ "LVstep102", "LVstep101" ]
     },
     "LVstep102": {
         "recognition": {
@@ -1743,7 +1747,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep103"
+        "next": [ "LVstep103", "LVstep102" ]
     },
     "LVstep103": {
         "recognition": {
@@ -1759,7 +1763,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep104"
+        "next": [ "LVstep104", "LVstep103" ]
     },
     "LVstep104": {
         "recognition": {
@@ -1775,7 +1779,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep105"
+        "next": [ "LVstep105", "LVstep104" ]
     },
     "LVstep105": {
         "recognition": {
@@ -1794,7 +1798,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep106"
+        "next": [ "LVstep106", "LVstep105" ]
     },
     "LVstep106": {
         "recognition": {
@@ -1810,7 +1814,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep107"
+        "next": [ "LVstep107", "LVstep106" ]
     },
     "LVstep107": {
         "recognition": {
@@ -1826,7 +1830,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep108"
+        "next": [ "LVstep108", "LVstep107" ]
     },
     "LVstep108": {
         "recognition": {
@@ -1836,7 +1840,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep109" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep109", "LVstep108" ]
     },
     "LVstep109": {
         "recognition": {
@@ -1852,7 +1856,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep110"
+        "next": [ "LVstep110", "LVstep109" ]
     },
     "LVstep110": {
         "recognition": {
@@ -1868,7 +1872,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep111"
+        "next": [ "LVstep111", "LVstep110" ]
     },
     "LVstep111": {
         "recognition": {
@@ -1878,7 +1882,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep112" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep112", "LVstep111" ]
     },
     "LVstep112": {
         "recognition": {
@@ -1894,7 +1898,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep113"
+        "next": [ "LVstep113", "LVstep112" ]
     },
     "LVstep113": {
         "recognition": {
@@ -1910,7 +1914,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep114"
+        "next": [ "LVstep114", "LVstep113" ]
     },
     "LVstep114": {
         "recognition": {
@@ -1920,7 +1924,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep115" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep115", "LVstep114" ]
     },
     "LVstep115": {
         "recognition": {
@@ -1936,7 +1940,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep116"
+        "next": [ "LVstep116", "LVstep115" ]
     },
     "LVstep116": {
         "recognition": {
@@ -1955,7 +1959,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep117"
+        "next": [ "LVstep117", "LVstep116" ]
     },
     "LVstep117": {
         "recognition": {
@@ -1974,7 +1978,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep118"
+        "next": [ "LVstep118", "LVstep117" ]
     },
     "LVstep118": {
         "recognition": {
@@ -1990,7 +1994,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep119"
+        "next": [ "LVstep119", "LVstep118" ]
     },
     "LVstep119": {
         "recognition": {
@@ -2006,7 +2010,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep120"
+        "next": [ "LVstep120", "LVstep119" ]
     },
     "LVstep120": {
         "recognition": {
@@ -2022,7 +2026,8 @@
                 "key": 27
             }
         },
-        "next": [ "LVstep121_1", "LVstep121" ]
+        "repeat": 3,
+        "next": [ "LVstep121_1", "LVstep121", "LVstep120" ]
     },
     "LVstep121_1": {
         "recognition": {
@@ -2038,7 +2043,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep121_2"
+        "next": [ "LVstep121_2", "LVstep121_1" ]
     },
     "LVstep121_2": {
         "recognition": {
@@ -2054,7 +2059,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep121"
+        "next": [ "LVstep121", "LVstep121_2" ]
     },
     "LVstep121": {
         "recognition": {
@@ -2070,7 +2075,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep122"
+        "next": [ "LVstep122", "LVstep121" ]
     },
     "LVstep122": {
         "recognition": {
@@ -2086,7 +2091,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep123"
+        "next": [ "LVstep123", "LVstep122" ]
     },
     "LVstep123": {
         "recognition": {
@@ -2102,7 +2107,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep124"
+        "next": [ "LVstep124", "LVstep123" ]
     },
     "LVstep124": {
         "recognition": {
@@ -2118,7 +2123,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep125"
+        "next": [ "LVstep125", "LVstep124" ]
     },
     "LVstep125": {
         "recognition": {
@@ -2134,7 +2139,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep126"
+        "next": [ "LVstep126", "LVstep125" ]
     },
     "LVstep126": {
         "recognition": {
@@ -2150,7 +2155,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep127"
+        "next": [ "LVstep127", "LVstep126" ]
     },
     "LVstep127": {
         "recognition": {
@@ -2169,7 +2174,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep128"
+        "next": [ "LVstep128", "LVstep127" ]
     },
     "LVstep128": {
         "recognition": {
@@ -2185,7 +2190,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep129"
+        "next": [ "LVstep129", "LVstep128" ]
     },
     "LVstep129": {
         "recognition": {
@@ -2204,7 +2209,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep130"
+        "next": [ "LVstep130", "LVstep129" ]
     },
     "LVstep130": {
         "pre_delay": 800,
@@ -2221,7 +2226,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep131"
+        "next": [ "LVstep131", "LVstep130" ]
     },
     "LVstep131": {
         "pre_delay": 800,
@@ -2238,7 +2243,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep132"
+        "next": [ "LVstep132", "LVstep131" ]
     },
     "LVstep132": {
         "recognition": {
@@ -2254,7 +2259,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep133"
+        "next": [ "LVstep133", "LVstep132" ]
     },
     "LVstep133": {
         "post_delay": 500,
@@ -2271,7 +2276,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep134"
+        "next": [ "LVstep134", "LVstep133" ]
     },
     "LVstep134": {
         "action": {
@@ -2280,7 +2285,8 @@
                 "key": 81
             }
         },
-        "next": "LVstep135"
+        "repeat": 3,
+        "next": [ "LVstep135", "LVstep134" ]
     },
     "LVstep135": {
         "recognition": {
@@ -2296,7 +2302,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep136"
+        "next": [ "LVstep136", "LVstep135" ]
     },
     "LVstep136": {
         "post_delay": 3000,
@@ -2313,7 +2319,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep137", "LVstep138" ]
+        "next": [ "LVstep137", "LVstep138", "LVstep136" ]
     },
     "LVstep137": {
         "recognition": {
@@ -2329,7 +2335,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep139"
+        "next": [ "LVstep139", "LVstep137" ]
     },
     "LVstep138": {
         "recognition": {
@@ -2345,7 +2351,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep139"
+        "next": [ "LVstep139", "LVstep138" ]
     },
     "LVstep139": {
         "recognition": {
@@ -2361,7 +2367,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep140"
+        "next": [ "LVstep140", "LVstep139" ]
     },
     "LVstep140": {
         "recognition": {
@@ -2377,7 +2383,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep141"
+        "next": [ "LVstep141", "LVstep140" ]
     },
     "LVstep141": {
         "post_delay": 500,
@@ -2394,7 +2400,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep142"
+        "next": [ "LVstep142", "LVstep141" ]
     },
     "LVstep142": {
         "action": {
@@ -2403,7 +2409,8 @@
                 "key": 81
             }
         },
-        "next": "LVstep143"
+        "repeat": 3,
+        "next": [ "LVstep143", "LVstep142" ]
     },
     "LVstep143": {
         "pre_delay": 800,
@@ -2420,7 +2427,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep144"
+        "next": [ "LVstep144", "LVstep143" ]
     },
     "LVstep144": {
         "recognition": {
@@ -2436,7 +2443,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep145"
+        "next": [ "LVstep145", "LVstep144" ]
     },
     "LVstep145": {
         "post_delay": 500,
@@ -2453,7 +2460,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep146"
+        "next": [ "LVstep146", "LVstep145" ]
     },
     "LVstep146": {
         "action": {
@@ -2462,7 +2469,8 @@
                 "key": 81
             }
         },
-        "next": "LVstep147"
+        "repeat": 3,
+        "next": [ "LVstep147", "LVstep146" ]
     },
     "LVstep147": {
         "recognition": {
@@ -2478,7 +2486,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep148"
+        "next": [ "LVstep148", "LVstep147" ]
     },
     "LVstep148": {
         "recognition": {
@@ -2497,7 +2505,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep149"
+        "next": [ "LVstep149", "LVstep148" ]
     },
     "LVstep149": {
         "recognition": {
@@ -2513,7 +2521,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep150"
+        "next": [ "LVstep150", "LVstep149" ]
     },
     "LVstep150": {
         "recognition": {
@@ -2529,7 +2537,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep151"
+        "next": [ "LVstep151", "LVstep150" ]
     },
     "LVstep151": {
         "recognition": {
@@ -2545,7 +2553,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep152"
+        "next": [ "LVstep152", "LVstep151" ]
     },
     "LVstep152": {
         "recognition": {
@@ -2564,7 +2572,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep153"
+        "next": [ "LVstep153", "LVstep152" ]
     },
     "LVstep153": {
         "post_delay": 1000,
@@ -2581,7 +2589,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep154"
+        "next": [ "LVstep154", "LVstep153" ]
     },
     "LVstep154": {
         "post_delay": 1000,
@@ -2598,7 +2606,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep155"
+        "next": [ "LVstep155", "LVstep154" ]
     },
     "LVstep155": {
         "recognition": {
@@ -2614,7 +2622,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep156", "LVstep157" ]
+        "next": [ "LVstep156", "LVstep157", "LVstep155" ]
     },
     "LVstep156": {
         "recognition": {
@@ -2630,7 +2638,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep157"
+        "next": [ "LVstep157", "LVstep156" ]
     },
     "LVstep157": {
         "recognition": {
@@ -2647,7 +2655,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep158"
+        "next": [ "LVstep158", "LVstep157" ]
     },
     "LVstep158": {
         "recognition": {
@@ -2663,7 +2671,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep159"
+        "next": [ "LVstep159", "LVstep158" ]
     },
     "LVstep159": {
         "recognition": {
@@ -2679,7 +2687,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep160"
+        "next": [ "LVstep160", "LVstep159" ]
     },
     "LVstep160": {
         "recognition": {
@@ -2695,7 +2703,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep161"
+        "next": [ "LVstep161", "LVstep160" ]
     },
     "LVstep161": {
         "recognition": {
@@ -2712,7 +2720,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep162"
+        "next": [ "LVstep162", "LVstep161" ]
     },
     "LVstep162": {
         "recognition": {
@@ -2731,7 +2739,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep163"
+        "next": [ "LVstep163", "LVstep162" ]
     },
     "LVstep163": {
         "recognition": {
@@ -2747,7 +2755,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep164"
+        "next": [ "LVstep164", "LVstep163" ]
     },
     "LVstep164": {
         "recognition": {
@@ -2763,7 +2771,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep165"
+        "next": [ "LVstep165", "LVstep164" ]
     },
     "LVstep165": {
         "recognition": {
@@ -2773,7 +2781,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep166" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep166", "LVstep165" ]
     },
     "LVstep166": {
         "recognition": {
@@ -2789,7 +2797,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep167"
+        "next": [ "LVstep167", "LVstep166" ]
     },
     "LVstep167": {
         "recognition": {
@@ -2799,7 +2807,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep168" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep168", "LVstep167" ]
     },
     "LVstep168": {
         "recognition": {
@@ -2815,7 +2823,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep169"
+        "next": [ "LVstep169", "LVstep168" ]
     },
     "LVstep169": {
         "recognition": {
@@ -2831,7 +2839,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep170"
+        "next": [ "LVstep170", "LVstep169" ]
     },
     "LVstep170": {
         "recognition": {
@@ -2847,7 +2855,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep171"
+        "next": [ "LVstep171", "LVstep170" ]
     },
     "LVstep171": {
         "post_delay": 1200,
@@ -2858,7 +2866,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": "LVstep172"
+        "next": [ "LVstep172", "LVstep171" ]
     },
     "LVstep172": {
         "action": {
@@ -2867,7 +2875,8 @@
                 "key": 81
             }
         },
-        "next": "LVstep173"
+        "repeat": 3,
+        "next": [ "LVstep173", "LVstep172" ]
     },
     "LVstep173": {
         "recognition": {
@@ -2883,7 +2892,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep174"
+        "next": [ "LVstep174", "LVstep173" ]
     },
     "LVstep174": {
         "recognition": {
@@ -2902,7 +2911,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep175"
+        "next": [ "LVstep175", "LVstep174" ]
     },
     "LVstep175": {
         "recognition": {
@@ -2918,7 +2927,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep176"
+        "next": [ "LVstep176", "LVstep175" ]
     },
     "LVstep176": {
         "recognition": {
@@ -2934,7 +2943,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep177"
+        "next": [ "LVstep177", "LVstep176" ]
     },
     "LVstep177": {
         "recognition": {
@@ -2950,7 +2959,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep178"
+        "next": [ "LVstep178", "LVstep177" ]
     },
     "LVstep178": {
         "recognition": {
@@ -2966,7 +2975,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep179"
+        "next": [ "LVstep179", "LVstep178" ]
     },
     "LVstep179": {
         "recognition": {
@@ -2982,7 +2991,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep180"
+        "next": [ "LVstep180", "LVstep179" ]
     },
     "LVstep180": {
         "recognition": {
@@ -3001,7 +3010,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep181"
+        "next": [ "LVstep181", "LVstep180" ]
     },
     "LVstep181": {
         "recognition": {
@@ -3018,7 +3027,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep182"
+        "next": [ "LVstep182", "LVstep181" ]
     },
     "LVstep182": {
         "recognition": {
@@ -3037,7 +3046,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep183"
+        "next": [ "LVstep183", "LVstep182" ]
     },
     "LVstep183": {
         "recognition": {
@@ -3053,7 +3062,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep184"
+        "next": [ "LVstep184", "LVstep183" ]
     },
     "LVstep184": {
         "recognition": {
@@ -3063,7 +3072,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep185" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep185", "LVstep184" ]
     },
     "LVstep185": {
         "recognition": {
@@ -3079,7 +3088,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep186"
+        "next": [ "LVstep186", "LVstep185" ]
     },
     "LVstep186": {
         "recognition": {
@@ -3089,7 +3098,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep187" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep187", "LVstep186" ]
     },
     "LVstep187": {
         "recognition": {
@@ -3105,7 +3114,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep188"
+        "next": [ "LVstep188", "LVstep187" ]
     },
     "LVstep188": {
         "recognition": {
@@ -3121,7 +3130,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep189"
+        "next": [ "LVstep189", "LVstep188" ]
     },
     "LVstep189": {
         "recognition": {
@@ -3137,7 +3146,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep190"
+        "next": [ "LVstep190", "LVstep189" ]
     },
     "LVstep190": {
         "recognition": {
@@ -3147,7 +3156,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]ManulBattle", "LVstep191" ]
+        "next": [ "[JumpBack]ManulBattle", "LVstep191", "LVstep190" ]
     },
     "LVstep191": {
         "recognition": {
@@ -3166,7 +3175,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep192"
+        "next": [ "LVstep192", "LVstep191" ]
     },
     "LVstep192": {
         "recognition": {
@@ -3182,7 +3191,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep193"
+        "next": [ "LVstep193", "LVstep192" ]
     },
     "LVstep193": {
         "recognition": {
@@ -3198,7 +3207,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LVstep194", "LVstep195" ]
+        "next": [ "LVstep194", "LVstep195", "LVstep193" ]
     },
     "LVstep194": {
         "recognition": {
@@ -3214,7 +3223,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep195"
+        "next": [ "LVstep195", "LVstep194" ]
     },
     "LVstep195": {
         "recognition": {
@@ -3230,7 +3239,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep196"
+        "next": [ "LVstep196", "LVstep195" ]
     },
     "LVstep196": {
         "recognition": {
@@ -3246,7 +3255,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep197"
+        "next": [ "LVstep197", "LVstep196" ]
     },
     "LVstep197": {
         "recognition": {
@@ -3262,7 +3271,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep198"
+        "next": [ "LVstep198", "LVstep197" ]
     },
     "LVstep198": {
         "recognition": {
@@ -3278,7 +3287,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep199"
+        "next": [ "LVstep199", "LVstep198" ]
     },
     "LVstep199": {
         "recognition": {
@@ -3294,7 +3303,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep200"
+        "next": [ "LVstep200", "LVstep199" ]
     },
     "LVstep200": {
         "recognition": {
@@ -3313,7 +3322,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep201"
+        "next": [ "LVstep201", "LVstep200" ]
     },
     "LVstep201": {
         "recognition": {
@@ -3329,7 +3338,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep202"
+        "next": [ "LVstep202", "LVstep201" ]
     },
     "LVstep202": {
         "recognition": {
@@ -3346,7 +3355,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep203"
+        "next": [ "LVstep203", "LVstep202" ]
     },
     "LVstep203": {
         "recognition": {
@@ -3365,7 +3374,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep204"
+        "next": [ "LVstep204", "LVstep203" ]
     },
     "LVstep204": {
         "recognition": {
@@ -3381,7 +3390,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep205"
+        "next": [ "LVstep205", "LVstep204" ]
     },
     "LVstep205": {
         "recognition": {
@@ -3397,7 +3406,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep206"
+        "next": [ "LVstep206", "LVstep205" ]
     },
     "LVstep206": {
         "recognition": {
@@ -3413,7 +3422,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep207"
+        "next": [ "LVstep207", "LVstep206" ]
     },
     "LVstep207": {
         "recognition": {
@@ -3429,7 +3438,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep208"
+        "next": [ "LVstep208", "LVstep207" ]
     },
     "LVstep208": {
         "recognition": {
@@ -3445,7 +3454,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep209"
+        "next": [ "LVstep209", "LVstep208" ]
     },
     "LVstep209": {
         "post_delay": 1200,
@@ -3456,7 +3465,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": "LVstep210"
+        "next": [ "LVstep210", "LVstep209" ]
     },
     "LVstep210": {
         "action": {
@@ -3465,7 +3474,8 @@
                 "key": 81
             }
         },
-        "next": "LVstep211"
+        "repeat": 3,
+        "next": [ "LVstep211", "LVstep210" ]
     },
     "LVstep211": {
         "recognition": {
@@ -3481,7 +3491,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep212"
+        "next": [ "LVstep212", "LVstep211" ]
     },
     "LVstep212": {
         "recognition": {
@@ -3497,7 +3507,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep213"
+        "next": [ "LVstep213", "LVstep212" ]
     },
     "LVstep213": {
         "recognition": {
@@ -3507,7 +3517,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": "LVstep214"
+        "next": [ "LVstep214", "LVstep213" ]
     },
     "LVstep214": {
         "action": {
@@ -3516,7 +3526,8 @@
                 "key": 81
             }
         },
-        "next": "LVstep215"
+        "repeat": 3,
+        "next": [ "LVstep215", "LVstep214" ]
     },
     "LVstep215": {
         "recognition": {
@@ -3532,7 +3543,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep216"
+        "next": [ "LVstep216", "LVstep215" ]
     },
     "LVstep216": {
         "recognition": {
@@ -3551,7 +3562,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep217"
+        "next": [ "LVstep217", "LVstep216" ]
     },
     "LVstep217": {
         "recognition": {
@@ -3567,7 +3578,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep218"
+        "next": [ "LVstep218", "LVstep217" ]
     },
     "LVstep218": {
         "recognition": {
@@ -3583,7 +3594,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep219"
+        "next": [ "LVstep219", "LVstep218" ]
     },
     "LVstep219": {
         "recognition": {
@@ -3599,7 +3610,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep220"
+        "next": [ "LVstep220", "LVstep219" ]
     },
     "LVstep220": {
         "recognition": {
@@ -3615,7 +3626,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep221"
+        "next": [ "LVstep221", "LVstep220" ]
     },
     "LVstep221": {
         "recognition": {
@@ -3631,7 +3642,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep222"
+        "next": [ "LVstep222", "LVstep221" ]
     },
     "LVstep222": {
         "recognition": {
@@ -3647,7 +3658,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep223"
+        "next": [ "LVstep223", "LVstep222" ]
     },
     "LVstep223": {
         "recognition": {
@@ -3663,7 +3674,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep224"
+        "next": [ "LVstep224", "LVstep223" ]
     },
     "LVstep224": {
         "recognition": {
@@ -3679,7 +3690,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep225"
+        "next": [ "LVstep225", "LVstep224" ]
     },
     "LVstep225": {
         "recognition": {
@@ -3698,7 +3709,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep226"
+        "next": [ "LVstep226", "LVstep225" ]
     },
     "LVstep226": {
         "recognition": {
@@ -3715,7 +3726,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep227"
+        "next": [ "LVstep227", "LVstep226" ]
     },
     "LVstep227": {
         "recognition": {
@@ -3734,7 +3745,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep228"
+        "next": [ "LVstep228", "LVstep227" ]
     },
     "LVstep228": {
         "recognition": {
@@ -3750,7 +3761,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep229"
+        "next": [ "LVstep229", "LVstep228" ]
     },
     "LVstep229": {
         "recognition": {
@@ -3760,7 +3771,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep230" ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep230", "LVstep229" ]
     },
     "LVstep230": {
         "recognition": {
@@ -3776,7 +3787,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep231"
+        "next": [ "LVstep231", "LVstep230" ]
     },
     "LVstep231": {
         "recognition": {
@@ -3786,7 +3797,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep232" ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep232", "LVstep231" ]
     },
     "LVstep232": {
         "recognition": {
@@ -3802,7 +3813,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep233" ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep233", "LVstep232" ]
     },
     "LVstep234": {
         "recognition": {
@@ -3812,7 +3823,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep233" ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep233", "LVstep234" ]
     },
     "LVstep233": {
         "recognition": {
@@ -3831,7 +3842,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep235"
+        "next": [ "LVstep235", "LVstep233" ]
     },
     "LVstep235": {
         "recognition": {
@@ -3847,7 +3858,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep236"
+        "next": [ "LVstep236", "LVstep235" ]
     },
     "LVstep236": {
         "recognition": {
@@ -3863,7 +3874,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep237"
+        "next": [ "LVstep237", "LVstep236" ]
     },
     "LVstep237": {
         "recognition": {
@@ -3879,7 +3890,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep238"
+        "next": [ "LVstep238", "LVstep237" ]
     },
     "LVstep238": {
         "recognition": {
@@ -3895,7 +3906,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep239"
+        "next": [ "LVstep239", "LVstep238" ]
     },
     "LVstep239": {
         "recognition": {
@@ -3911,7 +3922,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep240"
+        "next": [ "LVstep240", "LVstep239" ]
     },
     "LVstep240": {
         "recognition": {
@@ -3927,7 +3938,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep241"
+        "next": [ "LVstep241", "LVstep240" ]
     },
     "LVstep241": {
         "recognition": {
@@ -3943,7 +3954,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep242"
+        "next": [ "LVstep242", "LVstep241" ]
     },
     "LVstep242": {
         "recognition": {
@@ -3962,7 +3973,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep243"
+        "next": [ "LVstep243", "LVstep242" ]
     },
     "LVstep243": {
         "recognition": {
@@ -3978,7 +3989,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep244"
+        "next": [ "LVstep244", "LVstep243" ]
     },
     "LVstep244": {
         "recognition": {
@@ -3994,7 +4005,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep245"
+        "next": [ "LVstep245", "LVstep244" ]
     },
     "LVstep245": {
         "recognition": {
@@ -4013,7 +4024,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep246"
+        "next": [ "LVstep246", "LVstep245" ]
     },
     "LVstep246": {
         "recognition": {
@@ -4029,7 +4040,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep247"
+        "next": [ "LVstep247", "LVstep246" ]
     },
     "LVstep247": {
         "recognition": {
@@ -4039,7 +4050,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep248" ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep248", "LVstep247" ]
     },
     "LVstep248": {
         "recognition": {
@@ -4055,7 +4066,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep249"
+        "next": [ "LVstep249", "LVstep248" ]
     },
     "LVstep249": {
         "recognition": {
@@ -4065,7 +4076,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep250" ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep250", "LVstep249" ]
     },
     "LVstep250": {
         "recognition": {
@@ -4081,7 +4092,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep251"
+        "next": [ "LVstep251", "LVstep250" ]
     },
     "LVstep251": {
         "recognition": {
@@ -4091,7 +4102,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep252" ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep252", "LVstep251" ]
     },
     "LVstep252": {
         "recognition": {
@@ -4110,7 +4121,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep253"
+        "next": [ "LVstep253", "LVstep252" ]
     },
     "LVstep253": {
         "recognition": {
@@ -4126,7 +4137,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep254"
+        "next": [ "LVstep254", "LVstep253" ]
     },
     "LVstep254": {
         "recognition": {
@@ -4142,7 +4153,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep255"
+        "next": [ "LVstep255", "LVstep254" ]
     },
     "LVstep255": {
         "recognition": {
@@ -4158,7 +4169,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep256"
+        "next": [ "LVstep256", "LVstep255" ]
     },
     "LVstep256": {
         "recognition": {
@@ -4175,7 +4186,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep257"
+        "next": [ "LVstep257", "LVstep256" ]
     },
     "LVstep257": {
         "recognition": {
@@ -4191,7 +4202,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep258"
+        "next": [ "LVstep258", "LVstep257" ]
     },
     "LVstep258": {
         "recognition": {
@@ -4208,7 +4219,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep259"
+        "next": [ "LVstep259", "LVstep258" ]
     },
     "LVstep259": {
         "recognition": {
@@ -4224,7 +4235,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep260"
+        "next": [ "LVstep260", "LVstep259" ]
     },
     "LVstep260": {
         "recognition": {
@@ -4240,7 +4251,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep261"
+        "next": [ "LVstep261", "LVstep260" ]
     },
     "LVstep261": {
         "recognition": {
@@ -4259,7 +4270,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep262"
+        "next": [ "LVstep262", "LVstep261" ]
     },
     "LVstep262": {
         "post_delay": 3000,
@@ -4276,7 +4287,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep263"
+        "next": [ "LVstep263", "LVstep262" ]
     },
     "LVstep263": {
         "recognition": {
@@ -4292,7 +4303,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep264"
+        "next": [ "LVstep264", "LVstep263" ]
     },
     "LVstep264": {
         "recognition": {
@@ -4302,7 +4313,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep265" ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep265", "LVstep264" ]
     },
     "LVstep265": {
         "post_delay": 3000,
@@ -4319,7 +4330,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep266"
+        "next": [ "LVstep266", "LVstep265" ]
     },
     "LVstep266": {
         "post_delay": 3000,
@@ -4336,7 +4347,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep267"
+        "next": [ "LVstep267", "LVstep266" ]
     },
     "LVstep267": {
         "recognition": {
@@ -4352,7 +4363,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep268"
+        "next": [ "LVstep268", "LVstep267" ]
     },
     "LVstep268": {
         "recognition": {
@@ -4362,7 +4373,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep269" ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep269", "LVstep268" ]
     },
     "LVstep269": {
         "recognition": {
@@ -4378,7 +4389,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep270"
+        "next": [ "LVstep270", "LVstep269" ]
     },
     "LVstep270": {
         "recognition": {
@@ -4388,7 +4399,7 @@
                 "roi": [ 535, 393, 140, 120 ]
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "LVstep271" ]
+        "next": [ "[JumpBack]AutoBattle", "LVstep271", "LVstep270" ]
     },
     "LVstep271": {
         "post_delay": 3000,
@@ -4405,7 +4416,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep272"
+        "next": [ "LVstep272", "LVstep271" ]
     },
     "LVstep272": {
         "post_delay": 3000,
@@ -4422,7 +4433,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep273"
+        "next": [ "LVstep273", "LVstep272" ]
     },
     "LVstep273": {
         "recognition": {
@@ -4441,7 +4452,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep274"
+        "next": [ "LVstep274", "LVstep273" ]
     },
     "LVstep274": {
         "recognition": {
@@ -4460,7 +4471,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep275"
+        "next": [ "LVstep275", "LVstep274" ]
     },
     "LVstep275": {
         "recognition": {
@@ -4476,7 +4487,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep276"
+        "next": [ "LVstep276", "LVstep275" ]
     },
     "LVstep276": {
         "recognition": {
@@ -4492,7 +4503,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep277"
+        "next": [ "LVstep277", "LVstep276" ]
     },
     "LVstep277": {
         "recognition": {
@@ -4508,7 +4519,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep278"
+        "next": [ "LVstep278", "LVstep277" ]
     },
     "LVstep278": {
         "recognition": {
@@ -4524,7 +4535,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep279"
+        "next": [ "LVstep279", "LVstep278" ]
     },
     "LVstep279": {
         "recognition": {
@@ -4540,7 +4551,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LVstep280"
+        "next": [ "LVstep280", "LVstep279" ]
     },
     "LVstep280": {
         "recognition": {
@@ -4556,6 +4567,6 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "Login" ]
+        "next": [ "Login", "LVstep280" ]
     }
 }
