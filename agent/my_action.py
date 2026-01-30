@@ -89,7 +89,9 @@ class HandleLoginPopups(CustomAction):
                 print("检测到更新公告，尝试关闭")
                 box = reco_anno.best_result.box
                 x, y = box[0] + box[2] // 2, box[1] + box[3] // 2
+                time.sleep(0.2)
                 controller.post_click(x, y).wait()
+                time.sleep(0.2)
             
             # step2 检测【福利大厅】
             reco_welf = context.run_recognition(
@@ -113,6 +115,7 @@ class HandleLoginPopups(CustomAction):
                 controller.post_click(680, 400).wait()
                 time.sleep(0.2)
                 controller.post_click_key(27).wait()
+                time.sleep(0.2)
 
             # step3 检测【回归好礼】
             reco_retn = context.run_recognition(
@@ -136,6 +139,7 @@ class HandleLoginPopups(CustomAction):
                 controller.post_click(680, 400).wait()
                 time.sleep(0.2)
                 controller.post_click_key(27).wait()
+                time.sleep(0.2)
 
             if not flag:
                 print("弹窗已全部关闭")
