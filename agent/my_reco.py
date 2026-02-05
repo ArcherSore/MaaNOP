@@ -57,10 +57,6 @@ class ParseServerRange(CustomRecognition):
     输入: "978-1012,1015-1020"
     输出: [978, 979, ..., 1012, 1015, ..., 1020]
     """
-    def __init__(self):
-        super().__init__()
-        self.server_list: List[int] = []
-    
     def analyze(
         self, 
         context: Context, 
@@ -69,30 +65,32 @@ class ParseServerRange(CustomRecognition):
         server_range_str = argv.custom_recognition_param
         server_range_str = server_range_str.strip('"')
         
-        self.server_list = []
+        server_list = []
         for range_part in server_range_str.split(','):
             range_part = range_part.strip()
             if '-' in range_part:
                 start, end = map(int, range_part.split('-'))
-                self.server_list.extend(range(start, end + 1))
+                server_list.extend(range(start, end + 1))
             else:
-                self.server_list.append(int(range_part))
+                server_list.append(int(range_part))
 
-        print(f"服务器列表：{self.server_list}")
+        # print(f"服务器列表：{server_list}")
         
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 100, 100),
             detail={
-                "server_list": self.server_list,
+                "server_list": server_list,
             }
         )
-
 
 @AgentServer.custom_recognition("GetNextServer")
 class GetNextServer(CustomRecognition):
     """
     获取下一个要处理的服务器
     返回服务器 ID 或标记已完成
+    
+    首次调用：从 ParseServerRange 获取服务器列表
+    后续调用：从自己上一次的结果中获取服务器列表和索引
     """
     
     def analyze(
@@ -100,33 +98,52 @@ class GetNextServer(CustomRecognition):
         context: Context, 
         argv: CustomRecognition.AnalyzeArg
     ) -> CustomRecognition.AnalyzeResult:
-        # 获取 server_list 和 current_server_index
-        node_detail = context.tasker.get_latest_node("ParseServer")
-        server_list = node_detail.recognition.best_result.detail.get("server_list")
-        node_detail = context.tasker.get_latest_node("GetNextServer")
-        if not node_detail:
+        # 尝试获取自己上一次的结果
+        prev_node = context.tasker.get_latest_node("GetNextServer")
+        
+        if not prev_node or not prev_node.recognition:
+            # 首次调用：从 ParseServer 获取服务器列表
+            parse_node = context.tasker.get_latest_node("ParseServer")
+            if not parse_node or not parse_node.recognition:
+                return CustomRecognition.AnalyzeResult(
+                    box=None,
+                    detail={"error": "ParseServer not found"}
+                )
+            
+            server_list = parse_node.recognition.best_result.detail.get("server_list", [])
             current_server_index = 0
-        else :
-            current_server_index = node_detail.recognition.best_result.detail.get("server_index")
+            # print(f"首次获取服务器列表：{server_list}")
+        else:
+            # 后续调用：从自己上一次的结果中获取
+            prev_detail = prev_node.recognition.best_result.detail
+            server_list = prev_detail.get("server_list", [])
+            current_server_index = prev_detail.get("server_index", 0)
         
         if current_server_index >= len(server_list):
+            # todo add focus with pipelineoverride
+            # print("所有服务器已处理完成")
             return CustomRecognition.AnalyzeResult(
                 box=(0, 0, 0, 0),
                 detail={
+                    "server_list": server_list,
+                    "server_index": current_server_index,
+                    "server_cnt": len(server_list),
                     "finished": True
                 }
             )
         
+        # 获取当前服务器并递增索引
         current_server = server_list[current_server_index]
-        current_server_index += 1
+        next_server_index = current_server_index + 1
         
-        print(f"准备处理服务器 {current_server}")
+        # print(f"准备处理服务器 {current_server} ({next_server_index}/{len(server_list)})")
         
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),
             detail={
+                "server_list": server_list,
                 "server_id": current_server,
-                "server_index": current_server_index,
+                "server_index": next_server_index,
                 "server_cnt": len(server_list),
                 "finished": False
             }
@@ -148,7 +165,7 @@ class DetectServerPage(CustomRecognition):
         context: Context, 
         argv: CustomRecognition.AnalyzeArg
     ) -> CustomRecognition.AnalyzeResult:
-        # 获取targer_server
+        # 获取target_server
         node_detail = context.tasker.get_latest_node("GetNextServer")
         if not node_detail or not node_detail.recognition:
             return CustomRecognition.AnalyzeResult(
@@ -166,15 +183,9 @@ class DetectServerPage(CustomRecognition):
         expected = ".*1000.*" if target_server_id >= 1000 else ".*1-999.*"
         
         reco_detail = context.run_recognition(
-            "MyCheckPage",
+            "ChooseServerType",
             argv.image,
-            pipeline_override={
-                "MyCheckPage": {
-                    "recognition": "OCR",
-                    "roi": roi,
-                    "expected": [expected]
-                }
-            }
+            { "ChooseServerType": { "roi": roi, "expected": [expected] } }
         )
         
         return CustomRecognition.AnalyzeResult(
@@ -217,15 +228,9 @@ class LocateServerButton(CustomRecognition):
         roi = SERVER_ROI_MAP[target_server_id]
 
         reco_detail = context.run_recognition(
-            "MyServerButton",
+            "ChooseServerButton",
             argv.image,
-            pipeline_override={
-                "MyServerButton": {
-                    "recognition": "OCR",
-                    "roi": roi,
-                    "expected": f".*{target_server_id}.*"
-                }
-            }
+            { "ChooseServerButton": { "roi": roi, "expected": f".*{target_server_id}.*" } }
         )
 
         return CustomRecognition.AnalyzeResult(
@@ -285,21 +290,27 @@ class GenerateAccountName(CustomRecognition):
         self,
         context: Context,
         argv: CustomRecognition.AnalyzeArg
-    ) -> bool:
+    )  -> CustomRecognition.AnalyzeResult:
         # 获取当前 server_id
         node_detail = context.tasker.get_latest_node("GetNextServer")
         if not node_detail or not node_detail.recognition:
-            return False
+            return CustomRecognition.AnalyzeResult(
+                box=None,
+                detail={}
+            )
         server_id = node_detail.recognition.best_result.detail.get("server_id")
         if server_id is None:
-            return False
+            return CustomRecognition.AnalyzeResult(
+                box=None,
+                detail={}
+            )
         
         prefix = argv.custom_recognition_param
         prefix = prefix.strip('"')
 
         account_name = f"{prefix}_{server_id}"
 
-        print(f"账号名称: {account_name}")
+        # print(f"账号名称: {account_name}")
 
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),

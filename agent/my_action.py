@@ -24,22 +24,7 @@ class ScrollToTargetServer(CustomAction):
             controller = context.tasker.controller
             # 识别倒三角
             image = controller.post_screencap().wait().get()  
-            reco_detail = context.run_recognition(
-                "FindDownArrow",
-                image,
-                pipeline_override={
-                    "FindDownArrow": {  
-                        "recognition": {  
-                            "type": "TemplateMatch",  
-                            "param": {  
-                                "roi" : [867,475,98,107], 
-                                "template": "down_arrow.png",  
-                                "threshold": 0.8  
-                            }  
-                        }  
-                    }  
-                }
-            )
+            reco_detail = context.run_recognition("FindDownArrow", image)
 
             if reco_detail and reco_detail.hit and reco_detail.best_result:
                 box = reco_detail.best_result.box
@@ -69,21 +54,7 @@ class HandleLoginPopups(CustomAction):
 
             image = controller.post_screencap().wait().get()
             # step1 检测【更新公告】
-            reco_anno = context.run_recognition(
-                "CheckAnnouncement",
-                image,
-                pipeline_override={
-                    "CheckAnnouncement": {
-                        "recognition": {
-                            "type": "TemplateMatch",
-                            "param": {
-                                "template": [ "popup/closeanno.png" ],
-                                "roi" : [ 901, 297, 119, 117 ]
-                            }
-                        }
-                    }
-                }
-            )
+            reco_anno = context.run_recognition("CheckAnnouncement", image)
             if reco_anno and reco_anno.hit and reco_anno.best_result:
                 flag = True
                 print("检测到更新公告，尝试关闭")
@@ -94,21 +65,7 @@ class HandleLoginPopups(CustomAction):
                 time.sleep(0.2)
             
             # step2 检测【福利大厅】
-            reco_welf = context.run_recognition(
-                "CheckWelfare",
-                image,
-                pipeline_override={
-                    "CheckWelfare": {
-                        "recognition": {
-                            "type": "TemplateMatch",
-                            "param": {
-                                "template": [ "popup/welfare.png"],
-                                "roi": [ 806, 192, 145, 140 ]
-                            }
-                        }
-                    }
-                }
-            )
+            reco_welf = context.run_recognition("CheckWelfare", image)
             if reco_welf and reco_welf.hit and reco_welf.best_result:
                 flag = True
                 print("检测到福利大厅，尝试关闭")
@@ -118,21 +75,7 @@ class HandleLoginPopups(CustomAction):
                 time.sleep(0.2)
 
             # step3 检测【回归好礼】
-            reco_retn = context.run_recognition(
-                "CheckReturnGift",
-                image,
-                pipeline_override={
-                    "CheckReturnGift": {
-                        "recognition": {
-                            "type": "TemplateMatch",
-                            "param": {
-                                "template": "popup/return.png",
-                                "roi": [ 671, 182, 260, 136 ]
-                            }
-                        }
-                    }
-                }
-            )
+            reco_retn = context.run_recognition("CheckReturnGift", image)
             if reco_retn and reco_retn.hit and reco_retn.best_result:
                 flag = True
                 print("检测到回归好礼，尝试关闭")
@@ -169,7 +112,10 @@ class PreciseClick(CustomAction):
             return True  
         else:  
             return False
-        
+
+"""
+快速关闭登录弹窗
+"""
 @AgentServer.custom_action("fastESC")
 class FastESC(CustomAction):
 
@@ -185,28 +131,16 @@ class FastESC(CustomAction):
             time.sleep(0.2)
 
         image = controller.post_screencap().wait().get()
-        reco = context.run_recognition(
-            "CheckRemainPopup",
-            image,
-            pipeline_override={
-                "CheckRemainPopup": {
-                    "recognition": {
-                        "type": "TemplateMatch",
-                        "param": {
-                            "template": [ "popup/return.png" ],
-                            "roi": [ 671, 182, 260, 136 ],
-                            "order_by": "Score"
-                        }
-                    }
-                }
-            }
-        )
+        reco = context.run_recognition("CheckRemainPopup", image)
         if reco and reco.hit and reco.best_result:
             controller.post_click(680, 400).wait()
             time.sleep(0.2)
             controller.post_click_key(27).wait()
         return True
 
+"""
+账号注册时在文字框黏贴{prefix_serverid}的账号名称
+"""
 @AgentServer.custom_action("PasteAccountName")
 class PasteAccountName(CustomAction):
 

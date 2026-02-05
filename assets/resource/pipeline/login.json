@@ -81,7 +81,7 @@
         "next": "ChooseServer"
     },
     "ChooseServer": {
-        "post_delay": 2000,
+        "post_delay": 5000,
         "recognition": {
             "type": "Custom",
             "param": {
@@ -120,6 +120,71 @@
             "type": "Custom",
             "param": {
                 "custom_recognition": "AllCompleted"
+            }
+        }
+    },
+    "FindDownArrow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [ 867, 475, 98, 107 ],
+                "template": "down_arrow.png",
+                "threshold": 0.8
+            }
+        }
+    },
+    "CheckAnnouncement": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "popup/closeanno.png" ],
+                "roi": [ 901, 297, 119, 117 ]
+            }
+        }
+    },
+    "CheckWelfare": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "popup/welfare.png" ],
+                "roi": [ 806, 192, 145, 140 ]
+            }
+        }
+    },
+    "CheckReturnGift": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "popup/return.png",
+                "roi": [ 671, 182, 260, 136 ]
+            }
+        }
+    },
+    "CheckRemainPopup": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "popup/return.png" ],
+                "roi": [ 671, 182, 260, 136 ],
+                "order_by": "Score"
+            }
+        }
+    },
+    "ChooseServerType": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 0, 0, 0, 0 ],
+                "expected": [ "set in code" ]
+            }
+        }
+    },
+    "ChooseServerButton": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 0, 0, 0, 0 ],
+                "expected": [ "set in code" ]
             }
         }
     }
