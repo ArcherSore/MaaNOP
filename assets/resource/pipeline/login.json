@@ -187,5 +187,11 @@
                 "expected": [ "set in code" ]
             }
         }
+    },
+    "LoginMsg": {
+        "focus": {
+            "Node.Action.Succeeded": "Action msg set in code",
+            "Node.Recognition.Succeeded": "Recognition msg set in code"
+        }
     }
 }

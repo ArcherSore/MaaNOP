@@ -16,6 +16,9 @@
                 "custom_action": "PreciseClick"
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "开始领取邮件附件"
+        },
         "next": [ "ClickOnAttachments", "NoAttachments" ]
     },
     "ClickOnAttachments": {
@@ -49,6 +52,9 @@
                 "custom_action": "PreciseClick"
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "成功领取邮件附件"
+        },
         "next": "CloseAttachments"
     },
     "NoAttachments": {
@@ -59,6 +65,9 @@
                 "roi": [ 724, 516, 153, 122 ],
                 "threshold": 0.95
             }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "无需领取邮件附件"
         },
         "next": "CloseAttachments"
     },

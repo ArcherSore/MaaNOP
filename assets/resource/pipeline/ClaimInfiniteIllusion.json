@@ -16,6 +16,9 @@
                 "custom_action": "PreciseClick"
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "开始领取无幻象"
+        },
         "next": [ "InfiniteIllusionSweep1" ]
     },
     "InfiniteIllusionSweep1": {
@@ -40,6 +43,9 @@
             "param": {
                 "key": 27
             }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "成功扫荡力之试炼"
         },
         "next": "InfiniteIllusionSwitchTo2"
     },
@@ -82,6 +88,9 @@
                 "key": 27
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "成功扫荡心之试炼"
+        },
         "next": "InfiniteIllusionSwitchTo3"
     },
     "InfiniteIllusionSwitchTo3": {
@@ -122,6 +131,9 @@
             "param": {
                 "key": 27
             }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "成功扫荡意之试炼"
         },
         "next": "ExitInfiniteIllusion"
     },

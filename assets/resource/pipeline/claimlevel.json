@@ -19,6 +19,9 @@
                 "custom_action": "PreciseClick"
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "开始领取铜币经验"
+        },
         "next": [ "AtClaimLevel", "NoAtClaimLevel" ]
     },
     "NoAtClaimLevel": {
@@ -55,6 +58,9 @@
                 "roi": [ 699, 290, 153, 112 ]
             }
         },
+        "focus": {
+            "Node.Recognition.Succeeded": "不需要领取铜币经验"
+        },
         "inverse": true,
         "next": "ExitClaimLevel"
     },
@@ -87,6 +93,9 @@
             "param": {
                 "custom_action": "PreciseClick"
             }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "成功领取铜币经验"
         },
         "next": "ExitClaimLevel"
     },

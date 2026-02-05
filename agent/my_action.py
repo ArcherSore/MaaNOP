@@ -18,7 +18,7 @@ class ScrollToTargetServer(CustomAction):
         target_server_id = node_detail.recognition.best_result.detail.get("server_id")
         if target_server_id is None:
             return False
-        print(f"Scrolling to server ID: {target_server_id}")
+        # print(f"Scrolling to server ID: {target_server_id}")
 
         if target_server_id >= 1000:
             controller = context.tasker.controller
@@ -100,7 +100,7 @@ class PreciseClick(CustomAction):
     ) -> bool:
         box = argv.box
 
-        print(box)
+        # print(box)
           
         if box:  
             center_x = box[0] + box[2] // 2  

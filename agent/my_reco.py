@@ -136,7 +136,16 @@ class GetNextServer(CustomRecognition):
         current_server = server_list[current_server_index]
         next_server_index = current_server_index + 1
         
-        # print(f"准备处理服务器 {current_server} ({next_server_index}/{len(server_list)})")
+        context.run_action(
+            "LoginMsg",
+            pipeline_override={
+                "LoginMsg": {
+                    "focus": {
+                        "Node.Action.Succeeded": f"准备处理服务器 {current_server} ({next_server_index}/{len(server_list)})",
+                    }
+                }
+            }    
+        )
         
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),
@@ -310,7 +319,16 @@ class GenerateAccountName(CustomRecognition):
 
         account_name = f"{prefix}_{server_id}"
 
-        # print(f"账号名称: {account_name}")
+        run_detail = context.run_action(
+            "LoginMsg",
+            pipeline_override={
+                "LoginMsg": {
+                    "focus": {
+                        "Node.Action.Succeeded": f"生成账号名称: {account_name}",
+                    }
+                }
+            }    
+        )
 
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),
