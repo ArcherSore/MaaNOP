@@ -18,8 +18,6 @@ def main():
         
     socket_id = sys.argv[-1]
 
-    Tasker.set_reco_image_cache_limit(0) # 禁用缓存
-
     AgentServer.start_up(socket_id)
     AgentServer.join()
     AgentServer.shut_down()
