@@ -192,59 +192,16 @@
                 "custom_action": "ClickShoppingFriendOption"
             }
         },
-        "next": "GetNextShoppingFestivalGift"
+        "next": "ProcessShoppingFestivalGifts"
     },
-    "GetNextShoppingFestivalGift": {
-        "recognition": {
+    "ProcessShoppingFestivalGifts": {
+        "action": {
             "type": "Custom",
             "param": {
-                "custom_recognition": "GetNextShoppingFestivalGift"
-            }
-        },
-        "next": [ "AllShoppingFestivalGiftsCompleted", "ClickOnShoppingGiftSelect" ]
-    },
-    "AllShoppingFestivalGiftsCompleted": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "AllShoppingFestivalGiftsCompleted"
+                "custom_action": "ProcessShoppingFestivalGifts"
             }
         },
         "next": "FocusShoppingFestivalBeforeExit"
-    },
-    "ClickOnShoppingGiftSelect": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "shopping/select_button.png",
-                "roi": [ 663, 449, 113, 112 ]
-            }
-        },
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "PreciseClick"
-            }
-        },
-        "next": "ClickOnShoppingGiftOption"
-    },
-    "ClickOnShoppingGiftOption": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "ClickShoppingGiftOption"
-            }
-        },
-        "next": "AdjustAndSendShoppingGift"
-    },
-    "AdjustAndSendShoppingGift": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "AdjustAndSendShoppingGift"
-            }
-        },
-        "next": "GetNextShoppingFestivalGift"
     },
     "ShoppingFestivalPriceOCR": {
         "recognition": {
@@ -286,12 +243,12 @@
             }
         }
     },
-    "ShoppingFestivalCurrentSendCountOCR": {
+    "ShoppingFestivalGiftSelectTemplate": {
         "recognition": {
-            "type": "OCR",
+            "type": "TemplateMatch",
             "param": {
-                "roi": [ 756, 540, 20, 14 ],
-                "expected": [ ".*" ]
+                "template": "shopping/select_button.png",
+                "roi": [ 663, 449, 113, 112 ]
             }
         }
     },
@@ -300,7 +257,8 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "shopping/minus.png",
-                "roi": [ 712, 514, 66, 66 ]
+                "roi": [ 712, 514, 66, 66 ],
+                "threshold": 0.8
             }
         }
     },

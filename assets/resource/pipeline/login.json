@@ -121,6 +121,12 @@
         "next": "LoginPopupAppears"
     },
     "LoginPopupAppears": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "DetectLoginPopup"
+            }
+        },
         "next": "CloseLoginPopup"
     },
     "CloseLoginPopup": {

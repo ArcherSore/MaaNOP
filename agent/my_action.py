@@ -3,6 +3,23 @@ from maa.custom_action import CustomAction
 from maa.context import Context
 import time
 
+SHOPPING_GIFT_COUNT_ROIS = [
+    [573, 515, 13, 17],
+    [639, 515, 13, 15],
+    [703, 515, 16, 16],
+    [768, 516, 14, 15],
+    [835, 515, 13, 16],
+    [900, 516, 12, 14],
+]
+SHOPPING_GIFT_OPTION_CENTERS = [
+    [654, 564, 14, 13],
+    [654, 581, 13, 12],
+    [654, 598, 14, 12],
+    [654, 615, 13, 12],
+    [654, 631, 13, 12],
+    [655, 648, 12, 12],
+]
+
 
 def _click_box_center(context: Context, box) -> bool:
     if not box:
@@ -13,6 +30,26 @@ def _click_box_center(context: Context, box) -> bool:
     controller = context.tasker.controller
     controller.post_click(center_x, center_y).wait()
     return True
+
+
+def _run_login_message(context: Context, message: str) -> None:
+    context.run_action(
+        "LoginMsg",
+        pipeline_override={
+            "LoginMsg": {
+                "focus": {
+                    "Node.Action.Succeeded": message,
+                }
+            }
+        }
+    )
+
+
+def _recognize_box(context: Context, image, reco_name: str):
+    reco_detail = context.run_recognition(reco_name, image)
+    if not reco_detail or not reco_detail.hit or not reco_detail.best_result:
+        return None
+    return reco_detail.best_result.box
 
 @AgentServer.custom_action("ScrollToTargetServer")
 class ScrollToTargetServer(CustomAction):
@@ -249,90 +286,73 @@ class FocusShoppingFestivalBeforeExit(CustomAction):
         return _click_box_center(context, [680, 400, 1, 1])
 
 
-@AgentServer.custom_action("ClickShoppingGiftOption")
-class ClickShoppingGiftOption(CustomAction):
+@AgentServer.custom_action("ProcessShoppingFestivalGifts")
+class ProcessShoppingFestivalGifts(CustomAction):
 
     def run(
         self,
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
-        node_detail = context.tasker.get_latest_node("GetNextShoppingFestivalGift")
-        if not node_detail or not node_detail.recognition:
-            return False
-
-        option_center = node_detail.recognition.best_result.detail.get("gift_option_center")
-        if not option_center:
-            return False
-
-        return _click_box_center(context, option_center)
-
-
-@AgentServer.custom_action("AdjustAndSendShoppingGift")
-class AdjustAndSendShoppingGift(CustomAction):
-
-    def run(
-        self,
-        context: Context,
-        argv: CustomAction.RunArg,
-    ) -> bool:
-        node_detail = context.tasker.get_latest_node("GetNextShoppingFestivalGift")
-        if not node_detail or not node_detail.recognition:
-            return False
-
-        detail = node_detail.recognition.best_result.detail
-        target_count = detail.get("target_count")
-        gift_index = detail.get("gift_index")
-        if target_count is None:
-            return False
-
         controller = context.tasker.controller
-
-        for _ in range(6):
-            image = controller.post_screencap().wait().get()
-            current_reco = context.run_recognition("ShoppingFestivalCurrentSendCountOCR", image)
-            if not current_reco or not current_reco.hit or not current_reco.best_result:
-                return False
-
-            digits = "".join(ch for ch in (current_reco.best_result.text or "") if ch.isdigit())
-            if not digits:
-                return False
-
-            current_count = int(digits)
-            if current_count == target_count:
-                break
-
-            reco_name = (
-                "ShoppingFestivalMinusTemplate"
-                if current_count > target_count
-                else "ShoppingFestivalPlusTemplate"
-            )
-            button_reco = context.run_recognition(reco_name, image)
-            if not button_reco or not button_reco.hit or not button_reco.best_result:
-                return False
-
-            if not _click_box_center(context, button_reco.best_result.box):
-                return False
-            time.sleep(0.2)
-        else:
-            return False
-
         image = controller.post_screencap().wait().get()
-        send_reco = context.run_recognition("ShoppingFestivalSendTemplate", image)
-        if not send_reco or not send_reco.hit or not send_reco.best_result:
+
+        select_box = _recognize_box(context, image, "ShoppingFestivalGiftSelectTemplate")
+        minus_box = _recognize_box(context, image, "ShoppingFestivalMinusTemplate")
+        plus_box = _recognize_box(context, image, "ShoppingFestivalPlusTemplate")
+        send_box = _recognize_box(context, image, "ShoppingFestivalSendTemplate")
+        if not select_box or not minus_box or not plus_box or not send_box:
             return False
 
-        if not _click_box_center(context, send_reco.best_result.box):
-            return False
-
-        context.run_action(
-            "LoginMsg",
-            pipeline_override={
-                "LoginMsg": {
-                    "focus": {
-                        "Node.Action.Succeeded": f"已赠送第 {gift_index} 个文字，数量 {target_count}",
+        gift_targets = []
+        for index, gift_roi in enumerate(SHOPPING_GIFT_COUNT_ROIS, start=1):
+            reco_detail = context.run_recognition(
+                "ShoppingFestivalGiftCountOCR",
+                image,
+                {
+                    "ShoppingFestivalGiftCountOCR": {
+                        "roi": gift_roi,
                     }
                 }
-            }
-        )
+            )
+
+            gift_text = ""
+            if reco_detail and reco_detail.hit and reco_detail.best_result:
+                gift_text = reco_detail.best_result.text or ""
+
+            digits = "".join(ch for ch in gift_text if ch.isdigit())
+            target_count = int(digits) if digits in {"1", "2", "3"} else 0
+            _run_login_message(context, f"购物节第 {index} 个字需要赠送 {target_count}")
+
+            if target_count > 0:
+                gift_targets.append((index, target_count))
+
+        if not gift_targets:
+            _run_login_message(context, "购物节未识别到需要赠送的文字数量")
+            return True
+
+        current_count = 1
+        for index, target_count in gift_targets:
+            if not _click_box_center(context, select_box):
+                return False
+            time.sleep(0.2)
+
+            if not _click_box_center(context, SHOPPING_GIFT_OPTION_CENTERS[index - 1]):
+                return False
+            time.sleep(0.2)
+
+            delta = target_count - current_count
+            button_box = plus_box if delta > 0 else minus_box
+            for _ in range(abs(delta)):
+                if not _click_box_center(context, button_box):
+                    return False
+                time.sleep(0.2)
+
+            if not _click_box_center(context, send_box):
+                return False
+            time.sleep(0.2)
+
+            current_count = target_count
+            _run_login_message(context, f"已赠送第 {index} 个文字，数量 {target_count}")
+
         return True

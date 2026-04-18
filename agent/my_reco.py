@@ -12,22 +12,6 @@ SHOPPING_SLOT_ROIS = [
     [741, 408, 174, 93],
 ]
 SHOPPING_PRICE_OFFSET = [148, 44, 20, 15]
-SHOPPING_GIFT_COUNT_ROIS = [
-    [573, 515, 13, 17],
-    [639, 515, 13, 15],
-    [703, 515, 16, 16],
-    [768, 516, 14, 15],
-    [835, 515, 13, 16],
-    [900, 516, 12, 14],
-]
-SHOPPING_GIFT_OPTION_CENTERS = [
-    [654, 564, 14, 13],
-    [654, 581, 13, 12],
-    [654, 598, 14, 12],
-    [654, 615, 13, 12],
-    [654, 631, 13, 12],
-    [655, 648, 12, 12],
-]
 
 # 服务器ID到ROI的映射表
 SERVER_ROI_MAP = {
@@ -381,13 +365,6 @@ def _get_selected_shopping_detail(context: Context):
     return node_detail.recognition.best_result.detail
 
 
-def _get_latest_shopping_gift_detail(context: Context):
-    node_detail = context.tasker.get_latest_node("GetNextShoppingFestivalGift")
-    if not node_detail or not node_detail.recognition:
-        return None
-    return node_detail.recognition.best_result.detail
-
-
 def _get_task_mode(context: Context):
     shopping_node = context.tasker.get_latest_node("SetShoppingFestivalTaskMode")
     if shopping_node and shopping_node.recognition:
@@ -604,87 +581,10 @@ class IsShoppingFestivalTask(CustomRecognition):
         )
 
 
-@AgentServer.custom_recognition("GetNextShoppingFestivalGift")
-class GetNextShoppingFestivalGift(CustomRecognition):
+@AgentServer.custom_recognition("DetectLoginPopup")
+class DetectLoginPopup(CustomRecognition):
     """
-    扫描六个文字数量，并逐个返回需要赠送的目标
-    """
-
-    def analyze(
-        self,
-        context: Context,
-        argv: CustomRecognition.AnalyzeArg
-    ) -> CustomRecognition.AnalyzeResult:
-        prev_detail = _get_latest_shopping_gift_detail(context)
-        if not prev_detail:
-            gift_targets = []
-            for index, gift_roi in enumerate(SHOPPING_GIFT_COUNT_ROIS, start=1):
-                reco_detail = context.run_recognition(
-                    "ShoppingFestivalGiftCountOCR",
-                    argv.image,
-                    {
-                        "ShoppingFestivalGiftCountOCR": {
-                            "roi": gift_roi,
-                        }
-                    }
-                )
-
-                gift_text = ""
-                if reco_detail and reco_detail.hit and reco_detail.best_result:
-                    gift_text = reco_detail.best_result.text or ""
-
-                digits = "".join(ch for ch in gift_text if ch.isdigit())
-                gift_count = int(digits) if digits in {"1", "2", "3"} else 0
-                _send_focus_message(
-                    context,
-                    f"购物节第 {index} 个文字需赠送: {gift_count}"
-                )
-
-                if gift_count > 0:
-                    gift_targets.append(
-                        {
-                            "gift_index": index,
-                            "target_count": gift_count,
-                            "gift_count_roi": gift_roi,
-                            "gift_option_center": SHOPPING_GIFT_OPTION_CENTERS[index - 1],
-                        }
-                    )
-            current_target_index = 0
-        else:
-            gift_targets = prev_detail.get("gift_targets", [])
-            current_target_index = prev_detail.get("target_index", 0)
-
-        if current_target_index >= len(gift_targets):
-            return CustomRecognition.AnalyzeResult(
-                box=(0, 0, 0, 0),
-                detail={
-                    "gift_targets": gift_targets,
-                    "target_index": current_target_index,
-                    "finished": True,
-                }
-            )
-
-        current_target = gift_targets[current_target_index]
-        next_target_index = current_target_index + 1
-        _send_focus_message(
-            context,
-            f"准备赠送第 {current_target['gift_index']} 个文字，数量 {current_target['target_count']}"
-        )
-        return CustomRecognition.AnalyzeResult(
-            box=(0, 0, 0, 0),
-            detail={
-                "gift_targets": gift_targets,
-                "target_index": next_target_index,
-                "finished": False,
-                **current_target,
-            }
-        )
-
-
-@AgentServer.custom_recognition("AllShoppingFestivalGiftsCompleted")
-class AllShoppingFestivalGiftsCompleted(CustomRecognition):
-    """
-    判断购物节所有文字是否已处理完成
+    检测登录后的三类弹窗，只要命中任意一个就认为弹窗出现
     """
 
     def analyze(
@@ -692,11 +592,13 @@ class AllShoppingFestivalGiftsCompleted(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg
     ) -> CustomRecognition.AnalyzeResult:
-        latest_detail = _get_latest_shopping_gift_detail(context)
-        if not latest_detail or not latest_detail.get("finished"):
-            return CustomRecognition.AnalyzeResult(box=None, detail={})
+        for reco_name in ["CheckAnnouncement", "CheckWelfare", "CheckReturnGift"]:
+            reco_detail = context.run_recognition(reco_name, argv.image)
+            if reco_detail and reco_detail.hit and reco_detail.best_result:
+                return CustomRecognition.AnalyzeResult(
+                    box=reco_detail.best_result.box,
+                    detail={"popup_type": reco_name}
+                )
 
-        return CustomRecognition.AnalyzeResult(
-            box=(0, 0, 0, 0),
-            detail={"finished": True}
-        )
+        return CustomRecognition.AnalyzeResult(box=None, detail={})
+
