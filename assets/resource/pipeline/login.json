@@ -118,34 +118,9 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "RouteShoppingFestivalAfterLogin", "RouteTrainingAfterLogin", "LoginPopupAppears" ]
-    },
-    "RouteShoppingFestivalAfterLogin": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "IsShoppingFestivalTask"
-            }
-        },
-        "next": "ShoppingFestivalEntry"
-    },
-    "RouteTrainingAfterLogin": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "IsTrainingTask"
-            }
-        },
-        "next": "LevelingEntry"
+        "next": "LoginPopupAppears"
     },
     "LoginPopupAppears": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "popup/welfare.png", "popup/return.png", "popup/announcement.png" ],
-                "roi": [ 541, 187, 402, 244 ]
-            }
-        },
         "next": "CloseLoginPopup"
     },
     "CloseLoginPopup": {
