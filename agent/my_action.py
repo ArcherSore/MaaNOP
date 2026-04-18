@@ -78,9 +78,9 @@ class ScrollToTargetServer(CustomAction):
                 box = reco_detail.best_result.box
                 x, y = box[0] + box[2] // 2, box[1] + box[3] // 2
                 
-                controller.post_click(x, y).wait
+                controller.post_click(x, y).wait()
                 time.sleep(0.2)
-                controller.post_click(x, y).wait
+                controller.post_click(x, y).wait()
             else:
                 print("未识别到 down_arrow.png")
                 return False
