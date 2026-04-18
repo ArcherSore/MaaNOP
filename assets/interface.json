@@ -44,8 +44,6 @@
     "option": {
         "服务器选择": {
             "type": "input",
-            "label": "服务器范围",
-            "description": "请输入服务器范围",
             "inputs": [
                 {
                     "name": "server_range",
@@ -237,12 +235,11 @@
         },
         "购物节好友名称": {
             "type": "input",
-            "label": "购物节好友名称",
-            "description": "购物节赠送对象名称",
             "inputs": [
                 {
                     "name": "shopping_friend_name",
                     "label": "购物节好友名称",
+                    "description": "购物节赠送对象名称",
                     "default": "",
                     "pipeline_type": "string"
                 }

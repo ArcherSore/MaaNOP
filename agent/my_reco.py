@@ -412,10 +412,6 @@ class FindShoppingFestivalTarget(CustomRecognition):
 
             digits = "".join(ch for ch in price_text if ch.isdigit())
             price = int(digits) if digits else 0
-            _send_focus_message(
-                context,
-                f"购物节槽位 {index} 识别数值: {price if price else '无效'}"
-            )
 
             if price > 0 and SHOPPING_TOTAL % price == 0:
                 quantity = SHOPPING_TOTAL // price
@@ -516,7 +512,6 @@ class GenerateShoppingFriendName(CustomRecognition):
         argv: CustomRecognition.AnalyzeArg
     ) -> CustomRecognition.AnalyzeResult:
         friend_name = (argv.custom_recognition_param or "").strip('"')
-        _send_focus_message(context, f"购物节好友名称: {friend_name}")
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),
             detail={"friend_name": friend_name}
