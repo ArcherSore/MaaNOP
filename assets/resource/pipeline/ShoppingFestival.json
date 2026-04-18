@@ -1,0 +1,343 @@
+{
+    "ShoppingFestivalEntry": {
+        "next": [ "ClickOnShoppingHotspot" ]
+    },
+    "ClickOnShoppingHotspot": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/hotspot.png",
+                "roi": [ 295, 51, 116, 117 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "开始进入木叶购物节"
+        },
+        "next": "ClickOnShoppingEntry"
+    },
+    "ClickOnShoppingEntry": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/entry.png",
+                "roi": [ 332, 271, 154, 113 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "已进入木叶购物节"
+        },
+        "next": "FindShoppingFestivalTarget"
+    },
+    "FindShoppingFestivalTarget": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindShoppingFestivalTarget"
+            }
+        },
+        "next": "ClickOnShoppingText"
+    },
+    "ClickOnShoppingText": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "LocateShoppingFestivalText"
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "repeat": 2,
+        "repeat_delay": 80,
+        "next": "PasteShoppingQuantity"
+    },
+    "PasteShoppingQuantity": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PasteShoppingQuantity"
+            }
+        },
+        "next": "ClickOnShoppingPurchase"
+    },
+    "ClickOnShoppingPurchase": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "LocateShoppingFestivalPurchase"
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "ClickOnShoppingConfirm"
+    },
+    "ClickOnShoppingConfirm": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/confirm.png",
+                "roi": [ 534, 370, 155, 121 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "已完成木叶购物节购买"
+        },
+        "next": "ClickOnShoppingLottery"
+    },
+    "ClickOnShoppingLottery": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/lottery.png",
+                "roi": [ 909, 303, 129, 133 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "ClickOnShoppingScratch"
+    },
+    "ClickOnShoppingScratch": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/scratch.png",
+                "roi": [ 635, 417, 203, 132 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "ClickOnShoppingReward"
+    },
+    "ClickOnShoppingReward": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/reward.png",
+                "roi": [ 908, 365, 133, 133 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "ClickOnShoppingFriendInput"
+    },
+    "ClickOnShoppingFriendInput": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "ClickShoppingFriendInput"
+            }
+        },
+        "next": "GetShoppingFriendName"
+    },
+    "GetShoppingFriendName": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "GenerateShoppingFriendName",
+                "custom_recognition_param": "{shopping_friend_name}"
+            }
+        },
+        "next": "PasteShoppingFriendName"
+    },
+    "PasteShoppingFriendName": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PasteShoppingFriendName"
+            }
+        },
+        "next": "ClickOnShoppingFriendName"
+    },
+    "ClickOnShoppingFriendName": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "ClickShoppingFriendOption"
+            }
+        },
+        "next": "GetNextShoppingFestivalGift"
+    },
+    "GetNextShoppingFestivalGift": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "GetNextShoppingFestivalGift"
+            }
+        },
+        "next": [ "AllShoppingFestivalGiftsCompleted", "ClickOnShoppingGiftSelect" ]
+    },
+    "AllShoppingFestivalGiftsCompleted": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "AllShoppingFestivalGiftsCompleted"
+            }
+        },
+        "next": "FocusShoppingFestivalBeforeExit"
+    },
+    "ClickOnShoppingGiftSelect": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/select_button.png",
+                "roi": [ 663, 449, 113, 112 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "ClickOnShoppingGiftOption"
+    },
+    "ClickOnShoppingGiftOption": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "ClickShoppingGiftOption"
+            }
+        },
+        "next": "AdjustAndSendShoppingGift"
+    },
+    "AdjustAndSendShoppingGift": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AdjustAndSendShoppingGift"
+            }
+        },
+        "next": "GetNextShoppingFestivalGift"
+    },
+    "ShoppingFestivalPriceOCR": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 0, 0, 0, 0 ],
+                "expected": [ ".*" ]
+            }
+        }
+    },
+    "ShoppingFestivalTextTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/text.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "ShoppingFestivalPurchaseTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/purchase.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "ShoppingFestivalGiftCountOCR": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 0, 0, 0, 0 ],
+                "expected": [ "1", "2", "3" ],
+                "order_by": "Expected",
+                "index": 0,
+                "only_rec": true,
+                "threshold": 0.3
+            }
+        }
+    },
+    "ShoppingFestivalCurrentSendCountOCR": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 756, 540, 20, 14 ],
+                "expected": [ ".*" ]
+            }
+        }
+    },
+    "ShoppingFestivalMinusTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/minus.png",
+                "roi": [ 712, 514, 66, 66 ]
+            }
+        }
+    },
+    "ShoppingFestivalPlusTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/plus.png",
+                "roi": [ 755, 515, 65, 64 ]
+            }
+        }
+    },
+    "ShoppingFestivalSendTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/send.png",
+                "roi": [ 779, 515, 90, 64 ]
+            }
+        }
+    },
+    "FocusShoppingFestivalBeforeExit": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "FocusShoppingFestivalBeforeExit"
+            }
+        },
+        "next": "ExitShoppingFestival"
+    },
+    "ExitShoppingFestival": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": [ "Login" ]
+    }
+}

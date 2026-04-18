@@ -449,3 +449,4 @@ tools/ImageCropper/**/*.png
 
 config
 debug
+.nicegui/

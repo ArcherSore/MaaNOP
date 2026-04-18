@@ -1,5 +1,28 @@
 {
     "AccountTraining": {
+        "next": "SetTrainingTaskMode"
+    },
+    "ShoppingFestivalTask": {
+        "next": "SetShoppingFestivalTaskMode"
+    },
+    "SetTrainingTaskMode": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "SetTaskMode",
+                "custom_recognition_param": "training"
+            }
+        },
+        "next": "ParseServer"
+    },
+    "SetShoppingFestivalTaskMode": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "SetTaskMode",
+                "custom_recognition_param": "shopping"
+            }
+        },
         "next": "ParseServer"
     },
     "ParseServer": {
@@ -36,7 +59,8 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "reselect.png",
-                "roi": [ 606, 545, 142, 112 ]
+                "roi": [ 606, 545, 142, 112 ],
+                "threshold": 0.6
             }
         },
         "action": {
@@ -94,7 +118,25 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "LevelingEntry", "LoginPopupAppears" ]
+        "next": [ "RouteShoppingFestivalAfterLogin", "RouteTrainingAfterLogin", "LoginPopupAppears" ]
+    },
+    "RouteShoppingFestivalAfterLogin": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "IsShoppingFestivalTask"
+            }
+        },
+        "next": "ShoppingFestivalEntry"
+    },
+    "RouteTrainingAfterLogin": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "IsTrainingTask"
+            }
+        },
+        "next": "LevelingEntry"
     },
     "LoginPopupAppears": {
         "recognition": {
@@ -111,6 +153,24 @@
             "type": "Custom",
             "param": {
                 "custom_action": "HandleLoginPopups"
+            }
+        },
+        "next": [ "RouteShoppingFestivalAfterPopup", "RouteTrainingAfterPopup" ]
+    },
+    "RouteShoppingFestivalAfterPopup": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "IsShoppingFestivalTask"
+            }
+        },
+        "next": "ShoppingFestivalEntry"
+    },
+    "RouteTrainingAfterPopup": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "IsTrainingTask"
             }
         },
         "next": [ "ClaimReturnGiftEntry", "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry" ]
