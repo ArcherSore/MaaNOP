@@ -2,10 +2,14 @@ import sys
 
 from maa.agent.agent_server import AgentServer
 from maa.toolkit import Toolkit
-from maa.tasker import Tasker
 
-import my_action
-import my_reco
+import action_common
+import action_login
+import action_shopping
+import action_training
+import reco_login
+import reco_shopping
+import reco_training
 
 
 def main():
