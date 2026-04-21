@@ -154,7 +154,7 @@
                 "custom_recognition": "IsTrainingTask"
             }
         },
-        "next": [ "ClaimReturnGiftEntry", "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry" ]
+        "next": [ "ClaimReturnGiftEntry", "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
     },
     "AllServerCompleted": {
         "recognition": {
