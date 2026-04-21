@@ -3,7 +3,7 @@ from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
 from common import get_detail_value, get_latest_detail, has_node_hit, run_recognition, send_focus_message, strip_quotes
-from constants import SERVER_ROI_MAP
+from constants import SERVER_1000_LIST_ROI, SERVER_ROI_MAP
 
 
 @AgentServer.custom_recognition("ParseServerRange")
@@ -125,15 +125,18 @@ class LocateServerButton(CustomRecognition):
         if target_server_id is None:
             return CustomRecognition.AnalyzeResult(box=None, detail={})
 
-        roi = SERVER_ROI_MAP.get(target_server_id)
-        if roi is None:
-            return CustomRecognition.AnalyzeResult(
-                box=None,
-                detail={
-                    "server_id": target_server_id,
-                    "error": "Server ROI not configured",
-                },
-            )
+        if target_server_id >= 1000:
+            roi = SERVER_1000_LIST_ROI
+        else:
+            roi = SERVER_ROI_MAP.get(target_server_id)
+            if roi is None:
+                return CustomRecognition.AnalyzeResult(
+                    box=None,
+                    detail={
+                        "server_id": target_server_id,
+                        "error": "Server ROI not configured",
+                    },
+                )
 
         reco_detail = run_recognition(
             context,

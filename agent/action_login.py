@@ -4,7 +4,16 @@ from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
 
-from common import capture_image, click_box_center, click_key, click_point, get_detail_value, run_recognition
+from common import (
+    capture_image,
+    click_box_center,
+    click_key,
+    click_point,
+    get_detail_value,
+    run_recognition,
+    send_focus_message,
+)
+from constants import SERVER_1000_LIST_ROI, SERVER_1000_MAX_SCROLL_ATTEMPTS
 
 
 @AgentServer.custom_action("ScrollToTargetServer")
@@ -18,8 +27,25 @@ class ScrollToTargetServer(CustomAction):
         if target_server_id is None:
             return False
 
-        if target_server_id >= 1000:
+        if target_server_id < 1000:
+            return True
+
+        for attempt in range(SERVER_1000_MAX_SCROLL_ATTEMPTS + 1):
             image = capture_image(context)
+            reco_detail = run_recognition(
+                context,
+                "ChooseServerButton",
+                image,
+                {
+                    "ChooseServerButton": {
+                        "roi": SERVER_1000_LIST_ROI,
+                        "expected": f".*{target_server_id}.*",
+                    }
+                },
+            )
+            if reco_detail and reco_detail.hit and reco_detail.best_result:
+                return True
+
             down_arrow = run_recognition(context, "FindDownArrow", image)
             if not down_arrow or not down_arrow.hit or not down_arrow.best_result:
                 return False
@@ -28,9 +54,8 @@ class ScrollToTargetServer(CustomAction):
             if not click_box_center(context, box):
                 return False
             time.sleep(0.2)
-            return click_box_center(context, box)
 
-        return True
+        return False
 
 
 @AgentServer.custom_action("HandleLoginPopups")
