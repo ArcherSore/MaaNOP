@@ -19,15 +19,28 @@
         "focus": {
             "Node.Action.Succeeded": "开始领取邮件附件"
         },
+        "next": "WaitMailAttachmentButton"
+    },
+    "WaitMailAttachmentButton": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "mail/attachments.png", "mail/noattachments.png" ],
+                "roi": [ 775, 563, 65, 32 ],
+                "threshold": 0.75
+            }
+        },
         "next": [ "ClickOnAttachments", "NoAttachments" ]
     },
     "ClickOnAttachments": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "ColorMatch",
             "param": {
-                "template": "mail/attachments.png",
-                "roi": [ 725, 516, 152, 122 ],
-                "threshold": 0.95
+                "roi": [ 801, 567, 32, 12 ],
+                "method": 40,
+                "lower": [ 90, 80, 40 ],
+                "upper": [ 110, 255, 255 ],
+                "count": 110
             }
         },
         "action": {
@@ -36,6 +49,7 @@
                 "custom_action": "PreciseClick"
             }
         },
+        "pre_delay": 100,
         "next": "MailClaimAll"
     },
     "MailClaimAll": {
@@ -43,7 +57,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "mail/claimall.png",
-                "roi": [ 723, 491, 154, 121 ]
+                "roi": [ 755, 519, 98, 67 ]
             }
         },
         "action": {
@@ -55,15 +69,33 @@
         "focus": {
             "Node.Action.Succeeded": "成功领取邮件附件"
         },
+        "next": "MailDeleteAll"
+    },
+    "MailDeleteAll": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "mail/deleteall.png",
+                "roi": [ 676, 518, 98, 68 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
         "next": "CloseAttachments"
     },
     "NoAttachments": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "ColorMatch",
             "param": {
-                "template": "mail/noattachments.png",
-                "roi": [ 724, 516, 153, 122 ],
-                "threshold": 0.95
+                "roi": [ 801, 567, 32, 12 ],
+                "method": 40,
+                "lower": [ 0, 0, 40 ],
+                "upper": [ 179, 35, 180 ],
+                "count": 200
             }
         },
         "focus": {
