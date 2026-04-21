@@ -450,3 +450,4 @@ tools/ImageCropper/**/*.png
 config
 debug
 .nicegui/
+AGENTS.md
