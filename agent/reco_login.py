@@ -3,7 +3,7 @@ from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
 from common import get_detail_value, get_latest_detail, has_node_hit, run_recognition, send_focus_message, strip_quotes
-from constants import SERVER_1000_LIST_ROI, SERVER_ROI_MAP
+from constants import SERVER_1000_LIST_ROI
 
 
 @AgentServer.custom_recognition("ParseServerRange")
@@ -125,31 +125,23 @@ class LocateServerButton(CustomRecognition):
         if target_server_id is None:
             return CustomRecognition.AnalyzeResult(box=None, detail={})
 
-        if target_server_id >= 1000:
-            roi = SERVER_1000_LIST_ROI
-        else:
-            roi = SERVER_ROI_MAP.get(target_server_id)
-            if roi is None:
-                return CustomRecognition.AnalyzeResult(
-                    box=None,
-                    detail={
-                        "server_id": target_server_id,
-                        "error": "Server ROI not configured",
-                    },
-                )
-
         reco_detail = run_recognition(
             context,
             "ChooseServerButton",
             argv.image,
-            {"ChooseServerButton": {"roi": roi, "expected": f".*{target_server_id}.*"}},
+            {
+                "ChooseServerButton": {
+                    "roi": SERVER_1000_LIST_ROI,
+                    "expected": rf".*(^|[^0-9]){target_server_id}([^0-9]|$).*",
+                }
+            },
         )
 
         return CustomRecognition.AnalyzeResult(
             box=reco_detail.best_result.box if reco_detail and reco_detail.hit else None,
             detail={
                 "server_id": target_server_id,
-                "roi_used": roi,
+                "roi_used": SERVER_1000_LIST_ROI,
                 "ocr_result": reco_detail.best_result.text if reco_detail and reco_detail.hit else None,
                 "hit": reco_detail.hit if reco_detail else False,
             },

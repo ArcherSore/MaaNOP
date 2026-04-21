@@ -13,7 +13,14 @@ from common import (
     run_recognition,
     send_focus_message,
 )
-from constants import SERVER_1000_LIST_ROI, SERVER_1000_MAX_SCROLL_ATTEMPTS
+from constants import (
+    SERVER_1000_LIST_ROI,
+    SERVER_1000_SCROLL_CLICKS_PER_ATTEMPT,
+    SERVER_1000_SEARCH_ATTEMPTS,
+    SERVER_1_999_SCROLL_CLICKS_PER_ATTEMPT,
+    SERVER_1_999_SEARCH_ATTEMPTS,
+    SERVER_SCROLL_CLICK_INTERVAL,
+)
 
 
 @AgentServer.custom_action("ScrollToTargetServer")
@@ -27,10 +34,14 @@ class ScrollToTargetServer(CustomAction):
         if target_server_id is None:
             return False
 
-        if target_server_id < 1000:
-            return True
+        if target_server_id >= 1000:
+            max_search_attempts = SERVER_1000_SEARCH_ATTEMPTS
+            scroll_clicks_per_attempt = SERVER_1000_SCROLL_CLICKS_PER_ATTEMPT
+        else:
+            max_search_attempts = SERVER_1_999_SEARCH_ATTEMPTS
+            scroll_clicks_per_attempt = SERVER_1_999_SCROLL_CLICKS_PER_ATTEMPT
 
-        for attempt in range(SERVER_1000_MAX_SCROLL_ATTEMPTS + 1):
+        for attempt in range(max_search_attempts):
             image = capture_image(context)
             reco_detail = run_recognition(
                 context,
@@ -39,21 +50,25 @@ class ScrollToTargetServer(CustomAction):
                 {
                     "ChooseServerButton": {
                         "roi": SERVER_1000_LIST_ROI,
-                        "expected": f".*{target_server_id}.*",
+                        "expected": rf".*(^|[^0-9]){target_server_id}([^0-9]|$).*",
                     }
                 },
             )
             if reco_detail and reco_detail.hit and reco_detail.best_result:
                 return True
 
+            if attempt == max_search_attempts - 1:
+                break
+
             down_arrow = run_recognition(context, "FindDownArrow", image)
             if not down_arrow or not down_arrow.hit or not down_arrow.best_result:
                 return False
 
             box = down_arrow.best_result.box
-            if not click_box_center(context, box):
-                return False
-            time.sleep(0.2)
+            for _ in range(scroll_clicks_per_attempt):
+                if not click_box_center(context, box):
+                    return False
+                time.sleep(SERVER_SCROLL_CLICK_INTERVAL)
 
         return False
 
