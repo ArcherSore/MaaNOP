@@ -9,9 +9,9 @@ from common import (
     click_box_center,
     click_key,
     click_point,
+    find_server_ocr_result,
     get_detail_value,
     run_recognition,
-    send_focus_message,
 )
 from constants import (
     SERVER_1000_LIST_ROI,
@@ -54,7 +54,8 @@ class ScrollToTargetServer(CustomAction):
                     }
                 },
             )
-            if reco_detail and reco_detail.hit and reco_detail.best_result:
+            matched_result, _ = find_server_ocr_result(reco_detail, target_server_id)
+            if matched_result:
                 return True
 
             if attempt == max_search_attempts - 1:

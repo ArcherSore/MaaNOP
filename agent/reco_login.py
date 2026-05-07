@@ -2,7 +2,15 @@ from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
-from common import get_detail_value, get_latest_detail, has_node_hit, run_recognition, send_focus_message, strip_quotes
+from common import (
+    find_server_ocr_result,
+    get_detail_value,
+    get_latest_detail,
+    has_node_hit,
+    run_recognition,
+    send_focus_message,
+    strip_quotes,
+)
 from constants import SERVER_1000_LIST_ROI
 
 
@@ -136,14 +144,16 @@ class LocateServerButton(CustomRecognition):
                 }
             },
         )
+        matched_result, match_mode = find_server_ocr_result(reco_detail, target_server_id)
 
         return CustomRecognition.AnalyzeResult(
-            box=reco_detail.best_result.box if reco_detail and reco_detail.hit else None,
+            box=matched_result.box if matched_result else None,
             detail={
                 "server_id": target_server_id,
                 "roi_used": SERVER_1000_LIST_ROI,
-                "ocr_result": reco_detail.best_result.text if reco_detail and reco_detail.hit else None,
-                "hit": reco_detail.hit if reco_detail else False,
+                "ocr_result": matched_result.text if matched_result else None,
+                "hit": bool(matched_result),
+                "match_mode": match_mode,
             },
         )
 
