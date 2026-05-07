@@ -26,7 +26,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "shopping/entry.png",
-                "roi": [ 332, 271, 154, 113 ]
+                "roi": [ 338, 277, 135, 288 ]
             }
         },
         "action": {
