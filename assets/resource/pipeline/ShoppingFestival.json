@@ -88,7 +88,23 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "ClickOnShoppingConfirm"
+        "next": [ "ClickOnShoppingInsufficientBalance", "ClickOnShoppingConfirm" ]
+    },
+    "ClickOnShoppingInsufficientBalance": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/insufficient_balance.png",
+                "roi": [ 693, 393, 73, 62 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "FocusShoppingFestivalBeforeExit"
     },
     "ClickOnShoppingConfirm": {
         "recognition": {
