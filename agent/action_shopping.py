@@ -99,15 +99,15 @@ class ProcessShoppingFestivalGifts(CustomAction):
 
             digits = parse_digits(gift_text)
             target_count = int(digits) if digits in {"1", "2", "3"} else 0
-            send_focus_message(context, f"购物节第 {index} 个字需要赠送 {target_count}")
 
             if target_count > 0:
                 gift_targets.append((index, target_count))
 
         if not gift_targets:
-            send_focus_message(context, "购物节未识别到需要赠送的文字数量")
+            send_focus_message(context, "购物节未识别到任何需要送字的数量")
             return True
 
+        gift_chars = ("木", "叶", "购", "物", "狂", "欢")
         current_count = 1
         for index, target_count in gift_targets:
             if not click_box_center(context, select_box):
@@ -132,6 +132,7 @@ class ProcessShoppingFestivalGifts(CustomAction):
             time.sleep(0.2)
 
             current_count = target_count
-            send_focus_message(context, f"已赠送第 {index} 个文字，数量 {target_count}")
+            gift_char = gift_chars[index - 1]
+            send_focus_message(context, f"已赠送 {gift_char} 字，数量 {target_count}")
 
         return True
