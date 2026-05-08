@@ -88,7 +88,23 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "ClickOnShoppingInsufficientBalance", "ClickOnShoppingConfirm" ]
+        "next": "ClickOnShoppingConfirm"
+    },
+    "ClickOnShoppingConfirm": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/confirm.png",
+                "roi": [ 534, 370, 155, 121 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "ClickOnShoppingInsufficientBalance", "ClickOnShoppingLottery" ]
     },
     "ClickOnShoppingInsufficientBalance": {
         "recognition": {
@@ -106,25 +122,6 @@
         },
         "next": "FocusShoppingFestivalBeforeExit"
     },
-    "ClickOnShoppingConfirm": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "shopping/confirm.png",
-                "roi": [ 534, 370, 155, 121 ]
-            }
-        },
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "PreciseClick"
-            }
-        },
-        "focus": {
-            "Node.Action.Succeeded": "已完成木叶购物节购买"
-        },
-        "next": "ClickOnShoppingLottery"
-    },
     "ClickOnShoppingLottery": {
         "recognition": {
             "type": "TemplateMatch",
@@ -133,11 +130,15 @@
                 "roi": [ 909, 303, 129, 133 ]
             }
         },
+
         "action": {
             "type": "Custom",
             "param": {
                 "custom_action": "PreciseClick"
             }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "已完成木叶购物节购买"
         },
         "next": "ClickOnShoppingScratch"
     },
