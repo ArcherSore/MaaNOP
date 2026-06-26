@@ -1,10 +1,12 @@
 {
     "interface_version": 2,
     "name": "MaaNOP",
-    "version": "v1.1.0",
+    "label": "MaaNOP",
+    "version": "v1.3.0",
     "controller": [
         {
-            "name": "桌面端",
+            "name": "Win32Desktop",
+            "label": "桌面端",
             "type": "Win32",
             "win32": {
                 "class_regex": ".*",
@@ -17,7 +19,8 @@
     ],
     "resource": [
         {
-            "name": "QQ游戏大厅",
+            "name": "QQGameHall",
+            "label": "QQ游戏大厅",
             "path": [ "./resource/" ]
         }
     ],
@@ -27,23 +30,27 @@
             "./agent/main.py"
         ]
     },
+    "global_option": [ "ServerRange" ],
     "task": [
         {
-            "name": "练小号",
+            "name": "AccountTraining",
+            "label": "练小号",
             "entry": "AccountTraining",
             "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 练级（小号1-16级）功能可以自动注册了，但是存在缓存问题未解决，长时间运行会导致脚本识别速度显著下降；中途卡住未发现导致脚本超时停止，无法中断继续，需要手动完成剩下部分</span><br><span>3. 领回归必须能领，否则勾选会出错</span><br><span>4. 领幻象必须要解锁，且不能弹窗战力已较大提升（如果有必须手动打一遍），否则勾选会出错</span><br><span>5. 领经验功能必须铜币足够，否则会出错</span>",
-            "option": [ "服务器选择", "练级", "领经验", "领邮件", "领幻象", "领回归" ]
+            "option": [ "LevelingEnabled", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
         },
         {
-            "name": "购物节送字",
+            "name": "ShoppingFestivalTask",
+            "label": "购物节送字",
             "entry": "ShoppingFestivalTask",
             "description": "<span>开始需要处于选服务器界面</span><br><span>任务会按服务器范围依次登录、处理登录弹窗，并执行木叶购物节送字流程</span>",
-            "option": [ "服务器选择", "购物节好友名称" ]
+            "option": [ "ShoppingFriendName" ]
         }
     ],
     "option": {
-        "服务器选择": {
+        "ServerRange": {
             "type": "input",
+            "label": "服务器选择",
             "inputs": [
                 {
                     "name": "server_range",
@@ -67,11 +74,17 @@
                 }
             }
         },
-        "练级": {
-            "type": "select",
+        "LevelingEnabled": {
+            "type": "switch",
             "label": "练级",
             "description": "自动升到16级",
+            "default_case": "No",
             "cases": [
+                {
+                    "name": "Yes",
+                    "label": "练级",
+                    "option": [ "AccountNamePrefix", "LevelingStartMode" ]
+                },
                 {
                     "name": "No",
                     "label": "不练级",
@@ -80,22 +93,33 @@
                             "enabled": false
                         }
                     }
-                },
-                {
-                    "name": "Yes",
-                    "label": "练级",
-                    "option": [ "练级起始步骤", "账号前缀" ]
                 }
             ]
         },
-        "练级起始步骤": {
-            "type": "input",
+        "LevelingStartMode": {
+            "type": "switch",
             "label": "起始步骤",
-            "description": "输入练级起始步骤",
+            "description": "默认从头开始；需要断点续跑时再启用并填写步骤节点",
+            "default_case": "No",
+            "cases": [
+                {
+                    "name": "No",
+                    "label": "从头开始"
+                },
+                {
+                    "name": "Yes",
+                    "label": "指定步骤",
+                    "option": [ "LevelingStartStep" ]
+                }
+            ]
+        },
+        "LevelingStartStep": {
+            "type": "input",
+            "label": "",
             "inputs": [
                 {
                     "name": "start_step",
-                    "label": "起始步骤",
+                    "label": "目标步骤",
                     "description": "请输入LVstepxxx格式的步骤名称",
                     "default": "LVstep001",
                     "pipeline_type": "string",
@@ -105,18 +129,18 @@
             ],
             "pipeline_override": {
                 "EnterGame": {
-                    "next": "{start_step}"
+                    "next": [ "{start_step}", "EnterGame" ]
                 }
             }
         },
-        "账号前缀": {
+        "AccountNamePrefix": {
             "type": "input",
-            "label": "账号前缀",
-            "description": "实际名称为{前缀}_{server_id}",
+            "label": "",
             "inputs": [
                 {
                     "name": "name_prefix",
                     "label": "账号前缀",
+                    "description": "格式如X1006",
                     "default": "X",
                     "pipeline_type": "string"
                 }
@@ -133,10 +157,11 @@
                 }
             }
         },
-        "领经验": {
+        "ClaimLevelExp": {
             "type": "switch",
             "label": "领经验",
             "description": "是否需要领取日常任务经验",
+            "default_case": "Yes",
             "cases": [
                 {
                     "name": "Yes",
@@ -153,30 +178,11 @@
                 }
             ]
         },
-        "领周年": {
-            "type": "switch",
-            "label": "领周年",
-            "description": "是否需要领取周年奖励",
-            "cases": [
-                {
-                    "name": "Yes",
-                    "label": "领取"
-                },
-                {
-                    "name": "No",
-                    "label": "不领取",
-                    "pipeline_override": {
-                        "TrendingEntry": {
-                            "enabled": false
-                        }
-                    }
-                }
-            ]
-        },
-        "领回归": {
+        "ClaimReturnGift": {
             "type": "switch",
             "label": "领回归",
             "description": "是否需要领取回归奖励",
+            "default_case": "Yes",
             "cases": [
                 {
                     "name": "Yes",
@@ -193,10 +199,11 @@
                 }
             ]
         },
-        "领邮件": {
+        "ClaimMail": {
             "type": "switch",
             "label": "领邮件",
             "description": "是否需要领取邮件附件",
+            "default_case": "Yes",
             "cases": [
                 {
                     "name": "Yes",
@@ -213,10 +220,11 @@
                 }
             ]
         },
-        "领幻象": {
+        "ClaimInfiniteIllusion": {
             "type": "switch",
             "label": "领幻象",
             "description": "是否需要领取幻象奖励",
+            "default_case": "Yes",
             "cases": [
                 {
                     "name": "Yes",
@@ -233,12 +241,13 @@
                 }
             ]
         },
-        "购物节好友名称": {
+        "ShoppingFriendName": {
             "type": "input",
+            "label": "购物节好友名称",
             "inputs": [
                 {
                     "name": "shopping_friend_name",
-                    "label": "购物节好友名称",
+                    "label": "好友名称",
                     "description": "购物节赠送对象名称",
                     "default": "",
                     "pipeline_type": "string"
