@@ -6,6 +6,7 @@ env:
   # - 设置 VERSION 为具体版本号时（如 v1.2.3），下载指定版本
   MAAFW_VERSION: ""
   MFAA_VERSION: ""
+  NARUTO_BASELINE_CONFIG: ".github/package-baselines.json"
 
 on:
   push:
@@ -15,6 +16,7 @@ on:
       - "**"
     paths:
       - ".github/workflows/install.yml"
+      - ".github/package-baselines.json"
       - "assets/**"
       - "**.py"
   pull_request:
@@ -22,6 +24,7 @@ on:
       - "**"
     paths:
       - ".github/workflows/install.yml"
+      - ".github/package-baselines.json"
       - "assets/**"
       - "**.py"
   workflow_dispatch:
@@ -82,6 +85,7 @@ jobs:
           submodules: true
 
       - name: Download MaaFramework
+        if: matrix.os != 'win' || matrix.arch != 'x86_64'
         uses: robinraju/release-downloader@v1
         with:
           repository: MaaXYZ/MaaFramework
@@ -92,7 +96,7 @@ jobs:
           extract: true
 
       - name: Download MFAAvalonia
-        if: matrix.os != 'android'
+        if: matrix.os != 'android' && (matrix.os != 'win' || matrix.arch != 'x86_64')
         id: download_mfa
         uses: robinraju/release-downloader@v1
         with:
@@ -104,7 +108,7 @@ jobs:
           extract: true
 
       - name: Clean up MFAAvalonia archive
-        if: matrix.os != 'android'
+        if: matrix.os != 'android' && (matrix.os != 'win' || matrix.arch != 'x86_64')
         shell: bash
         run: |
           ARCHIVE_FILE_PATH="${{ fromJson(steps.download_mfa.outputs.downloaded_files)[0] }}"
@@ -112,15 +116,45 @@ jobs:
           echo "Archive cleanup command executed for MFAAvalonia."
 
       - name: Remove built-in runtime in MFA
-        if: matrix.os != 'android'
+        if: matrix.os != 'android' && (matrix.os != 'win' || matrix.arch != 'x86_64')
         shell: bash
         run: |
           rm -rf MFA/runtimes
+
+      - name: Resolve pinned NarutoAutoGUI baseline
+        if: matrix.os == 'win' && matrix.arch == 'x86_64'
+        id: naruto_baseline
+        shell: bash
+        run: |
+          python tools/package_windows_x64.py baseline \
+            --config "$NARUTO_BASELINE_CONFIG" \
+            --github-output "$GITHUB_OUTPUT"
+
+      - name: Download pinned NarutoAutoGUI Release asset
+        if: matrix.os == 'win' && matrix.arch == 'x86_64'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NARUTO_REPOSITORY: ${{ steps.naruto_baseline.outputs.repository }}
+          NARUTO_TAG: ${{ steps.naruto_baseline.outputs.tag }}
+          NARUTO_ASSET: ${{ steps.naruto_baseline.outputs.asset_name }}
+        run: |
+          mkdir -p naruto
+          gh release download "$NARUTO_TAG" \
+            --repo "$NARUTO_REPOSITORY" \
+            --pattern "$NARUTO_ASSET" \
+            --dir naruto
       
       - name: Install
         shell: bash
         run: |
-          if [[ "${{ matrix.os }}" != "android" ]]; then
+          if [[ "${{ matrix.os }}" == "win" && "${{ matrix.arch }}" == "x86_64" ]]; then
+            python tools/package_windows_x64.py compose \
+              --archive "naruto/${{ steps.naruto_baseline.outputs.asset_name }}" \
+              --baseline "$NARUTO_BASELINE_CONFIG" \
+              --install install \
+              --package-version "${{ needs.meta.outputs.tag }}"
+          elif [[ "${{ matrix.os }}" != "android" ]]; then
             if [ -d "MFA" ]; then
               echo "Copying MFA files to install directory..."
               mkdir -p install
@@ -133,10 +167,21 @@ jobs:
             echo "Skipping copy MFA for Android."
           fi
 
-          cd tools/
-          python -m pip install -r ./requirements.txt
-          python ./install.py ${{ needs.meta.outputs.tag }} ${{ matrix.os }} ${{ matrix.arch }}
-          cd ..
+          if [[ "${{ matrix.os }}" != "win" || "${{ matrix.arch }}" != "x86_64" ]]; then
+            cd tools/
+            python -m pip install -r ./requirements.txt
+            python ./install.py ${{ needs.meta.outputs.tag }} ${{ matrix.os }} ${{ matrix.arch }}
+            cd ..
+          fi
+
+      - name: Validate final Windows x64 package
+        if: matrix.os == 'win' && matrix.arch == 'x86_64'
+        shell: bash
+        run: |
+          python tools/package_windows_x64.py validate \
+            --archive "naruto/${{ steps.naruto_baseline.outputs.asset_name }}" \
+            --baseline "$NARUTO_BASELINE_CONFIG" \
+            --install install
 
       - uses: actions/upload-artifact@v4
         with:
