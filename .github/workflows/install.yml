@@ -72,7 +72,7 @@ jobs:
 
   install:
     needs: meta
-    runs-on: ${{ (matrix.os == 'win' && 'windows-latest') || 'ubuntu-latest' }}
+    runs-on: ${{ (matrix.os == 'win' && matrix.arch == 'x86_64' && 'windows-latest') || 'ubuntu-latest' }}
     strategy:
       matrix:
         os: [win, macos, linux, android]
