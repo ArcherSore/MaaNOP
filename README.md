@@ -1,123 +1,88 @@
-<!-- markdownlint-disable MD033 MD041 -->
-<p align="center">
-  <img alt="LOGO" src="https://cdn.jsdelivr.net/gh/MaaAssistantArknights/design@main/logo/maa-logo_512x512.png" width="256" height="256" />
-</p>
+# MaaNOP
 
-<div align="center">
+MaaNOP 是基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 的《火影忍者 Online》自动化项目。
 
-# MaaPracticeBoilerplate
+> **特色：Windows 后台运行，不抢占鼠标。** 任务运行于独立 Windows Session，前台鼠标与键盘完全不受影响——挂机的同时照样办公、看视频、玩游戏。
 
-</div>
+## 下载与快速开始
 
-本仓库为 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 所提供的项目模板，开发者可基于此模板直接创建自己的 MaaXXX 项目。
+普通用户请直接从 [MaaNOP Releases](https://github.com/ArcherSore/MaaNOP/releases) 下载完整的 Windows x64 包，解压即可使用，无需自行编译。
 
-> **MaaFramework** 是基于图像识别技术、运用 [MAA](https://github.com/MaaAssistantArknights/MaaAssistantArknights) 开发经验去芜存菁、完全重写的新一代自动化黑盒测试框架。
-> 低代码的同时仍拥有高扩展性，旨在打造一款丰富、领先、且实用的开源库，助力开发者轻松编写出更好的黑盒测试程序，并推广普及。
+1. 从 [Releases](https://github.com/ArcherSore/MaaNOP/releases) 下载最新的 Windows x64 压缩包。
+2. 将压缩包**完整解压**到一个目录（不要只解压部分文件，也不要在压缩软件里直接双击运行）。
+3. 准备好**火影忍者 Online 客户端**，并登录到可进入游戏的账号（QQ游戏大厅和360游戏大厅目前不支持）。
+4. 双击运行解压目录中的 `NarutoAutoGUI.exe`。
+5. 按界面提示准备运行环境：以管理员身份运行、安装系统 Python 并执行 `pip install maafw`。
+6. 在界面中选择并配置要执行的任务与参数。
+7. 确认后开始任务，运行过程中可在界面查看实时预览与日志。
 
-## 即刻开始
+**当前运行环境要求：**
 
-- [📄 快速开始](https://github.com/MaaXYZ/MaaFramework/blob/main/docs/zh_cn/1.1-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md)
-- [🎞️ 视频教程](https://www.bilibili.com/video/BV1yr421E7MW)
+- Windows x64 系统
+- 管理员权限（用于窗口控制与后台会话）
+- 系统 Python 3（发行包不内置 Python 运行时）
+- `maa` Python 模块：`pip install maafw`
 
-## 如何开发
+## 当前功能
 
-0. 使用右上角 `Use this template` - `Create a new repository` 来基于本模板创建您自己的项目。
+MaaNOP 当前提供两个顶层任务，均可在 NarutoAutoGUI 中开关与配置。两者共享一个全局的**服务器范围**设置（格式如 `10-16,18-20`），任务会按该范围依次处理对应服务器。
 
-1. 克隆本项目及子项目（地址请修改为您基于本模板创建的新项目地址）。
+### 练小号
 
-    ```bash
-    git clone https://github.com/MaaXYZ/MaaPracticeBoilerplate.git
-    ```
+对应 `AccountTraining` 任务，用于批量培养新账号。主要能力是自动注册并练级（1～16 级），以及日常奖励的自动领取。关键可配置项：
 
-2. 下载 MaaFramework 的 [Release 包](https://github.com/MaaXYZ/MaaFramework/releases)，解压到 `deps` 文件夹中。
+- **练级开关**：开启后可设置账号前缀，并通过"起始步骤"从指定节点续跑。
+- **领取项**：日常经验、邮件附件、幻象奖励、回归奖励可分别开关。
 
-3. 下载通用资源子模块（MaaCommonAssets）
+### 购物节送字
 
-    ```bash
-    git submodule update --init --recursive
-    ```
+对应 `ShoppingFestivalTask` 任务，按设定的服务器范围依次登录、处理登录弹窗，并执行木叶购物节送字流程。关键可配置项：
 
-    请注意，子模块仓库体积较大，请确认您已经成功下载，否则后续 OCR（文字识别）将报错并无识别结果。  
-    若 git 命令始终无法成功下载，也可尝试前往 [Mirror酱](https://mirrorchyan.com/zh/projects?rid=MaaCommonAssets&source=ghtempl-readme) 手动下载后解压到 `assets/MaaCommonAssets` 文件夹中，目录结构为 `assets/MaaCommonAssets/OCR`。
+- **好友名称**：购物节赠送对象的好友名称。
 
-4. 配置资源文件。
+> 任务的具体执行节点会随版本调整，请以 `interface.json` 与界面中展示的选项为准，此处不逐一罗列。
 
-    ```bash
-    python ./configure.py
-    ```
+## 使用要求与已知限制
 
-    若报错 `File Not Found: XXXXXX`，则说明上一步 MaaCommonAssets 未正常下载，请再次检查！
+为避免误解，这里如实说明当前的真实限制：
 
-5. 进行开发工作，按您的业务需求修改 `assets` 中的资源文件，请参考 [MaaFramework 相关文档](https://github.com/MaaXYZ/MaaFramework/blob/main/docs/zh_cn/1.1-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md#%E8%B5%84%E6%BA%90%E5%87%86%E5%A4%87)。
+- 两个任务都要求从**选服务器界面**开始，请确保游戏停在正确界面再启动任务。
+- `AccountTraining` 长时间运行后存在**识别变慢**问题（缓存相关）；中途若卡住会触发超时停止，且无法直接中断续跑，需手动完成剩余部分。
+- 当前**断点恢复能力有限**：练级提供了"起始步骤"选项，但仅支持有限的续跑场景。
+- 部分**领取功能存在游戏内前置条件**：领回归需当前可领；领幻象需已解锁且未触发战力提升弹窗（若触发需先手动通关一次）；领经验需铜币充足。不满足时会报错。
 
-6. 完成开发后，上传您的代码并发布版本。
+## Windows GUI
 
-    ```bash
-    # 配置 git 信息（仅第一次需要，后续不用再配置）
-    git config user.name "您的 GitHub 昵称"
-    git config user.email "您的 GitHub 邮箱"
-    
-    # 提交修改
-    git add .
-    git commit -m "XX 新功能"
-    git push origin HEAD -u
-    ```
+[NarutoAutoGUI](https://github.com/ArcherSore/NarutoAutoGUI) 是 MaaNOP 在 Windows 上的图形前端，负责：
 
-7. 发布您的版本
+- 任务配置与参数填写
+- 运行控制（启动 / 停止）
+- Child Session（独立会话后台运行）
+- 实时画面预览（Preview）
+- 运行日志查看
 
-    需要**先**修改仓库设置 `Settings` - `Actions` - `General` - `Read and write permissions` - `Save`
+<!-- 截图占位（推荐）：NarutoAutoGUI 运行中界面——任务/参数 + Preview 实时画面 + 运行日志同框。 -->
 
-    ```bash
-    # CI 检测到 tag 会自动进行发版
-    git tag v1.0.0
-    git push origin v1.0.0
-    ```
+它通过 `interface.json` 读取 MaaNOP 的任务与选项，并以 Python 子进程方式拉起 `agent/main.py` 执行具体逻辑。
 
-8. 更多操作，请参考 [个性化配置](./docs/zh_cn/个性化配置.md)（可选）
+## 开发
 
-## 生态共建
+MaaNOP 基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 开发。如需参与开发：
 
-MAA 正计划建设为一类项目，而非舟的单一软件。
+- 仓库开发与格式化配置见 [`docs/zh_cn/个性化配置.md`](./docs/zh_cn/个性化配置.md)。
+- 核心目录：`assets/`（资源、图像、OCR 模型与 `interface.json`）、`agent/`（Python 任务执行逻辑，由 GUI 作为 Child Session 拉起）、`tools/`（打包与校验脚本）。
+- MaaFramework 本身的开发文档见其[仓库](https://github.com/MaaXYZ/MaaFramework)。
 
-若您的项目依赖于 MaaFramework，我们欢迎您将它命名为 MaaXXX, MXA, MAX 等等。当然，这是许可而不是限制，您也可以自由选择其他与 MAA 无关的名字，完全取决于您自己的想法！
+完整的编译流程与 CI 细节不在本 README 范围内，请参考仓库内对应目录。
 
-同时，我们也非常欢迎您提出 PR，在 [社区项目列表](https://github.com/MaaXYZ/MaaFramework#%E7%A4%BE%E5%8C%BA%E9%A1%B9%E7%9B%AE) 中添加上您的项目！
+## 遇到问题
 
-## FAQ
-
-### 0. 我是第一次使用 git，这是什么？视频演示中那个黑框框命令行哪来的？
-
-黑框框是 git bash，几乎任何现代软件的开发都离不开 git，建议先参考 [菜鸟教程](https://www.runoob.com/git/git-install-setup.html) 或搜索一些视频，学习完 git 后再来进行后续开发工作。
-
-### 1. 我是第一次使用 Python，在命令行输入 `python ./configure.py` 或 `python -m pip install MaaFW` 之后没有反应？没有报错，也没有提示成功，什么都没有
-
-Win10 或者 Win11 系统自带了一份 "Python"，但它其实只是一个安装器，是没法用的。  
-你需要做的是关闭它或者删除它的环境变量，然后自己去 Python 官网下载并安装一份 Python。  
-[参考方法](https://www.bilibili.com/read/cv24692025/)
-
-### 2. 使用 MaaDebugger 或 MaaPicli 时弹窗报错，应用程序错误：应用程序无法正常启动
-
-![缺少运行库](https://github.com/user-attachments/assets/942df84b-f47d-4bb5-98b5-ab5d44bc7c2a)
-
-一般是电脑缺少某些运行库，请安装一下 [vc_redist](https://aka.ms/vs/17/release/vc_redist.x64.exe) 。
-
-### 3. 我在这个仓库里提了 Issue 很久没人回复
-
-这里是《项目模板》仓库，它仅仅是一个模板，一般很少会修改，开发者也较少关注。  
-在此仓库请仅提问模板相关问题，其他问题最好前往对应的仓库提出，如果有 log，最好也带上它（`debug/maa.log` 文件）
-
-- MaaFW 本身及 MaaPiCli 的问题：[MaaFramework/issues](https://github.com/MaaXYZ/MaaFramework/issues)
-- MaaDebugger 的问题：[MaaDebugger/issues](https://github.com/MaaXYZ/MaaDebugger/issues)
-- 不知道算是哪里的、其他疑问等：[讨论区](https://github.com/MaaXYZ/MaaFramework/discussions)
-
-### 4. OCR 文字识别一直没有识别结果，报错 "Failed to load det or rec", "ocrer_ is null"
-
-**请仔细阅读文档**，你无视了前面步骤的报错。我不想解释了，请再把本文档仔细阅读一遍！
+- 运行日志可直接在 NarutoAutoGUI 界面查看；提交 Bug 时请附上日志与复现步骤。
+- 功能建议与问题反馈请前往 [Issues](https://github.com/ArcherSore/MaaNOP/issues)。
+- 与 MaaFramework 本身相关的问题，请前往 [MaaFramework Issues](https://github.com/MaaXYZ/MaaFramework/issues)。
 
 ## 鸣谢
 
-本项目由 **[MaaFramework](https://github.com/MaaXYZ/MaaFramework)** 强力驱动！
-
-感谢以下开发者对本项目作出的贡献（下面链接改成你自己的项目地址）:
-
-[![Contributors](https://contrib.rocks/image?repo=MaaXYZ/MaaFramework&max=1000)](https://github.com/MaaXYZ/MaaFramework/graphs/contributors)
+- 本项目由 **[MaaFramework](https://github.com/MaaXYZ/MaaFramework)** 强力驱动。
+- 后台运行、不抢占鼠标的实现思路受 **[BetterGI](https://github.com/babalae/better-genshin-impact) v0.63** 版本启发。
+- 感谢 MAA 社区积累的自动化实践经验。
