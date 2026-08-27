@@ -4,5 +4,11 @@
     "tag": "v1.1.0",
     "asset_name": "NarutoAutoGUI-win-x64-v1.1.0.zip",
     "sha256": "f09f3d7b78c2daf67cb4b522636065e0c7efe2ba0cc147f367fd9f69d811efa7"
+  },
+  "python_embed_windows_x64": {
+    "version": "3.12.9",
+    "asset_name": "python-3.12.9-embed-amd64.zip",
+    "url": "https://www.python.org/ftp/python/3.12.9/python-3.12.9-embed-amd64.zip",
+    "sha256": "615861fb801e8b04c847598db4e1e46e4b046295017caa37cb5486dde72b5865"
   }
 }
