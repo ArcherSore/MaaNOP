@@ -11,17 +11,15 @@ MaaNOP 是基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 的《�
 1. 从 [Releases](https://github.com/ArcherSore/MaaNOP/releases) 下载最新的 Windows x64 压缩包。
 2. 将压缩包**完整解压**到一个目录（不要只解压部分文件，也不要在压缩软件里直接双击运行）。
 3. 准备好**火影忍者 Online 客户端**，并登录到可进入游戏的账号（QQ游戏大厅和360游戏大厅目前不支持）。
-4. 双击运行解压目录中的 `NarutoAutoGUI.exe`。
-5. 按界面提示准备运行环境：以管理员身份运行、安装系统 Python 并执行 `pip install maafw`。
-6. 在界面中选择并配置要执行的任务与参数。
-7. 确认后开始任务，运行过程中可在界面查看实时预览与日志。
+4. 以管理员身份运行解压目录中的 `NarutoAutoGUI.exe`。
+5. 在界面中选择并配置要执行的任务与参数。
+6. 确认后开始任务，运行过程中可在界面查看实时预览与日志。
 
 **当前运行环境要求：**
 
-- Windows x64 系统
+- Windows 10 / Windows 11 x64 系统
 - 管理员权限（用于窗口控制与后台会话）
-- 系统 Python 3（发行包不内置 Python 运行时）
-- `maa` Python 模块：`pip install maafw`
+- Windows x64 发行包已内置 Python 运行时（Python 3.12.9）与 `maafw` 等 Agent 依赖，无需用户单独安装 Python、pip 或配置环境变量。
 
 ## 当前功能
 
