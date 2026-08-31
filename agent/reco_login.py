@@ -193,33 +193,54 @@ def _get_task_mode(context: Context, argv: CustomRecognition.AnalyzeArg):
     entry = argv.task_detail.entry
     if entry == "ShoppingFestivalTask":
         return "shopping"
-    if entry == "AccountTraining":
-        return "training"
+    if entry == "AccountLeveling":
+        return "leveling"
+    if entry == "AccountClaims":
+        return "claiming"
 
     if has_node_hit(context, "SetShoppingFestivalTaskMode"):
         shopping_mode = get_detail_value(context, "SetShoppingFestivalTaskMode", "task_mode")
         if shopping_mode:
             return shopping_mode
 
-    if has_node_hit(context, "SetTrainingTaskMode"):
-        return get_detail_value(context, "SetTrainingTaskMode", "task_mode")
+    if has_node_hit(context, "SetLevelingTaskMode"):
+        return get_detail_value(context, "SetLevelingTaskMode", "task_mode")
+
+    if has_node_hit(context, "SetClaimingTaskMode"):
+        return get_detail_value(context, "SetClaimingTaskMode", "task_mode")
 
     return None
 
 
-@AgentServer.custom_recognition("IsTrainingTask")
-class IsTrainingTask(CustomRecognition):
+@AgentServer.custom_recognition("IsLevelingTask")
+class IsLevelingTask(CustomRecognition):
     def analyze(
         self,
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        if _get_task_mode(context, argv) != "training":
+        if _get_task_mode(context, argv) != "leveling":
             return CustomRecognition.AnalyzeResult(box=None, detail={})
 
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),
-            detail={"task_mode": "training"},
+            detail={"task_mode": "leveling"},
+        )
+
+
+@AgentServer.custom_recognition("IsClaimingTask")
+class IsClaimingTask(CustomRecognition):
+    def analyze(
+        self,
+        context: Context,
+        argv: CustomRecognition.AnalyzeArg,
+    ) -> CustomRecognition.AnalyzeResult:
+        if _get_task_mode(context, argv) != "claiming":
+            return CustomRecognition.AnalyzeResult(box=None, detail={})
+
+        return CustomRecognition.AnalyzeResult(
+            box=(0, 0, 0, 0),
+            detail={"task_mode": "claiming"},
         )
 
 

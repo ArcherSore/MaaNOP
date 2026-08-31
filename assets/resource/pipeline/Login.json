@@ -1,16 +1,29 @@
 {
-    "AccountTraining": {
-        "next": "SetTrainingTaskMode"
+    "AccountLeveling": {
+        "next": "SetLevelingTaskMode"
+    },
+    "AccountClaims": {
+        "next": "SetClaimingTaskMode"
     },
     "ShoppingFestivalTask": {
         "next": "SetShoppingFestivalTaskMode"
     },
-    "SetTrainingTaskMode": {
+    "SetLevelingTaskMode": {
         "recognition": {
             "type": "Custom",
             "param": {
                 "custom_recognition": "SetTaskMode",
-                "custom_recognition_param": "training"
+                "custom_recognition_param": "leveling"
+            }
+        },
+        "next": "ParseServer"
+    },
+    "SetClaimingTaskMode": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "SetTaskMode",
+                "custom_recognition_param": "claiming"
             }
         },
         "next": "ParseServer"
@@ -118,7 +131,16 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "LoginPopupAppears"
+        "next": [ "RouteLevelingAfterServerSelection", "LoginPopupAppears" ]
+    },
+    "RouteLevelingAfterServerSelection": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "IsLevelingTask"
+            }
+        },
+        "next": "LevelingEntry"
     },
     "LoginPopupAppears": {
         "recognition": {
@@ -136,9 +158,12 @@
                 "custom_action": "HandleLoginPopups"
             }
         },
-        "next": [ "RouteShoppingFestivalAfterPopup", "RouteTrainingAfterPopup" ]
+        "next": "RouteAfterLogin"
     },
-    "RouteShoppingFestivalAfterPopup": {
+    "RouteAfterLogin": {
+        "next": [ "RouteShoppingFestivalAfterLogin", "RouteClaimingAfterLogin" ]
+    },
+    "RouteShoppingFestivalAfterLogin": {
         "recognition": {
             "type": "Custom",
             "param": {
@@ -147,11 +172,11 @@
         },
         "next": "ShoppingFestivalEntry"
     },
-    "RouteTrainingAfterPopup": {
+    "RouteClaimingAfterLogin": {
         "recognition": {
             "type": "Custom",
             "param": {
-                "custom_recognition": "IsTrainingTask"
+                "custom_recognition": "IsClaimingTask"
             }
         },
         "next": [ "ClaimReturnGiftEntry", "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "Login" ]

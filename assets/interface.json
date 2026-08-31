@@ -33,11 +33,18 @@
     "global_option": [ "ServerRange" ],
     "task": [
         {
-            "name": "AccountTraining",
-            "label": "练小号",
-            "entry": "AccountTraining",
-            "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 练级（小号1-16级）功能可以自动注册了，但是存在缓存问题未解决，长时间运行会导致脚本识别速度显著下降；中途卡住未发现导致脚本超时停止，无法中断继续，需要手动完成剩下部分</span><br><span>3. 领回归必须能领，否则勾选会出错</span><br><span>4. 领幻象必须要解锁，且不能弹窗战力已较大提升（如果有必须手动打一遍），否则勾选会出错</span><br><span>5. 领经验功能必须铜币足够，否则会出错</span>",
-            "option": [ "LevelingEnabled", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
+            "name": "AccountLeveling",
+            "label": "注册并练级",
+            "entry": "AccountLeveling",
+            "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 按服务器范围注册新账号并练到16级</span><br><span>3. 可通过起始步骤从指定练级节点开始执行</span>",
+            "option": [ "AccountNamePrefix", "LevelingStartMode" ]
+        },
+        {
+            "name": "AccountClaims",
+            "label": "批量领取",
+            "entry": "AccountClaims",
+            "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 面向已经注册并完成练级的账号，按服务器范围批量领取</span><br><span>3. 领回归、领幻象和领经验仍需满足各自的游戏内条件</span>",
+            "option": [ "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
         },
         {
             "name": "ShoppingFestivalTask",
@@ -73,28 +80,6 @@
                     }
                 }
             }
-        },
-        "LevelingEnabled": {
-            "type": "switch",
-            "label": "练级",
-            "description": "自动升到16级",
-            "default_case": "No",
-            "cases": [
-                {
-                    "name": "Yes",
-                    "label": "练级",
-                    "option": [ "AccountNamePrefix", "LevelingStartMode" ]
-                },
-                {
-                    "name": "No",
-                    "label": "不练级",
-                    "pipeline_override": {
-                        "LevelingEntry": {
-                            "enabled": false
-                        }
-                    }
-                }
-            ]
         },
         "LevelingStartMode": {
             "type": "switch",
