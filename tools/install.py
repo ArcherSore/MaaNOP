@@ -131,6 +131,15 @@ def install_chores():
         working_dir / "LICENSE",
         install_path,
     )
+    shutil.copy2(
+        working_dir / "THIRD_PARTY_NOTICES.md",
+        install_path,
+    )
+    shutil.copytree(
+        working_dir / "licenses",
+        install_path / "licenses",
+        dirs_exist_ok=True,
+    )
 
 
 def install_agent():
