@@ -6,7 +6,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "trend/system_hotspot.png",
+                "template": "trend/SystemHotspot.png",
                 "roi": [ 289, 47, 122, 119 ]
             }
         },
@@ -22,7 +22,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "trend/button_glorywelfare.png",
+                "template": "trend/ButtonGloryWelfare.png",
                 "roi": [ 889, 317, 124, 135 ]
             }
         },
@@ -38,7 +38,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "trend/button_claim.png",
+                "template": "trend/ButtonClaim.png",
                 "roi": [ 710, 407, 208, 132 ]
             }
         },

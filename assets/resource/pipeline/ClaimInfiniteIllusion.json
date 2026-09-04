@@ -6,7 +6,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "illusion/infiniteillusion.png",
+                "template": "illusion/InfiniteIllusion.png",
                 "roi": [ 650, 70, 466, 85 ]
             }
         },
@@ -25,7 +25,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "illusion/sweep.png",
+                "template": "illusion/Sweep.png",
                 "roi": [ 910, 575, 153, 122 ]
             }
         },
@@ -53,7 +53,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "illusion/tab2.png",
+                "template": "illusion/Tab2.png",
                 "roi": [ 440, 94, 135, 118 ]
             }
         },
@@ -69,7 +69,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "illusion/sweep.png",
+                "template": "illusion/Sweep.png",
                 "roi": [ 910, 575, 153, 122 ]
             }
         },
@@ -97,7 +97,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "illusion/tab3.png",
+                "template": "illusion/Tab3.png",
                 "roi": [ 504, 93, 133, 136 ]
             }
         },
@@ -113,7 +113,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "illusion/sweep.png",
+                "template": "illusion/Sweep.png",
                 "roi": [ 910, 575, 153, 122 ]
             }
         },

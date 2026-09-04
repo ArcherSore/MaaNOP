@@ -9,7 +9,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "system_gift.png",
+                "template": "common/entry/SystemGift.png",
                 "roi": [ 909, 81, 251, 59 ]
             }
         },
@@ -28,7 +28,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "off_claim_level.png",
+                "template": "claimLevel/OffClaimLevel.png",
                 "roi": [ 357, 423, 157, 116 ]
             }
         },
@@ -44,7 +44,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "flag_claim_level.png",
+                "template": "claimLevel/FlagClaimLevel.png",
                 "roi": [ 456, 289, 180, 115 ]
             }
         },
@@ -54,7 +54,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "button_claim_level.png",
+                "template": "claimLevel/ButtonClaimLevel.png",
                 "roi": [ 699, 290, 153, 112 ]
             }
         },
@@ -68,7 +68,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "button_claim_level.png",
+                "template": "claimLevel/ButtonClaimLevel.png",
                 "roi": [ 699, 290, 153, 112 ]
             }
         },
@@ -84,7 +84,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "button_yes.png",
+                "template": "claimLevel/ButtonYes.png",
                 "roi": [ 532, 372, 148, 114 ]
             }
         },

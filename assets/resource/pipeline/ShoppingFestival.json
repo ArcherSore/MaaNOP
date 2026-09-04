@@ -6,7 +6,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/hotspot.png",
+                "template": "shopping/Hotspot.png",
                 "roi": [ 295, 51, 116, 117 ]
             }
         },
@@ -25,7 +25,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/entry.png",
+                "template": "shopping/Entry.png",
                 "roi": [ 338, 277, 135, 288 ]
             }
         },
@@ -94,7 +94,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/confirm.png",
+                "template": "shopping/Confirm.png",
                 "roi": [ 534, 370, 155, 121 ]
             }
         },
@@ -110,7 +110,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/insufficient_balance.png",
+                "template": "shopping/InsufficientBalance.png",
                 "roi": [ 693, 393, 73, 62 ]
             }
         },
@@ -126,7 +126,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/lottery.png",
+                "template": "shopping/Lottery.png",
                 "roi": [ 909, 303, 129, 133 ]
             }
         },
@@ -146,7 +146,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/scratch.png",
+                "template": "shopping/Scratch.png",
                 "roi": [ 635, 417, 203, 132 ]
             }
         },
@@ -162,7 +162,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/reward.png",
+                "template": "shopping/Reward.png",
                 "roi": [ 908, 365, 133, 133 ]
             }
         },
@@ -233,7 +233,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/text.png",
+                "template": "shopping/Text.png",
                 "roi": [ 0, 0, 0, 0 ]
             }
         }
@@ -242,7 +242,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/purchase.png",
+                "template": "shopping/Purchase.png",
                 "roi": [ 0, 0, 0, 0 ]
             }
         }
@@ -264,7 +264,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/select_button.png",
+                "template": "shopping/SelectButton.png",
                 "roi": [ 663, 449, 113, 112 ]
             }
         }
@@ -273,7 +273,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/minus.png",
+                "template": "shopping/Minus.png",
                 "roi": [ 712, 514, 66, 66 ],
                 "threshold": 0.8
             }
@@ -283,7 +283,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/plus.png",
+                "template": "shopping/Plus.png",
                 "roi": [ 755, 515, 65, 64 ]
             }
         }
@@ -292,7 +292,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/send.png",
+                "template": "shopping/Send.png",
                 "roi": [ 779, 515, 90, 64 ]
             }
         }

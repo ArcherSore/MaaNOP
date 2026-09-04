@@ -6,7 +6,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "returngift/returngift.png",
+                "template": "returnGift/ReturnGift.png",
                 "roi": [ 908, 67, 212, 75 ]
             }
         },
@@ -25,7 +25,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "returngift/gifttab.png",
+                "template": "returnGift/GiftTab.png",
                 "roi": [ 458, 220, 172, 117 ]
             }
         },
@@ -41,7 +41,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "returngift/toclaim.png",
+                "template": "returnGift/ToClaim.png",
                 "roi": [ 420, 415, 134, 130 ]
             }
         },
@@ -51,7 +51,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "returngift/claimbutton.png",
+                "template": "returnGift/ClaimButton.png",
                 "roi": [ 572, 504, 165, 120 ]
             }
         },
@@ -67,7 +67,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "returngift/confirmbutton.png",
+                "template": "returnGift/ConfirmButton.png",
                 "roi": [ 588, 369, 152, 120 ]
             }
         },
@@ -86,7 +86,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "returngift/claimed.png",
+                "template": "returnGift/Claimed.png",
                 "roi": [ 417, 410, 139, 144 ]
             }
         },
