@@ -5,13 +5,19 @@ from maa.context import Context
 from common import (
     find_server_ocr_result,
     get_detail_value,
-    get_latest_detail,
     has_node_hit,
     run_recognition,
     send_focus_message,
     strip_quotes,
 )
 from constants import SERVER_1000_LIST_ROI
+from server_session import (
+    clear_server_session,
+    initialize_server_session,
+    is_server_session_finished,
+    parse_server_range_string,
+    take_next_server,
+)
 
 
 @AgentServer.custom_recognition("ParseServerRange")
@@ -22,17 +28,9 @@ class ParseServerRange(CustomRecognition):
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
         server_range_str = strip_quotes(argv.custom_recognition_param)
+        server_list = parse_server_range_string(server_range_str)
 
-        server_list = []
-        for range_part in server_range_str.split(","):
-            range_part = range_part.strip()
-            if not range_part:
-                continue
-            if "-" in range_part:
-                start, end = map(int, range_part.split("-"))
-                server_list.extend(range(start, end + 1))
-            else:
-                server_list.append(int(range_part))
+        initialize_server_session(argv.task_detail.task_id, server_list)
 
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 100, 100),
@@ -47,47 +45,22 @@ class GetNextServer(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        prev_detail = get_latest_detail(context, "GetNextServer")
-        if prev_detail is None:
-            parse_detail = get_latest_detail(context, "ParseServer")
-            if parse_detail is None:
-                return CustomRecognition.AnalyzeResult(
-                    box=None,
-                    detail={"error": "ParseServer not found"},
-                )
-            server_list = parse_detail.get("server_list", [])
-            current_server_index = 0
-        else:
-            server_list = prev_detail.get("server_list", [])
-            current_server_index = prev_detail.get("server_index", 0)
-
-        if current_server_index >= len(server_list):
+        result = take_next_server(argv.task_detail.task_id)
+        if result is None:
             return CustomRecognition.AnalyzeResult(
-                box=(0, 0, 0, 0),
-                detail={
-                    "server_list": server_list,
-                    "server_index": current_server_index,
-                    "server_cnt": len(server_list),
-                    "finished": True,
-                },
+                box=None,
+                detail={"error": "ServerSession not found"},
             )
 
-        current_server = server_list[current_server_index]
-        next_server_index = current_server_index + 1
-        send_focus_message(
-            context,
-            f"准备处理服务器 {current_server} ({next_server_index}/{len(server_list)})",
-        )
+        if not result.get("finished"):
+            send_focus_message(
+                context,
+                f"准备处理服务器 {result['server_id']} ({result['server_index']}/{result['server_cnt']})",
+            )
 
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),
-            detail={
-                "server_list": server_list,
-                "server_id": current_server,
-                "server_index": next_server_index,
-                "server_cnt": len(server_list),
-                "finished": False,
-            },
+            detail=result,
         )
 
 
@@ -165,9 +138,11 @@ class AllCompleted(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        finished = get_detail_value(context, "GetNextServer", "finished")
-        if not finished:
+        task_id = argv.task_detail.task_id
+        if not is_server_session_finished(task_id):
             return CustomRecognition.AnalyzeResult(box=None, detail={})
+
+        clear_server_session(task_id)
 
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),

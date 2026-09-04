@@ -189,6 +189,15 @@
             }
         }
     },
+    "ResetServerRuntime": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "ResetServerRuntime"
+            }
+        },
+        "next": [ "Login" ]
+    },
     "FindDownArrow": {
         "recognition": {
             "type": "TemplateMatch",

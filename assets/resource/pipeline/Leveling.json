@@ -3625,7 +3625,7 @@
                 "key": 27 // esc
             }
         },
-        "next": [ "CloseCompensation", "Login" ]
+        "next": [ "CloseCompensation", "ResetServerRuntime" ]
     },
     /* ---------------------------------------- common methods ---------------------------------------- */
     "CloseCenterPopups": {
