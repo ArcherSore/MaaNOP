@@ -120,27 +120,30 @@
                 "custom_action": "PreciseClick"
             }
         },
+        "focus": {
+            "Node.Action.Succeeded": "剩余点券 < 1500"
+        },
         "next": "FocusShoppingFestivalBeforeExit"
     },
     "ClickOnShoppingLottery": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "shopping/Lottery.png",
-                "roi": [ 909, 303, 129, 133 ]
+                "template": "shopping/Confirm.png",
+                "roi": [ 534, 370, 155, 121 ]
             }
         },
-
+        "inverse": true,
         "action": {
-            "type": "Custom",
+            "type": "Click",
             "param": {
-                "custom_action": "PreciseClick"
+                "target": [ 958, 353, 30, 27 ] // 刮刮卡button
             }
         },
         "focus": {
             "Node.Action.Succeeded": "已完成木叶购物节购买"
         },
-        "next": "ClickOnShoppingScratch"
+        "next": [ "ClickOnShoppingScratch", "ClickOnShoppingLottery" ]
     },
     "ClickOnShoppingScratch": {
         "recognition": {
