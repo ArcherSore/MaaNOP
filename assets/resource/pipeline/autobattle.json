@@ -3,8 +3,8 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "button_battle_start.png",
-                "roi": [ 535, 393, 140, 120 ]
+                "template": [ "leveling/flags/BattleStart.png", "leveling/flags/MaskedBattleStart.png" ],
+                "roi": [ 629, 81, 129, 113 ]
             }
         },
         "action": "Click",
@@ -14,52 +14,51 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "auto_on.png",
-                "roi": [ 793, 594, 135, 125 ]
+                "template": "common/battle/AutoOn.png",
+                "roi": [ 828, 620, 80, 80 ]
             }
         },
-        "next": "SpeedUp"
+        "next": [ "SpeedOn", "SpeedOff" ]
     },
     "AutoOff": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "auto_off.png",
-                "roi": [ 793, 594, 135, 125 ]
+                "template": "common/battle/AutoOff.png",
+                "roi": [ 828, 620, 80, 80 ]
             }
         },
         "action": "Click",
-        "next": "SpeedUp"
-    },
-    "SpeedUp": {
         "next": [ "SpeedOn", "SpeedOff" ]
     },
     "SpeedOn": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "speedup_on.png",
-                "roi": [ 886, 658, 22, 20 ]
+                "template": "common/battle/SpeedOn.png",
+                "roi": [ 870, 635, 69, 69 ]
             }
         },
-        "next": "AutoBattleEnd"
+        "timeout": 120000,
+        "next": [ "AutoBattleEnd" ]
     },
     "SpeedOff": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "speedup_off.png",
-                "roi": [ 886, 658, 22, 20 ]
+                "template": "common/battle/SpeedOff.png",
+                "roi": [ 870, 635, 69, 69 ]
             }
         },
         "action": "Click",
-        "next": "AutoBattleEnd"
+        "timeout": 120000,
+        "next": [ "AutoBattleEnd" ]
     },
     "AutoBattleEnd": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "flag_battle_end.png",
+                "template": "leveling/flags/BattleStart.png",
                 "roi": [ 629, 81, 129, 113 ]
             }
         },

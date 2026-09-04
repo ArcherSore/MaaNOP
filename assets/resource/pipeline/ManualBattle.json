@@ -1,0 +1,58 @@
+{
+    "ManualBattle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "leveling/flags/BattleStart.png", "leveling/flags/MaskedBattleStart.png" ],
+                "roi": [ 629, 81, 129, 113 ]
+            }
+        },
+        "next": [ "UseSkill1" ]
+    },
+    "UseSkill1": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 550, 638, 34, 34 ]
+            }
+        },
+        "next": [ "[JumpBack]SkipDialogue", "ManulBattleEnd", "UseSkill2" ]
+    },
+    "UseSkill2": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 627, 638, 34, 34 ]
+            }
+        },
+        "next": [ "[JumpBack]SkipDialogue", "ManulBattleEnd", "UseSkill3" ]
+    },
+    "UseSkill3": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 704, 638, 32, 33 ]
+            }
+        },
+        "next": [ "[JumpBack]SkipDialogue", "ManulBattleEnd", "UseSkill4" ]
+    },
+    "UseSkill4": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 781, 638, 34, 34 ]
+            }
+        },
+        "next": [ "[JumpBack]SkipDialogue", "ManulBattleEnd", "UseSkill1" ]
+    },
+    "ManulBattleEnd": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "leveling/flags/BattleStart.png",
+                "roi": [ 629, 81, 129, 113 ]
+            }
+        },
+        "inverse": true
+    }
+}

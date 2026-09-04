@@ -1,0 +1,37 @@
+{
+    "CloseBottomRightPopups": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 1290, 480, 50, 65 ],
+                                "method": 40,
+                                "lower": [ 0, 0, 120 ],
+                                "upper": [ 179, 255, 255 ],
+                                "count": 40,
+                                "connected": false
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "leveling/buttons/Close.png",
+                                "roi": [ 1290, 480, 50, 65 ]
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
+    }
+}

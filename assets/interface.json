@@ -25,7 +25,7 @@
         }
     ],
     "agent": {
-        "child_exec": "python",
+        "child_exec": "./python/python.exe",
         "child_args": [
             "./agent/main.py"
         ]
@@ -36,8 +36,8 @@
             "name": "AccountLeveling",
             "label": "注册并练级",
             "entry": "AccountLeveling",
-            "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 按服务器范围注册新账号并练到16级</span><br><span>3. 可通过起始步骤从指定练级节点开始执行</span>",
-            "option": [ "AccountNamePrefix", "LevelingStartMode" ]
+            "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 按服务器范围注册新账号并练到16级</span>",
+            "option": [ "AccountNamePrefix" ]
         },
         {
             "name": "AccountClaims",
@@ -78,43 +78,6 @@
                             "custom_recognition_param": "{server_range}"
                         }
                     }
-                }
-            }
-        },
-        "LevelingStartMode": {
-            "type": "switch",
-            "label": "起始步骤",
-            "description": "默认从头开始；需要断点续跑时再启用并填写步骤节点",
-            "default_case": "No",
-            "cases": [
-                {
-                    "name": "No",
-                    "label": "从头开始"
-                },
-                {
-                    "name": "Yes",
-                    "label": "指定步骤",
-                    "option": [ "LevelingStartStep" ]
-                }
-            ]
-        },
-        "LevelingStartStep": {
-            "type": "input",
-            "label": "",
-            "inputs": [
-                {
-                    "name": "start_step",
-                    "label": "目标步骤",
-                    "description": "请输入LVstepxxx格式的步骤名称",
-                    "default": "LVstep001",
-                    "pipeline_type": "string",
-                    "verify": "^LVstep\\d{3}$",
-                    "pattern_msg": "请输入正确格式: LVstepxxx"
-                }
-            ],
-            "pipeline_override": {
-                "EnterGame": {
-                    "next": [ "{start_step}", "EnterGame" ]
                 }
             }
         },
