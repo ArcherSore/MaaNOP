@@ -17,7 +17,7 @@ from configure import configure_ocr_model
 ROOT = Path(__file__).parent.parent.resolve()
 NARUTO_BASELINE_FIELDS = ("repository", "tag", "asset_name", "sha256")
 PYTHON_BASELINE_FIELDS = ("version", "asset_name", "url", "sha256")
-PAYLOAD_PATHS = ("interface.json", "resource", "agent", "README.md", "LICENSE", "python")
+PAYLOAD_PATHS = ("interface.json", "resource", "agent", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "licenses", "python")
 NARUTO_REQUIRED_FILES = (
     "NarutoAutoGUI.exe",
     "NarutoAutoGUI.dll",
@@ -261,8 +261,9 @@ def overlay_payload(install: Path, package_version: str) -> None:
         ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo"),
         dirs_exist_ok=True,
     )
-    for name in ("README.md", "LICENSE"):
+    for name in ("README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"):
         shutil.copy2(ROOT / name, install_dir / name)
+    shutil.copytree(ROOT / "licenses", install_dir / "licenses", dirs_exist_ok=True)
     shutil.copy2(ROOT / "assets" / "interface.json", install_dir / "interface.json")
 
     interface_path = install_dir / "interface.json"
