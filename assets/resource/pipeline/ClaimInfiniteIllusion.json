@@ -17,37 +17,41 @@
             }
         },
         "focus": {
-            "Node.Action.Succeeded": "开始领取无幻象"
+            "Node.Action.Succeeded": "开始领取无限幻象"
         },
-        "next": [ "InfiniteIllusionSweep1" ]
+        "next": [ "InfiniteIllusionSweep1", "ClickOnInfiniteIllusion" ]
     },
     "InfiniteIllusionSweep1": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "illusion/Sweep.png",
-                "roi": [ 910, 575, 153, 122 ]
+                "template": "illusion/Flag.png",
+                "roi": [ 441, 87, 62, 64 ]
             }
         },
         "action": {
-            "type": "Custom",
+            "type": "Click",
             "param": {
-                "custom_action": "PreciseClick"
+                "target": [ 969, 628, 51, 19 ] // 一键扫荡button
             }
         },
-        "next": "InfiniteIllusionConfirm1"
+        "next": [ "InfiniteIllusionConfirm1", "InfiniteIllusionSweep1" ]
     },
     "InfiniteIllusionConfirm1": {
-        "action": {
-            "type": "ClickKey",
+        "recognition": {
+            "type": "TemplateMatch",
             "param": {
-                "key": 27
+                "template": "illusion/CloseButton.png",
+                "roi": [ 833, 271, 68, 67 ]
             }
+        },
+        "action": {
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "成功扫荡力之试炼"
         },
-        "next": "InfiniteIllusionSwitchTo2"
+        "next": [ "InfiniteIllusionConfirm1", "InfiniteIllusionSwitchTo2" ]
     },
     "InfiniteIllusionSwitchTo2": {
         "recognition": {
@@ -63,35 +67,39 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "InfiniteIllusionSweep2" ]
+        "next": [ "InfiniteIllusionSweep2", "InfiniteIllusionSwitchTo2" ]
     },
     "InfiniteIllusionSweep2": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "illusion/Sweep.png",
-                "roi": [ 910, 575, 153, 122 ]
+                "template": "illusion/Flag.png",
+                "roi": [ 502, 88, 64, 63 ]
             }
         },
         "action": {
-            "type": "Custom",
+            "type": "Click",
             "param": {
-                "custom_action": "PreciseClick"
+                "target": [ 969, 628, 51, 19 ] // 一键扫荡button
             }
         },
-        "next": "InfiniteIllusionConfirm2"
+        "next": [ "InfiniteIllusionConfirm2", "InfiniteIllusionSweep2" ]
     },
     "InfiniteIllusionConfirm2": {
-        "action": {
-            "type": "ClickKey",
+        "recognition": {
+            "type": "TemplateMatch",
             "param": {
-                "key": 27
+                "template": "illusion/CloseButton.png",
+                "roi": [ 833, 271, 68, 67 ]
             }
+        },
+        "action": {
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "成功扫荡心之试炼"
         },
-        "next": "InfiniteIllusionSwitchTo3"
+        "next": [ "InfiniteIllusionConfirm2", "InfiniteIllusionSwitchTo3" ]
     },
     "InfiniteIllusionSwitchTo3": {
         "recognition": {
@@ -107,42 +115,50 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "InfiniteIllusionSweep3" ]
+        "next": [ "InfiniteIllusionSweep3", "InfiniteIllusionSwitchTo3" ]
     },
     "InfiniteIllusionSweep3": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "illusion/Sweep.png",
-                "roi": [ 910, 575, 153, 122 ]
+                "template": "illusion/Flag.png",
+                "roi": [ 566, 86, 63, 63 ]
             }
         },
         "action": {
-            "type": "Custom",
+            "type": "Click",
             "param": {
-                "custom_action": "PreciseClick"
+                "target": [ 969, 628, 51, 19 ] // 一键扫荡button
             }
         },
-        "next": "InfiniteIllusionConfirm3"
+        "next": [ "InfiniteIllusionConfirm3", "InfiniteIllusionSweep3" ]
     },
     "InfiniteIllusionConfirm3": {
-        "action": {
-            "type": "ClickKey",
+        "recognition": {
+            "type": "TemplateMatch",
             "param": {
-                "key": 27
+                "template": "illusion/CloseButton.png",
+                "roi": [ 833, 271, 68, 67 ]
             }
+        },
+        "action": {
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "成功扫荡意之试炼"
         },
-        "next": "ExitInfiniteIllusion"
+        "next": [ "InfiniteIllusionConfirm3", "ExitInfiniteIllusion" ]
     },
     "ExitInfiniteIllusion": {
-        "action": {
-            "type": "ClickKey",
+        "recognition": {
+            "type": "TemplateMatch",
             "param": {
-                "key": 27
+                "template": "illusion/CloseButton.png",
+                "roi": [ 1107, 77, 69, 67 ]
             }
+        },
+        "action": {
+            "type": "Click"
         },
         "next": [ "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
     }
