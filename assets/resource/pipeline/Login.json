@@ -51,7 +51,6 @@
         "next": [ "ReChooseServer", "RefreshPage" ]
     },
     "RefreshPage": {
-        "post_delay": 3000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -71,18 +70,17 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "common/login/Reselect.png",
-                "roi": [ 606, 545, 142, 112 ],
-                "threshold": 0.6
+                "template": "common/login/GameButton.png",
+                "roi": [ 578, 495, 207, 98 ]
             }
         },
         "action": {
-            "type": "Custom",
+            "type": "Click",
             "param": {
-                "custom_action": "PreciseClick"
+                "target": [ 665, 601, 33, 6 ] // 重新选区button
             }
         },
-        "next": "GetNextServer"
+        "next": [ "ReChooseServer", "GetNextServer" ]
     },
     "GetNextServer": {
         "recognition": {
@@ -118,7 +116,6 @@
         "next": "ChooseServer"
     },
     "ChooseServer": {
-        "post_delay": 5000,
         "recognition": {
             "type": "Custom",
             "param": {
