@@ -105,7 +105,7 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]CloseBottomRightPopups", "EquipGearFirst", "CompleteMainTask_踏上忍者之路" ]
+        "next": [ "EquipGearFirst", "[JumpBack]CloseBottomRightPopups", "CompleteMainTask_踏上忍者之路" ]
     },
     "EquipGearFirst": {
         "recognition": {
@@ -544,7 +544,7 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]CloseBottomRightPopups", "EquipGearSecond", "CompleteMainTask_木叶丸的行踪" ]
+        "next": [ "EquipGearSecond", "[JumpBack]CloseBottomRightPopups", "CompleteMainTask_木叶丸的行踪" ]
     },
     "EquipGearSecond": {
         "recognition": {
@@ -629,8 +629,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 5"
         },
-        "next": [ "[JumpBack]CloseNewSystemPopups", "[JumpBack]CloseBottomRightPopups", "ConfirmMainCharLevel5",
-            "EquipGearThird" ]
+        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmMainCharLevel5",
+            "EquipGearThird", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearThird": {
         "recognition": {
@@ -1915,7 +1915,6 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 35000,
         "next": [ "SkipDialogue_护送达兹纳" ]
     },
     "SkipDialogue_护送达兹纳": {
@@ -1926,6 +1925,7 @@
                 "roi": [ 909, 638, 79, 63 ]
             }
         },
+        "timeout": 35000,
         "action": {
             "type": "Click"
         },
@@ -2174,7 +2174,21 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel11", "CompleteMainTask_护送达兹纳" ]
+        "next": [ "AcceptMainTask_谨慎前行", "CompleteMainTask_护送达兹纳" ]
+    },
+    /* ---------------------------------------- main task 谨慎前行 start ---------------------------------------- */
+    "AcceptMainTask_谨慎前行": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "leveling/buttons/AcceptTask.png",
+                "roi": [ 739, 452, 93, 61 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [ "ConfirmMainCharLevel11", "AcceptMainTask_谨慎前行" ]
     },
     "ConfirmMainCharLevel11": {
         "recognition": {
@@ -2193,39 +2207,9 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 11"
         },
-        "next": [ "[JumpBack]CloseNewSystemPopups", "[JumpBack]SkipDialogue", "ConfirmMainCharLevel11",
-            "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_谨慎前行" ]
+        "next": [ "ConfirmMainCharLevel11", "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
+            "ClickOnCopy_谨慎前行" ]
     },
-    /* ---------------------------------------- main task 谨慎前行 start ---------------------------------------- */
-    // "ClickOnMainTask_谨慎前行": {
-    //     "recognition": {
-    //         "type": "TemplateMatch",
-    //         "param": {
-    //             "template": "leveling/flags/TaskListReady.png",
-    //             "roi": [ 1168, 257, 71, 68 ]
-    //         }
-    //     },
-    //     "action": {
-    //         "type": "Click",
-    //         "param": {
-    //             "target": [ 1218, 339, 80, 9 ] // MainTask_谨慎前行
-    //         }
-    //     },
-    //     "next": [ "AcceptMainTask_谨慎前行", "ClickOnMainTask_谨慎前行" ]
-    // },
-    // "AcceptMainTask_谨慎前行": {
-    //     "recognition": {
-    //         "type": "TemplateMatch",
-    //         "param": {
-    //             "template": "leveling/buttons/AcceptTask.png",
-    //             "roi": [ 739, 452, 93, 61 ]
-    //         }
-    //     },
-    //     "action": {
-    //         "type": "Click"
-    //     },
-    //     "next": [ "ClickOnCopy_谨慎前行", "AcceptMainTask_谨慎前行" ]
-    // },
     "ClickOnCopy_谨慎前行": {
         "recognition": {
             "type": "TemplateMatch",
