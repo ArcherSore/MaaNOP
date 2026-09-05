@@ -21,6 +21,7 @@ def parse_server_range_string(server_range_str: str) -> list[int]:
 class ServerSession:
     server_list: list[int]
     next_index: int = 0
+    finished: bool = False
 
 
 _sessions: dict[int, ServerSession] = {}
@@ -47,6 +48,7 @@ def take_next_server(task_id: int) -> Optional[dict]:
         server_list = list(session.server_list)
         server_cnt = len(server_list)
         if session.next_index >= server_cnt:
+            session.finished = True
             return {
                 "server_list": server_list,
                 "server_index": session.next_index,
@@ -55,6 +57,7 @@ def take_next_server(task_id: int) -> Optional[dict]:
             }
         server_id = server_list[session.next_index]
         session.next_index += 1
+        session.finished = False
         return {
             "server_list": server_list,
             "server_id": server_id,
@@ -69,7 +72,7 @@ def is_server_session_finished(task_id: int) -> bool:
         session = _sessions.get(int(task_id))
         if session is None:
             return False
-        return session.next_index >= len(session.server_list)
+        return session.finished
 
 
 def clear_server_session(task_id: int) -> None:
