@@ -3,11 +3,10 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [ "leveling/flags/BattleStart.png", "leveling/flags/MaskedBattleStart.png" ],
+                "template": "leveling/flags/BattleStart.png",
                 "roi": [ 629, 81, 129, 113 ]
             }
         },
-        "action": "Click",
         "next": [ "AutoOn", "AutoOff" ]
     },
     "AutoOn": {
@@ -58,10 +57,10 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "leveling/flags/BattleStart.png",
-                "roi": [ 629, 81, 129, 113 ]
+                "template": "leveling/flags/BattleEnd.png",
+                "roi": [ 1054, 624, 82, 79 ]
             }
         },
-        "inverse": true
+        "post_delay": 800
     }
 }
