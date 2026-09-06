@@ -34,15 +34,6 @@
                 "target": [ 704, 638, 32, 33 ]
             }
         },
-        "next": [ "[JumpBack]SkipDialogue", "ManulBattleEnd", "UseSkill4" ]
-    },
-    "UseSkill4": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 781, 638, 34, 34 ]
-            }
-        },
         "next": [ "[JumpBack]SkipDialogue", "ManulBattleEnd", "UseSkill1" ]
     },
     "ManulBattleEnd": {
