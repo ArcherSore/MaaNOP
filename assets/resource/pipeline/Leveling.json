@@ -105,6 +105,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "EquipGearFirst", "[JumpBack]CloseBottomRightPopups", "CompleteMainTask_踏上忍者之路" ]
     },
     "EquipGearFirst": {
@@ -142,9 +143,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -231,6 +232,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "ConfirmMainCharLevel3", "CompleteMainTask_新忍者登记" ]
     },
     "ConfirmMainCharLevel3": {
@@ -242,9 +244,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -277,6 +279,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "ClickOnRecruitment", "ClickOnCharacterSystem" ]
     },
     "ClickOnRecruitment": {
@@ -293,6 +296,7 @@
                 "target": [ 568, 468, 65, 18 ] // recruitment button
             }
         },
+        "post_delay": 700,
         "next": [ "ConfirmRecruitment", "ClickOnRecruitment" ]
     },
     "ConfirmRecruitment": {
@@ -364,6 +368,7 @@
                 "target": [ 1100, 109, 16, 13 ] // close button
             }
         },
+        "post_delay": 700,
         "next": [ "ClickOnMainTask_木叶丸的行踪" ]
     },
     "ClickOnMainTask_木叶丸的行踪": {
@@ -410,6 +415,7 @@
                 "target": [ 1287, 669, 41, 34 ] // copy entry
             }
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_木叶丸三人组", "ClickOnCopy_木叶丸三人组" ]
     },
     "EnterCopy_木叶丸三人组": {
@@ -426,6 +432,7 @@
                 "target": [ 547, 290, 73, 46 ] // copy_木叶丸三人组
             }
         },
+        "post_delay": 700,
         "next": [ "SkipDialogue_木叶丸三人组", "EnterCopy_木叶丸三人组" ]
     },
     "SkipDialogue_木叶丸三人组": {
@@ -481,9 +488,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -500,9 +507,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ClickOnMainTaskAgain_木叶丸的行踪", "ConfirmNarutoLevel4" ]
@@ -544,6 +551,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "EquipGearSecond", "[JumpBack]CloseBottomRightPopups", "CompleteMainTask_木叶丸的行踪" ]
     },
     "EquipGearSecond": {
@@ -610,6 +618,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "ConfirmMainCharLevel5", "CompleteMainTask_向伊鲁卡报告" ]
     },
     "ConfirmMainCharLevel5": {
@@ -621,9 +630,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -689,6 +698,7 @@
                 "target": [ 1287, 669, 41, 34 ] // copy entry
             }
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_宇智波佐助", "ClickOnCopy_宇智波佐助" ]
     },
     "EnterCopy_宇智波佐助": {
@@ -705,6 +715,7 @@
                 "target": [ 713, 295, 72, 38 ] // copy_宇智波佐助
             }
         },
+        "post_delay": 700,
         "next": [ "SkipDialogue_宇智波佐助", "EnterCopy_宇智波佐助" ]
     },
     "SkipDialogue_宇智波佐助": {
@@ -743,9 +754,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -762,9 +773,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoLevel6", "ClickOnMainTaskAgain_初遇佐助" ]
@@ -806,6 +817,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "CompleteMainTask_初遇佐助", "ClickOnCharacterSystemAgain" ]
     },
     "ClickOnCharacterSystemAgain": {
@@ -819,6 +831,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "ClickOnRecruitmentAgain", "ClickOnCharacterSystemAgain" ]
     },
     "ClickOnRecruitmentAgain": {
@@ -835,6 +848,7 @@
                 "target": [ 568, 468, 65, 18 ] // recruitment button
             }
         },
+        "post_delay": 700,
         "next": [ "ConfirmRecruitmentAgain", "ClickOnRecruitmentAgain" ]
     },
     "ConfirmRecruitmentAgain": {
@@ -951,6 +965,7 @@
                 "target": [ 1100, 109, 16, 13 ] // close button
             }
         },
+        "post_delay": 700,
         "next": [ "ClickOnMainTask_开始修炼", "ExitCharacterSystemAgain" ]
     },
     /* ---------------------------------------- main task 开始修炼 ---------------------------------------- */
@@ -1021,6 +1036,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 1000,
         "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "AcceptMainTask_击退来袭狼群",
             "CompleteMainTask_开始修炼" ]
     },
@@ -1053,6 +1069,7 @@
                 "target": [ 1287, 669, 41, 34 ] // copy entry
             }
         },
+        "post_delay": 700,
         "next": [ "[JumpBack]SkipDialogue", "EnterCopy_击退来袭狼群", "ClickOnCopy_击退来袭狼群" ]
     },
     "EnterCopy_击退来袭狼群": {
@@ -1069,6 +1086,7 @@
                 "target": [ 876, 299, 78, 36 ] // copy_狼群退治
             }
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_击退来袭狼群", "MoveToWolvesNoOne" ]
     },
     /* ---------------------------------------- copy 狼群退治 start ---------------------------------------- */
@@ -1182,9 +1200,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -1201,9 +1219,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoAfterSasukeLevel7", "ConfirmSasukeLevel7" ]
@@ -1217,9 +1235,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmNarutoAfterSasukeLevel7", "ClickOnMainCharSystem" ]
@@ -1233,9 +1251,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeAfterNarutoLevel7", "ConfirmNarutoLevel7" ]
@@ -1249,9 +1267,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmSasukeAfterNarutoLevel7", "ClickOnMainCharSystem" ]
@@ -1267,6 +1285,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "ClickOnTalent", "ClickOnMainCharSystem" ]
     },
     "ClickOnTalent": {
@@ -1283,6 +1302,7 @@
                 "target": [ 491, 578, 43, 13 ] // position of Talent
             }
         },
+        "post_delay": 700,
         "next": [ "ClickOnComboSkill3", "ClickOnTalent" ]
     },
     "ClickOnComboSkill3": {
@@ -1305,6 +1325,7 @@
                 "key": 27
             }
         },
+        "post_delay": 700,
         "next": [ "ExitMainCharSystem" ]
     },
     "ExitMainCharSystem": {
@@ -1314,6 +1335,7 @@
                 "key": 27
             }
         },
+        "post_delay": 700,
         "next": [ "ClickOnMainTask_击退来袭狼群" ]
     },
     "ClickOnMainTask_击退来袭狼群": {
@@ -1340,7 +1362,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 30000,
+        "timeout": 45000,
         "next": [ "CompleteMainTask_击退来袭狼群" ]
     },
     "CompleteMainTask_击退来袭狼群": {
@@ -1354,6 +1376,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "CompleteMainTask_击退来袭狼群",
             "ClickOnMainTask_联系阿斯玛" ]
     },
@@ -1395,6 +1418,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 1000,
         "next": [ "AcceptMainTask_合战演练", "CompleteMainTask_联系阿斯玛" ]
     },
     /* ---------------------------------------- main task 合战演练 start ---------------------------------------- */
@@ -1426,6 +1450,7 @@
                 "target": [ 1287, 669, 41, 34 ] // copy entry
             }
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_猪鹿蝶组合", "ClickOnCopy_合战演练" ]
     },
     /* ---------------------------------------- copy 猪鹿蝶组合 start ---------------------------------------- */
@@ -1443,6 +1468,7 @@
                 "target": [ 539, 402, 77, 37 ] // copy_猪鹿蝶组合
             }
         },
+        "post_delay": 700,
         "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "EnterCopy_猪鹿蝶组合", "MoveToInoShika" ]
     },
@@ -1529,14 +1555,15 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
             "Node.Recognition.Succeeded": "Level 8"
         },
+        "post_delay": 700,
         "next": [ "ConfirmNarutoLevel8", "ConfirmSasukeLevel8", "ConfirmMainCharLevel8" ]
     },
     "ConfirmNarutoLevel8": {
@@ -1548,9 +1575,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmSasukeLevel8", "ConfirmNarutoLevel8", "CompleteMainTask_合战演练" ]
@@ -1564,9 +1591,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmNarutoLevel8", "ConfirmSasukeLevel8", "CompleteMainTask_合战演练" ]
@@ -1582,6 +1609,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_前往生存试炼场",
             "CompleteMainTask_合战演练" ]
     },
@@ -1652,6 +1680,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 1000,
         "next": [ "AcceptMainTask_生存试炼", "CompleteMainTask_前往生存试炼场" ]
     },
     /* ---------------------------------------- main task 生存试炼 start ---------------------------------------- */
@@ -1677,9 +1706,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -1702,6 +1731,7 @@
                 "target": [ 1287, 669, 41, 34 ] // copy entry
             }
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_卡卡西的试炼", "ClickOnCopy_生存试炼" ]
     },
     "EnterCopy_卡卡西的试炼": {
@@ -1718,6 +1748,7 @@
                 "target": [ 709, 404, 71, 33 ] // copy_卡卡西的试炼
             }
         },
+        "post_delay": 700,
         "next": [ "[JumpBack]SkipDialogue", "EnterCopy_卡卡西的试炼", "MoveToKakashi" ]
     },
     /* ---------------------------------------- copy 卡卡西的试炼 start ---------------------------------------- */
@@ -1792,9 +1823,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoLevel9", "ConfirmSasukeLevel9", "CompleteMainTask_生存试炼" ]
@@ -1808,9 +1839,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeLevel9", "ConfirmNarutoLevel9", "CompleteMainTask_生存试炼" ]
@@ -1826,6 +1857,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "ConfirmMainCharLevel10", "CompleteMainTask_生存试炼" ]
     },
     /* ---------------------------------------- main task 生存试炼 finish ---------------------------------------- */
@@ -1838,9 +1870,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -1859,6 +1891,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "CompleteSideTask_等级达到10级" ]
     },
     "CompleteSideTask_等级达到10级": {
@@ -1872,6 +1905,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "ExitSideTask_通过第一章剧情副本", "CompleteSideTask_等级达到10级" ]
     },
     "ExitSideTask_通过第一章剧情副本": {
@@ -1915,6 +1949,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
+        "timeout": 60000,
         "next": [ "SkipDialogue_护送达兹纳" ]
     },
     "SkipDialogue_护送达兹纳": {
@@ -1925,7 +1960,6 @@
                 "roi": [ 909, 638, 79, 63 ]
             }
         },
-        "timeout": 35000,
         "action": {
             "type": "Click"
         },
@@ -1975,6 +2009,7 @@
                 "target": [ 1235, 340, 37, 7 ] // copy entry
             }
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_前往波之国", "ClickOnCopy_护送达兹纳" ]
     },
     "EnterCopy_前往波之国": {
@@ -1991,6 +2026,7 @@
                 "target": [ 533, 298, 75, 35 ] // copy_前往波之国
             }
         },
+        "post_delay": 700,
         "next": [ "[JumpBack]SkipDialogue", "MoveToLandOfWavesEnemies1" ]
     },
     /* ---------------------------------------- copy 前往波之国 start ---------------------------------------- */
@@ -2092,9 +2128,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoAfterSasukeLevel10", "ConfirmSasukeLevel10" ]
@@ -2108,9 +2144,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoAfterSasukeLevel10", "ClickOnMainTaskOnceAgain_护送达兹纳" ]
@@ -2124,9 +2160,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeAfterNarutoLevel10", "ConfirmNarutoLevel10" ]
@@ -2140,9 +2176,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeAfterNarutoLevel10", "ClickOnMainTaskOnceAgain_护送达兹纳" ]
@@ -2174,6 +2210,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 1000,
         "next": [ "AcceptMainTask_谨慎前行", "CompleteMainTask_护送达兹纳" ]
     },
     /* ---------------------------------------- main task 谨慎前行 start ---------------------------------------- */
@@ -2199,9 +2236,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -2225,6 +2262,7 @@
                 "target": [ 1287, 669, 41, 34 ] // copy entry
             }
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_海边侦察", "ClickOnCopy_谨慎前行" ]
     },
     "EnterCopy_海边侦察": {
@@ -2241,6 +2279,7 @@
                 "target": [ 702, 295, 82, 41 ] // copy_海边侦察
             }
         },
+        "post_delay": 700,
         "next": [ "MoveToSeasideEnemies1", "EnterCopy_海边侦察" ]
     },
     /* ---------------------------------------- copy 海边侦察 start ---------------------------------------- */
@@ -2370,9 +2409,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoAfterSasukeLevel11", "ConfirmSasukeLevel11" ]
@@ -2386,9 +2425,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoAfterSasukeLevel11", "ClickOnMainTaskAgain_谨慎前行" ]
@@ -2402,9 +2441,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeAfterNarutoLevel11", "ConfirmNarutoLevel11" ]
@@ -2418,9 +2457,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeAfterNarutoLevel11", "ClickOnMainTaskAgain_谨慎前行" ]
@@ -2491,6 +2530,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 1000,
         "next": [ "AcceptMainTask_鬼人再不斩", "CompleteMainTask_谨慎前行" ]
     },
     /* ---------------------------------------- main task 鬼人再不斩 start ---------------------------------------- */
@@ -2516,9 +2556,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -2551,6 +2591,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_鬼人再不斩", "ClickOnCopy_鬼人再不斩" ]
     },
     "EnterCopy_鬼人再不斩": {
@@ -2567,6 +2608,7 @@
                 "target": [ 873, 297, 84, 38 ] // copy_鬼人再不斩
             }
         },
+        "post_delay": 700,
         "next": [ "[JumpBack]SkipDialogue", "MoveToZabuzaSpecificPosition" ]
     },
     /* ---------------------------------------- copy 鬼人再不斩 start ---------------------------------------- */
@@ -2610,9 +2652,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoLevel12", "ConfirmSasukeLevel12", "SkipDialogue_鬼人再不斩" ]
@@ -2627,9 +2669,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeLevel12", "ConfirmNarutoLevel12", "SkipDialogue_鬼人再不斩" ]
@@ -2674,6 +2716,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 1000,
         "next": [ "AcceptMainTask_保护大桥", "CompleteMainTask_鬼人再不斩" ]
     },
     /* ---------------------------------------- main task 保护大桥 start ---------------------------------------- */
@@ -2699,9 +2742,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -2725,6 +2768,7 @@
                 "target": [ 1287, 669, 41, 34 ] // copy entry
             }
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_保护大桥", "ClickOnCopy_保护大桥" ]
     },
     "EnterCopy_保护大桥": {
@@ -2741,6 +2785,7 @@
                 "target": [ 534, 403, 81, 37 ]
             }
         },
+        "post_delay": 700,
         "next": [ "MoveToBridgeEnemies1", "EnterCopy_保护大桥" ]
     },
     /* ---------------------------------------- copy 保护大桥 start ---------------------------------------- */
@@ -2771,7 +2816,71 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]AutoBattle", "MoveToBridgeEnemies2" ]
+        "timeout": 120000,
+        "next": [ "SetupAutoBattleFirstTime", "MoveToBridgeEnemies2" ]
+    },
+    "SetupAutoBattleFirstTime": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "leveling/flags/BattleStart.png", "leveling/flags/MaskedBattleStart.png" ],
+                "roi": [ 629, 81, 129, 113 ]
+            }
+        },
+        "timeout": 15000,
+        "next": [ "AutoOnFirstTime", "AutoOffFirstTime" ]
+    },
+    "AutoOnFirstTime": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOn.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "timeout": 15000,
+        "next": [ "SpeedOnFirstTime", "SpeedOffFirstTime" ]
+    },
+    "AutoOffFirstTime": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOff.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 200,
+        "timeout": 15000,
+        "next": [ "SpeedOnFirstTime", "SpeedOffFirstTime" ]
+    },
+    "SpeedOnFirstTime": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOn.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "timeout": 120000,
+        "next": [ "MoveToBridgeEnemies2" ]
+    },
+    "SpeedOffFirstTime": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOff.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 200,
+        "timeout": 120000,
+        "next": [ "MoveToBridgeEnemies2" ]
     },
     "MoveToBridgeEnemies2": {
         "recognition": {
@@ -2800,7 +2909,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]AutoBattle", "MoveToBridgeEnemies3" ]
+        "timeout": 120000,
+        "next": [ "MoveToBridgeEnemies3" ]
     },
     "MoveToBridgeEnemies3": {
         "recognition": {
@@ -2816,7 +2926,8 @@
                 "target": [ 1211, 190, 11, 10 ] // position of Bridge Enemies 3
             }
         },
-        "next": [ "[JumpBack]HandleStartBattleButton", "[JumpBack]AutoBattle", "ConfirmCopyResults_保护大桥" ]
+        "timeout": 120000,
+        "next": [ "[JumpBack]HandleStartBattleButton", "ConfirmCopyResults_保护大桥" ]
     },
     "ConfirmCopyResults_保护大桥": {
         "recognition": {
@@ -2841,9 +2952,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoAfterSasukeLevel13", "ConfirmSasukeLevel13" ]
@@ -2857,9 +2968,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoAfterSasukeLevel13", "ClickOnMainTask_保护大桥" ]
@@ -2873,9 +2984,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeAfterNarutoLevel13", "ConfirmNarutoLevel13" ]
@@ -2889,9 +3000,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeAfterNarutoLevel13", "ClickOnMainTask_保护大桥" ]
@@ -2962,6 +3073,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 1000,
         "next": [ "AcceptMainTask_独自修行", "CompleteMainTask_保护大桥" ]
     },
     /* ---------------------------------------- main task 独自修行 start ---------------------------------------- */
@@ -2987,9 +3099,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -3008,6 +3120,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "CompleteSideTask_等级达到15级", "ClickOnCopy_独自修行" ]
     },
     "ClickOnCopy_独自修行": {
@@ -3025,6 +3138,7 @@
                 "target": [ 1287, 669, 41, 34 ] // copy entry
             }
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_独自修行", "ClickOnCopy_独自修行" ]
     },
     "EnterCopy_独自修行": {
@@ -3041,6 +3155,7 @@
                 "target": [ 706, 401, 79, 40 ]
             }
         },
+        "post_delay": 700,
         "next": [ "MoveToSoloTrainingEnemies1" ]
     },
     /* ---------------------------------------- copy 独自修行 start ---------------------------------------- */
@@ -3071,7 +3186,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]AutoBattle", "MoveToSoloTrainingEnemies2" ]
+        "timeout": 120000,
+        "next": [ "MoveToSoloTrainingEnemies2" ]
     },
     "MoveToSoloTrainingEnemies2": {
         "recognition": {
@@ -3100,7 +3216,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]AutoBattle", "MoveToSoloTrainingEnemies3" ]
+        "timeout": 120000,
+        "next": [ "MoveToSoloTrainingEnemies3" ]
     },
     "MoveToSoloTrainingEnemies3": {
         "recognition": {
@@ -3116,7 +3233,8 @@
                 "target": [ 1303, 206, 10, 7 ] // position of SoloTraining enemies 3
             }
         },
-        "next": [ "[JumpBack]AutoBattle", "ConfirmCopyResults_独自修行" ]
+        "timeout": 120000,
+        "next": [ "[JumpBack]HandleStartBattleButton", "ConfirmCopyResults_独自修行" ]
     },
     "ConfirmCopyResults_独自修行": {
         "recognition": {
@@ -3141,9 +3259,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoLevel15", "ConfirmSasukeLevel15", "CompleteMainTask_独自修行" ]
@@ -3157,9 +3275,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeLevel15", "ConfirmNarutoLevel15", "CompleteMainTask_独自修行" ]
@@ -3175,6 +3293,7 @@
         "action": {
             "type": "Click"
         },
+        "post_delay": 700,
         "next": [ "CompleteMainTask_独自修行", "ClickOnMainTask_捉兔大赛" ]
     },
     /* ---------------------------------------- main task 捉兔大赛 start ---------------------------------------- */
@@ -3251,6 +3370,7 @@
                 "target": [ 1287, 669, 41, 34 ] // copy entry
             }
         },
+        "post_delay": 700,
         "next": [ "EnterCopy_捉兔大赛", "ClickOnCopy_捉兔大赛" ]
     },
     "EnterCopy_捉兔大赛": {
@@ -3267,6 +3387,7 @@
                 "target": [ 875, 403, 82, 38 ]
             }
         },
+        "post_delay": 700,
         "next": [ "MoveToRabbitContestEnemies1", "EnterCopy_捉兔大赛" ]
     },
     /* ---------------------------------------- copy 捉兔大赛 start ---------------------------------------- */
@@ -3297,7 +3418,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]AutoBattle", "MoveToRabbitContestEnemies2" ]
+        "timeout": 120000,
+        "next": [ "MoveToRabbitContestEnemies2" ]
     },
     "MoveToRabbitContestEnemies2": {
         "recognition": {
@@ -3326,7 +3448,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]AutoBattle", "MoveToRabbitContestEnemies3" ]
+        "timeout": 120000,
+        "next": [ "MoveToRabbitContestEnemies3" ]
     },
     "MoveToRabbitContestEnemies3": {
         "recognition": {
@@ -3355,7 +3478,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]AutoBattle", "MoveToRabbitContestPosition" ]
+        "timeout": 120000,
+        "next": [ "MoveToRabbitContestPosition" ]
     },
     "MoveToRabbitContestPosition": {
         "recognition": {
@@ -3482,9 +3606,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "focus": {
@@ -3501,9 +3625,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmNarutoAfterSasukeLevel16", "ConfirmSasukeLevel16" ]
@@ -3517,9 +3641,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmNarutoAfterSasukeLevel16", "SkipDialogueAgain_捉兔大赛" ]
@@ -3533,9 +3657,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "ConfirmSasukeAfterNarutoLevel16", "ConfirmNarutoLevel16" ]
@@ -3549,9 +3673,9 @@
             }
         },
         "action": {
-            "type": "ClickKey",
+            "type": "Click",
             "param": {
-                "key": 27 // esc
+                "target": [ 643, 483, 54, 13 ]
             }
         },
         "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmSasukeAfterNarutoLevel16", "SkipDialogueAgain_捉兔大赛" ]
