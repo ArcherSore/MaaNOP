@@ -10,7 +10,7 @@ from common import (
     send_focus_message,
     strip_quotes,
 )
-from constants import SERVER_1000_LIST_ROI
+from constants import SERVER_1000_LIST_ROI, SERVER_TAB_BOXES
 from server_session import (
     clear_server_session,
     initialize_server_session,
@@ -18,6 +18,20 @@ from server_session import (
     parse_server_range_string,
     take_next_server,
 )
+
+
+@AgentServer.custom_recognition("SetServerRegion")
+class SetServerRegion(CustomRecognition):
+    def analyze(
+        self,
+        context: Context,
+        argv: CustomRecognition.AnalyzeArg,
+    ) -> CustomRecognition.AnalyzeResult:
+        region_type = strip_quotes(argv.custom_recognition_param) or "public"
+        return CustomRecognition.AnalyzeResult(
+            box=(0, 0, 0, 0),
+            detail={"region_type": region_type},
+        )
 
 
 @AgentServer.custom_recognition("ParseServerRange")
@@ -29,12 +43,17 @@ class ParseServerRange(CustomRecognition):
     ) -> CustomRecognition.AnalyzeResult:
         server_range_str = strip_quotes(argv.custom_recognition_param)
         server_list = parse_server_range_string(server_range_str)
+        region_type = get_detail_value(context, "SetServerRegion", "region_type", "public")
 
-        initialize_server_session(argv.task_detail.task_id, server_list)
+        initialize_server_session(
+            argv.task_detail.task_id,
+            server_list,
+            region_type=region_type,
+        )
 
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 100, 100),
-            detail={"server_list": server_list},
+            detail={"server_list": server_list, "region_type": region_type},
         )
 
 
@@ -53,9 +72,10 @@ class GetNextServer(CustomRecognition):
             )
 
         if not result.get("finished"):
+            region_label = "不删档" if result.get("region_type") == "non_wipe" else "公测"
             send_focus_message(
                 context,
-                f"准备处理服务器 {result['server_id']} ({result['server_index']}/{result['server_cnt']})",
+                f"准备处理{region_label}{result['server_id']} ({result['server_index']}/{result['server_cnt']})",
             )
 
         return CustomRecognition.AnalyzeResult(
@@ -75,22 +95,27 @@ class DetectServerPage(CustomRecognition):
         if target_server_id is None:
             return CustomRecognition.AnalyzeResult(box=None, detail={})
 
-        roi = [403, 216, 236, 131]
-        expected = ".*1000.*" if target_server_id >= 1000 else ".*1-999.*"
-        reco_detail = run_recognition(
-            context,
-            "ChooseServerType",
-            argv.image,
-            {"ChooseServerType": {"roi": roi, "expected": [expected]}},
-        )
+        region_type = get_detail_value(context, "GetNextServer", "region_type", "public")
+
+        if region_type == "non_wipe":
+            box = (
+                SERVER_TAB_BOXES["non_wipe"][">=601"]
+                if target_server_id >= 601
+                else SERVER_TAB_BOXES["non_wipe"]["<601"]
+            )
+        else:
+            box = (
+                SERVER_TAB_BOXES["public"][">=1000"]
+                if target_server_id >= 1000
+                else SERVER_TAB_BOXES["public"]["<1000"]
+            )
 
         return CustomRecognition.AnalyzeResult(
-            box=reco_detail.best_result.box if reco_detail and reco_detail.hit else None,
+            box=box,
             detail={
                 "server_id": target_server_id,
-                "roi_used": roi,
-                "ocr_result": reco_detail.best_result.text if reco_detail and reco_detail.hit else None,
-                "hit": reco_detail.hit if reco_detail else False,
+                "region_type": region_type,
+                "box": box,
             },
         )
 
@@ -106,6 +131,8 @@ class LocateServerButton(CustomRecognition):
         if target_server_id is None:
             return CustomRecognition.AnalyzeResult(box=None, detail={})
 
+        region_type = get_detail_value(context, "GetNextServer", "region_type", "public")
+
         reco_detail = run_recognition(
             context,
             "ChooseServerButton",
@@ -113,7 +140,11 @@ class LocateServerButton(CustomRecognition):
             {
                 "ChooseServerButton": {
                     "roi": SERVER_1000_LIST_ROI,
-                    "expected": rf".*(^|[^0-9]){target_server_id}([^0-9]|$).*",
+                    "expected": (
+                        rf"^\s*{target_server_id}\s*区.*"
+                        if region_type == "non_wipe"
+                        else rf".*(^|[^0-9]){target_server_id}\s*区.*"
+                    ),
                 }
             },
         )

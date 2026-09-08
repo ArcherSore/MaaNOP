@@ -20,6 +20,7 @@ def parse_server_range_string(server_range_str: str) -> list[int]:
 @dataclass
 class ServerSession:
     server_list: list[int]
+    region_type: str = "public"
     next_index: int = 0
     finished: bool = False
 
@@ -28,9 +29,13 @@ _sessions: dict[int, ServerSession] = {}
 _lock = Lock()
 
 
-def initialize_server_session(task_id: int, server_list: list[int]) -> ServerSession:
+def initialize_server_session(
+    task_id: int,
+    server_list: list[int],
+    region_type: str = "public",
+) -> ServerSession:
     with _lock:
-        session = ServerSession(server_list=list(server_list))
+        session = ServerSession(server_list=list(server_list), region_type=region_type)
         _sessions[int(task_id)] = session
         return session
 
@@ -51,6 +56,7 @@ def take_next_server(task_id: int) -> Optional[dict]:
             session.finished = True
             return {
                 "server_list": server_list,
+                "region_type": session.region_type,
                 "server_index": session.next_index,
                 "server_cnt": server_cnt,
                 "finished": True,
@@ -60,6 +66,7 @@ def take_next_server(task_id: int) -> Optional[dict]:
         session.finished = False
         return {
             "server_list": server_list,
+            "region_type": session.region_type,
             "server_id": server_id,
             "server_index": session.next_index,
             "server_cnt": server_cnt,

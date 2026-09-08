@@ -19,6 +19,8 @@ from constants import (
     SERVER_1000_SEARCH_ATTEMPTS,
     SERVER_1_999_SCROLL_CLICKS_PER_ATTEMPT,
     SERVER_1_999_SEARCH_ATTEMPTS,
+    SERVER_NON_WIPE_SCROLL_CLICKS_PER_ATTEMPT,
+    SERVER_NON_WIPE_SEARCH_ATTEMPTS,
     SERVER_SCROLL_CLICK_INTERVAL,
 )
 
@@ -34,7 +36,12 @@ class ScrollToTargetServer(CustomAction):
         if target_server_id is None:
             return False
 
-        if target_server_id >= 1000:
+        region_type = get_detail_value(context, "GetNextServer", "region_type", "public")
+
+        if region_type == "non_wipe":
+            max_search_attempts = SERVER_NON_WIPE_SEARCH_ATTEMPTS
+            scroll_clicks_per_attempt = SERVER_NON_WIPE_SCROLL_CLICKS_PER_ATTEMPT
+        elif target_server_id >= 1000:
             max_search_attempts = SERVER_1000_SEARCH_ATTEMPTS
             scroll_clicks_per_attempt = SERVER_1000_SCROLL_CLICKS_PER_ATTEMPT
         else:
@@ -50,7 +57,11 @@ class ScrollToTargetServer(CustomAction):
                 {
                     "ChooseServerButton": {
                         "roi": SERVER_1000_LIST_ROI,
-                        "expected": rf".*(^|[^0-9]){target_server_id}([^0-9]|$).*",
+                        "expected": (
+                            rf"^\s*{target_server_id}\s*区.*"
+                            if region_type == "non_wipe"
+                            else rf".*(^|[^0-9]){target_server_id}\s*区.*"
+                        ),
                     }
                 },
             )

@@ -16,7 +16,7 @@
                 "custom_recognition_param": "leveling"
             }
         },
-        "next": "ParseServer"
+        "next": "SetServerRegion"
     },
     "SetClaimingTaskMode": {
         "recognition": {
@@ -26,7 +26,7 @@
                 "custom_recognition_param": "claiming"
             }
         },
-        "next": "ParseServer"
+        "next": "SetServerRegion"
     },
     "SetShoppingFestivalTaskMode": {
         "recognition": {
@@ -34,6 +34,16 @@
             "param": {
                 "custom_recognition": "SetTaskMode",
                 "custom_recognition_param": "shopping"
+            }
+        },
+        "next": "SetServerRegion"
+    },
+    "SetServerRegion": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "SetServerRegion",
+                "custom_recognition_param": "public"
             }
         },
         "next": "ParseServer"
@@ -230,15 +240,6 @@
                 "template": [ "popup/Return.png" ],
                 "roi": [ 671, 182, 260, 136 ],
                 "order_by": "Score"
-            }
-        }
-    },
-    "ChooseServerType": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 0, 0, 0, 0 ],
-                "expected": [ "set in code" ]
             }
         }
     },

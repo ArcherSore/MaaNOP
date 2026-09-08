@@ -30,7 +30,7 @@
             "./agent/main.py"
         ]
     },
-    "global_option": [ "ServerRange" ],
+    "global_option": [ "ServerRegionType", "ServerRange" ],
     "task": [
         {
             "name": "AccountLeveling",
@@ -55,6 +55,44 @@
         }
     ],
     "option": {
+        "ServerRegionType": {
+            "type": "select",
+            "label": "大区类型",
+            "description": "选择服务器大区类型（公测 / 不删档）",
+            "default_case": "Public",
+            "cases": [
+                {
+                    "name": "Public",
+                    "label": "公测",
+                    "pipeline_override": {
+                        "SetServerRegion": {
+                            "recognition": {
+                                "type": "Custom",
+                                "param": {
+                                    "custom_recognition": "SetServerRegion",
+                                    "custom_recognition_param": "public"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "NonWipe",
+                    "label": "不删档",
+                    "pipeline_override": {
+                        "SetServerRegion": {
+                            "recognition": {
+                                "type": "Custom",
+                                "param": {
+                                    "custom_recognition": "SetServerRegion",
+                                    "custom_recognition_param": "non_wipe"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
         "ServerRange": {
             "type": "input",
             "label": "服务器选择",
