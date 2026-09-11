@@ -1,0 +1,155 @@
+// 一口气打到六道
+{
+    "ArenaRankGrind": {
+        "next": [ "GotoArena", "WaitArenaMain" ]
+    },
+    "GotoArena": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "arena/ArenaEntry.png",
+                "roi": [ 707, 82, 465, 58 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [ "WaitArenaMain", "GotoArena" ]
+    },
+    "WaitArenaMain": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "arena/ArenaMainFlag.png",
+                "roi": [ 217, 522, 79, 73 ]
+            }
+        },
+        "next": [ "[JumpBack]CloseArenaPopup", "CheckRank", "RankNotReached" ]
+    },
+    "CheckRank": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "arena/RankRikudouFlag.png",
+                "roi": [ 231, 194, 91, 98 ]
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "已达六道段位"
+        },
+        "next": [ "RankReached" ]
+    },
+    "RankNotReached": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "arena/RankRikudouFlag.png",
+                "roi": [ 231, 194, 91, 98 ]
+            }
+        },
+        "inverse": true,
+        "next": [ "StartFormalBattle" ]
+    },
+    "StartFormalBattle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "arena/ButtonFormalBattleStart.png",
+                "roi": [ 399, 556, 160, 83 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "timeout": 90000,
+        "next": [ "ArenaAutoOn", "ArenaAutoOff" ]
+    },
+    "ArenaAutoOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOn.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "timeout": 120000,
+        "next": [ "WaitBattleEnd" ],
+        "on_error": [ "ArenaBattleTimeoutProbe", "WaitBattleEnd", "WaitArenaMain" ]
+    },
+    "ArenaAutoOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOff.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "timeout": 120000,
+        "next": [ "WaitBattleEnd" ],
+        "on_error": [ "ArenaBattleTimeoutProbe", "WaitBattleEnd", "WaitArenaMain" ]
+    },
+    "ArenaBattleTimeoutProbe": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOn.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "action": "DoNothing",
+        "timeout": 10000,
+        "next": [ "ArenaAutoOn" ],
+        "on_error": [ "WaitBattleEnd", "WaitArenaMain" ]
+    },
+    "WaitBattleEnd": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "arena/BattleEnd.png",
+                "roi": [ 611, 438, 121, 69 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [ "[JumpBack]BattleResultPopup", "WaitArenaMain" ]
+    },
+    "BattleResultPopup": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchPopup",
+                "custom_recognition_param": {
+                    "popups": [
+                        { "name": "战斗胜利", "template": "arena/BattleWinPopup.png", "roi": [ 555, 206, 201, 103 ], "target": [ 647, 506, 30, 13 ] },
+                        // { "name": "TODO_新增试用忍者", "template": "arena/TODO_ResultLose.png", "roi": [ 0, 0, 0, 0 ], "target": [ 0, 0, 0, 0 ] },
+                        { "name": "成为六道", "template": "arena/RankRikudouPopup.png", "roi": [ 557, 205, 206, 101 ], "target": [ 644, 488, 38, 13 ] }
+                    ]
+                }
+            }
+        },
+        "action": "Click",
+        "next": [ "BattleResultPopup", "WaitArenaMain" ]
+    },
+
+    "CloseArenaPopup": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "arena/ButtonClose.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
+    },
+    "RankReached": {
+        "focus": {
+            "Node.Action.Succeeded": "六道段位达成"
+        }
+    }
+}
