@@ -24,7 +24,7 @@
                 "roi": [ 217, 522, 79, 73 ]
             }
         },
-        "next": [ "[JumpBack]CloseArenaPopup", "CheckRank", "RankNotReached" ]
+        "next": [ "CheckRank", "RankNotReached" ]
     },
     "CheckRank": {
         "recognition": {
@@ -124,21 +124,20 @@
                 "custom_recognition_param": {
                     "popups": [
                         { "name": "战斗胜利", "template": "arena/BattleWinPopup.png", "roi": [ 555, 206, 201, 103 ], "target": [ 647, 506, 30, 13 ] },
-                        // { "name": "TODO_新增试用忍者", "template": "arena/TODO_ResultLose.png", "roi": [ 0, 0, 0, 0 ], "target": [ 0, 0, 0, 0 ] },
+                        { "name": "新增试用忍者", "template": "arena/AddNewTrialNinja.png", "roi": [ 548, 207, 233, 96 ], "target": [ 763, 498, 34, 9 ] },
                         { "name": "成为六道", "template": "arena/RankRikudouPopup.png", "roi": [ 557, 205, 206, 101 ], "target": [ 644, 488, 38, 13 ] }
                     ]
                 }
             }
         },
-        "action": "Click",
-        "next": [ "BattleResultPopup", "WaitArenaMain" ]
+        "action": "Click"
     },
-
+    // TODO
     "CloseArenaPopup": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "arena/ButtonClose.png",
+                "template": [ ],
                 "roi": [ 0, 0, 0, 0 ]
             }
         },
