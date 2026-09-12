@@ -48,6 +48,12 @@
             "option": [ "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
         },
         {
+            "name": "ArenaRankGrind",
+            "label": "竞技场一键六道",
+            "entry": "ArenaRankGrind",
+            "description": "<span>1. 开始需要处于竞技场主界面, 或者能看到竞技场入口的地方</span><br><span>2. 任务会自动进入竞技场并连续挑战, 直到达到六道段位"
+        },
+        {
             "name": "ShoppingFestivalTask",
             "label": "购物节送字",
             "entry": "ShoppingFestivalTask",
