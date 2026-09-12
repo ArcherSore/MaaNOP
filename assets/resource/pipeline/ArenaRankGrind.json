@@ -74,7 +74,7 @@
         },
         "timeout": 120000,
         "next": [ "WaitBattleEnd" ],
-        "on_error": [ "ArenaBattleTimeoutProbe", "WaitBattleEnd", "WaitArenaMain" ]
+        "on_error": [ "ArenaBattleTimeoutProbe" ]
     },
     "ArenaAutoOff": {
         "recognition": {
@@ -89,7 +89,7 @@
         },
         "timeout": 120000,
         "next": [ "WaitBattleEnd" ],
-        "on_error": [ "ArenaBattleTimeoutProbe", "WaitBattleEnd", "WaitArenaMain" ]
+        "on_error": [ "ArenaBattleTimeoutProbe" ]
     },
     "ArenaBattleTimeoutProbe": {
         "recognition": {
@@ -100,9 +100,8 @@
             }
         },
         "action": "DoNothing",
-        "timeout": 10000,
         "next": [ "ArenaAutoOn" ],
-        "on_error": [ "WaitBattleEnd", "WaitArenaMain" ]
+        "on_error": [ "WaitBattleEnd" ]
     },
     "WaitBattleEnd": {
         "recognition": {
