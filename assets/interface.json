@@ -2,7 +2,7 @@
     "interface_version": 2,
     "name": "MaaNOP",
     "label": "MaaNOP",
-    "version": "v2.2.3",
+    "version": "v2.3.0",
     "github": "https://github.com/ArcherSore/MaaNOP",
     "controller": [
         {
@@ -20,8 +20,8 @@
     ],
     "resource": [
         {
-            "name": "QQGameHall",
-            "label": "QQ游戏大厅",
+            "name": "NarutoMiniClient",
+            "label": "火影微端",
             "path": [ "./resource/" ]
         }
     ],
