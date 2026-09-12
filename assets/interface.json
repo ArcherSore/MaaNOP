@@ -2,7 +2,8 @@
     "interface_version": 2,
     "name": "MaaNOP",
     "label": "MaaNOP",
-    "version": "v1.3.0",
+    "version": "v2.2.3",
+    "github": "https://github.com/ArcherSore/MaaNOP",
     "controller": [
         {
             "name": "Win32Desktop",

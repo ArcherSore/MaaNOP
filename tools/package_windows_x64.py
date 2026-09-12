@@ -21,6 +21,7 @@ PAYLOAD_PATHS = ("interface.json", "resource", "agent", "README.md", "LICENSE", 
 NARUTO_REQUIRED_FILES = (
     "NarutoAutoGUI.exe",
     "NarutoAutoGUI.dll",
+    "NarutoAutoUpdater.exe",
     "worker/NarutoAutoWorker.exe",
     "worker/NarutoAutoWorker.dll",
     "worker/runtimes/win-x64/native/MaaFramework.dll",
