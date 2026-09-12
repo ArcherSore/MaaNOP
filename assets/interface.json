@@ -31,21 +31,20 @@
             "./agent/main.py"
         ]
     },
-    "global_option": [ "ServerRegionType", "ServerRange" ],
     "task": [
         {
             "name": "AccountLeveling",
             "label": "注册并练级",
             "entry": "AccountLeveling",
             "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 按服务器范围注册新账号并练到16级</span>",
-            "option": [ "AccountNamePrefix" ]
+            "option": [ "ServerRegionType", "ServerRange", "AccountNamePrefix" ]
         },
         {
             "name": "AccountClaims",
             "label": "批量领取",
             "entry": "AccountClaims",
             "description": "<span>1. 开始需要处于选服务器界面</span><br><span>2. 面向已经注册并完成练级的账号，按服务器范围批量领取</span><br><span>3. 领回归、领幻象和领经验仍需满足各自的游戏内条件</span>",
-            "option": [ "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
+            "option": [ "ServerRegionType", "ServerRange", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
         },
         {
             "name": "ArenaRankGrind",
@@ -58,7 +57,7 @@
             "label": "购物节送字",
             "entry": "ShoppingFestivalTask",
             "description": "<span>开始需要处于选服务器界面</span><br><span>任务会按服务器范围依次登录、处理登录弹窗，并执行木叶购物节送字流程</span>",
-            "option": [ "ShoppingFriendName" ]
+            "option": [ "ServerRegionType", "ServerRange", "ShoppingFriendName" ]
         }
     ],
     "option": {
