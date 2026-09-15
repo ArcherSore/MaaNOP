@@ -24,7 +24,7 @@
                 "roi": [ 217, 522, 79, 73 ]
             }
         },
-        "next": [ "CheckRank", "RankNotReached" ]
+        "next": [ "[JumpBack]CloseArenaPopup", "CheckRank", "RankNotReached" ]
     },
     "CheckRank": {
         "recognition": {
@@ -132,17 +132,19 @@
         },
         "action": "Click"
     },
-    // TODO
     "CloseArenaPopup": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [ ],
-                "roi": [ 0, 0, 0, 0 ]
+                "template": "arena/NewTermPopup.png",
+                "roi": [ 575, 243, 183, 68 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 655, 507, 33, 14 ]
+            }
         }
     },
     "RankReached": {
