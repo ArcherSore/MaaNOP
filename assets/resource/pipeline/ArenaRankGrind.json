@@ -125,6 +125,7 @@
                 "custom_recognition_param": {
                     "popups": [
                         { "name": "战斗胜利", "template": "arena/BattleWinPopup.png", "roi": [ 555, 206, 201, 103 ], "target": [ 647, 506, 30, 13 ] },
+                        { "name": "战斗失败", "template": "arena/BattleLosePopup.png", "roi": [ 561, 211, 209, 92 ], "target": [ 649, 493, 44, 13 ] },
                         // { "name": "TODO_新增试用忍者", "template": "arena/TODO_ResultLose.png", "roi": [ 0, 0, 0, 0 ], "target": [ 0, 0, 0, 0 ] },
                         { "name": "成为六道", "template": "arena/RankRikudouPopup.png", "roi": [ 557, 205, 206, 101 ], "target": [ 644, 488, 38, 13 ] }
                     ]
@@ -139,12 +140,15 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "arena/ButtonClose.png",
-                "roi": [ 0, 0, 0, 0 ]
+                "template": "arena/NewTermPopup.png",
+                "roi": [ 575, 243, 183, 68 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 655, 507, 33, 14 ]
+            }
         }
     },
     "RankReached": {
