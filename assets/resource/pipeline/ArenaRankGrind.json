@@ -34,9 +34,6 @@
                 "roi": [ 231, 194, 91, 98 ]
             }
         },
-        "focus": {
-            "Node.Recognition.Succeeded": "已达六道段位"
-        },
         "next": [ "RankReached" ]
     },
     "RankNotReached": {
