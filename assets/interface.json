@@ -58,6 +58,12 @@
             "entry": "ShoppingFestivalTask",
             "description": "<span>开始需要处于选服务器界面</span><br><span>任务会按服务器范围依次登录、处理登录弹窗，并执行木叶购物节送字流程</span>",
             "option": [ "ServerRegionType", "ServerRange", "ShoppingFriendName" ]
+        },
+        {
+            "name": "NinjutsuTraining",
+            "label": "忍术特训",
+            "entry": "NinjutsuTrainingEntry",
+            "description": "1. 开始需要处于已开启特训的界面（能看到\"开启特训\"按钮）"
         }
     ],
     "option": {

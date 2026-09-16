@@ -1,0 +1,211 @@
+{
+    "NinjutsuTrainingEntry": {
+        "next": [ "StartNinjutsuTraining" ]
+    },
+    "StartNinjutsuTraining": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/button/Start.png",
+                "roi": [ 552, 454, 149, 79 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "开始忍术特训"
+        },
+        "next": [ "WaitNinjutsuTrainingState" ]
+    },
+    "WaitNinjutsuTrainingState": {
+        "next": [ "CheckNinjutsuTrainingClaim", "WaitHandSealRoundStart" ]
+    },
+    "WaitHandSealRoundStart": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/states/StartOnce.png",
+                "roi": [ 541, 417, 78, 71 ]
+            }
+        },
+        "next": [ "ExecuteHandSealRound" ]
+    },
+    "CheckNinjutsuTrainingClaim": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/button/Claim.png",
+                "roi": [ 622, 439, 78, 64 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [ "NinjutsuTrainingSucceeded" ]
+    },
+    "ExecuteHandSealRound": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "ExecuteHandSealRound"
+            }
+        },
+        "next": [ "WaitNinjutsuTrainingState" ],
+        "on_error": [ "NinjutsuTrainingFailed" ]
+    },
+    "NinjutsuTrainingSucceeded": {
+        "focus": {
+            "Node.Action.Succeeded": "忍术特训完成"
+        }
+    },
+    "NinjutsuTrainingFailed": {
+        "focus": {
+            "Node.Action.Succeeded": "忍术特训失败"
+        }
+    },
+    // The CustomAction invokes these nodes through context.run_recognition.
+    // Slot ROIs are supplied at runtime from action_ninjutsu_training.py.
+    "HandSealRatTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_1.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealOxTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_2.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealTigerTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_3.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealHareTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_4.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealDragonTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_5.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealSnakeTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_6.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealHorseTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_7.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealRamTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_8.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealMonkeyTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_9.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealBirdTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_10.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealDogTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_11.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealBoarTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/handSeals/HandSeal_12.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealCompletedColor": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 0, 0, 0, 0 ],
+                "method": 40,
+                "lower": [ 90, 140, 120 ],
+                "upper": [ 100, 255, 255 ],
+                "count": 180
+            }
+        }
+    },
+    "HandSealEmptySlotTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/states/EmptySlot1.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "HandSealCompleteOnceTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "NinjutsuTraining/states/CompleteOnce.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    }
+}
