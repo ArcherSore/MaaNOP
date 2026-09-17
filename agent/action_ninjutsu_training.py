@@ -68,11 +68,11 @@ EMPTY_SLOT_RECOGNITION_NODE = "HandSealEmptySlotTemplate"
 COMPLETE_ONCE_RECOGNITION_NODE = "HandSealCompleteOnceTemplate"
 COMPLETE_ONCE_ROI = [663, 480, 114, 65]
 
-SLOT_VERIFY_TIMEOUT = 5.0
+SLOT_VERIFY_TIMEOUT = 2.0
+ROUND_FINISH_TIMEOUT = 5.0
 MAX_ROUND_RESTARTS = 2
-RETRY_INTERVAL = 0.3
 MAX_RETRIES_PER_SLOT = 3
-VERIFY_POLL_INTERVAL = 0.03
+VERIFY_POLL_INTERVAL = 0.2
 
 HAND_SEALS_ROI = [515, 275, 374, 176]
 
@@ -158,7 +158,6 @@ class RoundResetError(RuntimeError):
 
 
 class ClickState(Enum):
-    SUCCESS = "success"
     RESET = "reset"
     NOT_TRIGGERED = "not_triggered"
     UNKNOWN = "unknown"
@@ -168,25 +167,14 @@ def detect_after_click(
     context: Context, image, sequence: list[tuple[int, str]], position: int
 ) -> ClickState:
     slot_index, seal_name = sequence[position]
-    last_slot = position == len(sequence) - 1
-    confirmed = (
-        round_finished(context, image)
-        if last_slot
-        else is_completed(context, image, slot_index)
-    )
-    if confirmed:
-        return ClickState.SUCCESS
-
     first_index, first_name = sequence[0]
-    if not is_completed(context, image, first_index):
-        # Final-click animation also clears the screen. Wait unless the gray
-        # first seal actually reappears, which provides evidence of a reset.
-        if last_slot and not recognize(
-            context, image, SEAL_RECOGNITION_NODES[first_name], SLOT_ROIS[first_index]
-        ).hit:
-            return ClickState.UNKNOWN
+    if recognize(
+        context, image, SEAL_RECOGNITION_NODES[first_name], SLOT_ROIS[first_index]
+    ).hit:
         return ClickState.RESET
 
+    if slot_index == first_index:
+        return ClickState.UNKNOWN
     if recognize(
         context, image, SEAL_RECOGNITION_NODES[seal_name], SLOT_ROIS[slot_index]
     ).hit:
@@ -197,31 +185,47 @@ def detect_after_click(
 def verify_slot(
     context: Context, sequence: list[tuple[int, str]], position: int
 ) -> None:
-    """Classify the current frame, then advance, restart, retry, or wait."""
+    """Follow PipelineTask: accept hits, then check timeout and rate-limit misses."""
     slot_index, seal_name = sequence[position]
-    deadline = time.monotonic() + SLOT_VERIFY_TIMEOUT
-    next_retry = time.monotonic() + RETRY_INTERVAL
-    retries = 0
-    while time.monotonic() < deadline:
+    last_slot = position == len(sequence) - 1
+    timeout = ROUND_FINISH_TIMEOUT if last_slot else SLOT_VERIFY_TIMEOUT
+    for retries in range(MAX_RETRIES_PER_SLOT + 1):
+        deadline = time.monotonic() + timeout
+        while True:
+            if context.tasker.stopping:
+                raise RuntimeError("任务已停止")
+            poll_start = time.monotonic()
+            image = capture_image(context)
+            confirmed = False
+            if image is not None and image.size > 0:
+                confirmed = (
+                    round_finished(context, image)
+                    if last_slot
+                    else is_completed(context, image, slot_index)
+                )
+            if context.tasker.stopping:
+                raise RuntimeError("任务已停止")
+            if confirmed:
+                return
+            if time.monotonic() > deadline:
+                break
+            remaining = poll_start + VERIFY_POLL_INTERVAL - time.monotonic()
+            if remaining > 0:
+                time.sleep(remaining)
+
         if context.tasker.stopping:
             raise RuntimeError("任务已停止")
+        print(f"忍术特训：第{slot_index + 1}个手印确认超时")
         state = detect_after_click(context, capture_image(context), sequence, position)
-        if state == ClickState.SUCCESS:
-            return
-        elif state == ClickState.RESET:
+        if state == ClickState.RESET:
             raise RoundResetError("手印进度已重置")
-        elif state == ClickState.NOT_TRIGGERED:
-            if time.monotonic() >= next_retry:
-                if retries >= MAX_RETRIES_PER_SLOT:
-                    raise RuntimeError(f"第{slot_index + 1}个手印补点后仍未成功")
-                click_seal(context, slot_index, seal_name)
-                retries += 1
-                next_retry = time.monotonic() + RETRY_INTERVAL
-                print(f"忍术特训：补点第{slot_index + 1}个手印（{SEAL_LOG_NAMES[seal_name]}）")
-        # UNKNOWN never clicks; all unsuccessful states share the total timeout.
-        time.sleep(VERIFY_POLL_INTERVAL)
-    target = "修炼完成" if position == len(sequence) - 1 else "点亮"
-    raise RuntimeError(f"第{slot_index + 1}个手印{target}确认超时")
+        if state == ClickState.NOT_TRIGGERED:
+            if retries >= MAX_RETRIES_PER_SLOT:
+                raise RuntimeError(f"第{slot_index + 1}个手印补点后仍未成功")
+            click_seal(context, slot_index, seal_name)
+            print(f"忍术特训：补点第{slot_index + 1}个手印（{SEAL_LOG_NAMES[seal_name]}）")
+            continue
+        raise RuntimeError(f"第{slot_index + 1}个手印确认超时，无法判断失败原因")
 
 
 @AgentServer.custom_action("ExecuteHandSealRound")
