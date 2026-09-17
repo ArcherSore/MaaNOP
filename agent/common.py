@@ -93,6 +93,9 @@ SERVER_NUMBER_CHARS = set("0123456789|")
 SERVER_GRID_ROW_TOLERANCE = 9
 SERVER_GRID_COL_TOLERANCE = 45
 SERVER_GRID_MIN_BASE_VOTES = 3
+# Alliance's descending grid slots 73, 72, 71, 70 contain servers 70, 73, 72, 71.
+ALLIANCE_GRID_TO_SERVER = {73: 70, 72: 73, 71: 72, 70: 71}
+ALLIANCE_SERVER_TO_GRID = {server: grid for grid, server in ALLIANCE_GRID_TO_SERVER.items()}
 
 
 def _extract_number_like_tokens(text: str) -> list[str]:
@@ -204,13 +207,15 @@ def _entry_anchor_number(entry: dict[str, Any]) -> Optional[int]:
     return number if number > 0 else None
 
 
-def _infer_server_grid_base(entries: list[dict[str, Any]]) -> Optional[int]:
+def _infer_server_grid_base(entries: list[dict[str, Any]], region_type: str = "public") -> Optional[int]:
     base_votes = Counter()
     for entry in entries:
         number = _entry_anchor_number(entry)
         if number is None:
             continue
 
+        if region_type == "alliance":
+            number = ALLIANCE_SERVER_TO_GRID.get(number, number)
         base_votes[number + entry["grid_index"]] += 1
 
     if not base_votes:
@@ -224,25 +229,29 @@ def _infer_server_grid_base(entries: list[dict[str, Any]]) -> Optional[int]:
     return best_base
 
 
-def _find_server_by_layout(reco_detail, target_server_id: int):
+def _find_server_by_layout(reco_detail, target_server_id: int, region_type: str = "public"):
     entries = _build_server_ocr_entries(getattr(reco_detail, "all_results", []) if reco_detail else [])
-    grid_base = _infer_server_grid_base(entries)
+    grid_base = _infer_server_grid_base(entries, region_type)
     if grid_base is None:
         return None
 
     for entry in entries:
         entry["corrected_server_id"] = grid_base - entry["grid_index"]
+        if region_type == "alliance":
+            entry["corrected_server_id"] = ALLIANCE_GRID_TO_SERVER.get(
+                entry["corrected_server_id"], entry["corrected_server_id"]
+            )
         if entry["corrected_server_id"] == target_server_id:
             return entry["result"]
 
     return None
 
 
-def find_server_ocr_result(reco_detail, target_server_id: int):
+def find_server_ocr_result(reco_detail, target_server_id: int, region_type: str = "public"):
     if reco_detail and reco_detail.hit and reco_detail.best_result:
         return reco_detail.best_result, "exact"
 
-    layout_result = _find_server_by_layout(reco_detail, target_server_id)
+    layout_result = _find_server_by_layout(reco_detail, target_server_id, region_type)
     if layout_result:
         return layout_result, "layout_inferred"
 

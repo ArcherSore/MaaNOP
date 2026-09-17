@@ -70,7 +70,7 @@
         "ServerRegionType": {
             "type": "select",
             "label": "大区类型",
-            "description": "选择服务器大区类型（公测 / 不删档）",
+            "description": "选择服务器大区类型（公测 / 不删档 / 联盟）",
             "default_case": "Public",
             "cases": [
                 {
@@ -98,6 +98,21 @@
                                 "param": {
                                     "custom_recognition": "SetServerRegion",
                                     "custom_recognition_param": "non_wipe"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Alliance",
+                    "label": "联盟",
+                    "pipeline_override": {
+                        "SetServerRegion": {
+                            "recognition": {
+                                "type": "Custom",
+                                "param": {
+                                    "custom_recognition": "SetServerRegion",
+                                    "custom_recognition_param": "alliance"
                                 }
                             }
                         }

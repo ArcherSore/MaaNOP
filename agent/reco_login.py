@@ -72,7 +72,9 @@ class GetNextServer(CustomRecognition):
             )
 
         if not result.get("finished"):
-            region_label = "不删档" if result.get("region_type") == "non_wipe" else "公测"
+            region_label = {"public": "公测", "non_wipe": "不删档", "alliance": "联盟"}.get(
+                result.get("region_type"), "公测"
+            )
             send_focus_message(
                 context,
                 f"准备处理{region_label}{result['server_id']} ({result['server_index']}/{result['server_cnt']})",
@@ -97,7 +99,9 @@ class DetectServerPage(CustomRecognition):
 
         region_type = get_detail_value(context, "GetNextServer", "region_type", "public")
 
-        if region_type == "non_wipe":
+        if region_type == "alliance":
+            box = SERVER_TAB_BOXES["alliance"]["all"]
+        elif region_type == "non_wipe":
             box = (
                 SERVER_TAB_BOXES["non_wipe"][">=601"]
                 if target_server_id >= 601
@@ -148,7 +152,7 @@ class LocateServerButton(CustomRecognition):
                 }
             },
         )
-        matched_result, match_mode = find_server_ocr_result(reco_detail, target_server_id)
+        matched_result, match_mode = find_server_ocr_result(reco_detail, target_server_id, region_type)
 
         return CustomRecognition.AnalyzeResult(
             box=matched_result.box if matched_result else None,

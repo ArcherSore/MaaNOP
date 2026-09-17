@@ -19,6 +19,8 @@ from constants import (
     SERVER_1000_SEARCH_ATTEMPTS,
     SERVER_1_999_SCROLL_CLICKS_PER_ATTEMPT,
     SERVER_1_999_SEARCH_ATTEMPTS,
+    SERVER_ALLIANCE_SCROLL_CLICKS_PER_ATTEMPT,
+    SERVER_ALLIANCE_SEARCH_ATTEMPTS,
     SERVER_NON_WIPE_SCROLL_CLICKS_PER_ATTEMPT,
     SERVER_NON_WIPE_SEARCH_ATTEMPTS,
     SERVER_SCROLL_CLICK_INTERVAL,
@@ -38,7 +40,10 @@ class ScrollToTargetServer(CustomAction):
 
         region_type = get_detail_value(context, "GetNextServer", "region_type", "public")
 
-        if region_type == "non_wipe":
+        if region_type == "alliance":
+            max_search_attempts = SERVER_ALLIANCE_SEARCH_ATTEMPTS
+            scroll_clicks_per_attempt = SERVER_ALLIANCE_SCROLL_CLICKS_PER_ATTEMPT
+        elif region_type == "non_wipe":
             max_search_attempts = SERVER_NON_WIPE_SEARCH_ATTEMPTS
             scroll_clicks_per_attempt = SERVER_NON_WIPE_SCROLL_CLICKS_PER_ATTEMPT
         elif target_server_id >= 1000:
@@ -49,7 +54,11 @@ class ScrollToTargetServer(CustomAction):
             scroll_clicks_per_attempt = SERVER_1_999_SCROLL_CLICKS_PER_ATTEMPT
 
         for attempt in range(max_search_attempts):
+            if context.tasker.stopping:
+                return False
             image = capture_image(context)
+            if context.tasker.stopping:
+                return False
             reco_detail = run_recognition(
                 context,
                 "ChooseServerButton",
@@ -65,7 +74,9 @@ class ScrollToTargetServer(CustomAction):
                     }
                 },
             )
-            matched_result, _ = find_server_ocr_result(reco_detail, target_server_id)
+            matched_result, _ = find_server_ocr_result(reco_detail, target_server_id, region_type)
+            if context.tasker.stopping:
+                return False
             if matched_result:
                 return True
 
@@ -78,6 +89,8 @@ class ScrollToTargetServer(CustomAction):
 
             box = down_arrow.best_result.box
             for _ in range(scroll_clicks_per_attempt):
+                if context.tasker.stopping:
+                    return False
                 if not click_box_center(context, box):
                     return False
                 time.sleep(SERVER_SCROLL_CLICK_INTERVAL)
