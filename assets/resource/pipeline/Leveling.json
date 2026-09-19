@@ -2483,7 +2483,7 @@
                 "target": [ 1286, 167, 9, 9 ] // position of Seaside enemies 2
             }
         },
-        "timeout": 5000,
+        "timeout": 7000,
         "next": [ "StartBattle_SeasideEnemies2" ]
     },
     "StartBattle_SeasideEnemies2": {
