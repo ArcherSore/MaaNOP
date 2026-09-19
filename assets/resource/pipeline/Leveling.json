@@ -4,6 +4,7 @@
     },
     /* ---------------------------------------- registration start ---------------------------------------- */
     "Leveling": {
+        "timeout": 8000,
         "next": [ "ClickOnChar", "NoClickOnChar" ]
     },
     "ClickOnChar": {
@@ -75,6 +76,7 @@
         "action": {
             "type": "Click"
         },
+        "timeout": 7000,
         "next": [ "ClickOnMainTask_踏上忍者之路" ]
     },
     /* ---------------------------------------- main task 踏上忍者之路 start ---------------------------------------- */
@@ -92,7 +94,8 @@
                 "target": [ 1209, 310, 71, 7 ]
             }
         },
-        "next": [ "CompleteMainTask_踏上忍者之路", "ClickOnMainTask_踏上忍者之路" ]
+        "on_error": [ "ClickOnMainTask_踏上忍者之路" ],
+        "next": [ "CompleteMainTask_踏上忍者之路" ]
     },
     "CompleteMainTask_踏上忍者之路": {
         "recognition": {
@@ -106,7 +109,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "EquipGearFirst", "[JumpBack]CloseBottomRightPopups", "CompleteMainTask_踏上忍者之路" ]
+        "on_error": [ "CompleteMainTask_踏上忍者之路" ],
+        "next": [ "EquipGearFirst", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearFirst": {
         "recognition": {
@@ -119,7 +123,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "EquipGearFirst", "AcceptMainTask_新忍者登记" ]
+        "on_error": [ "EquipGearFirst" ],
+        "next": [ "AcceptMainTask_新忍者登记" ]
     },
     "AcceptMainTask_新忍者登记": {
         "recognition": {
@@ -132,7 +137,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel2", "AcceptMainTask_新忍者登记" ]
+        "on_error": [ "AcceptMainTask_新忍者登记" ],
+        "next": [ "ConfirmMainCharLevel2" ]
     },
     "ConfirmMainCharLevel2": {
         "recognition": {
@@ -151,7 +157,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 2"
         },
-        "next": [ "HidePlayers", "ConfirmMainCharLevel2" ]
+        "on_error": [ "ConfirmMainCharLevel2" ],
+        "next": [ "HidePlayers" ]
     },
     "HidePlayers": {
         "recognition": {
@@ -164,7 +171,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "HidePlayers", "ClickOnMainTask_新忍者登记" ]
+        "on_error": [ "HidePlayers" ],
+        "next": [ "ClickOnMainTask_新忍者登记" ]
     },
     "ClickOnMainTask_新忍者登记": {
         "recognition": {
@@ -180,7 +188,8 @@
                 "target": [ 1209, 310, 60, 7 ]
             }
         },
-        "next": [ "ConfirmRunning_新忍者登记", "ClickOnMainTask_新忍者登记" ]
+        "on_error": [ "ClickOnMainTask_新忍者登记" ],
+        "next": [ "ConfirmRunning_新忍者登记" ]
     },
     "ConfirmRunning_新忍者登记": {
         "recognition": {
@@ -190,6 +199,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
+        "timeout": 15000,
         "next": [ "SkipDialogue_新忍者登记" ]
     },
     "SkipDialogue_新忍者登记": {
@@ -203,7 +213,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "SkipDialogue_新忍者登记", "ClickOnMainTaskAgain_新忍者登记" ]
+        "on_error": [ "SkipDialogue_新忍者登记" ],
+        "next": [ "ClickOnMainTaskAgain_新忍者登记" ]
     },
     "ClickOnMainTaskAgain_新忍者登记": {
         "recognition": {
@@ -219,7 +230,8 @@
                 "target": [ 1209, 310, 60, 7 ]
             }
         },
-        "next": [ "CompleteMainTask_新忍者登记", "ClickOnMainTaskAgain_新忍者登记" ]
+        "on_error": [ "ClickOnMainTaskAgain_新忍者登记" ],
+        "next": [ "CompleteMainTask_新忍者登记" ]
     },
     "CompleteMainTask_新忍者登记": {
         "recognition": {
@@ -233,7 +245,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "ConfirmMainCharLevel3", "CompleteMainTask_新忍者登记" ]
+        "on_error": [ "CompleteMainTask_新忍者登记" ],
+        "next": [ "ConfirmMainCharLevel3" ]
     },
     "ConfirmMainCharLevel3": {
         "recognition": {
@@ -252,7 +265,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 3"
         },
-        "next": [ "ConfirmUnlockCharacterSystem", "ConfirmMainCharLevel3" ]
+        "on_error": [ "ConfirmMainCharLevel3" ],
+        "next": [ "ConfirmUnlockCharacterSystem" ]
     },
     "ConfirmUnlockCharacterSystem": {
         "recognition": {
@@ -266,7 +280,8 @@
             "type": "Click"
         },
         "post_delay": 2000,
-        "next": [ "ClickOnCharacterSystem", "ConfirmUnlockCharacterSystem" ]
+        "on_error": [ "ConfirmUnlockCharacterSystem" ],
+        "next": [ "ClickOnCharacterSystem" ]
     },
     "ClickOnCharacterSystem": {
         "recognition": {
@@ -280,7 +295,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "ClickOnRecruitment", "ClickOnCharacterSystem" ]
+        "on_error": [ "ClickOnCharacterSystem" ],
+        "next": [ "ClickOnRecruitment" ]
     },
     "ClickOnRecruitment": {
         "recognition": {
@@ -297,7 +313,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "ConfirmRecruitment", "ClickOnRecruitment" ]
+        "on_error": [ "ClickOnRecruitment" ],
+        "next": [ "ConfirmRecruitment" ]
     },
     "ConfirmRecruitment": {
         "recognition": {
@@ -310,7 +327,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmCharacterObtained", "ConfirmRecruitment" ]
+        "on_error": [ "ConfirmRecruitment" ],
+        "next": [ "ConfirmCharacterObtained" ]
     },
     "ConfirmCharacterObtained": {
         "recognition": {
@@ -323,7 +341,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClickOnGroups", "ConfirmCharacterObtained" ]
+        "on_error": [ "ConfirmCharacterObtained" ],
+        "next": [ "ClickOnGroups" ]
     },
     "ClickOnGroups": {
         "recognition": {
@@ -341,9 +360,11 @@
                 "target": [ 937, 106, 23, 22 ] // groups button
             }
         },
-        "next": [ "DeployNaruto", "ClickOnGroups" ]
+        "on_error": [ "ClickOnGroups" ],
+        "next": [ "DeployNaruto" ]
     },
     "DeployNaruto": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -368,7 +389,7 @@
                 "target": [ 1100, 109, 16, 13 ] // close button
             }
         },
-        "post_delay": 700,
+        "post_delay": 1000,
         "next": [ "ClickOnMainTask_木叶丸的行踪" ]
     },
     "ClickOnMainTask_木叶丸的行踪": {
@@ -385,9 +406,11 @@
                 "target": [ 1217, 323, 73, 7 ] // MainTask_木叶丸的行踪
             }
         },
-        "next": [ "AcceptMainTask_木叶丸的行踪", "ClickOnMainTask_木叶丸的行踪" ]
+        "on_error": [ "ClickOnMainTask_木叶丸的行踪" ],
+        "next": [ "AcceptMainTask_木叶丸的行踪" ]
     },
     "AcceptMainTask_木叶丸的行踪": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -398,7 +421,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClickOnCopy_木叶丸三人组", "AcceptMainTask_木叶丸的行踪" ]
+        "on_error": [ "AcceptMainTask_木叶丸的行踪" ],
+        "next": [ "ClickOnCopy_木叶丸三人组" ]
     },
     "ClickOnCopy_木叶丸三人组": {
         "recognition": {
@@ -416,7 +440,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_木叶丸三人组", "ClickOnCopy_木叶丸三人组" ]
+        "on_error": [ "ClickOnCopy_木叶丸三人组" ],
+        "next": [ "EnterCopy_木叶丸三人组" ]
     },
     "EnterCopy_木叶丸三人组": {
         "recognition": {
@@ -433,7 +458,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "SkipDialogue_木叶丸三人组", "EnterCopy_木叶丸三人组" ]
+        "on_error": [ "EnterCopy_木叶丸三人组" ],
+        "next": [ "SkipDialogue_木叶丸三人组" ]
     },
     "SkipDialogue_木叶丸三人组": {
         "recognition": {
@@ -446,6 +472,7 @@
         "action": {
             "type": "Click"
         },
+        "timeout": 8000,
         "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "MoveTo木叶丸三人组" ]
     },
@@ -463,6 +490,7 @@
                 "target": [ 1283, 239, 15, 10 ] // position of 木叶丸三人组
             }
         },
+        "timeout": 7000,
         "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_木叶丸三人组" ]
     },
@@ -477,7 +505,9 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel4", "ConfirmCopyResults_木叶丸三人组" ]
+        "on_error": [ "ConfirmCopyResults_木叶丸三人组" ],
+        "timeout": 5000,
+        "next": [ "ConfirmMainCharLevel4" ]
     },
     "ConfirmMainCharLevel4": {
         "recognition": {
@@ -496,7 +526,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 4"
         },
-        "next": [ "ConfirmNarutoLevel4", "ConfirmMainCharLevel4" ]
+        "on_error": [ "ConfirmMainCharLevel4" ],
+        "next": [ "ConfirmNarutoLevel4" ]
     },
     "ConfirmNarutoLevel4": {
         "recognition": {
@@ -512,7 +543,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ClickOnMainTaskAgain_木叶丸的行踪", "ConfirmNarutoLevel4" ]
+        "on_error": [ "ConfirmNarutoLevel4" ],
+        "next": [ "ClickOnMainTaskAgain_木叶丸的行踪" ]
     },
     "ClickOnMainTaskAgain_木叶丸的行踪": {
         "recognition": {
@@ -528,7 +560,8 @@
                 "target": [ 1210, 310, 68, 7 ] // MainTask_木叶丸的行踪
             }
         },
-        "next": [ "ConfirmRunning_木叶丸的行踪", "ClickOnMainTaskAgain_木叶丸的行踪" ]
+        "on_error": [ "ClickOnMainTaskAgain_木叶丸的行踪" ],
+        "next": [ "ConfirmRunning_木叶丸的行踪" ]
     },
     "ConfirmRunning_木叶丸的行踪": {
         "recognition": {
@@ -538,6 +571,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
+        "timeout": 13000,
         "next": [ "CompleteMainTask_木叶丸的行踪" ]
     },
     "CompleteMainTask_木叶丸的行踪": {
@@ -552,7 +586,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "EquipGearSecond", "[JumpBack]CloseBottomRightPopups", "CompleteMainTask_木叶丸的行踪" ]
+        "on_error": [ "CompleteMainTask_木叶丸的行踪" ],
+        "next": [ "EquipGearSecond", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearSecond": {
         "recognition": {
@@ -565,7 +600,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "EquipGearSecond", "AcceptMainTask_向伊鲁卡报告" ]
+        "on_error": [ "EquipGearSecond" ],
+        "next": [ "AcceptMainTask_向伊鲁卡报告" ]
     },
     "AcceptMainTask_向伊鲁卡报告": {
         "recognition": {
@@ -578,7 +614,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClickOnMainTask_向伊鲁卡报告", "AcceptMainTask_向伊鲁卡报告" ]
+        "on_error": [ "AcceptMainTask_向伊鲁卡报告" ],
+        "next": [ "ClickOnMainTask_向伊鲁卡报告" ]
     },
     "ClickOnMainTask_向伊鲁卡报告": {
         "recognition": {
@@ -595,7 +632,8 @@
                 "target": [ 1210, 310, 68, 7 ] // MainTask_木叶丸的行踪
             }
         },
-        "next": [ "ConfirmRunning_向伊鲁卡报告", "ClickOnMainTask_向伊鲁卡报告" ]
+        "on_error": [ "ClickOnMainTask_向伊鲁卡报告" ],
+        "next": [ "ConfirmRunning_向伊鲁卡报告" ]
     },
     "ConfirmRunning_向伊鲁卡报告": {
         "recognition": {
@@ -605,6 +643,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
+        "timeout": 7000,
         "next": [ "CompleteMainTask_向伊鲁卡报告" ]
     },
     "CompleteMainTask_向伊鲁卡报告": {
@@ -619,7 +658,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "ConfirmMainCharLevel5", "CompleteMainTask_向伊鲁卡报告" ]
+        "on_error": [ "CompleteMainTask_向伊鲁卡报告" ],
+        "next": [ "ConfirmMainCharLevel5" ]
     },
     "ConfirmMainCharLevel5": {
         "recognition": {
@@ -638,7 +678,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 5"
         },
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmMainCharLevel5",
+        "on_error": [ "ConfirmMainCharLevel5" ],
+        "next": [ "[JumpBack]CloseNewSystemPopups",
             "EquipGearThird", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearThird": {
@@ -652,7 +693,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "EquipGearThird", "ClickOnMainTask_初遇佐助" ]
+        "on_error": [ "EquipGearThird" ],
+        "next": [ "ClickOnMainTask_初遇佐助" ]
     },
     "ClickOnMainTask_初遇佐助": {
         "recognition": {
@@ -668,9 +710,11 @@
                 "target": [ 1217, 323, 64, 7 ] // MainTask_初遇佐助
             }
         },
-        "next": [ "AcceptMainTask_初遇佐助", "ClickOnMainTask_初遇佐助" ]
+        "on_error": [ "ClickOnMainTask_初遇佐助" ],
+        "next": [ "AcceptMainTask_初遇佐助" ]
     },
     "AcceptMainTask_初遇佐助": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -681,7 +725,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClickOnCopy_宇智波佐助", "AcceptMainTask_初遇佐助" ]
+        "on_error": [ "AcceptMainTask_初遇佐助" ],
+        "next": [ "ClickOnCopy_宇智波佐助" ]
     },
     "ClickOnCopy_宇智波佐助": {
         "recognition": {
@@ -699,7 +744,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_宇智波佐助", "ClickOnCopy_宇智波佐助" ]
+        "on_error": [ "ClickOnCopy_宇智波佐助" ],
+        "next": [ "EnterCopy_宇智波佐助" ]
     },
     "EnterCopy_宇智波佐助": {
         "recognition": {
@@ -716,7 +762,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "SkipDialogue_宇智波佐助", "EnterCopy_宇智波佐助" ]
+        "on_error": [ "EnterCopy_宇智波佐助" ],
+        "next": [ "SkipDialogue_宇智波佐助" ]
     },
     "SkipDialogue_宇智波佐助": {
         "recognition": {
@@ -729,6 +776,7 @@
         "action": {
             "type": "Click"
         },
+        "timeout": 5000,
         "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_宇智波佐助", "EnterCopy_宇智波佐助" ]
     },
@@ -743,7 +791,9 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel6", "ConfirmCopyResults_宇智波佐助" ]
+        "on_error": [ "ConfirmCopyResults_宇智波佐助" ],
+        "timeout": 5000,
+        "next": [ "ConfirmMainCharLevel6" ]
     },
     "ConfirmMainCharLevel6": {
         "recognition": {
@@ -762,7 +812,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 6"
         },
-        "next": [ "ConfirmNarutoLevel6", "ConfirmMainCharLevel6" ]
+        "on_error": [ "ConfirmMainCharLevel6" ],
+        "next": [ "ConfirmNarutoLevel6" ]
     },
     "ConfirmNarutoLevel6": {
         "recognition": {
@@ -778,7 +829,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoLevel6", "ClickOnMainTaskAgain_初遇佐助" ]
+        "on_error": [ "ConfirmNarutoLevel6" ],
+        "next": [ "ClickOnMainTaskAgain_初遇佐助" ]
     },
     "ClickOnMainTaskAgain_初遇佐助": {
         "recognition": {
@@ -794,7 +846,8 @@
                 "target": [ 1210, 310, 52, 7 ] // MainTask_初遇佐助
             }
         },
-        "next": [ "ConfirmRunning_初遇佐助", "ClickOnMainTaskAgain_初遇佐助" ]
+        "on_error": [ "ClickOnMainTaskAgain_初遇佐助" ],
+        "next": [ "ConfirmRunning_初遇佐助" ]
     },
     "ConfirmRunning_初遇佐助": {
         "recognition": {
@@ -818,7 +871,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "CompleteMainTask_初遇佐助", "ClickOnCharacterSystemAgain" ]
+        "on_error": [ "CompleteMainTask_初遇佐助" ],
+        "next": [ "ClickOnCharacterSystemAgain" ]
     },
     "ClickOnCharacterSystemAgain": {
         "recognition": {
@@ -832,7 +886,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "ClickOnRecruitmentAgain", "ClickOnCharacterSystemAgain" ]
+        "on_error": [ "ClickOnCharacterSystemAgain" ],
+        "next": [ "ClickOnRecruitmentAgain" ]
     },
     "ClickOnRecruitmentAgain": {
         "recognition": {
@@ -849,7 +904,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "ConfirmRecruitmentAgain", "ClickOnRecruitmentAgain" ]
+        "on_error": [ "ClickOnRecruitmentAgain" ],
+        "next": [ "ConfirmRecruitmentAgain" ]
     },
     "ConfirmRecruitmentAgain": {
         "recognition": {
@@ -862,7 +918,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmCharacterObtainedAgain", "ConfirmRecruitmentAgain" ]
+        "on_error": [ "ConfirmRecruitmentAgain" ],
+        "next": [ "ConfirmCharacterObtainedAgain" ]
     },
     "ConfirmCharacterObtainedAgain": {
         "recognition": {
@@ -875,7 +932,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClickOnGroupsAgain", "ConfirmCharacterObtainedAgain" ]
+        "on_error": [ "ConfirmCharacterObtainedAgain" ],
+        "next": [ "ClickOnGroupsAgain" ]
     },
     "ClickOnGroupsAgain": {
         "recognition": {
@@ -893,7 +951,8 @@
                 "target": [ 937, 106, 23, 22 ] // groups button
             }
         },
-        "next": [ "DeploySasuke", "ClickOnGroupsAgain" ]
+        "on_error": [ "ClickOnGroupsAgain" ],
+        "next": [ "DeploySasuke" ]
     },
     "DeploySasuke": {
         "recognition": {
@@ -924,7 +983,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClickOnSasuke", "ClickOnProgression" ]
+        "on_error": [ "ClickOnProgression" ],
+        "next": [ "ClickOnSasuke" ]
     },
     "ClickOnSasuke": {
         "recognition": {
@@ -943,6 +1003,7 @@
         "next": [ "FeedSasukeOnce" ]
     },
     "FeedSasukeOnce": {
+        "post_delay": 1000,
         "action": {
             "type": "Click",
             "param": {
@@ -965,8 +1026,9 @@
                 "target": [ 1100, 109, 16, 13 ] // close button
             }
         },
-        "post_delay": 700,
-        "next": [ "ClickOnMainTask_开始修炼", "ExitCharacterSystemAgain" ]
+        "post_delay": 1000,
+        "on_error": [ "ExitCharacterSystemAgain" ],
+        "next": [ "ClickOnMainTask_开始修炼" ]
     },
     /* ---------------------------------------- main task 开始修炼 ---------------------------------------- */
     "ClickOnMainTask_开始修炼": {
@@ -983,7 +1045,8 @@
                 "target": [ 1217, 323, 64, 7 ] // MainTask_开始修炼
             }
         },
-        "next": [ "AcceptMainTask_开始修炼", "ClickOnMainTask_开始修炼" ]
+        "on_error": [ "ClickOnMainTask_开始修炼" ],
+        "next": [ "AcceptMainTask_开始修炼" ]
     },
     "AcceptMainTask_开始修炼": {
         "recognition": {
@@ -996,7 +1059,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClickOnMainTaskAgain_开始修炼", "AcceptMainTask_开始修炼" ]
+        "on_error": [ "AcceptMainTask_开始修炼" ],
+        "next": [ "ClickOnMainTaskAgain_开始修炼" ]
     },
     "ClickOnMainTaskAgain_开始修炼": {
         "recognition": {
@@ -1013,7 +1077,8 @@
                 "target": [ 1210, 310, 55, 7 ] // MainTask_开始修炼
             }
         },
-        "next": [ "ConfirmRunning_开始修炼", "ClickOnMainTaskAgain_开始修炼" ]
+        "on_error": [ "ClickOnMainTaskAgain_开始修炼" ],
+        "next": [ "ConfirmRunning_开始修炼" ]
     },
     "ConfirmRunning_开始修炼": {
         "recognition": {
@@ -1023,6 +1088,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
+        "timeout": 5000,
         "next": [ "CompleteMainTask_开始修炼" ]
     },
     "CompleteMainTask_开始修炼": {
@@ -1037,11 +1103,12 @@
             "type": "Click"
         },
         "post_delay": 1000,
-        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "AcceptMainTask_击退来袭狼群",
-            "CompleteMainTask_开始修炼" ]
+        "on_error": [ "CompleteMainTask_开始修炼" ],
+        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "AcceptMainTask_击退来袭狼群" ]
     },
     /* ---------------------------------------- main task 击退来袭狼群 start ---------------------------------------- */
     "AcceptMainTask_击退来袭狼群": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1052,7 +1119,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]SkipDialogue", "ClickOnCopy_击退来袭狼群", "AcceptMainTask_击退来袭狼群" ]
+        "on_error": [ "AcceptMainTask_击退来袭狼群" ],
+        "next": [ "[JumpBack]SkipDialogue", "ClickOnCopy_击退来袭狼群" ]
     },
     "ClickOnCopy_击退来袭狼群": {
         "recognition": {
@@ -1070,7 +1138,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "[JumpBack]SkipDialogue", "EnterCopy_击退来袭狼群", "ClickOnCopy_击退来袭狼群" ]
+        "on_error": [ "ClickOnCopy_击退来袭狼群" ],
+        "next": [ "[JumpBack]SkipDialogue", "EnterCopy_击退来袭狼群" ]
     },
     "EnterCopy_击退来袭狼群": {
         "recognition": {
@@ -1087,7 +1156,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_击退来袭狼群", "MoveToWolvesNoOne" ]
+        "on_error": [ "EnterCopy_击退来袭狼群" ],
+        "next": [ "MoveToWolvesNoOne" ]
     },
     /* ---------------------------------------- copy 狼群退治 start ---------------------------------------- */
     "MoveToWolvesNoOne": {
@@ -1104,6 +1174,7 @@
                 "target": [ 1275, 184, 13, 6 ] // position of wolves No.1
             }
         },
+        "timeout": 5000,
         "next": [ "StartBattle_WolvesNoOne" ]
     },
     "StartBattle_WolvesNoOne": {
@@ -1133,6 +1204,7 @@
                 "target": [ 1259, 167, 10, 6 ] // position of wolves No.2
             }
         },
+        "timeout": 5000,
         "next": [ "StartBattle_WolvesNoTwo" ]
     },
     "StartBattle_WolvesNoTwo": {
@@ -1162,6 +1234,7 @@
                 "target": [ 1224, 169, 11, 10 ] // position of wolves No.3
             }
         },
+        "timeout": 7000,
         "next": [ "StartBattle_WolvesNoThree" ]
     },
     "StartBattle_WolvesNoThree": {
@@ -1175,6 +1248,7 @@
         "action": {
             "type": "Click"
         },
+        "timeout": 7000,
         "next": [ "[JumpBack]ManualBattle", "ConfirmCopyResults_狼群退治" ]
     },
     "ConfirmCopyResults_狼群退治": {
@@ -1188,7 +1262,9 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel7", "ConfirmCopyResults_狼群退治" ]
+        "on_error": [ "ConfirmCopyResults_狼群退治" ],
+        "timeout": 5000,
+        "next": [ "ConfirmMainCharLevel7" ]
     },
     /* ---------------------------------------- copy 狼群退治 finish ---------------------------------------- */
     "ConfirmMainCharLevel7": {
@@ -1208,7 +1284,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 7"
         },
-        "next": [ "ConfirmSasukeLevel7", "ConfirmNarutoLevel7", "ConfirmMainCharLevel7" ]
+        "on_error": [ "ConfirmMainCharLevel7" ],
+        "next": [ "ConfirmSasukeLevel7", "ConfirmNarutoLevel7" ]
     },
     "ConfirmSasukeLevel7": {
         "recognition": {
@@ -1224,7 +1301,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoAfterSasukeLevel7", "ConfirmSasukeLevel7" ]
+        "on_error": [ "ConfirmSasukeLevel7" ],
+        "next": [ "ConfirmNarutoAfterSasukeLevel7" ]
     },
     "ConfirmNarutoAfterSasukeLevel7": {
         "recognition": {
@@ -1240,7 +1318,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmNarutoAfterSasukeLevel7", "ClickOnMainCharSystem" ]
+        "on_error": [ "ConfirmNarutoAfterSasukeLevel7" ],
+        "next": [ "[JumpBack]CloseNewSystemPopups", "ClickOnMainCharSystem" ]
     },
     "ConfirmNarutoLevel7": {
         "recognition": {
@@ -1256,7 +1335,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeAfterNarutoLevel7", "ConfirmNarutoLevel7" ]
+        "on_error": [ "ConfirmNarutoLevel7" ],
+        "next": [ "ConfirmSasukeAfterNarutoLevel7" ]
     },
     "ConfirmSasukeAfterNarutoLevel7": {
         "recognition": {
@@ -1272,7 +1352,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmSasukeAfterNarutoLevel7", "ClickOnMainCharSystem" ]
+        "on_error": [ "ConfirmSasukeAfterNarutoLevel7" ],
+        "next": [ "[JumpBack]CloseNewSystemPopups", "ClickOnMainCharSystem" ]
     },
     "ClickOnMainCharSystem": {
         "recognition": {
@@ -1286,7 +1367,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "ClickOnTalent", "ClickOnMainCharSystem" ]
+        "on_error": [ "ClickOnMainCharSystem" ],
+        "next": [ "ClickOnTalent" ]
     },
     "ClickOnTalent": {
         "recognition": {
@@ -1303,9 +1385,11 @@
             }
         },
         "post_delay": 700,
-        "next": [ "ClickOnComboSkill3", "ClickOnTalent" ]
+        "on_error": [ "ClickOnTalent" ],
+        "next": [ "ClickOnComboSkill3" ]
     },
     "ClickOnComboSkill3": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1325,7 +1409,7 @@
                 "key": 27
             }
         },
-        "post_delay": 700,
+        "post_delay": 1000,
         "next": [ "ExitMainCharSystem" ]
     },
     "ExitMainCharSystem": {
@@ -1335,7 +1419,7 @@
                 "key": 27
             }
         },
-        "post_delay": 700,
+        "post_delay": 1000,
         "next": [ "ClickOnMainTask_击退来袭狼群" ]
     },
     "ClickOnMainTask_击退来袭狼群": {
@@ -1352,7 +1436,8 @@
                 "target": [ 1210, 310, 67, 7 ] // MainTask_击退来袭狼群
             }
         },
-        "next": [ "ConfirmRunning_击退来袭狼群", "ClickOnMainTask_击退来袭狼群" ]
+        "on_error": [ "ClickOnMainTask_击退来袭狼群" ],
+        "next": [ "ConfirmRunning_击退来袭狼群" ]
     },
     "ConfirmRunning_击退来袭狼群": {
         "recognition": {
@@ -1362,7 +1447,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 45000,
+        "timeout": 36000,
         "next": [ "CompleteMainTask_击退来袭狼群" ]
     },
     "CompleteMainTask_击退来袭狼群": {
@@ -1377,7 +1462,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "CompleteMainTask_击退来袭狼群",
+        "on_error": [ "CompleteMainTask_击退来袭狼群" ],
+        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
             "ClickOnMainTask_联系阿斯玛" ]
     },
     /* ---------------------------------------- main task 联系阿斯玛 start ---------------------------------------- */
@@ -1395,7 +1481,8 @@
                 "target": [ 1210, 310, 60, 7 ] // MainTask_联系阿斯玛
             }
         },
-        "next": [ "ConfirmRunning_联系阿斯玛", "ClickOnMainTask_联系阿斯玛" ]
+        "on_error": [ "ClickOnMainTask_联系阿斯玛" ],
+        "next": [ "ConfirmRunning_联系阿斯玛" ]
     },
     "ConfirmRunning_联系阿斯玛": {
         "recognition": {
@@ -1405,6 +1492,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
+        "timeout": 22000,
         "next": [ "CompleteMainTask_联系阿斯玛" ]
     },
     "CompleteMainTask_联系阿斯玛": {
@@ -1419,10 +1507,12 @@
             "type": "Click"
         },
         "post_delay": 1000,
-        "next": [ "AcceptMainTask_合战演练", "CompleteMainTask_联系阿斯玛" ]
+        "on_error": [ "CompleteMainTask_联系阿斯玛" ],
+        "next": [ "AcceptMainTask_合战演练" ]
     },
     /* ---------------------------------------- main task 合战演练 start ---------------------------------------- */
     "AcceptMainTask_合战演练": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1451,7 +1541,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_猪鹿蝶组合", "ClickOnCopy_合战演练" ]
+        "on_error": [ "ClickOnCopy_合战演练" ],
+        "next": [ "EnterCopy_猪鹿蝶组合" ]
     },
     /* ---------------------------------------- copy 猪鹿蝶组合 start ---------------------------------------- */
     "EnterCopy_猪鹿蝶组合": {
@@ -1469,8 +1560,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
-            "EnterCopy_猪鹿蝶组合", "MoveToInoShika" ]
+        "on_error": [ "EnterCopy_猪鹿蝶组合" ],
+        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle", "MoveToInoShika" ]
     },
     "MoveToInoShika": {
         "recognition": {
@@ -1486,6 +1577,7 @@
                 "target": [ 1264, 203, 14, 13 ] // position of 猪鹿
             }
         },
+        "timeout": 5000,
         "next": [ "SkipDialogue_猪鹿蝶组合" ]
     },
     "SkipDialogue_猪鹿蝶组合": {
@@ -1516,6 +1608,7 @@
                 "target": [ 1255, 184, 12, 11 ] // position of 猪鹿蝶
             }
         },
+        "timeout": 5000,
         "next": [ "SkipDialogueAgain_猪鹿蝶组合" ]
     },
     "SkipDialogueAgain_猪鹿蝶组合": {
@@ -1529,6 +1622,7 @@
         "action": {
             "type": "Click"
         },
+        "timeout": 5000,
         "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_猪鹿蝶组合" ]
     },
@@ -1543,7 +1637,9 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel8", "ConfirmCopyResults_猪鹿蝶组合" ]
+        "on_error": [ "ConfirmCopyResults_猪鹿蝶组合" ],
+        "timeout": 8000,
+        "next": [ "ConfirmMainCharLevel8" ]
     },
     /* ---------------------------------------- copy 猪鹿蝶组合 finish ---------------------------------------- */
     "ConfirmMainCharLevel8": {
@@ -1564,7 +1660,8 @@
             "Node.Recognition.Succeeded": "Level 8"
         },
         "post_delay": 700,
-        "next": [ "ConfirmNarutoLevel8", "ConfirmSasukeLevel8", "ConfirmMainCharLevel8" ]
+        "on_error": [ "ConfirmMainCharLevel8" ],
+        "next": [ "ConfirmNarutoLevel8", "ConfirmSasukeLevel8" ]
     },
     "ConfirmNarutoLevel8": {
         "recognition": {
@@ -1580,7 +1677,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmSasukeLevel8", "ConfirmNarutoLevel8", "CompleteMainTask_合战演练" ]
+        "on_error": [ "ConfirmNarutoLevel8" ],
+        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmSasukeLevel8", "CompleteMainTask_合战演练" ]
     },
     "ConfirmSasukeLevel8": {
         "recognition": {
@@ -1596,7 +1694,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmNarutoLevel8", "ConfirmSasukeLevel8", "CompleteMainTask_合战演练" ]
+        "on_error": [ "ConfirmSasukeLevel8" ],
+        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmNarutoLevel8", "CompleteMainTask_合战演练" ]
     },
     "CompleteMainTask_合战演练": {
         "recognition": {
@@ -1610,8 +1709,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_前往生存试炼场",
-            "CompleteMainTask_合战演练" ]
+        "on_error": [ "CompleteMainTask_合战演练" ],
+        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_前往生存试炼场" ]
     },
     /* ----------------------------------- main task 前往生存试炼场 start ----------------------------------- */
     "ClickOnMainTask_前往生存试炼场": {
@@ -1628,7 +1727,8 @@
                 "target": [ 1210, 310, 75, 7 ] // MainTask_前往生存试炼场
             }
         },
-        "next": [ "ConfirmRunning_前往生存试炼场", "ClickOnMainTask_前往生存试炼场" ]
+        "on_error": [ "ClickOnMainTask_前往生存试炼场" ],
+        "next": [ "ConfirmRunning_前往生存试炼场" ]
     },
     "ConfirmRunning_前往生存试炼场": {
         "recognition": {
@@ -1638,6 +1738,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
+        "timeout": 24000,
         "next": [ "ClickDialogue_前往生存试炼场" ]
     },
     "ClickDialogue_前往生存试炼场": {
@@ -1651,7 +1752,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClickDialogue_前往生存试炼场", "ClickOnMainTaskAgain_前往生存试炼场" ]
+        "on_error": [ "ClickDialogue_前往生存试炼场" ],
+        "next": [ "ClickOnMainTaskAgain_前往生存试炼场" ]
     },
     "ClickOnMainTaskAgain_前往生存试炼场": {
         "recognition": {
@@ -1667,7 +1769,8 @@
                 "target": [ 1210, 310, 75, 7 ] // MainTask_前往生存试炼场
             }
         },
-        "next": [ "CompleteMainTask_前往生存试炼场", "ClickOnMainTaskAgain_前往生存试炼场" ]
+        "on_error": [ "ClickOnMainTaskAgain_前往生存试炼场" ],
+        "next": [ "CompleteMainTask_前往生存试炼场" ]
     },
     "CompleteMainTask_前往生存试炼场": {
         "recognition": {
@@ -1681,7 +1784,8 @@
             "type": "Click"
         },
         "post_delay": 1000,
-        "next": [ "AcceptMainTask_生存试炼", "CompleteMainTask_前往生存试炼场" ]
+        "on_error": [ "CompleteMainTask_前往生存试炼场" ],
+        "next": [ "AcceptMainTask_生存试炼" ]
     },
     /* ---------------------------------------- main task 生存试炼 start ---------------------------------------- */
     "AcceptMainTask_生存试炼": {
@@ -1695,9 +1799,11 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel9", "AcceptMainTask_生存试炼" ]
+        "on_error": [ "AcceptMainTask_生存试炼" ],
+        "next": [ "ConfirmMainCharLevel9" ]
     },
     "ConfirmMainCharLevel9": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1714,7 +1820,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 9"
         },
-        "next": [ "ConfirmMainCharLevel9", "ClickOnCopy_生存试炼" ]
+        "on_error": [ "ConfirmMainCharLevel9" ],
+        "next": [ "ClickOnCopy_生存试炼" ]
     },
     "ClickOnCopy_生存试炼": {
         "recognition": {
@@ -1732,7 +1839,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_卡卡西的试炼", "ClickOnCopy_生存试炼" ]
+        "on_error": [ "ClickOnCopy_生存试炼" ],
+        "next": [ "EnterCopy_卡卡西的试炼" ]
     },
     "EnterCopy_卡卡西的试炼": {
         "recognition": {
@@ -1749,7 +1857,23 @@
             }
         },
         "post_delay": 700,
-        "next": [ "[JumpBack]SkipDialogue", "EnterCopy_卡卡西的试炼", "MoveToKakashi" ]
+        "on_error": [ "EnterCopy_卡卡西的试炼" ],
+        "next": [ "SkipDialogue_卡卡西入场" ]
+    },
+    "SkipDialogue_卡卡西入场": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "leveling/buttons/SkipDialogue.png",
+                "roi": [ 909, 638, 79, 63 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 700,
+        "on_error": [ "SkipDialogue_卡卡西入场" ],
+        "next": [ "MoveToKakashi" ]
     },
     /* ---------------------------------------- copy 卡卡西的试炼 start ---------------------------------------- */
     "MoveToKakashi": {
@@ -1766,8 +1890,9 @@
                 "target": [ 714, 290, 8, 31 ] // position of Kakashi (1st battle)
             }
         },
+        "on_error": [ "MoveToKakashi" ],
         "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
-            "MoveToKakashiPrePosition", "MoveToKakashi" ]
+            "MoveToKakashiPrePosition" ]
     },
     "MoveToKakashiPrePosition": {
         "recognition": {
@@ -1784,7 +1909,8 @@
             }
         },
         "post_delay": 3500,
-        "next": [ "MoveToKakashiFinal", "MoveToKakashiPrePosition" ]
+        "on_error": [ "MoveToKakashiPrePosition" ],
+        "next": [ "MoveToKakashiFinal" ]
     },
     "MoveToKakashiFinal": {
         "recognition": {
@@ -1797,6 +1923,7 @@
         "action": {
             "type": "Click"
         },
+        "timeout": 7000,
         "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_卡卡西的试炼" ]
     },
@@ -1811,7 +1938,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmSasukeLevel9", "ConfirmNarutoLevel9", "ConfirmCopyResults_卡卡西的试炼" ]
+        "on_error": [ "ConfirmCopyResults_卡卡西的试炼" ],
+        "next": [ "ConfirmSasukeLevel9", "ConfirmNarutoLevel9" ]
     },
     /* ---------------------------------------- copy 卡卡西的试炼 finish ---------------------------------------- */
     "ConfirmSasukeLevel9": {
@@ -1828,7 +1956,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoLevel9", "ConfirmSasukeLevel9", "CompleteMainTask_生存试炼" ]
+        "on_error": [ "ConfirmSasukeLevel9" ],
+        "next": [ "ConfirmNarutoLevel9", "CompleteMainTask_生存试炼" ]
     },
     "ConfirmNarutoLevel9": {
         "recognition": {
@@ -1844,7 +1973,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeLevel9", "ConfirmNarutoLevel9", "CompleteMainTask_生存试炼" ]
+        "on_error": [ "ConfirmNarutoLevel9" ],
+        "next": [ "ConfirmSasukeLevel9", "CompleteMainTask_生存试炼" ]
     },
     "CompleteMainTask_生存试炼": {
         "recognition": {
@@ -1858,7 +1988,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "ConfirmMainCharLevel10", "CompleteMainTask_生存试炼" ]
+        "on_error": [ "CompleteMainTask_生存试炼" ],
+        "next": [ "ConfirmMainCharLevel10" ]
     },
     /* ---------------------------------------- main task 生存试炼 finish ---------------------------------------- */
     "ConfirmMainCharLevel10": {
@@ -1878,7 +2009,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 10"
         },
-        "next": [ "CompleteSideTask_满战绩通关第1章副本", "ConfirmMainCharLevel10" ]
+        "on_error": [ "ConfirmMainCharLevel10" ],
+        "next": [ "CompleteSideTask_满战绩通关第1章副本" ]
     },
     "CompleteSideTask_满战绩通关第1章副本": {
         "recognition": {
@@ -1905,10 +2037,12 @@
         "action": {
             "type": "Click"
         },
-        "post_delay": 700,
-        "next": [ "ExitSideTask_通过第一章剧情副本", "CompleteSideTask_等级达到10级" ]
+        "post_delay": 1000,
+        "on_error": [ "CompleteSideTask_等级达到10级" ],
+        "next": [ "ExitSideTask_通过第一章剧情副本" ]
     },
     "ExitSideTask_通过第一章剧情副本": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1922,7 +2056,8 @@
                 "key": 27 // esc 直接退出支线任务弹窗
             }
         },
-        "next": [ "ExitSideTask_通过第一章剧情副本", "ClickOnMainTask_护送达兹纳" ]
+        "on_error": [ "ExitSideTask_通过第一章剧情副本" ],
+        "next": [ "ClickOnMainTask_护送达兹纳" ]
     },
     /* ---------------------------------------- main task 护送达兹纳 start ---------------------------------------- */
     "ClickOnMainTask_护送达兹纳": {
@@ -1939,7 +2074,8 @@
                 "target": [ 1218, 340, 71, 7 ] // MainTask_护送达兹纳
             }
         },
-        "next": [ "ConfirmRunning_护送达兹纳", "ClickOnMainTask_护送达兹纳" ]
+        "on_error": [ "ClickOnMainTask_护送达兹纳" ],
+        "next": [ "ConfirmRunning_护送达兹纳" ]
     },
     "ConfirmRunning_护送达兹纳": {
         "recognition": {
@@ -1949,7 +2085,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 60000,
+        "timeout": 45000,
         "next": [ "SkipDialogue_护送达兹纳" ]
     },
     "SkipDialogue_护送达兹纳": {
@@ -1963,7 +2099,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "SkipDialogue_护送达兹纳", "ClickOnMainTaskAgain_护送达兹纳" ]
+        "on_error": [ "SkipDialogue_护送达兹纳" ],
+        "next": [ "ClickOnMainTaskAgain_护送达兹纳" ]
     },
     "ClickOnMainTaskAgain_护送达兹纳": {
         "recognition": {
@@ -1979,9 +2116,11 @@
                 "target": [ 1218, 340, 71, 7 ] // MainTask_护送达兹纳
             }
         },
-        "next": [ "AcceptMainTask_护送达兹纳", "ClickOnMainTaskAgain_护送达兹纳" ]
+        "on_error": [ "ClickOnMainTaskAgain_护送达兹纳" ],
+        "next": [ "AcceptMainTask_护送达兹纳" ]
     },
     "AcceptMainTask_护送达兹纳": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -1992,7 +2131,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "AcceptMainTask_护送达兹纳", "ClickOnCopy_护送达兹纳" ]
+        "on_error": [ "AcceptMainTask_护送达兹纳" ],
+        "next": [ "ClickOnCopy_护送达兹纳" ]
     },
     "ClickOnCopy_护送达兹纳": {
         "recognition": {
@@ -2010,7 +2150,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_前往波之国", "ClickOnCopy_护送达兹纳" ]
+        "on_error": [ "ClickOnCopy_护送达兹纳" ],
+        "next": [ "EnterCopy_前往波之国" ]
     },
     "EnterCopy_前往波之国": {
         "recognition": {
@@ -2044,6 +2185,7 @@
                 "target": [ 1272, 220, 11, 11 ] // position of LandOfWaves enemies 1
             }
         },
+        "timeout": 11000,
         "next": [ "StartBattle_LandOfWavesEnemies1" ]
     },
     "StartBattle_LandOfWavesEnemies1": {
@@ -2073,6 +2215,7 @@
                 "target": [ 1291, 255, 8, 7 ] // position of LandOfWaves enemies 2
             }
         },
+        "timeout": 10000,
         "next": [ "StartBattle_LandOfWavesEnemies2" ]
     },
     "StartBattle_LandOfWavesEnemies2": {
@@ -2102,6 +2245,7 @@
                 "target": [ 1318, 268, 5, 5 ] // finish position of LandOfWaves
             }
         },
+        "timeout": 7000,
         "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_前往波之国" ]
     },
@@ -2116,7 +2260,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmSasukeLevel10", "ConfirmNarutoLevel10", "ConfirmCopyResults_前往波之国" ]
+        "on_error": [ "ConfirmCopyResults_前往波之国" ],
+        "next": [ "ConfirmSasukeLevel10", "ConfirmNarutoLevel10" ]
     },
     /* ---------------------------------------- copy 前往波之国 finish ---------------------------------------- */
     "ConfirmSasukeLevel10": {
@@ -2133,7 +2278,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoAfterSasukeLevel10", "ConfirmSasukeLevel10" ]
+        "on_error": [ "ConfirmSasukeLevel10" ],
+        "next": [ "ConfirmNarutoAfterSasukeLevel10" ]
     },
     "ConfirmNarutoAfterSasukeLevel10": {
         "recognition": {
@@ -2149,7 +2295,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoAfterSasukeLevel10", "ClickOnMainTaskOnceAgain_护送达兹纳" ]
+        "on_error": [ "ConfirmNarutoAfterSasukeLevel10" ],
+        "next": [ "ClickOnMainTaskOnceAgain_护送达兹纳" ]
     },
     "ConfirmNarutoLevel10": {
         "recognition": {
@@ -2165,7 +2312,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeAfterNarutoLevel10", "ConfirmNarutoLevel10" ]
+        "on_error": [ "ConfirmNarutoLevel10" ],
+        "next": [ "ConfirmSasukeAfterNarutoLevel10" ]
     },
     "ConfirmSasukeAfterNarutoLevel10": {
         "recognition": {
@@ -2181,7 +2329,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeAfterNarutoLevel10", "ClickOnMainTaskOnceAgain_护送达兹纳" ]
+        "on_error": [ "ConfirmSasukeAfterNarutoLevel10" ],
+        "next": [ "ClickOnMainTaskOnceAgain_护送达兹纳" ]
     },
     "ClickOnMainTaskOnceAgain_护送达兹纳": {
         "recognition": {
@@ -2197,7 +2346,8 @@
                 "target": [ 1210, 310, 60, 7 ] // MainTask_护送达兹纳
             }
         },
-        "next": [ "CompleteMainTask_护送达兹纳", "ClickOnMainTaskOnceAgain_护送达兹纳" ]
+        "on_error": [ "ClickOnMainTaskOnceAgain_护送达兹纳" ],
+        "next": [ "CompleteMainTask_护送达兹纳" ]
     },
     "CompleteMainTask_护送达兹纳": {
         "recognition": {
@@ -2211,7 +2361,8 @@
             "type": "Click"
         },
         "post_delay": 1000,
-        "next": [ "AcceptMainTask_谨慎前行", "CompleteMainTask_护送达兹纳" ]
+        "on_error": [ "CompleteMainTask_护送达兹纳" ],
+        "next": [ "AcceptMainTask_谨慎前行" ]
     },
     /* ---------------------------------------- main task 谨慎前行 start ---------------------------------------- */
     "AcceptMainTask_谨慎前行": {
@@ -2225,9 +2376,11 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel11", "AcceptMainTask_谨慎前行" ]
+        "on_error": [ "AcceptMainTask_谨慎前行" ],
+        "next": [ "ConfirmMainCharLevel11" ]
     },
     "ConfirmMainCharLevel11": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2244,7 +2397,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 11"
         },
-        "next": [ "ConfirmMainCharLevel11", "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
+        "on_error": [ "ConfirmMainCharLevel11" ],
+        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
             "ClickOnCopy_谨慎前行" ]
     },
     "ClickOnCopy_谨慎前行": {
@@ -2263,7 +2417,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_海边侦察", "ClickOnCopy_谨慎前行" ]
+        "on_error": [ "ClickOnCopy_谨慎前行" ],
+        "next": [ "EnterCopy_海边侦察" ]
     },
     "EnterCopy_海边侦察": {
         "recognition": {
@@ -2280,7 +2435,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "MoveToSeasideEnemies1", "EnterCopy_海边侦察" ]
+        "on_error": [ "EnterCopy_海边侦察" ],
+        "next": [ "MoveToSeasideEnemies1" ]
     },
     /* ---------------------------------------- copy 海边侦察 start ---------------------------------------- */
     "MoveToSeasideEnemies1": {
@@ -2297,6 +2453,7 @@
                 "target": [ 1297, 190, 9, 16 ] // position of Seaside enemies 1
             }
         },
+        "timeout": 7000,
         "next": [ "StartBattle_SeasideEnemies1" ]
     },
     "StartBattle_SeasideEnemies1": {
@@ -2326,6 +2483,7 @@
                 "target": [ 1286, 167, 9, 9 ] // position of Seaside enemies 2
             }
         },
+        "timeout": 5000,
         "next": [ "StartBattle_SeasideEnemies2" ]
     },
     "StartBattle_SeasideEnemies2": {
@@ -2368,7 +2526,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "SkipDialogue_海边侦察", "MoveToSeasideEnemies3Again" ]
+        "on_error": [ "SkipDialogue_海边侦察" ],
+        "next": [ "MoveToSeasideEnemies3Again" ]
     },
     "MoveToSeasideEnemies3Again": {
         "recognition": {
@@ -2384,6 +2543,7 @@
                 "target": [ 1251, 190, 11, 8 ] // position of Seaside enemies 3
             }
         },
+        "timeout": 7000,
         "next": [ "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle", "ConfirmCopyResults_海边侦察" ]
     },
     "ConfirmCopyResults_海边侦察": {
@@ -2397,7 +2557,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmSasukeLevel11", "ConfirmNarutoLevel11", "ConfirmCopyResults_海边侦察" ]
+        "on_error": [ "ConfirmCopyResults_海边侦察" ],
+        "next": [ "ConfirmSasukeLevel11", "ConfirmNarutoLevel11" ]
     },
     /* ---------------------------------------- copy 海边侦察 finish ---------------------------------------- */
     "ConfirmSasukeLevel11": {
@@ -2414,7 +2575,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoAfterSasukeLevel11", "ConfirmSasukeLevel11" ]
+        "on_error": [ "ConfirmSasukeLevel11" ],
+        "next": [ "ConfirmNarutoAfterSasukeLevel11" ]
     },
     "ConfirmNarutoAfterSasukeLevel11": {
         "recognition": {
@@ -2430,7 +2592,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoAfterSasukeLevel11", "ClickOnMainTaskAgain_谨慎前行" ]
+        "on_error": [ "ConfirmNarutoAfterSasukeLevel11" ],
+        "next": [ "ClickOnMainTaskAgain_谨慎前行" ]
     },
     "ConfirmNarutoLevel11": {
         "recognition": {
@@ -2446,7 +2609,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeAfterNarutoLevel11", "ConfirmNarutoLevel11" ]
+        "on_error": [ "ConfirmNarutoLevel11" ],
+        "next": [ "ConfirmSasukeAfterNarutoLevel11" ]
     },
     "ConfirmSasukeAfterNarutoLevel11": {
         "recognition": {
@@ -2462,7 +2626,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeAfterNarutoLevel11", "ClickOnMainTaskAgain_谨慎前行" ]
+        "on_error": [ "ConfirmSasukeAfterNarutoLevel11" ],
+        "next": [ "ClickOnMainTaskAgain_谨慎前行" ]
     },
     "ClickOnMainTaskAgain_谨慎前行": {
         "recognition": {
@@ -2478,7 +2643,8 @@
                 "target": [ 1210, 310, 52, 7 ] // MainTask_谨慎前行
             }
         },
-        "next": [ "ConfirmRunning_谨慎前行", "ClickOnMainTaskAgain_谨慎前行" ]
+        "on_error": [ "ClickOnMainTaskAgain_谨慎前行" ],
+        "next": [ "ConfirmRunning_谨慎前行" ]
     },
     "ConfirmRunning_谨慎前行": {
         "recognition": {
@@ -2488,6 +2654,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
+        "timeout": 8000,
         "next": [ "SkipDialogue_谨慎前行" ]
     },
     "SkipDialogue_谨慎前行": {
@@ -2501,7 +2668,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "SkipDialogue_谨慎前行", "ClickOnMainTaskOnceAgain_谨慎前行" ]
+        "on_error": [ "SkipDialogue_谨慎前行" ],
+        "next": [ "ClickOnMainTaskOnceAgain_谨慎前行" ]
     },
     "ClickOnMainTaskOnceAgain_谨慎前行": {
         "recognition": {
@@ -2517,7 +2685,8 @@
                 "target": [ 1210, 310, 52, 7 ] // MainTask_谨慎前行
             }
         },
-        "next": [ "CompleteMainTask_谨慎前行", "ClickOnMainTaskOnceAgain_谨慎前行" ]
+        "on_error": [ "ClickOnMainTaskOnceAgain_谨慎前行" ],
+        "next": [ "CompleteMainTask_谨慎前行" ]
     },
     "CompleteMainTask_谨慎前行": {
         "recognition": {
@@ -2531,7 +2700,8 @@
             "type": "Click"
         },
         "post_delay": 1000,
-        "next": [ "AcceptMainTask_鬼人再不斩", "CompleteMainTask_谨慎前行" ]
+        "on_error": [ "CompleteMainTask_谨慎前行" ],
+        "next": [ "AcceptMainTask_鬼人再不斩" ]
     },
     /* ---------------------------------------- main task 鬼人再不斩 start ---------------------------------------- */
     "AcceptMainTask_鬼人再不斩": {
@@ -2545,7 +2715,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel12", "AcceptMainTask_鬼人再不斩" ]
+        "on_error": [ "AcceptMainTask_鬼人再不斩" ],
+        "next": [ "ConfirmMainCharLevel12" ]
     },
     "ConfirmMainCharLevel12": {
         "recognition": {
@@ -2564,9 +2735,11 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 12"
         },
-        "next": [ "ConfirmMainCharLevel12", "SkipDialogue_MainTask鬼人再不斩" ]
+        "on_error": [ "ConfirmMainCharLevel12" ],
+        "next": [ "SkipDialogue_MainTask鬼人再不斩" ]
     },
     "SkipDialogue_MainTask鬼人再不斩": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2577,7 +2750,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "SkipDialogue_MainTask鬼人再不斩",
+        "on_error": [ "SkipDialogue_MainTask鬼人再不斩" ],
+        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
             "ClickOnCopy_鬼人再不斩" ]
     },
     "ClickOnCopy_鬼人再不斩": {
@@ -2592,7 +2766,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_鬼人再不斩", "ClickOnCopy_鬼人再不斩" ]
+        "on_error": [ "ClickOnCopy_鬼人再不斩" ],
+        "next": [ "EnterCopy_鬼人再不斩" ]
     },
     "EnterCopy_鬼人再不斩": {
         "recognition": {
@@ -2626,6 +2801,7 @@
                 "target": [ 1298, 235, 6, 5 ] // specific position of Zabuza
             }
         },
+        "timeout": 5000,
         "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_鬼人再不斩" ]
     },
@@ -2640,7 +2816,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmSasukeLevel12", "ConfirmNarutoLevel12", "ConfirmCopyResults_鬼人再不斩" ]
+        "on_error": [ "ConfirmCopyResults_鬼人再不斩" ],
+        "next": [ "ConfirmSasukeLevel12", "ConfirmNarutoLevel12" ]
     },
     /* ---------------------------------------- copy 鬼人再不斩 finish ---------------------------------------- */
     "ConfirmSasukeLevel12": {
@@ -2657,7 +2834,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoLevel12", "ConfirmSasukeLevel12", "SkipDialogue_鬼人再不斩" ]
+        "on_error": [ "ConfirmSasukeLevel12" ],
+        "next": [ "ConfirmNarutoLevel12", "SkipDialogue_鬼人再不斩" ]
     },
 
     "ConfirmNarutoLevel12": {
@@ -2674,9 +2852,11 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeLevel12", "ConfirmNarutoLevel12", "SkipDialogue_鬼人再不斩" ]
+        "on_error": [ "ConfirmNarutoLevel12" ],
+        "next": [ "ConfirmSasukeLevel12", "SkipDialogue_鬼人再不斩" ]
     },
     "SkipDialogue_鬼人再不斩": {
+        "post_delay": 700,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2687,7 +2867,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "SkipDialogue_鬼人再不斩", "ClickOnMainTaskAgain_鬼人再不斩" ]
+        "on_error": [ "SkipDialogue_鬼人再不斩" ],
+        "next": [ "[JumpBack]SkipDialogue", "ClickOnMainTaskAgain_鬼人再不斩" ]
     },
     "ClickOnMainTaskAgain_鬼人再不斩": {
         "recognition": {
@@ -2703,7 +2884,8 @@
                 "target": [ 1209, 310, 62, 7 ] // MainTask_鬼人再不斩
             }
         },
-        "next": [ "CompleteMainTask_鬼人再不斩", "ClickOnMainTaskAgain_鬼人再不斩" ]
+        "on_error": [ "ClickOnMainTaskAgain_鬼人再不斩" ],
+        "next": [ "CompleteMainTask_鬼人再不斩" ]
     },
     "CompleteMainTask_鬼人再不斩": {
         "recognition": {
@@ -2717,7 +2899,8 @@
             "type": "Click"
         },
         "post_delay": 1000,
-        "next": [ "AcceptMainTask_保护大桥", "CompleteMainTask_鬼人再不斩" ]
+        "on_error": [ "CompleteMainTask_鬼人再不斩" ],
+        "next": [ "AcceptMainTask_保护大桥" ]
     },
     /* ---------------------------------------- main task 保护大桥 start ---------------------------------------- */
     "AcceptMainTask_保护大桥": {
@@ -2731,9 +2914,11 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel13", "AcceptMainTask_保护大桥" ]
+        "on_error": [ "AcceptMainTask_保护大桥" ],
+        "next": [ "ConfirmMainCharLevel13" ]
     },
     "ConfirmMainCharLevel13": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -2750,7 +2935,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 13"
         },
-        "next": [ "ConfirmMainCharLevel13", "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
+        "on_error": [ "ConfirmMainCharLevel13" ],
+        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
             "ClickOnCopy_保护大桥" ]
     },
     "ClickOnCopy_保护大桥": {
@@ -2769,7 +2955,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_保护大桥", "ClickOnCopy_保护大桥" ]
+        "on_error": [ "ClickOnCopy_保护大桥" ],
+        "next": [ "EnterCopy_保护大桥" ]
     },
     "EnterCopy_保护大桥": {
         "recognition": {
@@ -2786,7 +2973,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "MoveToBridgeEnemies1", "EnterCopy_保护大桥" ]
+        "on_error": [ "EnterCopy_保护大桥" ],
+        "next": [ "MoveToBridgeEnemies1" ]
     },
     /* ---------------------------------------- copy 保护大桥 start ---------------------------------------- */
     "MoveToBridgeEnemies1": {
@@ -2803,6 +2991,7 @@
                 "target": [ 1281, 162, 8, 7 ] // position of Bridge Enemies 1
             }
         },
+        "timeout": 7000,
         "next": [ "StartBattle_BridgeEnemies1" ]
     },
     "StartBattle_BridgeEnemies1": {
@@ -2827,7 +3016,6 @@
                 "roi": [ 629, 81, 129, 113 ]
             }
         },
-        "timeout": 15000,
         "next": [ "AutoOnFirstTime", "AutoOffFirstTime" ]
     },
     "AutoOnFirstTime": {
@@ -2853,7 +3041,6 @@
             "type": "Click"
         },
         "post_delay": 200,
-        "timeout": 15000,
         "next": [ "SpeedOnFirstTime", "SpeedOffFirstTime" ]
     },
     "SpeedOnFirstTime": {
@@ -2896,6 +3083,7 @@
                 "target": [ 1251, 178, 10, 8 ] // position of Bridge Enemies 2
             }
         },
+        "timeout": 6000,
         "next": [ "StartBattle_BridgeEnemies2" ]
     },
     "StartBattle_BridgeEnemies2": {
@@ -2940,7 +3128,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmSasukeLevel13", "ConfirmNarutoLevel13", "ConfirmCopyResults_保护大桥" ]
+        "on_error": [ "ConfirmCopyResults_保护大桥" ],
+        "next": [ "ConfirmSasukeLevel13", "ConfirmNarutoLevel13" ]
     },
     /* ---------------------------------------- copy 保护大桥 finish ---------------------------------------- */
     "ConfirmSasukeLevel13": {
@@ -2957,7 +3146,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoAfterSasukeLevel13", "ConfirmSasukeLevel13" ]
+        "on_error": [ "ConfirmSasukeLevel13" ],
+        "next": [ "ConfirmNarutoAfterSasukeLevel13" ]
     },
     "ConfirmNarutoAfterSasukeLevel13": {
         "recognition": {
@@ -2973,7 +3163,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoAfterSasukeLevel13", "ClickOnMainTask_保护大桥" ]
+        "on_error": [ "ConfirmNarutoAfterSasukeLevel13" ],
+        "next": [ "ClickOnMainTask_保护大桥" ]
     },
     "ConfirmNarutoLevel13": {
         "recognition": {
@@ -2989,7 +3180,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeAfterNarutoLevel13", "ConfirmNarutoLevel13" ]
+        "on_error": [ "ConfirmNarutoLevel13" ],
+        "next": [ "ConfirmSasukeAfterNarutoLevel13" ]
     },
     "ConfirmSasukeAfterNarutoLevel13": {
         "recognition": {
@@ -3005,7 +3197,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeAfterNarutoLevel13", "ClickOnMainTask_保护大桥" ]
+        "on_error": [ "ConfirmSasukeAfterNarutoLevel13" ],
+        "next": [ "ClickOnMainTask_保护大桥" ]
     },
     "ClickOnMainTask_保护大桥": {
         "recognition": {
@@ -3021,7 +3214,8 @@
                 "target": [ 1209, 310, 52, 7 ] // MainTask_保护大桥
             }
         },
-        "next": [ "ConfirmRunning_保护大桥", "ClickOnMainTask_保护大桥" ]
+        "on_error": [ "ClickOnMainTask_保护大桥" ],
+        "next": [ "ConfirmRunning_保护大桥" ]
     },
     "ConfirmRunning_保护大桥": {
         "recognition": {
@@ -3031,6 +3225,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
+        "timeout": 8000,
         "next": [ "SkipDialogue_保护大桥" ]
     },
     "SkipDialogue_保护大桥": {
@@ -3044,7 +3239,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "SkipDialogue_保护大桥", "ClickOnMainTaskAgain_保护大桥" ]
+        "on_error": [ "SkipDialogue_保护大桥" ],
+        "next": [ "ClickOnMainTaskAgain_保护大桥" ]
     },
     "ClickOnMainTaskAgain_保护大桥": {
         "recognition": {
@@ -3060,7 +3256,8 @@
                 "target": [ 1209, 310, 52, 7 ] // MainTask_保护大桥
             }
         },
-        "next": [ "CompleteMainTask_保护大桥", "ClickOnMainTaskAgain_保护大桥" ]
+        "on_error": [ "ClickOnMainTaskAgain_保护大桥" ],
+        "next": [ "CompleteMainTask_保护大桥" ]
     },
     "CompleteMainTask_保护大桥": {
         "recognition": {
@@ -3074,7 +3271,8 @@
             "type": "Click"
         },
         "post_delay": 1000,
-        "next": [ "AcceptMainTask_独自修行", "CompleteMainTask_保护大桥" ]
+        "on_error": [ "CompleteMainTask_保护大桥" ],
+        "next": [ "AcceptMainTask_独自修行" ]
     },
     /* ---------------------------------------- main task 独自修行 start ---------------------------------------- */
     "AcceptMainTask_独自修行": {
@@ -3088,7 +3286,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel15", "AcceptMainTask_独自修行" ]
+        "on_error": [ "AcceptMainTask_独自修行" ],
+        "next": [ "ConfirmMainCharLevel15" ]
     },
     "ConfirmMainCharLevel15": {
         "recognition": {
@@ -3107,7 +3306,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 15"
         },
-        "next": [ "CompleteSideTask_等级达到15级", "ConfirmMainCharLevel15" ]
+        "on_error": [ "ConfirmMainCharLevel15" ],
+        "next": [ "CompleteSideTask_等级达到15级" ]
     },
     "CompleteSideTask_等级达到15级": {
         "recognition": {
@@ -3120,8 +3320,9 @@
         "action": {
             "type": "Click"
         },
-        "post_delay": 700,
-        "next": [ "CompleteSideTask_等级达到15级", "ClickOnCopy_独自修行" ]
+        "post_delay": 1000,
+        "on_error": [ "CompleteSideTask_等级达到15级" ],
+        "next": [ "ClickOnCopy_独自修行" ]
     },
     "ClickOnCopy_独自修行": {
         "recognition": {
@@ -3139,7 +3340,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_独自修行", "ClickOnCopy_独自修行" ]
+        "on_error": [ "ClickOnCopy_独自修行" ],
+        "next": [ "EnterCopy_独自修行" ]
     },
     "EnterCopy_独自修行": {
         "recognition": {
@@ -3173,6 +3375,7 @@
                 "target": [ 1263, 194, 10, 10 ] // position of SoloTraining enemies 1
             }
         },
+        "timeout": 7000,
         "next": [ "StartBattle_SoloTrainingEnemies1" ]
     },
     "StartBattle_SoloTrainingEnemies1": {
@@ -3203,6 +3406,7 @@
                 "target": [ 1252, 226, 16, 7 ] // position of SoloTraining enemies 2
             }
         },
+        "timeout": 7000,
         "next": [ "StartBattle_SoloTrainingEnemies2" ]
     },
     "StartBattle_SoloTrainingEnemies2": {
@@ -3247,7 +3451,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmSasukeLevel15", "ConfirmNarutoLevel15", "ConfirmCopyResults_独自修行" ]
+        "on_error": [ "ConfirmCopyResults_独自修行" ],
+        "next": [ "ConfirmSasukeLevel15", "ConfirmNarutoLevel15" ]
     },
     /* ---------------------------------------- copy 独自修行 finish ---------------------------------------- */
     "ConfirmSasukeLevel15": {
@@ -3264,7 +3469,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoLevel15", "ConfirmSasukeLevel15", "CompleteMainTask_独自修行" ]
+        "on_error": [ "ConfirmSasukeLevel15" ],
+        "next": [ "ConfirmNarutoLevel15", "CompleteMainTask_独自修行" ]
     },
     "ConfirmNarutoLevel15": {
         "recognition": {
@@ -3280,7 +3486,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeLevel15", "ConfirmNarutoLevel15", "CompleteMainTask_独自修行" ]
+        "on_error": [ "ConfirmNarutoLevel15" ],
+        "next": [ "ConfirmSasukeLevel15", "CompleteMainTask_独自修行" ]
     },
     "CompleteMainTask_独自修行": {
         "recognition": {
@@ -3294,7 +3501,8 @@
             "type": "Click"
         },
         "post_delay": 700,
-        "next": [ "CompleteMainTask_独自修行", "ClickOnMainTask_捉兔大赛" ]
+        "on_error": [ "CompleteMainTask_独自修行" ],
+        "next": [ "ClickOnMainTask_捉兔大赛" ]
     },
     /* ---------------------------------------- main task 捉兔大赛 start ---------------------------------------- */
     "ClickOnMainTask_捉兔大赛": {
@@ -3311,7 +3519,8 @@
                 "target": [ 1217, 340, 81, 7 ] // MainTask_捉兔大赛
             }
         },
-        "next": [ "SkipDialogue_捉兔大赛", "ClickOnMainTask_捉兔大赛" ]
+        "on_error": [ "ClickOnMainTask_捉兔大赛" ],
+        "next": [ "SkipDialogue_捉兔大赛" ]
     },
     "SkipDialogue_捉兔大赛": {
         "recognition": {
@@ -3324,7 +3533,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "SkipDialogue_捉兔大赛", "ClickOnMainTaskAgain_捉兔大赛" ]
+        "on_error": [ "SkipDialogue_捉兔大赛" ],
+        "next": [ "ClickOnMainTaskAgain_捉兔大赛" ]
     },
     "ClickOnMainTaskAgain_捉兔大赛": {
         "recognition": {
@@ -3340,9 +3550,11 @@
                 "target": [ 1217, 340, 81, 7 ] // MainTask_捉兔大赛
             }
         },
-        "next": [ "AcceptMainTask_捉兔大赛", "ClickOnMainTaskAgain_捉兔大赛" ]
+        "on_error": [ "ClickOnMainTaskAgain_捉兔大赛" ],
+        "next": [ "AcceptMainTask_捉兔大赛" ]
     },
     "AcceptMainTask_捉兔大赛": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3353,7 +3565,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "AcceptMainTask_捉兔大赛", "ClickOnCopy_捉兔大赛" ]
+        "on_error": [ "AcceptMainTask_捉兔大赛" ],
+        "next": [ "ClickOnCopy_捉兔大赛" ]
     },
     "ClickOnCopy_捉兔大赛": {
         "recognition": {
@@ -3371,7 +3584,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "EnterCopy_捉兔大赛", "ClickOnCopy_捉兔大赛" ]
+        "on_error": [ "ClickOnCopy_捉兔大赛" ],
+        "next": [ "EnterCopy_捉兔大赛" ]
     },
     "EnterCopy_捉兔大赛": {
         "recognition": {
@@ -3388,7 +3602,8 @@
             }
         },
         "post_delay": 700,
-        "next": [ "MoveToRabbitContestEnemies1", "EnterCopy_捉兔大赛" ]
+        "on_error": [ "EnterCopy_捉兔大赛" ],
+        "next": [ "MoveToRabbitContestEnemies1" ]
     },
     /* ---------------------------------------- copy 捉兔大赛 start ---------------------------------------- */
     "MoveToRabbitContestEnemies1": {
@@ -3435,6 +3650,7 @@
                 "target": [ 1262, 189, 8, 8 ] // position of RabbitContest enemies 2
             }
         },
+        "timeout": 5000,
         "next": [ "StartBattle_RabbitContestEnemies2" ]
     },
     "StartBattle_RabbitContestEnemies2": {
@@ -3581,6 +3797,7 @@
         "action": {
             "type": "Click"
         },
+        "timeout": 9000,
         "next": [ "ConfirmCopyResults_捉兔大赛" ]
     },
     "ConfirmCopyResults_捉兔大赛": {
@@ -3594,7 +3811,9 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ConfirmMainCharLevel16", "ConfirmCopyResults_捉兔大赛" ]
+        "on_error": [ "ConfirmCopyResults_捉兔大赛" ],
+        "timeout": 5000,
+        "next": [ "ConfirmMainCharLevel16" ]
     },
     /* ---------------------------------------- copy 捉兔大赛 finish ---------------------------------------- */
     "ConfirmMainCharLevel16": {
@@ -3614,7 +3833,8 @@
         "focus": {
             "Node.Recognition.Succeeded": "Level 16"
         },
-        "next": [ "ConfirmSasukeLevel16", "ConfirmNarutoLevel16", "ConfirmMainCharLevel16" ]
+        "on_error": [ "ConfirmMainCharLevel16" ],
+        "next": [ "ConfirmSasukeLevel16", "ConfirmNarutoLevel16" ]
     },
     "ConfirmSasukeLevel16": {
         "recognition": {
@@ -3630,7 +3850,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmNarutoAfterSasukeLevel16", "ConfirmSasukeLevel16" ]
+        "on_error": [ "ConfirmSasukeLevel16" ],
+        "next": [ "ConfirmNarutoAfterSasukeLevel16" ]
     },
     "ConfirmNarutoAfterSasukeLevel16": {
         "recognition": {
@@ -3646,7 +3867,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmNarutoAfterSasukeLevel16", "SkipDialogueAgain_捉兔大赛" ]
+        "on_error": [ "ConfirmNarutoAfterSasukeLevel16" ],
+        "next": [ "[JumpBack]CloseNewSystemPopups", "SkipDialogueAgain_捉兔大赛" ]
     },
     "ConfirmNarutoLevel16": {
         "recognition": {
@@ -3662,7 +3884,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "ConfirmSasukeAfterNarutoLevel16", "ConfirmNarutoLevel16" ]
+        "on_error": [ "ConfirmNarutoLevel16" ],
+        "next": [ "ConfirmSasukeAfterNarutoLevel16" ]
     },
     "ConfirmSasukeAfterNarutoLevel16": {
         "recognition": {
@@ -3678,7 +3901,8 @@
                 "target": [ 643, 483, 54, 13 ]
             }
         },
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmSasukeAfterNarutoLevel16", "SkipDialogueAgain_捉兔大赛" ]
+        "on_error": [ "ConfirmSasukeAfterNarutoLevel16" ],
+        "next": [ "[JumpBack]CloseNewSystemPopups", "SkipDialogueAgain_捉兔大赛" ]
     },
     "SkipDialogueAgain_捉兔大赛": {
         "recognition": {
@@ -3691,7 +3915,8 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "SkipDialogueAgain_捉兔大赛", "ClickOnCompensation" ]
+        "on_error": [ "SkipDialogueAgain_捉兔大赛" ],
+        "next": [ "ClickOnCompensation" ]
     },
     "ClickOnCompensation": {
         "recognition": {
@@ -3704,9 +3929,11 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClaimCompensation", "ClickOnCompensation" ]
+        "on_error": [ "ClickOnCompensation" ],
+        "next": [ "ClaimCompensation" ]
     },
     "ClaimCompensation": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3717,9 +3944,11 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClaimCompensation", "CloseCompensation" ]
+        "on_error": [ "ClaimCompensation" ],
+        "next": [ "CloseCompensation" ]
     },
     "CloseCompensation": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3733,10 +3962,12 @@
                 "key": 27 // esc
             }
         },
-        "next": [ "CloseCompensation", "Login" ]
+        "on_error": [ "CloseCompensation" ],
+        "next": [ "Login" ]
     },
     /* ---------------------------------------- common methods ---------------------------------------- */
     "CloseCenterPopups": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3752,6 +3983,7 @@
         }
     },
     "CloseNewSystemPopups": {
+        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -3767,6 +3999,7 @@
         }
     },
     "SkipDialogue": {
+        "post_delay": 700,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
