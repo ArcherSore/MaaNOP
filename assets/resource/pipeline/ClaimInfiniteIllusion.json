@@ -3,6 +3,7 @@
         "next": [ "ClickOnInfiniteIllusion" ]
     },
     "ClickOnInfiniteIllusion": {
+        "timeout": 5000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -19,9 +20,11 @@
         "focus": {
             "Node.Action.Succeeded": "开始领取无限幻象"
         },
-        "next": [ "InfiniteIllusionSweep1", "ClickOnInfiniteIllusion" ]
+        "next": [ "InfiniteIllusionSweep1" ],
+        "on_error": [ "ClickOnInfiniteIllusion" ]
     },
     "InfiniteIllusionSweep1": {
+        "timeout": 5000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -35,9 +38,11 @@
                 "target": [ 969, 628, 51, 19 ] // 一键扫荡button
             }
         },
-        "next": [ "InfiniteIllusionConfirm1", "InfiniteIllusionSweep1" ]
+        "next": [ "InfiniteIllusionConfirm1", "[JumpBack]HandleConfirmPopup" ],
+        "on_error": [ "InfiniteIllusionSweep1" ]
     },
     "InfiniteIllusionConfirm1": {
+        "timeout": 5000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -51,9 +56,11 @@
         "focus": {
             "Node.Action.Succeeded": "成功扫荡力之试炼"
         },
-        "next": [ "InfiniteIllusionConfirm1", "InfiniteIllusionSwitchTo2" ]
+        "next": [ "InfiniteIllusionSwitchTo2" ],
+        "on_error": [ "InfiniteIllusionConfirm1" ]
     },
     "InfiniteIllusionSwitchTo2": {
+        "timeout": 5000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -67,9 +74,11 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "InfiniteIllusionSweep2", "InfiniteIllusionSwitchTo2" ]
+        "next": [ "InfiniteIllusionSweep2" ],
+        "on_error": [ "InfiniteIllusionSwitchTo2" ]
     },
     "InfiniteIllusionSweep2": {
+        "timeout": 5000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -83,9 +92,11 @@
                 "target": [ 969, 628, 51, 19 ] // 一键扫荡button
             }
         },
-        "next": [ "InfiniteIllusionConfirm2", "InfiniteIllusionSweep2" ]
+        "next": [ "InfiniteIllusionConfirm2" ],
+        "on_error": [ "InfiniteIllusionSweep2" ]
     },
     "InfiniteIllusionConfirm2": {
+        "timeout": 5000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -99,9 +110,11 @@
         "focus": {
             "Node.Action.Succeeded": "成功扫荡心之试炼"
         },
-        "next": [ "InfiniteIllusionConfirm2", "InfiniteIllusionSwitchTo3" ]
+        "next": [ "InfiniteIllusionSwitchTo3" ],
+        "on_error": [ "InfiniteIllusionConfirm2" ]
     },
     "InfiniteIllusionSwitchTo3": {
+        "timeout": 5000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -115,9 +128,11 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "InfiniteIllusionSweep3", "InfiniteIllusionSwitchTo3" ]
+        "next": [ "InfiniteIllusionSweep3" ],
+        "on_error": [ "InfiniteIllusionSwitchTo3" ]
     },
     "InfiniteIllusionSweep3": {
+        "timeout": 5000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -131,9 +146,11 @@
                 "target": [ 969, 628, 51, 19 ] // 一键扫荡button
             }
         },
-        "next": [ "InfiniteIllusionConfirm3", "InfiniteIllusionSweep3" ]
+        "next": [ "InfiniteIllusionConfirm3" ],
+        "on_error": [ "InfiniteIllusionSweep3" ]
     },
     "InfiniteIllusionConfirm3": {
+        "timeout": 5000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -147,7 +164,8 @@
         "focus": {
             "Node.Action.Succeeded": "成功扫荡意之试炼"
         },
-        "next": [ "InfiniteIllusionConfirm3", "ExitInfiniteIllusion" ]
+        "next": [ "ExitInfiniteIllusion" ],
+        "on_error": [ "InfiniteIllusionConfirm3" ]
     },
     "ExitInfiniteIllusion": {
         "recognition": {
@@ -161,5 +179,33 @@
             "type": "Click"
         },
         "next": [ "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
+    },
+    "HandleConfirmPopup": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "illusion/ConfirmFlag.png",
+                "roi": [ 573, 393, 78, 65 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 574, 452, 5, 5 ]
+            }
+        },
+        "next": [ "CloseConfirmPopup" ]
+    },
+    "CloseConfirmPopup": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "illusion/ConfirmFlag.png",
+                "roi": [ 573, 393, 78, 65 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
     }
 }
