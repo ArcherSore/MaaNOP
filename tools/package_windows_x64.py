@@ -59,9 +59,12 @@ def load_baseline(path: Path) -> dict[str, dict[str, str]]:
         raise ValueError("windows_x64.repository must use the owner/repository form.")
     if not naruto_values["tag"].startswith("v") or naruto_values["tag"].lower() == "latest":
         raise ValueError("windows_x64.tag must contain an explicit v-prefixed release tag.")
-    naruto_asset = naruto_values["asset_name"]
+    naruto_asset = naruto_values["asset_name"].replace("{tag}", naruto_values["tag"])
+    if re.search(r"[{}]", naruto_asset):
+        raise ValueError("windows_x64.asset_name only supports the {tag} placeholder.")
     if Path(naruto_asset).name != naruto_asset or not naruto_asset.endswith(".zip") or re.search(r"[*?\[\]]", naruto_asset):
         raise ValueError("windows_x64.asset_name must be one exact ZIP file name without glob characters.")
+    naruto_values["asset_name"] = naruto_asset
 
     # 2. Load and validate python_embed_windows_x64 baseline
     py_baseline = document.get("python_embed_windows_x64")
@@ -79,6 +82,10 @@ def load_baseline(path: Path) -> dict[str, dict[str, str]]:
         raise ValueError("python_embed_windows_x64.sha256 must contain exactly 64 hexadecimal characters.")
     if not re.fullmatch(r"^\d+\.\d+\.\d+$", py_values["version"]):
         raise ValueError("python_embed_windows_x64.version must be an exact semantic version (e.g. 3.12.9).")
+    for field in ("asset_name", "url"):
+        py_values[field] = py_values[field].replace("{version}", py_values["version"])
+        if re.search(r"[{}]", py_values[field]):
+            raise ValueError(f"python_embed_windows_x64.{field} only supports the {{version}} placeholder.")
     py_asset = py_values["asset_name"]
     if Path(py_asset).name != py_asset or not py_asset.endswith(".zip") or re.search(r"[*?\[\]]", py_asset):
         raise ValueError("python_embed_windows_x64.asset_name must be one exact ZIP file name.")
