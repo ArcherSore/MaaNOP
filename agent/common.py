@@ -1,3 +1,4 @@
+import time
 from collections import Counter
 from typing import Any, Optional
 
@@ -80,18 +81,32 @@ def get_recognition_text(
 
 
 def input_text(context: Context, text: str) -> bool:
-    context.tasker.controller.post_input_text(text).wait()
-    return True
+    if context.tasker.stopping:
+        return False
+    return context.tasker.controller.post_input_text(text).wait().succeeded and not context.tasker.stopping
 
 
 def click_point(context: Context, x: int, y: int) -> bool:
-    context.tasker.controller.post_click(x, y).wait()
-    return True
+    if context.tasker.stopping:
+        return False
+    return context.tasker.controller.post_click(x, y).wait().succeeded and not context.tasker.stopping
 
 
 def click_key(context: Context, key: int) -> bool:
-    context.tasker.controller.post_click_key(key).wait()
-    return True
+    if context.tasker.stopping:
+        return False
+    return context.tasker.controller.post_click_key(key).wait().succeeded and not context.tasker.stopping
+
+
+def wait_or_stop(context: Context, seconds: float) -> bool:
+    """等待指定秒数，每隔最多 50 ms 检查停止状态；停止时返回 False。"""
+    deadline = time.monotonic() + seconds
+    while not context.tasker.stopping:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return True
+        time.sleep(min(remaining, 0.05))
+    return False
 
 
 def click_box_center(context: Context, box) -> bool:

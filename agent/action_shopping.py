@@ -1,5 +1,3 @@
-import time
-
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
@@ -13,6 +11,7 @@ from common import (
     input_text,
     parse_digits,
     send_focus_message,
+    wait_or_stop,
 )
 from constants import SHOPPING_GIFT_COUNT_ROIS, SHOPPING_GIFT_OPTION_CENTERS
 
@@ -82,6 +81,8 @@ class ProcessShoppingFestivalGifts(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
+        if context.tasker.stopping:
+            return False
         image = capture_image(context)
 
         select_box = get_recognition_box(context, image, "ShoppingFestivalGiftSelectTemplate")
@@ -93,6 +94,8 @@ class ProcessShoppingFestivalGifts(CustomAction):
 
         gift_targets = []
         for index, gift_roi in enumerate(SHOPPING_GIFT_COUNT_ROIS, start=1):
+            if context.tasker.stopping:
+                return False
             gift_text = get_recognition_text(
                 context,
                 image,
@@ -106,36 +109,44 @@ class ProcessShoppingFestivalGifts(CustomAction):
             if target_count > 0:
                 gift_targets.append((index, target_count))
 
+        if context.tasker.stopping:
+            return False
         if not gift_targets:
             send_focus_message(context, "购物节未识别到任何需要送字的数量")
-            return True
+            return not context.tasker.stopping
 
         gift_chars = ("木", "叶", "购", "物", "狂", "欢")
         current_count = 1
         for index, target_count in gift_targets:
+            if context.tasker.stopping:
+                return False
             if not click_box_center(context, select_box):
                 return False
-            time.sleep(0.2)
+            if not wait_or_stop(context, 0.2):
+                return False
 
             if index > len(SHOPPING_GIFT_OPTION_CENTERS):
                 return False
             if not click_box_center(context, SHOPPING_GIFT_OPTION_CENTERS[index - 1]):
                 return False
-            time.sleep(0.2)
+            if not wait_or_stop(context, 0.2):
+                return False
 
             delta = target_count - current_count
             button_box = plus_box if delta > 0 else minus_box
             for _ in range(abs(delta)):
                 if not click_box_center(context, button_box):
                     return False
-                time.sleep(0.2)
+                if not wait_or_stop(context, 0.2):
+                    return False
 
             if not click_box_center(context, send_box):
                 return False
-            time.sleep(0.2)
+            if not wait_or_stop(context, 0.2):
+                return False
 
             current_count = target_count
             gift_char = gift_chars[index - 1]
             send_focus_message(context, f"已赠送 {gift_char} 字，数量 {target_count}")
 
-        return True
+        return not context.tasker.stopping

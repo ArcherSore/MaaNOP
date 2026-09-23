@@ -84,10 +84,11 @@ class ScrollToTargetServer(CustomAction):
         return False
 
 
-def _focus_and_escape(context: Context) -> None:
-    click_point(context, 680, 400)
+def _focus_and_escape(context: Context) -> bool:
+    if not click_point(context, 680, 400):
+        return False
     time.sleep(0.2)
-    click_key(context, 27)
+    return click_key(context, 27)
 
 
 @AgentServer.custom_action("fastESC")
@@ -98,12 +99,13 @@ class FastESC(CustomAction):
         argv: CustomAction.RunArg,
     ) -> bool:
         for _ in range(5):
-            click_key(context, 27)
+            if not click_key(context, 27):
+                return False
             time.sleep(0.2)
 
         image = capture_image(context)
         remain_popup = run_recognition(context, "CheckRemainPopup", image)
         if remain_popup and remain_popup.hit and remain_popup.best_result:
-            _focus_and_escape(context)
+            return _focus_and_escape(context)
 
         return True
