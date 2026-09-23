@@ -3,6 +3,8 @@ from typing import Any, Optional
 
 from maa.context import Context
 
+from constants import SERVER_1000_LIST_ROI
+
 
 def strip_quotes(value: Optional[str]) -> str:
     return (value or "").strip('"')
@@ -63,6 +65,23 @@ def get_recognition_box(
 
 def capture_image(context: Context):
     return context.tasker.controller.post_screencap().wait().get()
+
+
+def get_recognition_text(
+    context: Context,
+    image,
+    reco_name: str,
+    override: Optional[dict[str, Any]] = None,
+) -> str:
+    reco_detail = run_recognition(context, reco_name, image, override)
+    if not reco_detail or not reco_detail.hit or not reco_detail.best_result:
+        return ""
+    return reco_detail.best_result.text or ""
+
+
+def input_text(context: Context, text: str) -> bool:
+    context.tasker.controller.post_input_text(text).wait()
+    return True
 
 
 def click_point(context: Context, x: int, y: int) -> bool:
@@ -256,3 +275,22 @@ def find_server_ocr_result(reco_detail, target_server_id: int, region_type: str 
         return layout_result, "layout_inferred"
 
     return None, None
+
+
+def recognize_server(context: Context, image, server_id: int, region_type: str = "public"):
+    reco_detail = run_recognition(
+        context,
+        "ChooseServerButton",
+        image,
+        {
+            "ChooseServerButton": {
+                "roi": SERVER_1000_LIST_ROI,
+                "expected": (
+                    rf"^\s*{server_id}\s*区.*"
+                    if region_type == "non_wipe"
+                    else rf".*(^|[^0-9]){server_id}\s*区.*"
+                ),
+            }
+        },
+    )
+    return find_server_ocr_result(reco_detail, server_id, region_type)

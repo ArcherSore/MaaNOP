@@ -3,9 +3,9 @@ from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
 from common import (
-    find_server_ocr_result,
     get_detail_value,
     has_node_hit,
+    recognize_server,
     run_recognition,
     send_focus_message,
     strip_quotes,
@@ -137,22 +137,9 @@ class LocateServerButton(CustomRecognition):
 
         region_type = get_detail_value(context, "GetNextServer", "region_type", "public")
 
-        reco_detail = run_recognition(
-            context,
-            "ChooseServerButton",
-            argv.image,
-            {
-                "ChooseServerButton": {
-                    "roi": SERVER_1000_LIST_ROI,
-                    "expected": (
-                        rf"^\s*{target_server_id}\s*区.*"
-                        if region_type == "non_wipe"
-                        else rf".*(^|[^0-9]){target_server_id}\s*区.*"
-                    ),
-                }
-            },
+        matched_result, match_mode = recognize_server(
+            context, argv.image, target_server_id, region_type
         )
-        matched_result, match_mode = find_server_ocr_result(reco_detail, target_server_id, region_type)
 
         return CustomRecognition.AnalyzeResult(
             box=matched_result.box if matched_result else None,
@@ -222,6 +209,18 @@ def _get_task_mode(context: Context, argv: CustomRecognition.AnalyzeArg):
     return None
 
 
+def _match_task_mode(
+    context: Context, argv: CustomRecognition.AnalyzeArg, task_mode: str
+) -> CustomRecognition.AnalyzeResult:
+    if _get_task_mode(context, argv) != task_mode:
+        return CustomRecognition.AnalyzeResult(box=None, detail={})
+
+    return CustomRecognition.AnalyzeResult(
+        box=(0, 0, 0, 0),
+        detail={"task_mode": task_mode},
+    )
+
+
 @AgentServer.custom_recognition("IsLevelingTask")
 class IsLevelingTask(CustomRecognition):
     def analyze(
@@ -229,13 +228,7 @@ class IsLevelingTask(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        if _get_task_mode(context, argv) != "leveling":
-            return CustomRecognition.AnalyzeResult(box=None, detail={})
-
-        return CustomRecognition.AnalyzeResult(
-            box=(0, 0, 0, 0),
-            detail={"task_mode": "leveling"},
-        )
+        return _match_task_mode(context, argv, "leveling")
 
 
 @AgentServer.custom_recognition("IsClaimingTask")
@@ -245,13 +238,7 @@ class IsClaimingTask(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        if _get_task_mode(context, argv) != "claiming":
-            return CustomRecognition.AnalyzeResult(box=None, detail={})
-
-        return CustomRecognition.AnalyzeResult(
-            box=(0, 0, 0, 0),
-            detail={"task_mode": "claiming"},
-        )
+        return _match_task_mode(context, argv, "claiming")
 
 
 @AgentServer.custom_recognition("IsShoppingFestivalTask")
@@ -261,13 +248,7 @@ class IsShoppingFestivalTask(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        if _get_task_mode(context, argv) != "shopping":
-            return CustomRecognition.AnalyzeResult(box=None, detail={})
-
-        return CustomRecognition.AnalyzeResult(
-            box=(0, 0, 0, 0),
-            detail={"task_mode": "shopping"},
-        )
+        return _match_task_mode(context, argv, "shopping")
 
 
 @AgentServer.custom_recognition("DetectLoginPopup")

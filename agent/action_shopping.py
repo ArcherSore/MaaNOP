@@ -4,7 +4,16 @@ from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
 
-from common import capture_image, click_box_center, get_detail_value, get_recognition_box, parse_digits, run_recognition, send_focus_message
+from common import (
+    capture_image,
+    click_box_center,
+    get_detail_value,
+    get_recognition_box,
+    get_recognition_text,
+    input_text,
+    parse_digits,
+    send_focus_message,
+)
 from constants import SHOPPING_GIFT_COUNT_ROIS, SHOPPING_GIFT_OPTION_CENTERS
 
 
@@ -19,8 +28,7 @@ class PasteShoppingQuantity(CustomAction):
         if quantity is None:
             return False
 
-        context.tasker.controller.post_input_text(str(quantity)).wait()
-        return True
+        return input_text(context, str(quantity))
 
 
 @AgentServer.custom_action("ClickShoppingFriendInput")
@@ -44,8 +52,7 @@ class PasteShoppingFriendName(CustomAction):
         if not friend_name:
             return False
 
-        context.tasker.controller.post_input_text(friend_name).wait()
-        return True
+        return input_text(context, friend_name)
 
 
 @AgentServer.custom_action("ClickShoppingFriendOption")
@@ -86,16 +93,12 @@ class ProcessShoppingFestivalGifts(CustomAction):
 
         gift_targets = []
         for index, gift_roi in enumerate(SHOPPING_GIFT_COUNT_ROIS, start=1):
-            reco_detail = run_recognition(
+            gift_text = get_recognition_text(
                 context,
-                "ShoppingFestivalGiftCountOCR",
                 image,
+                "ShoppingFestivalGiftCountOCR",
                 {"ShoppingFestivalGiftCountOCR": {"roi": gift_roi}},
             )
-
-            gift_text = ""
-            if reco_detail and reco_detail.hit and reco_detail.best_result:
-                gift_text = reco_detail.best_result.text or ""
 
             digits = parse_digits(gift_text)
             target_count = int(digits) if digits in {"1", "2", "3"} else 0

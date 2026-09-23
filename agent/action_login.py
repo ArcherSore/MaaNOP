@@ -9,12 +9,11 @@ from common import (
     click_box_center,
     click_key,
     click_point,
-    find_server_ocr_result,
     get_detail_value,
+    recognize_server,
     run_recognition,
 )
 from constants import (
-    SERVER_1000_LIST_ROI,
     SERVER_1000_SCROLL_CLICKS_PER_ATTEMPT,
     SERVER_1000_SEARCH_ATTEMPTS,
     SERVER_1_999_SCROLL_CLICKS_PER_ATTEMPT,
@@ -59,22 +58,9 @@ class ScrollToTargetServer(CustomAction):
             image = capture_image(context)
             if context.tasker.stopping:
                 return False
-            reco_detail = run_recognition(
-                context,
-                "ChooseServerButton",
-                image,
-                {
-                    "ChooseServerButton": {
-                        "roi": SERVER_1000_LIST_ROI,
-                        "expected": (
-                            rf"^\s*{target_server_id}\s*区.*"
-                            if region_type == "non_wipe"
-                            else rf".*(^|[^0-9]){target_server_id}\s*区.*"
-                        ),
-                    }
-                },
+            matched_result, _ = recognize_server(
+                context, image, target_server_id, region_type
             )
-            matched_result, _ = find_server_ocr_result(reco_detail, target_server_id, region_type)
             if context.tasker.stopping:
                 return False
             if matched_result:
@@ -98,6 +84,12 @@ class ScrollToTargetServer(CustomAction):
         return False
 
 
+def _focus_and_escape(context: Context) -> None:
+    click_point(context, 680, 400)
+    time.sleep(0.2)
+    click_key(context, 27)
+
+
 @AgentServer.custom_action("HandleLoginPopups")
 class HandleLoginPopups(CustomAction):
     def run(
@@ -119,17 +111,13 @@ class HandleLoginPopups(CustomAction):
             welfare = run_recognition(context, "CheckWelfare", image)
             if welfare and welfare.hit and welfare.best_result:
                 has_popup = True
-                click_point(context, 680, 400)
-                time.sleep(0.2)
-                click_key(context, 27)
+                _focus_and_escape(context)
                 time.sleep(0.2)
 
             return_gift = run_recognition(context, "CheckReturnGift", image)
             if return_gift and return_gift.hit and return_gift.best_result:
                 has_popup = True
-                click_point(context, 680, 400)
-                time.sleep(0.2)
-                click_key(context, 27)
+                _focus_and_escape(context)
                 time.sleep(0.2)
 
             if not has_popup:
@@ -152,8 +140,6 @@ class FastESC(CustomAction):
         image = capture_image(context)
         remain_popup = run_recognition(context, "CheckRemainPopup", image)
         if remain_popup and remain_popup.hit and remain_popup.best_result:
-            click_point(context, 680, 400)
-            time.sleep(0.2)
-            click_key(context, 27)
+            _focus_and_escape(context)
 
         return True

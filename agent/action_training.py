@@ -2,7 +2,7 @@ from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
 
-from common import get_detail_value
+from common import get_detail_value, input_text
 
 
 @AgentServer.custom_action("PasteAccountName")
@@ -16,5 +16,4 @@ class PasteAccountName(CustomAction):
         if account_name is None:
             return False
 
-        context.tasker.controller.post_input_text(account_name).wait()
-        return True
+        return input_text(context, account_name)

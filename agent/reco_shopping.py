@@ -2,7 +2,14 @@ from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
-from common import get_latest_detail, parse_digits, run_recognition, send_focus_message, strip_quotes
+from common import (
+    get_latest_detail,
+    get_recognition_text,
+    parse_digits,
+    run_recognition,
+    send_focus_message,
+    strip_quotes,
+)
 from constants import SHOPPING_PRICE_OFFSET, SHOPPING_SLOT_ROIS, SHOPPING_TOTAL
 
 
@@ -44,16 +51,12 @@ class FindShoppingFestivalTarget(CustomRecognition):
                 SHOPPING_PRICE_OFFSET[3],
             ]
 
-            reco_detail = run_recognition(
+            price_text = get_recognition_text(
                 context,
-                "ShoppingFestivalPriceOCR",
                 argv.image,
+                "ShoppingFestivalPriceOCR",
                 {"ShoppingFestivalPriceOCR": {"roi": price_roi}},
             )
-
-            price_text = ""
-            if reco_detail and reco_detail.hit and reco_detail.best_result:
-                price_text = reco_detail.best_result.text or ""
 
             digits = parse_digits(price_text)
             price = int(digits) if digits else 0
