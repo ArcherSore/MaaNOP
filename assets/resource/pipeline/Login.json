@@ -153,19 +153,24 @@
         "recognition": {
             "type": "Custom",
             "param": {
-                "custom_recognition": "DetectLoginPopup"
+                "custom_recognition": "MatchPopup",
+                "custom_recognition_param": {
+                    "popups": [
+                        { "name": "公告", "template": "popup/Announcement.png", "roi": [ 647, 309, 196, 89 ], "target": [ 962, 352, 13, 12 ] },
+                        { "name": "回归", "template": "popup/Return.png", "roi": [ 671, 182, 260, 136 ], "target": [ 901, 233, 13, 12 ] },
+                        { "name": "福利", "template": "popup/Welfare.png", "roi": [ 797, 186, 121, 86 ], "target": [ 961, 224, 13, 12 ] },
+                        { "name": "组织", "template": "popup/Organization.png", "roi": [ 617, 557, 101, 66 ] }
+                    ]
+                }
             }
         },
+        "action": { "type": "Click" },
         "next": "CloseLoginPopup"
     },
     "CloseLoginPopup": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "HandleLoginPopups"
-            }
-        },
-        "next": "RouteAfterLogin"
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "LoginPopupAppears", "RouteAfterLogin" ]
     },
     "RouteAfterLogin": {
         "next": [ "RouteShoppingFestivalAfterLogin", "RouteClaimingAfterLogin" ]
@@ -203,33 +208,6 @@
                 "roi": [ 867, 475, 98, 107 ],
                 "template": "common/login/DownArrow.png",
                 "threshold": 0.8
-            }
-        }
-    },
-    "CheckAnnouncement": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "popup/CloseAnno.png" ],
-                "roi": [ 901, 297, 119, 117 ]
-            }
-        }
-    },
-    "CheckWelfare": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "popup/Welfare.png" ],
-                "roi": [ 806, 192, 145, 140 ]
-            }
-        }
-    },
-    "CheckReturnGift": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "popup/Return.png",
-                "roi": [ 671, 182, 260, 136 ]
             }
         }
     },

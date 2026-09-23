@@ -6,7 +6,6 @@ from common import (
     get_detail_value,
     has_node_hit,
     recognize_server,
-    run_recognition,
     send_focus_message,
     strip_quotes,
 )
@@ -249,21 +248,3 @@ class IsShoppingFestivalTask(CustomRecognition):
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
         return _match_task_mode(context, argv, "shopping")
-
-
-@AgentServer.custom_recognition("DetectLoginPopup")
-class DetectLoginPopup(CustomRecognition):
-    def analyze(
-        self,
-        context: Context,
-        argv: CustomRecognition.AnalyzeArg,
-    ) -> CustomRecognition.AnalyzeResult:
-        for reco_name in ["CheckAnnouncement", "CheckWelfare", "CheckReturnGift"]:
-            reco_detail = run_recognition(context, reco_name, argv.image)
-            if reco_detail and reco_detail.hit and reco_detail.best_result:
-                return CustomRecognition.AnalyzeResult(
-                    box=reco_detail.best_result.box,
-                    detail={"popup_type": reco_name},
-                )
-
-        return CustomRecognition.AnalyzeResult(box=None, detail={})

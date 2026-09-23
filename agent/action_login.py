@@ -90,42 +90,6 @@ def _focus_and_escape(context: Context) -> None:
     click_key(context, 27)
 
 
-@AgentServer.custom_action("HandleLoginPopups")
-class HandleLoginPopups(CustomAction):
-    def run(
-        self,
-        context: Context,
-        argv: CustomAction.RunArg,
-    ) -> bool:
-        while True:
-            has_popup = False
-            image = capture_image(context)
-
-            announcement = run_recognition(context, "CheckAnnouncement", image)
-            if announcement and announcement.hit and announcement.best_result:
-                has_popup = True
-                time.sleep(0.2)
-                click_box_center(context, announcement.best_result.box)
-                time.sleep(0.2)
-
-            welfare = run_recognition(context, "CheckWelfare", image)
-            if welfare and welfare.hit and welfare.best_result:
-                has_popup = True
-                _focus_and_escape(context)
-                time.sleep(0.2)
-
-            return_gift = run_recognition(context, "CheckReturnGift", image)
-            if return_gift and return_gift.hit and return_gift.best_result:
-                has_popup = True
-                _focus_and_escape(context)
-                time.sleep(0.2)
-
-            if not has_popup:
-                break
-
-        return True
-
-
 @AgentServer.custom_action("fastESC")
 class FastESC(CustomAction):
     def run(
