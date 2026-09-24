@@ -1,20 +1,19 @@
 // 一口气打到六道
 {
     "ArenaRankGrind": {
-        "next": [ "GotoArena", "WaitArenaMain" ]
+        "next": [ "WaitArenaMain", "GotoArena" ]
     },
     "GotoArena": {
-        "recognition": {
-            "type": "TemplateMatch",
+        "action": {
+            "type": "Custom",
             "param": {
-                "template": "arena/ArenaEntry.png",
-                "roi": [ 707, 82, 465, 58 ]
+                "custom_action": "EnterTopEntry",
+                "custom_action_param": {
+                    "template": "arena/ArenaEntry.png"
+                }
             }
         },
-        "action": {
-            "type": "Click"
-        },
-        "next": [ "WaitArenaMain", "GotoArena" ]
+        "next": [ "WaitArenaMain" ]
     },
     "WaitArenaMain": {
         "recognition": {

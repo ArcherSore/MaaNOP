@@ -6,17 +6,13 @@
         "next": "ClickOnWelfare"
     },
     "ClickOnWelfare": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/entry/SystemGift.png",
-                "roi": [ 909, 81, 251, 59 ]
-            }
-        },
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "PreciseClick"
+                "custom_action": "EnterTopEntry",
+                "custom_action_param": {
+                    "template": [ "common/entry/SystemGift.png" ]
+                }
             }
         },
         "focus": {

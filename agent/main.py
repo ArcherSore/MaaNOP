@@ -4,7 +4,7 @@ from maa.agent.agent_server import AgentServer
 from maa.tasker import Tasker
 
 import action_common
-import action_hotspot
+import action_entry
 import action_login
 import action_ninjutsu_training
 import action_shopping

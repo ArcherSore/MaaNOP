@@ -4,17 +4,13 @@
     },
     "ClickOnInfiniteIllusion": {
         "timeout": 5000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "illusion/InfiniteIllusion.png",
-                "roi": [ 650, 70, 466, 85 ]
-            }
-        },
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "PreciseClick"
+                "custom_action": "EnterTopEntry",
+                "custom_action_param": {
+                    "template": "illusion/InfiniteIllusion.png"
+                }
             }
         },
         "focus": {

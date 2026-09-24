@@ -3,17 +3,13 @@
         "next": [ "ClickOnReturnGift" ]
     },
     "ClickOnReturnGift": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "returnGift/ReturnGift.png",
-                "roi": [ 908, 67, 212, 75 ]
-            }
-        },
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "PreciseClick"
+                "custom_action": "EnterTopEntry",
+                "custom_action_param": {
+                    "template": "returnGift/ReturnGift.png"
+                }
             }
         },
         "focus": {

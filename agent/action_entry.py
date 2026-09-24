@@ -25,3 +25,24 @@ class EnterHotspotActivity(CustomAction):
             },
         )
         return result is not None and result.status.succeeded
+
+
+@AgentServer.custom_action("EnterTopEntry")
+class EnterTopEntry(CustomAction):
+    """识别并点击顶部入口栏中的目标入口"""
+
+    def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
+        template = json.loads(argv.custom_action_param)["template"]
+        navigation = context.clone()
+        result = navigation.run_task(
+            "ClickTopEntry",
+            pipeline_override={
+                "ClickTopEntry": {
+                    "recognition": {
+                        "type": "TemplateMatch",
+                        "param": {"template": template},
+                    }
+                }
+            },
+        )
+        return result is not None and result.status.succeeded
