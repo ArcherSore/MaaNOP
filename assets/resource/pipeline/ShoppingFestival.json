@@ -1,42 +1,16 @@
 {
     "ShoppingFestivalEntry": {
-        "next": [ "ClickOnShoppingHotspot" ]
-    },
-    "ClickOnShoppingHotspot": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "shopping/Hotspot.png",
-                "roi": [ 295, 51, 116, 117 ]
-            }
-        },
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "PreciseClick"
+                "custom_action": "EnterHotspotActivity",
+                "custom_action_param": {
+                    "expected": [ "木叶购物节" ]
+                }
             }
         },
         "focus": {
-            "Node.Action.Succeeded": "开始进入木叶购物节"
-        },
-        "next": "ClickOnShoppingEntry"
-    },
-    "ClickOnShoppingEntry": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "shopping/Entry.png",
-                "roi": [ 338, 277, 135, 288 ]
-            }
-        },
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "PreciseClick"
-            }
-        },
-        "focus": {
-            "Node.Action.Succeeded": "已进入木叶购物节"
+            "Node.Action.Succeeded": "开始木叶购物节任务"
         },
         "next": "FindShoppingFestivalTarget"
     },

@@ -1,0 +1,30 @@
+{
+    "HotspotEntry": {
+        "next": [ "OpenHotspot" ]
+    },
+    "OpenHotspot": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "hotspot/Hotspot.png",
+                "roi": [ 295, 51, 116, 117 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [ "ClickHotspotEntry" ]
+    },
+    "ClickHotspotEntry": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 352, 283, 109, 268 ],
+                "expected": [ "(?!)" ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
+    }
+}
