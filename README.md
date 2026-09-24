@@ -17,9 +17,9 @@
 <p align="center">
   <a href="https://github.com/ArcherSore/MaaNOP/releases/latest"><strong>下载最新版</strong></a>
   ·
-  <a href="#快速开始"><strong>快速开始</strong></a>
-  ·
   <a href="https://github.com/ArcherSore/MaaNOP/issues"><strong>反馈问题</strong></a>
+  ·
+  <a href="https://afdian.com/a/archersore"><strong>❤️支持项目</strong></a>
 </p>
 <p align="center">
   <img src="docs/images/homePage.png" width="90%" alt="MaaNOP 首页" />
@@ -282,6 +282,14 @@ MaaNOP/
 * [MaaFramework](https://github.com/MaaXYZ/MaaFramework)
 * [NarutoAutoGUI](https://github.com/ArcherSore/NarutoAutoGUI)
 * 本仓库 `docs/` 目录
+
+---
+
+## ❤️ 支持项目
+
+如果 MaaNOP 对你有帮助，欢迎通过 [爱发电](https://afdian.com/a/archersore) 赞助，支持项目的持续开发与维护。
+
+感谢每一份支持，也感谢通过反馈问题、提出建议和贡献代码帮助项目改进的朋友！
 
 ---
 
