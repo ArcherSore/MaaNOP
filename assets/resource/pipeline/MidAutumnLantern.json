@@ -1,0 +1,114 @@
+{
+    "MidAutumnLanternEntry": {
+        "next": [ "MidAutumnNoTickets", "StartMidAutumnLantern" ]
+    },
+    // Reads the 剩余参与券 count; stop once it is 0.
+    "MidAutumnNoTickets": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 832, 481, 34, 20 ],
+                "expected": [ "^[0Oo]$" ],
+                "only_rec": true
+            }
+        },
+        "next": [ "MidAutumnLanternSucceeded" ]
+    },
+    "StartMidAutumnLantern": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "MidAutumn/Start.png",
+                "roi": [ 588, 348, 135, 80 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "开始中秋盛典"
+        },
+        "next": [ "SolveLanternPuzzle" ]
+    },
+    "SolveLanternPuzzle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "MidAutumn/Start.png",
+                "roi": [ 588, 348, 135, 80 ]
+            }
+        },
+        "inverse": true,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SolveLanternPuzzle"
+            }
+        },
+        "next": [ "ClaimMidAutumnLantern" ]
+    },
+    "ClaimMidAutumnLantern": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "MidAutumn/Claim.png",
+                "roi": [ 631, 392, 78, 64 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [ "ResetMidAutumnLantern" ]
+    },
+    "ResetMidAutumnLantern": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "MidAutumn/Reset.png",
+                "roi": [ 636, 378, 29, 26 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [ "MoveMouseAwayFromReset" ]
+    },
+    // Reset sits on the Start button; a hovering cursor highlights Start
+    // and breaks its template match, so park the cursor on the spiral.
+    "MoveMouseAwayFromReset": {
+        "action": {
+            "type": "TouchMove",
+            "param": {
+                "target": [ 850, 360, 1, 1 ]
+            }
+        },
+        "next": [ "WaitMidAutumnReset" ]
+    },
+    // Hits once the Reset button is gone, i.e. the click took effect.
+    "WaitMidAutumnReset": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "MidAutumn/Reset.png",
+                "roi": [ 636, 378, 29, 26 ]
+            }
+        },
+        "inverse": true,
+        "next": [ "MidAutumnNoTickets", "StartMidAutumnLantern" ]
+    },
+    "MidAutumnLanternSucceeded": {
+        "focus": {
+            "Node.Action.Succeeded": "中秋盛典完成"
+        }
+    },
+    // Called from action_mid_autumn.py.
+    "LanternColorPopupTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "MidAutumn/ColorPopup.png",
+                "roi": [ 725, 275, 64, 65 ]
+            }
+        }
+    }
+}

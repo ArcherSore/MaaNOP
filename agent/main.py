@@ -6,6 +6,7 @@ from maa.tasker import Tasker
 import action_common
 import action_entry
 import action_login
+import action_mid_autumn
 import action_ninjutsu_training
 import action_shopping
 import action_training

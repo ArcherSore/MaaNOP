@@ -64,6 +64,12 @@
             "label": "忍术特训",
             "entry": "NinjutsuTrainingEntry",
             "description": "### 开始前\n\n请停留在**忍术特训界面**，确保能看到**「开启特训」按钮**。\n\n### 会做什么\n\n自动完成忍术特训并领取奖励。\n\n### 注意事项\n\n其他活动中的忍术特训也可能适用，可以尝试使用。"
+        },
+        {
+            "name": "MidAutumnLantern",
+            "label": "中秋盛典",
+            "entry": "MidAutumnLanternEntry",
+            "description": "### 开始前\n\n请停留在**中秋盛典点灯笼界面**，确保能看到**「开始」按钮**，并且还有剩余参与券。\n\n### 会做什么\n\n识别初始的两盏灯笼，自动点亮其余 **14 盏**，使五种灯笼各至少 3 盏，然后领取奖励。"
         }
     ],
     "option": {
