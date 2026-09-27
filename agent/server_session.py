@@ -6,7 +6,7 @@ from typing import Optional
 def parse_server_range_string(server_range_str: str) -> list[int]:
     server_list: list[int] = []
     for range_part in (server_range_str or "").split(","):
-        range_part = range_part.strip().strip('"')
+        range_part = range_part.strip()
         if not range_part:
             continue
         if "-" in range_part:
@@ -20,7 +20,7 @@ def parse_server_range_string(server_range_str: str) -> list[int]:
 @dataclass
 class ServerSession:
     server_list: list[int]
-    region_type: str = "public"
+    region_type: str
     next_index: int = 0
     finished: bool = False
 
@@ -32,7 +32,7 @@ _lock = Lock()
 def initialize_server_session(
     task_id: int,
     server_list: list[int],
-    region_type: str = "public",
+    region_type: str,
 ) -> ServerSession:
     with _lock:
         session = ServerSession(server_list=list(server_list), region_type=region_type)

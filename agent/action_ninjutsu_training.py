@@ -7,8 +7,6 @@ from maa.context import Context
 from maa.custom_action import CustomAction
 from maa.pipeline import JActionType, JClick
 
-from common import capture_image, run_recognition
-
 
 MAX_SLOTS = 6
 
@@ -78,9 +76,7 @@ HAND_SEALS_ROI = [515, 275, 374, 176]
 
 
 def recognize(context: Context, image, node_name: str, roi: Sequence[int]):
-    detail = run_recognition(
-        context, node_name, image, {node_name: {"roi": list(roi)}}
-    )
+    detail = context.run_recognition(node_name, image, {node_name: {"roi": list(roi)}})
     if detail is None:
         raise RuntimeError(f"识别未启动：{node_name}")
     return detail
@@ -195,7 +191,7 @@ def verify_slot(
             if context.tasker.stopping:
                 raise RuntimeError("任务已停止")
             poll_start = time.monotonic()
-            image = capture_image(context)
+            image = context.tasker.controller.post_screencap().wait().get()
             confirmed = False
             if image is not None and image.size > 0:
                 confirmed = (
@@ -216,7 +212,7 @@ def verify_slot(
         if context.tasker.stopping:
             raise RuntimeError("任务已停止")
         print(f"忍术特训：第{slot_index + 1}个手印确认超时")
-        state = detect_after_click(context, capture_image(context), sequence, position)
+        state = detect_after_click(context, context.tasker.controller.post_screencap().wait().get(), sequence, position)
         if state == ClickState.RESET:
             raise RoundResetError("手印进度已重置")
         if state == ClickState.NOT_TRIGGERED:
@@ -234,7 +230,7 @@ class ExecuteHandSealRound(CustomAction):
         del argv
         try:
             for attempt in range(MAX_ROUND_RESTARTS + 1):
-                sequence = recognize_round(context, capture_image(context))
+                sequence = recognize_round(context, context.tasker.controller.post_screencap().wait().get())
                 names = " → ".join(SEAL_LOG_NAMES[name] for _, name in sequence)
                 print(f"忍术特训：本轮手印 {names}")
                 try:

@@ -7,8 +7,6 @@ from maa.context import Context
 from maa.custom_action import CustomAction
 from maa.pipeline import JActionType, JClick
 
-from common import capture_image, run_recognition
-
 
 # Indexed by solver color; the order follows the pentagon clockwise from the
 # top, so adjacent elements are compatible and non-adjacent ones conflict.
@@ -149,7 +147,7 @@ def read_cell(image: np.ndarray, cell: int) -> Optional[int]:
 
 
 def popup_visible(context: Context, image) -> bool:
-    detail = run_recognition(context, "LanternColorPopupTemplate", image)
+    detail = context.run_recognition("LanternColorPopupTemplate", image)
     if detail is None:
         raise RuntimeError("识别未启动：LanternColorPopupTemplate")
     return detail.hit
@@ -160,7 +158,7 @@ def wait_popup(context: Context, visible: bool) -> bool:
     deadline = time.monotonic() + POPUP_TIMEOUT
     while True:
         check_stopping(context)
-        if popup_visible(context, capture_image(context)) == visible:
+        if popup_visible(context, context.tasker.controller.post_screencap().wait().get()) == visible:
             return True
         if time.monotonic() > deadline:
             return False
@@ -189,7 +187,7 @@ class SolveLanternPuzzle(CustomAction):
     def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
         del argv
         try:
-            image = capture_image(context)
+            image = context.tasker.controller.post_screencap().wait().get()
             lit = [(cell, read_cell(image, cell)) for cell in range(16)]
             lit = [(cell, color) for cell, color in lit if color is not None]
             if len(lit) != 2:

@@ -1,8 +1,9 @@
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
+from maa.pipeline import JActionType, JInputText
 
-from common import get_detail_value, input_text
+from common import get_latest_detail
 
 
 @AgentServer.custom_action("PasteAccountName")
@@ -12,8 +13,11 @@ class PasteAccountName(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
-        account_name = get_detail_value(context, "GetAccountPrefix", "AccountName")
-        if account_name is None:
+        detail = get_latest_detail(context, "GetAccountPrefix")
+        if not detail:
             return False
 
-        return input_text(context, account_name)
+        action = context.run_action_direct(
+            JActionType.InputText, JInputText(input_text=detail["AccountName"])
+        )
+        return bool(action and action.success)

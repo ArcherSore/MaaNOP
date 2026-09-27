@@ -1,39 +1,25 @@
+import json
+
 from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
-from common import (
-    get_latest_detail,
-    get_recognition_text,
-    parse_digits,
-    run_recognition,
-    send_focus_message,
-    strip_quotes,
-)
+from common import get_latest_detail, parse_digits, send_focus_message
 from constants import SHOPPING_PRICE_OFFSET, SHOPPING_SLOT_ROIS, SHOPPING_TOTAL
 
 
-def _get_selected_shopping_detail(context: Context):
-    return get_latest_detail(context, "FindShoppingFestivalTarget")
-
-
 def _locate_in_selected_slot(context: Context, image, reco_name: str) -> CustomRecognition.AnalyzeResult:
-    selected_detail = _get_selected_shopping_detail(context)
+    selected_detail = get_latest_detail(context, "FindShoppingFestivalTarget")
     if not selected_detail:
-        return CustomRecognition.AnalyzeResult(box=None, detail={})
+        return None
 
-    slot_roi = selected_detail.get("slot_roi")
-    reco_detail = run_recognition(
-        context,
-        reco_name,
-        image,
-        {reco_name: {"roi": slot_roi}},
+    reco_detail = context.run_recognition(
+        reco_name, image, {reco_name: {"roi": selected_detail["slot_roi"]}}
     )
+    if not reco_detail or not reco_detail.hit:
+        return None
 
-    return CustomRecognition.AnalyzeResult(
-        box=reco_detail.best_result.box if reco_detail and reco_detail.hit else None,
-        detail=selected_detail,
-    )
+    return CustomRecognition.AnalyzeResult(box=reco_detail.box, detail=selected_detail)
 
 
 @AgentServer.custom_recognition("FindShoppingFestivalTarget")
@@ -51,14 +37,15 @@ class FindShoppingFestivalTarget(CustomRecognition):
                 SHOPPING_PRICE_OFFSET[3],
             ]
 
-            price_text = get_recognition_text(
-                context,
-                argv.image,
+            price_ocr = context.run_recognition(
                 "ShoppingFestivalPriceOCR",
+                argv.image,
                 {"ShoppingFestivalPriceOCR": {"roi": price_roi}},
             )
+            if not price_ocr or not price_ocr.hit:
+                continue
 
-            digits = parse_digits(price_text)
+            digits = parse_digits(price_ocr.best_result.text)
             price = int(digits) if digits else 0
 
             if price > 0 and SHOPPING_TOTAL % price == 0:
@@ -78,10 +65,7 @@ class FindShoppingFestivalTarget(CustomRecognition):
                     },
                 )
 
-        return CustomRecognition.AnalyzeResult(
-            box=None,
-            detail={"error": "No valid shopping slot found"},
-        )
+        return None
 
 
 @AgentServer.custom_recognition("LocateShoppingFestivalText")
@@ -111,7 +95,7 @@ class GenerateShoppingFriendName(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        friend_name = strip_quotes(argv.custom_recognition_param)
+        friend_name = json.loads(argv.custom_recognition_param)
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),
             detail={"friend_name": friend_name},

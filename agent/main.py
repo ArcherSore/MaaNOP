@@ -10,7 +10,7 @@ import action_mid_autumn
 import action_ninjutsu_training
 import action_shopping
 import action_training
-import reco_arena
+import reco_common
 import reco_login
 import reco_shopping
 import reco_training

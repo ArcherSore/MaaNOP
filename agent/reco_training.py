@@ -1,8 +1,10 @@
+import json
+
 from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
-from common import get_detail_value, send_focus_message, strip_quotes
+from common import get_latest_detail, send_focus_message
 
 
 @AgentServer.custom_recognition("GenerateAccountName")
@@ -12,12 +14,12 @@ class GenerateAccountName(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        server_id = get_detail_value(context, "GetNextServer", "server_id")
-        if server_id is None:
-            return CustomRecognition.AnalyzeResult(box=None, detail={})
+        server = get_latest_detail(context, "GetNextServer")
+        if not server or "server_id" not in server:
+            return None
 
-        prefix = strip_quotes(argv.custom_recognition_param)
-        account_name = f"{prefix}_{server_id}"
+        prefix = json.loads(argv.custom_recognition_param)
+        account_name = f"{prefix}{server['server_id']}"
         send_focus_message(context, f"生成账号名称: {account_name}")
 
         return CustomRecognition.AnalyzeResult(

@@ -6,16 +6,9 @@ from maa.context import Context
 from constants import SERVER_1000_LIST_ROI
 
 
-def strip_quotes(value: Optional[str]) -> str:
-    return (value or "").strip('"')
-
-
-def has_node_hit(context: Context, node_name: str) -> bool:
-    return context.get_hit_count(node_name) > 0
-
-
 def get_latest_detail(context: Context, node_name: str) -> Optional[dict[str, Any]]:
-    if not has_node_hit(context, node_name):
+    """Detail of the node's latest hit, only if it was hit in the current task."""
+    if context.get_hit_count(node_name) == 0:
         return None
 
     node = context.tasker.get_latest_node(node_name)
@@ -23,13 +16,6 @@ def get_latest_detail(context: Context, node_name: str) -> Optional[dict[str, An
         return None
     detail = node.recognition.best_result.detail
     return detail if isinstance(detail, dict) else None
-
-
-def get_detail_value(context: Context, node_name: str, key: str, default: Any = None) -> Any:
-    detail = get_latest_detail(context, node_name)
-    if detail is None:
-        return default
-    return detail.get(key, default)
 
 
 def send_focus_message(context: Context, message: str) -> None:
@@ -45,69 +31,20 @@ def send_focus_message(context: Context, message: str) -> None:
     )
 
 
-def run_recognition(context: Context, reco_name: str, image, override: Optional[dict[str, Any]] = None):
-    if override is None:
-        return context.run_recognition(reco_name, image)
-    return context.run_recognition(reco_name, image, override)
-
-
-def get_recognition_box(
-    context: Context,
-    image,
-    reco_name: str,
-    override: Optional[dict[str, Any]] = None,
-):
-    reco_detail = run_recognition(context, reco_name, image, override)
-    if not reco_detail or not reco_detail.hit or not reco_detail.best_result:
-        return None
-    return reco_detail.best_result.box
-
-
-def capture_image(context: Context):
-    return context.tasker.controller.post_screencap().wait().get()
-
-
-def get_recognition_text(
-    context: Context,
-    image,
-    reco_name: str,
-    override: Optional[dict[str, Any]] = None,
-) -> str:
-    reco_detail = run_recognition(context, reco_name, image, override)
-    if not reco_detail or not reco_detail.hit or not reco_detail.best_result:
-        return ""
-    return reco_detail.best_result.text or ""
-
-
-def input_text(context: Context, text: str) -> bool:
-    context.tasker.controller.post_input_text(text).wait()
-    return True
-
-
-def click_point(context: Context, x: int, y: int) -> bool:
-    context.tasker.controller.post_click(x, y).wait()
-    return True
-
-
-def click_key(context: Context, key: int) -> bool:
-    context.tasker.controller.post_click_key(key).wait()
-    return True
-
-
-def click_box_center(context: Context, box) -> bool:
+def click_center(context: Context, box) -> bool:
+    """Click the exact center of box; a pipeline Click picks a random point inside it."""
     if not box:
         return False
 
-    center_x = box[0] + box[2] // 2
-    center_y = box[1] + box[3] // 2
-    return click_point(context, center_x, center_y)
+    x, y, w, h = box
+    return context.tasker.controller.post_click(x + w // 2, y + h // 2).wait().succeeded
 
 
 def parse_digits(text: Optional[str]) -> str:
     return "".join(ch for ch in (text or "") if ch.isdigit())
 
 
-SERVER_REGION_MARK = "\u533a"
+SERVER_REGION_MARK = "区"
 SERVER_NUMBER_CHARS = set("0123456789|")
 SERVER_GRID_ROW_TOLERANCE = 9
 SERVER_GRID_COL_TOLERANCE = 45
@@ -226,7 +163,7 @@ def _entry_anchor_number(entry: dict[str, Any]) -> Optional[int]:
     return number if number > 0 else None
 
 
-def _infer_server_grid_base(entries: list[dict[str, Any]], region_type: str = "public") -> Optional[int]:
+def _infer_server_grid_base(entries: list[dict[str, Any]], region_type: str) -> Optional[int]:
     base_votes = Counter()
     for entry in entries:
         number = _entry_anchor_number(entry)
@@ -248,7 +185,7 @@ def _infer_server_grid_base(entries: list[dict[str, Any]], region_type: str = "p
     return best_base
 
 
-def _find_server_by_layout(reco_detail, target_server_id: int, region_type: str = "public"):
+def _find_server_by_layout(reco_detail, target_server_id: int, region_type: str):
     entries = _build_server_ocr_entries(getattr(reco_detail, "all_results", []) if reco_detail else [])
     grid_base = _infer_server_grid_base(entries, region_type)
     if grid_base is None:
@@ -266,7 +203,7 @@ def _find_server_by_layout(reco_detail, target_server_id: int, region_type: str 
     return None
 
 
-def find_server_ocr_result(reco_detail, target_server_id: int, region_type: str = "public"):
+def find_server_ocr_result(reco_detail, target_server_id: int, region_type: str):
     if reco_detail and reco_detail.hit and reco_detail.best_result:
         return reco_detail.best_result, "exact"
 
@@ -277,9 +214,8 @@ def find_server_ocr_result(reco_detail, target_server_id: int, region_type: str 
     return None, None
 
 
-def recognize_server(context: Context, image, server_id: int, region_type: str = "public"):
-    reco_detail = run_recognition(
-        context,
+def recognize_server(context: Context, image, server_id: int, region_type: str):
+    reco_detail = context.run_recognition(
         "ChooseServerButton",
         image,
         {

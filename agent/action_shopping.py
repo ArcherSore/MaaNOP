@@ -3,17 +3,9 @@ import time
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
+from maa.pipeline import JActionType, JInputText
 
-from common import (
-    capture_image,
-    click_box_center,
-    get_detail_value,
-    get_recognition_box,
-    get_recognition_text,
-    input_text,
-    parse_digits,
-    send_focus_message,
-)
+from common import click_center, get_latest_detail, parse_digits, send_focus_message
 from constants import SHOPPING_GIFT_COUNT_ROIS, SHOPPING_GIFT_OPTION_CENTERS
 
 
@@ -24,11 +16,14 @@ class PasteShoppingQuantity(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
-        quantity = get_detail_value(context, "FindShoppingFestivalTarget", "quantity")
-        if quantity is None:
+        target = get_latest_detail(context, "FindShoppingFestivalTarget")
+        if not target:
             return False
 
-        return input_text(context, str(quantity))
+        action = context.run_action_direct(
+            JActionType.InputText, JInputText(input_text=str(target["quantity"]))
+        )
+        return bool(action and action.success)
 
 
 @AgentServer.custom_action("ClickShoppingFriendInput")
@@ -38,7 +33,7 @@ class ClickShoppingFriendInput(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
-        return click_box_center(context, [535, 541, 67, 15])
+        return click_center(context, [535, 541, 67, 15])
 
 
 @AgentServer.custom_action("PasteShoppingFriendName")
@@ -48,11 +43,14 @@ class PasteShoppingFriendName(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
-        friend_name = get_detail_value(context, "GetShoppingFriendName", "friend_name")
-        if not friend_name:
+        friend = get_latest_detail(context, "GetShoppingFriendName")
+        if not friend or not friend.get("friend_name"):
             return False
 
-        return input_text(context, friend_name)
+        action = context.run_action_direct(
+            JActionType.InputText, JInputText(input_text=friend["friend_name"])
+        )
+        return bool(action and action.success)
 
 
 @AgentServer.custom_action("ClickShoppingFriendOption")
@@ -62,7 +60,7 @@ class ClickShoppingFriendOption(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
-        return click_box_center(context, [517, 558, 108, 15])
+        return click_center(context, [517, 558, 108, 15])
 
 
 @AgentServer.custom_action("FocusShoppingFestivalBeforeExit")
@@ -72,7 +70,7 @@ class FocusShoppingFestivalBeforeExit(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
-        return click_box_center(context, [680, 400, 1, 1])
+        return click_center(context, [680, 400, 1, 1])
 
 
 @AgentServer.custom_action("ProcessShoppingFestivalGifts")
@@ -82,25 +80,32 @@ class ProcessShoppingFestivalGifts(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
-        image = capture_image(context)
+        image = context.tasker.controller.post_screencap().wait().get()
 
-        select_box = get_recognition_box(context, image, "ShoppingFestivalGiftSelectTemplate")
-        minus_box = get_recognition_box(context, image, "ShoppingFestivalMinusTemplate")
-        plus_box = get_recognition_box(context, image, "ShoppingFestivalPlusTemplate")
-        send_box = get_recognition_box(context, image, "ShoppingFestivalSendTemplate")
-        if not select_box or not minus_box or not plus_box or not send_box:
-            return False
+        buttons = []
+        for reco_name in [
+            "ShoppingFestivalGiftSelectTemplate",
+            "ShoppingFestivalMinusTemplate",
+            "ShoppingFestivalPlusTemplate",
+            "ShoppingFestivalSendTemplate",
+        ]:
+            button = context.run_recognition(reco_name, image)
+            if not button or not button.hit:
+                return False
+            buttons.append(button.box)
+        select_box, minus_box, plus_box, send_box = buttons
 
         gift_targets = []
         for index, gift_roi in enumerate(SHOPPING_GIFT_COUNT_ROIS, start=1):
-            gift_text = get_recognition_text(
-                context,
-                image,
+            gift_ocr = context.run_recognition(
                 "ShoppingFestivalGiftCountOCR",
+                image,
                 {"ShoppingFestivalGiftCountOCR": {"roi": gift_roi}},
             )
+            if not gift_ocr or not gift_ocr.hit:
+                continue
 
-            digits = parse_digits(gift_text)
+            digits = parse_digits(gift_ocr.best_result.text)
             target_count = int(digits) if digits in {"1", "2", "3"} else 0
 
             if target_count > 0:
@@ -113,24 +118,24 @@ class ProcessShoppingFestivalGifts(CustomAction):
         gift_chars = ("木", "叶", "购", "物", "狂", "欢")
         current_count = 1
         for index, target_count in gift_targets:
-            if not click_box_center(context, select_box):
+            if not click_center(context, select_box):
                 return False
             time.sleep(0.2)
 
             if index > len(SHOPPING_GIFT_OPTION_CENTERS):
                 return False
-            if not click_box_center(context, SHOPPING_GIFT_OPTION_CENTERS[index - 1]):
+            if not click_center(context, SHOPPING_GIFT_OPTION_CENTERS[index - 1]):
                 return False
             time.sleep(0.2)
 
             delta = target_count - current_count
             button_box = plus_box if delta > 0 else minus_box
             for _ in range(abs(delta)):
-                if not click_box_center(context, button_box):
+                if not click_center(context, button_box):
                     return False
                 time.sleep(0.2)
 
-            if not click_box_center(context, send_box):
+            if not click_center(context, send_box):
                 return False
             time.sleep(0.2)
 

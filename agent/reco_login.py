@@ -1,15 +1,10 @@
+import json
+
 from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
-from common import (
-    get_detail_value,
-    has_node_hit,
-    recognize_server,
-    run_recognition,
-    send_focus_message,
-    strip_quotes,
-)
+from common import get_latest_detail, recognize_server, send_focus_message
 from constants import SERVER_1000_LIST_ROI, SERVER_TAB_BOXES
 from server_session import (
     clear_server_session,
@@ -20,6 +15,14 @@ from server_session import (
 )
 
 
+def _get_target_server(context: Context):
+    """(server_id, region_type) chosen by the latest GetNextServer, or None when finished."""
+    server = get_latest_detail(context, "GetNextServer")
+    if not server or "server_id" not in server:
+        return None
+    return server["server_id"], server["region_type"]
+
+
 @AgentServer.custom_recognition("SetServerRegion")
 class SetServerRegion(CustomRecognition):
     def analyze(
@@ -27,7 +30,7 @@ class SetServerRegion(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        region_type = strip_quotes(argv.custom_recognition_param) or "public"
+        region_type = json.loads(argv.custom_recognition_param)
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),
             detail={"region_type": region_type},
@@ -41,9 +44,8 @@ class ParseServerRange(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        server_range_str = strip_quotes(argv.custom_recognition_param)
-        server_list = parse_server_range_string(server_range_str)
-        region_type = get_detail_value(context, "SetServerRegion", "region_type", "public")
+        server_list = parse_server_range_string(json.loads(argv.custom_recognition_param))
+        region_type = get_latest_detail(context, "SetServerRegion")["region_type"]
 
         initialize_server_session(
             argv.task_detail.task_id,
@@ -66,15 +68,10 @@ class GetNextServer(CustomRecognition):
     ) -> CustomRecognition.AnalyzeResult:
         result = take_next_server(argv.task_detail.task_id)
         if result is None:
-            return CustomRecognition.AnalyzeResult(
-                box=None,
-                detail={"error": "ServerSession not found"},
-            )
+            return None
 
         if not result.get("finished"):
-            region_label = {"public": "公测", "non_wipe": "不删档", "alliance": "联盟"}.get(
-                result.get("region_type"), "公测"
-            )
+            region_label = {"public": "公测", "non_wipe": "不删档", "alliance": "联盟"}[result["region_type"]]
             send_focus_message(
                 context,
                 f"准备处理{region_label}{result['server_id']} ({result['server_index']}/{result['server_cnt']})",
@@ -93,11 +90,10 @@ class DetectServerPage(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        target_server_id = get_detail_value(context, "GetNextServer", "server_id")
-        if target_server_id is None:
-            return CustomRecognition.AnalyzeResult(box=None, detail={})
-
-        region_type = get_detail_value(context, "GetNextServer", "region_type", "public")
+        target = _get_target_server(context)
+        if target is None:
+            return None
+        target_server_id, region_type = target
 
         if region_type == "alliance":
             box = SERVER_TAB_BOXES["alliance"]["all"]
@@ -131,23 +127,23 @@ class LocateServerButton(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        target_server_id = get_detail_value(context, "GetNextServer", "server_id")
-        if target_server_id is None:
-            return CustomRecognition.AnalyzeResult(box=None, detail={})
-
-        region_type = get_detail_value(context, "GetNextServer", "region_type", "public")
+        target = _get_target_server(context)
+        if target is None:
+            return None
+        target_server_id, region_type = target
 
         matched_result, match_mode = recognize_server(
             context, argv.image, target_server_id, region_type
         )
+        if matched_result is None:
+            return None
 
         return CustomRecognition.AnalyzeResult(
-            box=matched_result.box if matched_result else None,
+            box=matched_result.box,
             detail={
                 "server_id": target_server_id,
                 "roi_used": SERVER_1000_LIST_ROI,
-                "ocr_result": matched_result.text if matched_result else None,
-                "hit": bool(matched_result),
+                "ocr_result": matched_result.text,
                 "match_mode": match_mode,
             },
         )
@@ -162,7 +158,7 @@ class AllCompleted(CustomRecognition):
     ) -> CustomRecognition.AnalyzeResult:
         task_id = argv.task_detail.task_id
         if not is_server_session_finished(task_id):
-            return CustomRecognition.AnalyzeResult(box=None, detail={})
+            return None
 
         clear_server_session(task_id)
 
@@ -179,32 +175,30 @@ class SetTaskMode(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        task_mode = strip_quotes(argv.custom_recognition_param)
+        task_mode = json.loads(argv.custom_recognition_param)
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),
             detail={"task_mode": task_mode},
         )
 
 
+TASK_MODE_BY_ENTRY = {
+    "ShoppingFestivalTask": "shopping",
+    "AccountLeveling": "leveling",
+    "AccountClaims": "claiming",
+}
+TASK_MODE_NODES = ["SetShoppingFestivalTaskMode", "SetLevelingTaskMode", "SetClaimingTaskMode"]
+
+
 def _get_task_mode(context: Context, argv: CustomRecognition.AnalyzeArg):
-    entry = argv.task_detail.entry
-    if entry == "ShoppingFestivalTask":
-        return "shopping"
-    if entry == "AccountLeveling":
-        return "leveling"
-    if entry == "AccountClaims":
-        return "claiming"
+    task_mode = TASK_MODE_BY_ENTRY.get(argv.task_detail.entry)
+    if task_mode:
+        return task_mode
 
-    if has_node_hit(context, "SetShoppingFestivalTaskMode"):
-        shopping_mode = get_detail_value(context, "SetShoppingFestivalTaskMode", "task_mode")
-        if shopping_mode:
-            return shopping_mode
-
-    if has_node_hit(context, "SetLevelingTaskMode"):
-        return get_detail_value(context, "SetLevelingTaskMode", "task_mode")
-
-    if has_node_hit(context, "SetClaimingTaskMode"):
-        return get_detail_value(context, "SetClaimingTaskMode", "task_mode")
+    for node_name in TASK_MODE_NODES:
+        detail = get_latest_detail(context, node_name)
+        if detail and detail.get("task_mode"):
+            return detail["task_mode"]
 
     return None
 
@@ -213,7 +207,7 @@ def _match_task_mode(
     context: Context, argv: CustomRecognition.AnalyzeArg, task_mode: str
 ) -> CustomRecognition.AnalyzeResult:
     if _get_task_mode(context, argv) != task_mode:
-        return CustomRecognition.AnalyzeResult(box=None, detail={})
+        return None
 
     return CustomRecognition.AnalyzeResult(
         box=(0, 0, 0, 0),
@@ -250,20 +244,3 @@ class IsShoppingFestivalTask(CustomRecognition):
     ) -> CustomRecognition.AnalyzeResult:
         return _match_task_mode(context, argv, "shopping")
 
-
-@AgentServer.custom_recognition("DetectLoginPopup")
-class DetectLoginPopup(CustomRecognition):
-    def analyze(
-        self,
-        context: Context,
-        argv: CustomRecognition.AnalyzeArg,
-    ) -> CustomRecognition.AnalyzeResult:
-        for reco_name in ["CheckAnnouncement", "CheckWelfare", "CheckReturnGift"]:
-            reco_detail = run_recognition(context, reco_name, argv.image)
-            if reco_detail and reco_detail.hit and reco_detail.best_result:
-                return CustomRecognition.AnalyzeResult(
-                    box=reco_detail.best_result.box,
-                    detail={"popup_type": reco_name},
-                )
-
-        return CustomRecognition.AnalyzeResult(box=None, detail={})

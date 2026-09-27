@@ -95,9 +95,19 @@
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "fastESC"
+                "custom_action": "CloseAllPopupsWithEsc"
             }
         },
         "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
+    },
+    "CheckRemainPopup": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "popup/Return.png" ],
+                "roi": [ 671, 182, 260, 136 ],
+                "order_by": "Score"
+            }
+        }
     }
 }
