@@ -288,12 +288,11 @@
                 }
             ],
             "pipeline_override": {
-                "GetShoppingFriendName": {
-                    "recognition": {
-                        "type": "Custom",
+                "PasteShoppingFriendName": {
+                    "action": {
+                        "type": "InputText",
                         "param": {
-                            "custom_recognition": "GenerateShoppingFriendName",
-                            "custom_recognition_param": "{shopping_friend_name}"
+                            "input_text": "{shopping_friend_name}"
                         }
                     }
                 }

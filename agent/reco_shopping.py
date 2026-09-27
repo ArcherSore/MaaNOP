@@ -1,5 +1,3 @@
-import json
-
 from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
@@ -86,17 +84,3 @@ class LocateShoppingFestivalPurchase(CustomRecognition):
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
         return _locate_in_selected_slot(context, argv.image, "ShoppingFestivalPurchaseTemplate")
-
-
-@AgentServer.custom_recognition("GenerateShoppingFriendName")
-class GenerateShoppingFriendName(CustomRecognition):
-    def analyze(
-        self,
-        context: Context,
-        argv: CustomRecognition.AnalyzeArg,
-    ) -> CustomRecognition.AnalyzeResult:
-        friend_name = json.loads(argv.custom_recognition_param)
-        return CustomRecognition.AnalyzeResult(
-            box=(0, 0, 0, 0),
-            detail={"friend_name": friend_name},
-        )

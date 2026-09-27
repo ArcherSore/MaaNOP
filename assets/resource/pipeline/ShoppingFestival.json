@@ -153,37 +153,27 @@
     },
     "ClickOnShoppingFriendInput": {
         "action": {
-            "type": "Custom",
+            "type": "Click",
             "param": {
-                "custom_action": "ClickShoppingFriendInput"
-            }
-        },
-        "next": "GetShoppingFriendName"
-    },
-    "GetShoppingFriendName": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "GenerateShoppingFriendName",
-                "custom_recognition_param": "{shopping_friend_name}"
+                "target": [ 568, 548 ] // center of [ 535, 541, 67, 15 ]
             }
         },
         "next": "PasteShoppingFriendName"
     },
     "PasteShoppingFriendName": {
         "action": {
-            "type": "Custom",
+            "type": "InputText",
             "param": {
-                "custom_action": "PasteShoppingFriendName"
+                "input_text": "{shopping_friend_name}"
             }
         },
         "next": "ClickOnShoppingFriendName"
     },
     "ClickOnShoppingFriendName": {
         "action": {
-            "type": "Custom",
+            "type": "Click",
             "param": {
-                "custom_action": "ClickShoppingFriendOption"
+                "target": [ 571, 565 ] // center of [ 517, 558, 108, 15 ]
             }
         },
         "next": "ProcessShoppingFestivalGifts"
@@ -276,9 +266,9 @@
     },
     "FocusShoppingFestivalBeforeExit": {
         "action": {
-            "type": "Custom",
+            "type": "Click",
             "param": {
-                "custom_action": "FocusShoppingFestivalBeforeExit"
+                "target": [ 680, 400 ] // blank spot, gives the window key focus
             }
         },
         "next": "ExitShoppingFestival"

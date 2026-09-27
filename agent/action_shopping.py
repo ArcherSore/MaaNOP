@@ -26,53 +26,6 @@ class PasteShoppingQuantity(CustomAction):
         return bool(action and action.success)
 
 
-@AgentServer.custom_action("ClickShoppingFriendInput")
-class ClickShoppingFriendInput(CustomAction):
-    def run(
-        self,
-        context: Context,
-        argv: CustomAction.RunArg,
-    ) -> bool:
-        return click_center(context, [535, 541, 67, 15])
-
-
-@AgentServer.custom_action("PasteShoppingFriendName")
-class PasteShoppingFriendName(CustomAction):
-    def run(
-        self,
-        context: Context,
-        argv: CustomAction.RunArg,
-    ) -> bool:
-        friend = get_latest_detail(context, "GetShoppingFriendName")
-        if not friend or not friend.get("friend_name"):
-            return False
-
-        action = context.run_action_direct(
-            JActionType.InputText, JInputText(input_text=friend["friend_name"])
-        )
-        return bool(action and action.success)
-
-
-@AgentServer.custom_action("ClickShoppingFriendOption")
-class ClickShoppingFriendOption(CustomAction):
-    def run(
-        self,
-        context: Context,
-        argv: CustomAction.RunArg,
-    ) -> bool:
-        return click_center(context, [517, 558, 108, 15])
-
-
-@AgentServer.custom_action("FocusShoppingFestivalBeforeExit")
-class FocusShoppingFestivalBeforeExit(CustomAction):
-    def run(
-        self,
-        context: Context,
-        argv: CustomAction.RunArg,
-    ) -> bool:
-        return click_center(context, [680, 400, 1, 1])
-
-
 @AgentServer.custom_action("ProcessShoppingFestivalGifts")
 class ProcessShoppingFestivalGifts(CustomAction):
     def run(
