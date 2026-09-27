@@ -1,17 +1,28 @@
 {
     "ClaimInfiniteIllusionEntry": {
-        "next": [ "ClickOnInfiniteIllusion" ]
+        "timeout": 5000,
+        "next": [ "ClickOnInfiniteIllusion" ],
+        "on_error": [ "SkipInfiniteIllusion" ]
+    },
+    "SkipInfiniteIllusion": {
+        "focus": {
+            "Node.Recognition.Succeeded": "无限幻象未解锁（52级解锁）"
+        },
+        "next": [ "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
     },
     "ClickOnInfiniteIllusion": {
         "timeout": 5000,
-        "action": {
+        "recognition": {
             "type": "Custom",
             "param": {
-                "custom_action": "EnterTopEntry",
-                "custom_action_param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
                     "template": "illusion/InfiniteIllusion.png"
                 }
             }
+        },
+        "action": {
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "开始领取无限幻象"

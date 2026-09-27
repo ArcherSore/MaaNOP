@@ -4,14 +4,17 @@
         "next": [ "WaitArenaMain", "GotoArena" ]
     },
     "GotoArena": {
-        "action": {
+        "recognition": {
             "type": "Custom",
             "param": {
-                "custom_action": "EnterTopEntry",
-                "custom_action_param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
                     "template": "arena/ArenaEntry.png"
                 }
             }
+        },
+        "action": {
+            "type": "Click"
         },
         "next": [ "WaitArenaMain" ]
     },

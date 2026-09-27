@@ -1,16 +1,27 @@
 {
     "ClaimReturnGiftEntry": {
-        "next": [ "ClickOnReturnGift" ]
+        "timeout": 5000,
+        "next": [ "ClickOnReturnGift" ],
+        "on_error": [ "SkipReturnGift" ]
+    },
+    "SkipReturnGift": {
+        "focus": {
+            "Node.Recognition.Succeeded": "回归奖励未触发，没到30级或者没满7天就登录了！！！"
+        },
+        "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
     },
     "ClickOnReturnGift": {
-        "action": {
+        "recognition": {
             "type": "Custom",
             "param": {
-                "custom_action": "EnterTopEntry",
-                "custom_action_param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
                     "template": "returnGift/ReturnGift.png"
                 }
             }
+        },
+        "action": {
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "开始领取回归礼包"

@@ -6,14 +6,17 @@
         "next": "ClickOnWelfare"
     },
     "ClickOnWelfare": {
-        "action": {
+        "recognition": {
             "type": "Custom",
             "param": {
-                "custom_action": "EnterTopEntry",
-                "custom_action_param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
                     "template": [ "common/entry/SystemGift.png" ]
                 }
             }
+        },
+        "action": {
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "开始领取铜币经验"

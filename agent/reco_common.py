@@ -7,6 +7,33 @@ from maa.context import Context
 from common import send_focus_message
 
 
+@AgentServer.custom_recognition("FindTopEntry")
+class FindTopEntry(CustomRecognition):
+    """在顶部入口栏中识别目标入口，点击交给 pipeline 的 action。"""
+
+    def analyze(
+        self,
+        context: Context,
+        argv: CustomRecognition.AnalyzeArg,
+    ) -> CustomRecognition.AnalyzeResult:
+        template = json.loads(argv.custom_recognition_param)["template"]
+        reco_detail = context.run_recognition(
+            "TopEntryTemplate",
+            argv.image,
+            {
+                "TopEntryTemplate": {
+                    "recognition": {
+                        "type": "TemplateMatch",
+                        "param": {"template": template},
+                    }
+                }
+            },
+        )
+        if not reco_detail or not reco_detail.hit:
+            return None
+        return CustomRecognition.AnalyzeResult(box=reco_detail.box, detail={})
+
+
 @AgentServer.custom_recognition("MatchPopup")
 class MatchPopup(CustomRecognition):
     """按顺序识别多种弹窗, 命中后返回该弹窗对应的点击目标位置。

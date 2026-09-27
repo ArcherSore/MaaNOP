@@ -27,16 +27,13 @@
             "type": "Click"
         }
     },
-    "ClickTopEntry": {
+    "TopEntryTemplate": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "template": [ ],
                 "roi": [ 391, 82, 800, 114 ]
             }
-        },
-        "action": {
-            "type": "Click"
         }
     }
 }
