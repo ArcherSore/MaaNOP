@@ -12,7 +12,7 @@
             "win32": {
                 "class_regex": ".*",
                 "window_regex": "火影忍者Online",
-                "screencap": "FramePool",
+                "screencap": "PrintWindow",
                 "mouse": "Seize",
                 "keyboard": "Seize"
             }
