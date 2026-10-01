@@ -65,6 +65,19 @@
             "description": "### 开始前\n\n请停留在**竞技场主界面**，或能够看到**竞技场入口**的界面。\n\n### 会做什么\n\n自动进入竞技场并连续挑战，达到**六道段位**后停止。\n\n### 注意事项\n\n- 不会自动领取**月印奖励**，请手动领取。\n- 已达到**六道段位**时，不会继续挑战。"
         },
         {
+            "name": "ThemeArena",
+            "label": "主题竞技场",
+            "group": [ "LimitedEvent" ],
+            "entry": "ThemeArena",
+            "description": "### 开始前\n\n请停留在**主题竞技场主界面**，并选择停止条件。\n\n### 会做什么\n\n自动点击**战斗**并托管，反复挑战直到达成目标。\n\n### 目标\n\n- **六道**：达到**六道段位**后停止。\n- **九胜**：**胜利 9 场**的**领取**按钮亮起后停止。\n\n### 注意事项\n\n不会自动领取奖励，请手动领取。",
+            "option": [ "ThemeArenaEndCondition" ],
+            "pipeline_override": {
+                "WaitBattleEnd": {
+                    "next": [ "[JumpBack]ThemeBattleResultPopup", "WaitThemeMain" ]
+                }
+            }
+        },
+        {
             "name": "ShoppingFestivalTask",
             "label": "购物节送字",
             "group": [ "AltAccount" ],
@@ -269,6 +282,32 @@
                     "label": "不领取",
                     "pipeline_override": {
                         "ClaimInfiniteIllusionEntry": {
+                            "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "ThemeArenaEndCondition": {
+            "type": "select",
+            "label": "目标",
+            "description": "选择主题竞技场何时停止",
+            "default_case": "Rikudou",
+            "cases": [
+                {
+                    "name": "Rikudou",
+                    "label": "六道",
+                    "pipeline_override": {
+                        "ThemeNineWinsReached": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "NineWins",
+                    "label": "九胜",
+                    "pipeline_override": {
+                        "ThemeRikudouReached": {
                             "enabled": false
                         }
                     }
