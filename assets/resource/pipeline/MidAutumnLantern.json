@@ -65,7 +65,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "MidAutumn/Reset.png",
-                "roi": [ 636, 378, 29, 26 ]
+                "roi": [ 611, 353, 79, 76 ]
             }
         },
         "action": {
@@ -90,7 +90,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "MidAutumn/Reset.png",
-                "roi": [ 636, 378, 29, 26 ]
+                "roi": [ 611, 353, 79, 76 ]
             }
         },
         "inverse": true,
