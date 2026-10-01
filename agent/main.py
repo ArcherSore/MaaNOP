@@ -18,6 +18,7 @@ import reco_training
 
 def main():
     Tasker.set_log_dir("./debug")
+    Tasker.set_save_on_error(True)
 
     if len(sys.argv) < 2:
         print("Usage: python main.py <socket_id>")
