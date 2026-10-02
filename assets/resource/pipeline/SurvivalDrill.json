@@ -1,0 +1,348 @@
+// 生存演习：打完上一轮 → 领奖 → 有重置次数就重置、选难度 → 打新一轮 → 领奖
+{
+    "SurvivalDrill": {
+        "next": [ "SurvivalRound", "GotoSurvival" ]
+    },
+    "GotoSurvival": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": "survival/SurvivalEntry.png"
+                }
+            }
+        },
+        "action": "Click",
+        "next": [ "SurvivalRound" ]
+    },
+
+    "SurvivalScoreOCR": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 585, 628, 145, 30 ],
+                "expected": [ "\\d+/\\d+" ]
+            }
+        }
+    },
+    "SurvivalResetLeft": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 672, 672, 110, 28 ],
+                "expected": [ "[1-9]次" ]
+            }
+        }
+    },
+    "SurvivalResetEmpty": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 672, 672, 110, 28 ],
+                "expected": [ "0次" ]
+            }
+        }
+    },
+    // 主界面能读到积分后，交给自定义动作：它按 SS→C 点关卡，直到积分满或次数用完
+    "SurvivalRound": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalScoreOCR" ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SurvivalPlayRound"
+            }
+        },
+        "next": [ "SurvivalClaim" ]
+    },
+    // 动作点完关卡后用 run_task 从这里开始：要么进入战斗，要么出现"次数已用尽"提示
+    "SurvivalStageOutcome": {
+        "next": [ "SurvivalStartBattle", "SurvivalStageExhausted" ]
+    },
+    "SurvivalStageExhausted": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 440, 250, 460, 122 ],
+                "expected": [ "已用尽" ]
+            }
+        },
+        "post_delay": 2000 // 等提示"该区域挑战次数已用尽"消失
+    },
+    "SurvivalClaim": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 957, 642, 50, 11 ]
+            }
+        },
+        "next": [ "SurvivalClaimConfirm", "SurvivalClaimRewardClose", "SurvivalClaimNothing" ]
+    },
+    "SurvivalClaimConfirm": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 548, 375, 245, 60 ],
+                "expected": [ "领取奖励" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 590, 422, 44, 9 ]
+            }
+        },
+        "next": [ "SurvivalClaimRewardClose" ]
+    },
+    "SurvivalClaimRewardClose": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "survival/RewardConfirm.png",
+                "roi": [ 620, 448, 90, 64 ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 500,
+        "next": [ "SurvivalAfterClaim" ]
+    },
+    "SurvivalClaimNothing": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 440, 250, 460, 122 ],
+                "expected": [ "没有可以领取" ]
+            }
+        },
+        "next": [ "SurvivalAfterClaim" ]
+    },
+    "SurvivalAfterClaim": {
+        "next": [ "SurvivalResetClick", "SurvivalDone" ]
+    },
+    "SurvivalResetClick": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalResetLeft" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 684, 679, 82, 14 ]
+            }
+        },
+        "post_delay": 500,
+        "next": [ "SurvivalResetConfirm", "SurvivalResetDone" ]
+    },
+    "SurvivalResetConfirm": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 548, 375, 245, 60 ],
+                "expected": [ "重置会损失|尚未完成|领取奖励" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 590, 422, 44, 9 ]
+            }
+        },
+        "post_delay": 800,
+        "next": [ "SurvivalResetDone" ]
+    },
+    "SurvivalResetDone": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalResetEmpty" ]
+            }
+        },
+        "post_delay": 500,
+        "next": [ "SurvivalTabCheck" ]
+    },
+    "SurvivalTabCheck": {
+        "next": [ "SurvivalTabSelected", "SurvivalClickTab" ]
+    },
+    "SurvivalTabSelected": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "survival/TabEliteSelected.png",
+                "roi": [ 320, 95, 230, 160 ],
+                "threshold": 0.9
+            }
+        },
+        "next": [ "SurvivalRound" ]
+    },
+    "SurvivalClickTab": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 412, 145, 35, 50 ]
+            }
+        },
+        "post_delay": 1000,
+        "next": [ "[JumpBack]SurvivalSwitchConfirm", "SurvivalNoUnlockScroll", "SurvivalTabSelected",
+            "SurvivalClickTab" ]
+    },
+    // 极限之卷不足：改选精英
+    "SurvivalNoUnlockScroll": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 440, 250, 460, 122 ],
+                "expected": [ "数量不足|无法解锁" ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "极限之卷数量不足，无法解锁，改用精英难度"
+        },
+        "next": [ "SurvivalEliteSelected", "SurvivalClickElite" ]
+    },
+    "SurvivalEliteSelected": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "survival/TabEliteSelected.png",
+                "roi": [ 320, 95, 230, 160 ],
+                "threshold": 0.9
+            }
+        },
+        "next": [ "SurvivalRound" ]
+    },
+    "SurvivalClickElite": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 412, 145, 35, 50 ]
+            }
+        },
+        "post_delay": 1000,
+        "next": [ "[JumpBack]SurvivalSwitchConfirm", "SurvivalEliteSelected", "SurvivalClickElite" ]
+    },
+    "SurvivalSwitchConfirm": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 548, 375, 245, 60 ],
+                "expected": [ "切换难度|极限之卷" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 590, 422, 44, 9 ]
+            }
+        },
+        "post_delay": 800
+    },
+    // ===== 开战 → 自动/加速 → 确定 → 回到主界面 =====
+    "SurvivalStartBattle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "survival/StartBattle.png", "survival/StartBattleHover.png" ],
+                "roi": [ 623, 162, 110, 64 ],
+                "threshold": 0.85
+            }
+        },
+        "action": "Click",
+        "next": [ "SurvivalStartBattle", "SurvivalAutoOn", "SurvivalAutoOff" ]
+    },
+    "SurvivalAutoOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOn.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "next": [ "SurvivalSpeedOn", "SurvivalSpeedOff" ]
+    },
+    "SurvivalAutoOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOff.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "SurvivalSpeedOn", "SurvivalSpeedOff" ]
+    },
+    "SurvivalSpeedOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOn.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "timeout": 30000,
+        "next": [ "SurvivalBattleConfirm" ],
+        "on_error": [ "SurvivalBattleTimeoutProbe" ]
+    },
+    "SurvivalSpeedOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOff.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "action": "Click",
+        "timeout": 30000,
+        "next": [ "SurvivalBattleConfirm" ],
+        "on_error": [ "SurvivalBattleTimeoutProbe" ]
+    },
+    "SurvivalBattleTimeoutProbe": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOn.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "next": [ "SurvivalSpeedOn" ],
+        "on_error": [ "SurvivalBattleConfirm" ]
+    },
+    "SurvivalBattleConfirm": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "survival/BattleConfirm.png",
+                "roi": [ 620, 468, 105, 30 ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 800,
+        "next": [ "SurvivalMainReady" ]
+    },
+    "SurvivalMainReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalScoreOCR" ]
+            }
+        }
+    },
+    "SurvivalDone": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1136, 105, 10, 10 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "生存演习结束"
+        }
+    }
+}
