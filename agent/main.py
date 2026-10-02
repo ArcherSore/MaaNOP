@@ -9,11 +9,11 @@ import action_login
 import action_mid_autumn
 import action_ninjutsu_training
 import action_shopping
+import action_survival
 import action_training
 import reco_common
 import reco_login
 import reco_shopping
-import reco_survival
 import reco_training
 
 
