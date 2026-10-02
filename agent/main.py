@@ -13,6 +13,7 @@ import action_training
 import reco_common
 import reco_login
 import reco_shopping
+import reco_survival
 import reco_training
 
 

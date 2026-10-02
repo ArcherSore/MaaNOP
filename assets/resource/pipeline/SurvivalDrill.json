@@ -1,0 +1,432 @@
+{
+    "SurvivalDrill": {
+        "next": [ "SurvivalScoreReady", "GotoSurvival" ]
+    },
+    "GotoSurvival": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": "survival/SurvivalEntry.png"
+                }
+            }
+        },
+        "action": "Click",
+        "next": [ "SurvivalScoreReady" ]
+    },
+    "SurvivalScoreOCR": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 585, 628, 145, 30 ],
+                "expected": [ "\\d+/\\d+" ]
+            }
+        }
+    },
+    "SurvivalResetLeft": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 672, 672, 110, 28 ],
+                "expected": [ "[1-9]次" ]
+            }
+        }
+    },
+    "SurvivalResetEmpty": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 672, 672, 110, 28 ],
+                "expected": [ "0次" ]
+            }
+        }
+    },
+    "SurvivalScoreReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalScoreOCR" ]
+            }
+        },
+        "next": [ "SurvivalClaimLeftover", "SurvivalNoReset" ]
+    },
+    "SurvivalNoReset": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalResetEmpty" ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "今日重置次数已用完，已停止"
+        }
+    },
+    "SurvivalClaimLeftover": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalResetLeft" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 957, 642, 50, 11 ]
+            }
+        },
+        "next": [ "SurvivalLeftoverClaimConfirm", "SurvivalLeftoverNothing" ]
+    },
+    "SurvivalLeftoverClaimConfirm": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 548, 375, 245, 60 ],
+                "expected": [ "领取奖励" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 590, 422, 44, 9 ]
+            }
+        },
+        "next": [ "SurvivalLeftoverRewardClose" ]
+    },
+    "SurvivalLeftoverRewardClose": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "survival/RewardConfirm.png",
+                "roi": [ 620, 470, 90, 40 ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 500,
+        "next": [ "SurvivalResetClick" ]
+    },
+    "SurvivalLeftoverNothing": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 440, 250, 460, 140 ],
+                "expected": [ "没有可以领取" ]
+            }
+        },
+        "next": [ "SurvivalResetClick" ]
+    },
+    "SurvivalResetClick": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalResetLeft" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 684, 679, 82, 14 ]
+            }
+        },
+        "post_delay": 500,
+        "next": [ "SurvivalResetConfirm", "SurvivalResetDone" ]
+    },
+    "SurvivalResetConfirm": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 548, 375, 245, 60 ],
+                "expected": [ "重置会损失|尚未完成|领取奖励" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 590, 422, 44, 9 ]
+            }
+        },
+        "post_delay": 800,
+        "next": [ "SurvivalResetDone" ]
+    },
+    "SurvivalResetDone": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalResetEmpty" ]
+            }
+        },
+        "post_delay": 500,
+        "next": [ "SurvivalTabCheck" ]
+    },
+    "SurvivalTabCheck": {
+        "next": [ "SurvivalTabSelected", "SurvivalClickTab" ]
+    },
+    "SurvivalTabSelected": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "survival/TabEliteSelected.png",
+                "roi": [ 320, 95, 230, 160 ],
+                "threshold": 0.9
+            }
+        },
+        "next": [ "SurvivalMainReady" ]
+    },
+    "SurvivalClickTab": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 412, 145, 35, 50 ]
+            }
+        },
+        "post_delay": 1000,
+        "next": [ "[JumpBack]SurvivalSwitchConfirm", "SurvivalTabSelected", "SurvivalClickTab" ]
+    },
+    "SurvivalSwitchConfirm": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 548, 375, 245, 60 ],
+                "expected": [ "切换难度|极限之卷" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 590, 422, 44, 9 ]
+            }
+        },
+        "post_delay": 800
+    },
+    "SurvivalMainReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalScoreOCR" ]
+            }
+        },
+        "next": [
+            "SurvivalScoreFull",
+            "SurvivalStageSS",
+            "SurvivalStageS",
+            "SurvivalStageA",
+            "SurvivalStageB",
+            "SurvivalStageC"
+        ]
+    },
+    "SurvivalScoreFull": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "SurvivalScoreFull"
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "演习积分已满"
+        },
+        "next": [ "SurvivalFinalClaim" ]
+    },
+    "SurvivalStageSS": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalScoreOCR" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 595, 178, 26, 28 ]
+            }
+        },
+        "next": [ "SurvivalStartBattle" ]
+    },
+    "SurvivalStageS": {
+        "max_hit": 2,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalScoreOCR" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 822, 246, 26, 28 ]
+            }
+        },
+        "next": [ "SurvivalStartBattle" ]
+    },
+    "SurvivalStageA": {
+        "max_hit": 2,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalScoreOCR" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 538, 328, 26, 28 ]
+            }
+        },
+        "next": [ "SurvivalStartBattle" ]
+    },
+    "SurvivalStageB": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalScoreOCR" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 762, 384, 26, 28 ]
+            }
+        },
+        "next": [ "SurvivalStartBattle" ]
+    },
+    "SurvivalStageC": {
+        "max_hit": 5,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "SurvivalScoreOCR" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 724, 468, 26, 28 ]
+            }
+        },
+        "next": [ "SurvivalStartBattle" ]
+    },
+    "SurvivalStartBattle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "survival/StartBattle.png", "survival/StartBattleHover.png" ],
+                "roi": [ 623, 162, 110, 64 ],
+                "threshold": 0.85
+            }
+        },
+        "action": "Click",
+        "next": [ "SurvivalStartBattle", "SurvivalAutoOn", "SurvivalAutoOff" ] // maybe on_err is better?
+    },
+    "SurvivalAutoOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOn.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "next": [ "SurvivalSpeedOn", "SurvivalSpeedOff" ]
+    },
+    "SurvivalAutoOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOff.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "SurvivalSpeedOn", "SurvivalSpeedOff" ]
+    },
+    "SurvivalSpeedOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOn.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "timeout": 30000,
+        "next": [ "SurvivalBattleConfirm" ],
+        "on_error": [ "SurvivalBattleTimeoutProbe" ]
+    },
+    "SurvivalSpeedOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOff.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "action": "Click",
+        "timeout": 30000,
+        "next": [ "SurvivalBattleConfirm" ],
+        "on_error": [ "SurvivalBattleTimeoutProbe" ]
+    },
+    "SurvivalBattleTimeoutProbe": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOn.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "next": [ "SurvivalSpeedOn" ],
+        "on_error": [ "SurvivalBattleConfirm" ]
+    },
+    "SurvivalBattleConfirm": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "survival/BattleConfirm.png",
+                "roi": [ 620, 468, 105, 30 ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 800,
+        "next": [ "SurvivalMainReady" ]
+    },
+    "SurvivalFinalClaim": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 957, 642, 50, 11 ]
+            }
+        },
+        "next": [ "SurvivalFinalClaimConfirm" ]
+    },
+    "SurvivalFinalClaimConfirm": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 548, 375, 245, 60 ],
+                "expected": [ "领取奖励" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 590, 422, 44, 9 ]
+            }
+        },
+        "next": [ "SurvivalFinalRewardClose" ]
+    },
+    "SurvivalFinalRewardClose": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "survival/RewardConfirm.png",
+                "roi": [ 620, 470, 90, 40 ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 500,
+        "next": [ "SurvivalDone" ]
+    },
+    "SurvivalDone": {
+        "focus": {
+            "Node.Action.Succeeded": "生存演习结束"
+        }
+    }
+}

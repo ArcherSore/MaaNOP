@@ -39,6 +39,10 @@
         {
             "name": "LimitedEvent",
             "label": "限时活动"
+        },
+        {
+            "name": "Routine",
+            "label": "日常任务"
         }
     ],
     "task": [
@@ -71,6 +75,14 @@
             "entry": "ShoppingFestivalTask",
             "description": "### 开始前\n\n请停留在**选服务器界面**，并设置好服务器范围和赠送对象名称。\n\n### 会做什么\n\n每次购买 **3 个字**，并自动赠送给指定的大号。\n\n### 注意事项\n\n开始前，请确认以下条件均已满足：\n\n- **大号保持在线**。\n- **已手动添加好友**：送字的小号已将大号加为好友。\n- **当天首页有符合价格条件的商品**：首页四个商品中，**至少有一个的价格能整除 1500**（即 1500 ÷ 商品价格为整数）。任务**不会向下滚动查找商品**。\n- **当天未送过字**：请勿重复处理同一个小号。",
             "option": [ "ServerRegionType", "ServerRange", "ShoppingFriendName" ]
+        },
+        {
+            "name": "SurvivalDrill",
+            "label": "生存演习",
+            "group": [ "Routine" ],
+            "entry": "SurvivalDrill",
+            "description": "### 开始前\n\n请停留在**主界面**（能看到顶部**生存演习**入口），或已经在**生存演习界面**。\n\n### 会做什么\n\n先领取当前可领的奖励，再**使用当天的重置次数**重新开始，切换到设置的难度，按积分从高到低依次挑战，直到**演习积分满分**，最后领取奖励。\n\n### 注意事项\n\n- 当天**没有重置次数**时不会执行，任务会直接停止。\n- 重置会清除当前进度，请确认当前进度已不需要。\n- 选择**极限**难度时，若该难度未解锁，会自动使用**极限之卷**解锁。",
+            "option": [ "SurvivalLevel" ]
         },
         {
             "name": "NinjutsuTraining",
@@ -270,6 +282,58 @@
                     "pipeline_override": {
                         "ClaimInfiniteIllusionEntry": {
                             "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "SurvivalLevel": {
+            "type": "select",
+            "label": "演习难度",
+            "description": "选择要挑战的难度",
+            "default_case": "Elite",
+            "cases": [
+                {
+                    "name": "Elite",
+                    "label": "精英"
+                },
+                {
+                    "name": "Normal",
+                    "label": "普通",
+                    "pipeline_override": {
+                        "SurvivalTabSelected": {
+                            "recognition": {
+                                "param": {
+                                    "template": "survival/TabNormalSelected.png"
+                                }
+                            }
+                        },
+                        "SurvivalClickTab": {
+                            "action": {
+                                "param": {
+                                    "target": [ 355, 150, 35, 50 ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Extreme",
+                    "label": "极限",
+                    "pipeline_override": {
+                        "SurvivalTabSelected": {
+                            "recognition": {
+                                "param": {
+                                    "template": "survival/TabExtremeSelected.png"
+                                }
+                            }
+                        },
+                        "SurvivalClickTab": {
+                            "action": {
+                                "param": {
+                                    "target": [ 470, 145, 35, 50 ]
+                                }
+                            }
                         }
                     }
                 }
