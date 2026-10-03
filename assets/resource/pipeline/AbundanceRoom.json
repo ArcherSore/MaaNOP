@@ -1,0 +1,301 @@
+// 丰饶之间：先选好队伍 → 打开丰饶之间，赏金试炼切到简单难度并开战 → 托管战斗 → 领收益，打到本日次数用完
+{
+    "AbundanceRoom": {
+        "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
+    },
+
+    // ===== 选队伍：队伍标签从上到下编号 1~8，选中的标签是金色（选哪个由 interface.json 的 AbundanceTeam 选项覆盖） =====
+    "AbundanceGotoTeam": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindBottomEntry",
+                "custom_recognition_param": {
+                    "template": "common/entry/NinjaEntry.png"
+                }
+            }
+        },
+        "action": "Click",
+        "next": [ "AbundanceTeamScreen" ]
+    },
+    "AbundanceTeamScreen": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "abundance/TeamTitle.png",
+                "roi": [ 236, 222, 100, 34 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "AbundanceTeamSelected", "AbundanceClickTeam" ],
+        "on_error": [ "AbundanceTeamLocked" ]
+    },
+    // 既不是选中的（金色）也不是能点的（蓝色）：标签是灰的，队伍没解锁，一下都不点
+    "AbundanceTeamLocked": {
+        "focus": {
+            "Node.Action.Succeeded": "设置的队伍还没解锁（标签是灰色的），已停止"
+        }
+    },
+    "AbundanceTeamSelected": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 358, 235, 34, 12 ],
+                "method": 40,
+                "lower": [ 8, 100, 60 ],
+                "upper": [ 25, 255, 255 ],
+                "count": 120
+            }
+        },
+        "next": [ "AbundanceTeamClose" ]
+    },
+    // 点完标签要等一阵才会变金，期间不能再点：同一个标签连点两下会进入队伍改名，输入框会吞掉之后的第一次点击。
+    // 所以只在等待超时（网络慢/没点中）后才重点，最多 3 次
+    // 只点已解锁的标签：没选中的已解锁标签是蓝色，没解锁的是灰色
+    "AbundanceClickTeam": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 358, 235, 34, 12 ],
+                "method": 40,
+                "lower": [ 90, 100, 60 ],
+                "upper": [ 110, 255, 255 ],
+                "count": 120
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 360, 236, 30, 11 ]
+            }
+        },
+        "timeout": 6000,
+        "next": [ "AbundanceTeamSelected" ],
+        "on_error": [ "AbundanceClickTeam", "AbundanceTeamFailed" ]
+    },
+    // 标签点不亮（队伍没解锁等）：停下来，不要带着别的队伍去打
+    "AbundanceTeamFailed": {
+        "focus": {
+            "Node.Action.Succeeded": "队伍未解锁"
+        }
+    },
+    // 点关闭偶尔会被吞掉：界面还在就接着点，直到关掉
+    "AbundanceTeamClose": {
+        "max_hit": 15,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "abundance/TeamTitle.png",
+                "roi": [ 236, 222, 100, 34 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1114, 108, 14, 14 ]
+            }
+        },
+        "post_delay": 1000,
+        "next": [ "AbundanceGotoRoom", "AbundanceTeamClose" ],
+        "on_error": [ "AbundanceTeamCloseFailed" ]
+    },
+    "AbundanceTeamCloseFailed": {
+        "focus": {
+            "Node.Action.Succeeded": "关不掉忍者界面，已停止"
+        }
+    },
+
+    // ===== 丰饶之间：每打完一场回到这里，直到赏金试炼的次数用完 =====
+    "AbundanceGotoRoom": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": "abundance/AbundanceEntry.png"
+                }
+            }
+        },
+        "action": "Click",
+        "next": [ "AbundancePopup" ]
+    },
+    "AbundancePopup": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "abundance/PopupTitle.png",
+                "roi": [ 600, 198, 128, 26 ]
+            }
+        },
+        "next": [ "AbundanceNoChance", "AbundanceSimple", "AbundanceLeftArrow" ]
+    },
+    // 赏金试炼标题栏："本日剩余挑战次数 N次" / "本日次数已用完"
+    "AbundanceTimesLeft": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "abundance/TimesLeftLabel.png",
+                "roi": [ 775, 255, 140, 22 ]
+            }
+        }
+    },
+    "AbundanceNoChance": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "abundance/NoChanceLabel.png",
+                "roi": [ 775, 262, 140, 30 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 949, 216, 12, 12 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "丰饶之间本日挑战次数已用完"
+        }
+    },
+    // 赏金试炼默认先显示困难/极限/极限，要点左箭头翻到简单/普通/困难（每次打开都会重置）
+    "AbundanceSimpleLabel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "abundance/SimpleLabel.png",
+                "roi": [ 400, 285, 200, 40 ],
+                "threshold": 0.85
+            }
+        }
+    },
+    "AbundanceLeftArrow": {
+        "max_hit": 6,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "AbundanceTimesLeft" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 399, 324, 10, 14 ]
+            }
+        },
+        "post_delay": 500,
+        "next": [ "AbundanceSimple", "AbundanceLeftArrow" ]
+    },
+    // 点简单关卡的中间区域（避开"查看掉落"和"扫荡"按钮）；鼠标悬停时关卡图会有火焰动画，所以认的是左上角的"简单"字样
+    "AbundanceSimple": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "AbundanceSimpleLabel", "AbundanceTimesLeft" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 440, 330, 70, 24 ]
+            }
+        },
+        "next": [ "AbundanceBattleStart" ]
+    },
+
+    // ===== 开战 → 托管 / 加速 → 等关卡结算 =====
+    "AbundanceBattleStart": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "abundance/BattleStart.png",
+                "roi": [ 583, 443, 85, 22 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "AbundanceBattleStart", "AbundanceAutoOn", "AbundanceAutoOff" ]
+    },
+    "AbundanceAutoOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOn.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "next": [ "AbundanceSpeedOn", "AbundanceSpeedOff" ]
+    },
+    "AbundanceAutoOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOff.png",
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "AbundanceSpeedOn", "AbundanceSpeedOff" ]
+    },
+    "AbundanceSpeedOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOn.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "timeout": 30000,
+        "next": [ "AbundanceResultConfirm" ],
+        "on_error": [ "AbundanceBattleTimeoutProbe" ]
+    },
+    "AbundanceSpeedOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOff.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "action": "Click",
+        "timeout": 30000,
+        "next": [ "AbundanceResultConfirm" ],
+        "on_error": [ "AbundanceBattleTimeoutProbe" ]
+    },
+    // 等了 30 秒还没出胜利面板：还在战斗（看得到加速按钮）就再等一轮，否则直接去找面板
+    "AbundanceBattleTimeoutProbe": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOn.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "next": [ "AbundanceSpeedOn" ],
+        "on_error": [ "AbundanceResultConfirm" ]
+    },
+    // 战斗胜利面板：不点就一直停着
+    "AbundanceResultConfirm": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "abundance/ResultConfirm.png",
+                "roi": [ 620, 455, 105, 35 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "AbundanceSettle" ]
+    },
+    // 关卡结算：点"返回游戏"领收益（按钮上的倒计时数字会变，所以模板只截文字），然后回主界面接着打下一场
+    "AbundanceSettle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "abundance/SettleBack.png",
+                "roi": [ 600, 455, 140, 32 ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 500,
+        "next": [ "AbundanceGotoRoom" ]
+    }
+}

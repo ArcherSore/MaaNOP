@@ -98,6 +98,14 @@
             "option": [ "SurvivalLevel" ]
         },
         {
+            "name": "AbundanceRoom",
+            "label": "丰饶之间",
+            "group": [ "Routine" ],
+            "entry": "AbundanceRoom",
+            "description": "### 开始前\n\n请停留在**主界面**（能看到顶部**丰饶之间**入口和底部**忍者**入口）。\n\n### 会做什么\n\n先打开**忍者**界面，切换到设置的队伍；再进入**丰饶之间**，把**赏金试炼**切到**简单**难度，反复挑战（自动托管并加速），每场打完领取收益，直到**本日挑战次数用完**，最后关闭丰饶之间界面。\n\n### 注意事项\n\n- 只打**赏金试炼**，不打经验试炼。\n- 队伍按**忍者界面中间的标签**从上到下编号，请选择已解锁的队伍，否则会停在选队伍这一步。\n- 每场挑战消耗 **10 点体力**，请确保体力足够。",
+            "option": [ "AbundanceTeam" ]
+        },
+        {
             "name": "NinjutsuTraining",
             "label": "忍术特训",
             "group": [ "LimitedEvent" ],
@@ -371,6 +379,193 @@
                             "action": {
                                 "param": {
                                     "target": [ 470, 145, 35, 50 ]
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "AbundanceTeam": {
+            "type": "select",
+            "label": "出战队伍",
+            "description": "选择打丰饶之间用的队伍（忍者界面中间的标签，从上到下编号）",
+            "default_case": "Team1",
+            "cases": [
+                {
+                    "name": "Team1",
+                    "label": "第 1 个队伍"
+                },
+                {
+                    "name": "Team2",
+                    "label": "第 2 个队伍",
+                    "pipeline_override": {
+                        "AbundanceTeamSelected": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 256, 34, 12 ]
+                                }
+                            }
+                        },
+                        "AbundanceClickTeam": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 256, 34, 12 ]
+                                }
+                            },
+                            "action": {
+                                "param": {
+                                    "target": [ 360, 257, 30, 11 ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Team3",
+                    "label": "第 3 个队伍",
+                    "pipeline_override": {
+                        "AbundanceTeamSelected": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 276, 34, 12 ]
+                                }
+                            }
+                        },
+                        "AbundanceClickTeam": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 276, 34, 12 ]
+                                }
+                            },
+                            "action": {
+                                "param": {
+                                    "target": [ 360, 277, 30, 11 ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Team4",
+                    "label": "第 4 个队伍",
+                    "pipeline_override": {
+                        "AbundanceTeamSelected": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 297, 34, 12 ]
+                                }
+                            }
+                        },
+                        "AbundanceClickTeam": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 297, 34, 12 ]
+                                }
+                            },
+                            "action": {
+                                "param": {
+                                    "target": [ 360, 298, 30, 11 ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Team5",
+                    "label": "第 5 个队伍",
+                    "pipeline_override": {
+                        "AbundanceTeamSelected": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 317, 34, 12 ]
+                                }
+                            }
+                        },
+                        "AbundanceClickTeam": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 317, 34, 12 ]
+                                }
+                            },
+                            "action": {
+                                "param": {
+                                    "target": [ 360, 318, 30, 11 ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Team6",
+                    "label": "第 6 个队伍",
+                    "pipeline_override": {
+                        "AbundanceTeamSelected": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 338, 34, 12 ]
+                                }
+                            }
+                        },
+                        "AbundanceClickTeam": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 338, 34, 12 ]
+                                }
+                            },
+                            "action": {
+                                "param": {
+                                    "target": [ 360, 339, 30, 11 ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Team7",
+                    "label": "第 7 个队伍",
+                    "pipeline_override": {
+                        "AbundanceTeamSelected": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 358, 34, 12 ]
+                                }
+                            }
+                        },
+                        "AbundanceClickTeam": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 358, 34, 12 ]
+                                }
+                            },
+                            "action": {
+                                "param": {
+                                    "target": [ 360, 359, 30, 11 ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Team8",
+                    "label": "第 8 个队伍",
+                    "pipeline_override": {
+                        "AbundanceTeamSelected": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 379, 34, 12 ]
+                                }
+                            }
+                        },
+                        "AbundanceClickTeam": {
+                            "recognition": {
+                                "param": {
+                                    "roi": [ 358, 379, 34, 12 ]
+                                }
+                            },
+                            "action": {
+                                "param": {
+                                    "target": [ 360, 380, 30, 11 ]
                                 }
                             }
                         }
