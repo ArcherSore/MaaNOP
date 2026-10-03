@@ -7,31 +7,52 @@ from maa.context import Context
 from common import send_focus_message
 
 
+def find_entry(
+    context: Context,
+    argv: CustomRecognition.AnalyzeArg,
+    node_name: str,
+) -> CustomRecognition.AnalyzeResult:
+    """用 node_name 节点的 ROI 找 custom_recognition_param 里的模板，点击交给 pipeline 的 action。"""
+    template = json.loads(argv.custom_recognition_param)["template"]
+    reco_detail = context.run_recognition(
+        node_name,
+        argv.image,
+        {
+            node_name: {
+                "recognition": {
+                    "type": "TemplateMatch",
+                    "param": {"template": template},
+                }
+            }
+        },
+    )
+    if not reco_detail or not reco_detail.hit:
+        return None
+    return CustomRecognition.AnalyzeResult(box=reco_detail.box, detail={})
+
+
 @AgentServer.custom_recognition("FindTopEntry")
 class FindTopEntry(CustomRecognition):
-    """在顶部入口栏中识别目标入口，点击交给 pipeline 的 action。"""
+    """在顶部入口栏中识别目标入口。"""
 
     def analyze(
         self,
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        template = json.loads(argv.custom_recognition_param)["template"]
-        reco_detail = context.run_recognition(
-            "TopEntryTemplate",
-            argv.image,
-            {
-                "TopEntryTemplate": {
-                    "recognition": {
-                        "type": "TemplateMatch",
-                        "param": {"template": template},
-                    }
-                }
-            },
-        )
-        if not reco_detail or not reco_detail.hit:
-            return None
-        return CustomRecognition.AnalyzeResult(box=reco_detail.box, detail={})
+        return find_entry(context, argv, "TopEntryTemplate")
+
+
+@AgentServer.custom_recognition("FindBottomEntry")
+class FindBottomEntry(CustomRecognition):
+    """在底部入口栏中识别目标入口。"""
+
+    def analyze(
+        self,
+        context: Context,
+        argv: CustomRecognition.AnalyzeArg,
+    ) -> CustomRecognition.AnalyzeResult:
+        return find_entry(context, argv, "BottomEntryTemplate")
 
 
 @AgentServer.custom_recognition("MatchPopup")
