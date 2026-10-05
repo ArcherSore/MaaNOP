@@ -219,7 +219,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "common/battle/AutoOn.png",
+                "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
                 "roi": [ 828, 620, 80, 80 ]
             }
         },
@@ -229,7 +229,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "common/battle/AutoOff.png",
+                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
                 "roi": [ 828, 620, 80, 80 ]
             }
         },

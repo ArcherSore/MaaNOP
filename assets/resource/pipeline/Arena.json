@@ -110,7 +110,8 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "arena/ThemeMainFlag.png",
-                "roi": [ 1030, 85, 75, 60 ]
+                "roi": [ 1030, 85, 75, 60 ],
+                "method": 1
             }
         },
         "next": [ "ThemeRikudouReached", "ThemeNineWinsReached", "ThemeStartBattle" ]
@@ -177,19 +178,19 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "common/battle/AutoOn.png",
+                "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
                 "roi": [ 828, 620, 80, 80 ]
             }
         },
         "timeout": 120000,
         "next": [ "WaitBattleEnd" ],
-        "on_error": [ "ArenaBattleTimeoutProbe" ]
+        "on_error": [ "ArenaBattleKeepWaiting" ]
     },
     "ArenaAutoOff": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "common/battle/AutoOff.png",
+                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
                 "roi": [ 828, 620, 80, 80 ]
             }
         },
@@ -198,19 +199,13 @@
         },
         "timeout": 120000,
         "next": [ "WaitBattleEnd" ],
-        "on_error": [ "ArenaBattleTimeoutProbe" ]
+        "on_error": [ "ArenaBattleKeepWaiting" ]
     },
-    "ArenaBattleTimeoutProbe": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/AutoOn.png",
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        },
+    "ArenaBattleKeepWaiting": {
         "action": "DoNothing",
-        "next": [ "ArenaAutoOn" ],
-        "on_error": [ "WaitBattleEnd" ]
+        "timeout": 120000,
+        "next": [ "WaitBattleEnd" ],
+        "on_error": [ "ArenaBattleKeepWaiting" ]
     },
     "WaitBattleEnd": {
         "recognition": {
