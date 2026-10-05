@@ -1,0 +1,157 @@
+// 周末活动：一个任务自动做完本周开放的所有周末活动，不需要用户选择。
+//
+// 周末活动在 限时热点 → 周末活动 → 周末福利 页里，每个活动一行（忍者拼图 / 追击任务 / 骰子手气王…），
+// 本周开放哪些不固定，行的位置也会变。点开一个活动会弹出它自己的窗口；关掉那个窗口，整个限时热点窗口也跟着关了。
+// 所以每个活动都是「从主界面重新走一遍导航 → 找到自己的行 → 做完 → 关窗口」，由下面的步骤表一个接一个串起来。
+//
+// ===== 新增一个周末活动 =====
+//   1. 在「步骤表」里加一个 WeekendStepXxx，anchor 的 WeekendActivity 填它的行节点，WeekendNext 填下一步；
+//      再把上一步的 WeekendNext 改成 WeekendStepXxx（最后一步的 WeekendNext 是 WeekendFinished）。
+//   2. 新建 Xxx.json（照抄 NinjaPuzzle.json 开头那一段）：
+//        XxxRow    OCR 按标题找到该活动的行，next 为 [ XxxGo, XxxRowDone ]；
+//        XxxGo     用 roi 引用 XxxRow + roi_offset 定位同一行的橙色「去完成」，点击后进入该活动的流程；
+//        XxxRowDone 同一行的灰色「已完成」：这个活动今天没得做了，next 为 [ WeekendActivityDone ]。
+//   3. 活动流程的最后一个节点：把它的窗口关掉，再 next 到 WeekendActivityDone（框架负责关掉限时热点窗口并进入下一步）。
+//   4. 在 interface.json 的「周末活动」任务描述里补一行说明。
+// 注意：max_hit 是整个任务累计的，活动自己的节点一般一次就够；本文件里每一步都会走的节点（翻页、关窗口）不要设小的 max_hit。
+// 约定：每个步骤都是从主界面开始、回到主界面结束；活动里任何地方出错（超时等）都会让任务停下，不会进下一步。
+// 本周没有开放的活动（找不到那一行）会被自动跳过。
+{
+    "WeekendActivities": {
+        "next": [ "WeekendStepPuzzle" ]
+    },
+
+    // ===== 步骤表（按执行顺序）=====
+    // WeekendActivity：这一步要做的活动的行节点；WeekendNext：这一步做完（或被跳过）后进入的步骤
+    "WeekendStepPuzzle": {
+        "anchor": {
+            "WeekendActivity": "PuzzleRow",
+            "WeekendNext": "WeekendStepDice"
+        },
+        "next": [ "WeekendHub" ]
+    },
+    "WeekendStepDice": {
+        "anchor": {
+            "WeekendActivity": "DiceRow",
+            "WeekendNext": "WeekendFinished"
+        },
+        "next": [ "WeekendHub" ]
+    },
+    "WeekendFinished": {
+        "focus": {
+            "Node.Action.Succeeded": "周末活动全部处理完"
+        }
+    },
+
+    // ===== 导航：主界面 → 限时热点 → 周末活动 → 周末福利页，然后交给当前步骤的活动 =====
+    "WeekendHub": {
+        "next": [ "OpenWeekendHotspot" ]
+    },
+    "OpenWeekendHotspot": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "hotspot/Hotspot.png",
+                "roi": [ 295, 51, 116, 117 ]
+            }
+        },
+        "action": "Click",
+        // 上一步刚关掉窗口时窗口还在收起，这时点会被吞掉
+        "pre_delay": 600,
+        "timeout": 8000,
+        "next": [ "FindWeekendTab", "ScrollHotspotTabs" ],
+        "on_error": [ "RetryOpenWeekendHotspot" ]
+    },
+    // 窗口没打开（点击被吞掉）：再点一次。还是没打开才认为本周没有周末活动
+    "RetryOpenWeekendHotspot": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "hotspot/Hotspot.png",
+                "roi": [ 295, 51, 116, 117 ]
+            }
+        },
+        "action": "Click",
+        "timeout": 8000,
+        "next": [ "FindWeekendTab", "ScrollHotspotTabs" ],
+        "on_error": [ "WeekendTabMissing" ]
+    },
+    // 侧栏是 OCR 找的（不用模板）：标签文字不会变，位置会随列表滚动变
+    "FindWeekendTab": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 352, 283, 109, 268 ],
+                "expected": [ "周末活动" ]
+            }
+        },
+        "action": "Click",
+        "next": [ "WeekendHubPage" ]
+    },
+    // 向下箭头：翻到底后箭头变灰，模板就不再命中，自然停下。点完要等列表滚完再识别
+    "ScrollHotspotTabs": {
+        "max_hit": 40,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "weekend/ScrollDown.png",
+                "roi": [ 415, 570, 40, 32 ],
+                "threshold": 0.9
+            }
+        },
+        "action": "Click",
+        "post_delay": 800,
+        "timeout": 5000,
+        "next": [ "FindWeekendTab", "ScrollHotspotTabs" ],
+        "on_error": [ "WeekendTabMissing" ]
+    },
+    "WeekendHubPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "weekend/HubTitle.png",
+                "roi": [ 640, 235, 180, 60 ]
+            }
+        },
+        "timeout": 6000,
+        "next": [ "[Anchor]WeekendActivity" ],
+        "on_error": [ "WeekendActivityMissing" ]
+    },
+
+    // ===== 结束一步 =====
+    // 活动流程的出口：关掉还开着的限时热点窗口（活动窗口一关，它常常也跟着关了），然后进入下一步
+    "WeekendActivityDone": {
+        "next": [ "CloseWeekendWindow", "[Anchor]WeekendNext" ]
+    },
+    // 关限时热点窗口：右上角红叉（ESC 在这个窗口里没用）
+    "CloseWeekendWindow": {
+        "max_hit": 40,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "weekend/CloseX.png",
+                "roi": [ 925, 240, 40, 45 ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 600,
+        "next": [ "[Anchor]WeekendNext" ]
+    },
+    // 周末福利页里没有这一步的活动：本周没开放，跳过
+    "WeekendActivityMissing": {
+        "focus": {
+            "Node.Action.Succeeded": "周末福利里没有这个活动，本周可能没有开放，已跳过"
+        },
+        "next": [ "WeekendActivityDone" ]
+    },
+    // 侧栏里没有「周末活动」：整个周末活动都没开放，不用再试后面的步骤，直接收尾
+    "WeekendTabMissing": {
+        "anchor": {
+            "WeekendNext": "WeekendFinished"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "限时热点里没有「周末活动」，本周没有开放，已停止"
+        },
+        "next": [ "WeekendActivityDone" ]
+    }
+}
