@@ -12,6 +12,16 @@
         "focus": {
             "Node.Action.Succeeded": "开始木叶购物节任务"
         },
+        "next": "WaitShoppingFestivalPanel"
+    },
+    "WaitShoppingFestivalPanel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "shopping/Purchase.png",
+                "roi": [ 741, 408, 174, 93 ]
+            }
+        },
         "next": "FindShoppingFestivalTarget"
     },
     "FindShoppingFestivalTarget": {
@@ -192,7 +202,8 @@
             "type": "OCR",
             "param": {
                 "roi": [ 0, 0, 0, 0 ],
-                "expected": [ ".*" ]
+                "expected": [ "^\\d{2,4}$" ], // a lone digit is read off the loading screen
+                "threshold": 0.7 // live prices >= 0.98, loading-screen noise <= 0.56
             }
         }
     },
