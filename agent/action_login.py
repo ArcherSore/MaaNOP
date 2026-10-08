@@ -18,6 +18,44 @@ from constants import (
 )
 
 
+@AgentServer.custom_action("CloseMatchedLoginPopup")
+class CloseMatchedLoginPopup(CustomAction):
+    """关闭本次识别的弹窗，交给 pipeline 等待消失，最多补点一次。"""
+
+    def run(
+        self,
+        context: Context,
+        argv: CustomAction.RunArg,
+    ) -> bool:
+        result = argv.reco_detail.best_result if argv.reco_detail else None
+        if not result or not isinstance(result.detail, dict):
+            return False
+        recognition = result.detail.get("recognition")
+        if not recognition:
+            return False
+
+        override = {
+            "CurrentLoginPopup": {"recognition": recognition},
+            "ClickCurrentLoginPopup": {
+                "action": {
+                    "type": "Click",
+                    "param": {"target": list(argv.box)},
+                }
+            },
+        }
+        for _ in range(2):
+            if context.tasker.stopping:
+                return False
+            # 每次尝试先检查消失，再重新识别并点击，避免使用超时前的旧画面。
+            detail = context.run_task("CloseMatchedLoginPopupTask", override)
+            if context.tasker.stopping:
+                return False
+            if detail and any(node.name == "CurrentLoginPopupGone" for node in detail.nodes):
+                return True
+
+        return False
+
+
 @AgentServer.custom_action("ScrollToTargetServer")
 class ScrollToTargetServer(CustomAction):
     def run(

@@ -71,11 +71,15 @@ class GetNextServer(CustomRecognition):
             return None
 
         if not result.get("finished"):
+            # max_hit 按任务累计；只在推进到新服时恢复一次刷新预算。
+            context.clear_hit_count("RefreshStuckLoading")
             region_label = {"public": "公测", "non_wipe": "不删档", "alliance": "联盟"}[result["region_type"]]
             send_focus_message(
                 context,
                 f"准备处理{region_label}{result['server_id']} ({result['server_index']}/{result['server_cnt']})",
             )
+            if context.tasker.stopping:
+                return None
 
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 0, 0),

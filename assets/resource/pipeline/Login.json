@@ -114,7 +114,8 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "ScrollToTarget"
+        "next": "ScrollToTarget",
+        "on_error": "LoginFailed"
     },
     "ScrollToTarget": {
         "action": {
@@ -123,7 +124,8 @@
                 "custom_action": "ScrollToTargetServer"
             }
         },
-        "next": "ChooseServer"
+        "next": "ChooseServer",
+        "on_error": "LoginFailed"
     },
     "ChooseServer": {
         "recognition": {
@@ -138,7 +140,54 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "RouteLevelingAfterServerSelection", "LoginPopupAppears" ]
+        "timeout": 60000,
+        "next": [ "RouteLevelingAfterServerSelection", "LoginPopupAppears" ],
+        "on_error": [ "RefreshStuckLoading", "LoginFailed" ]
+    },
+    "RefreshStuckLoading": {
+        "max_hit": 1, // 每服最多刷新恢复一次，由 GetNextServer 重置
+        "timeout": 60000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/login/Refresh.png",
+                "roi": [ 796, 0, 131, 110 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "等待登录超时，刷新后重新选择本服（仅重试一次）"
+        },
+        "next": "ReopenServerList",
+        "on_error": "LoginFailed"
+    },
+    "ReopenServerList": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/login/GameButton.png",
+                "roi": [ 578, 495, 207, 98 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 665, 601, 33, 6 ] // 重新选区button
+            }
+        },
+        "next": [ "ReopenServerList", "DeterminePage" ],
+        "on_error": "LoginFailed"
+    },
+    "LoginFailed": {
+        "focus": {
+            "Node.Action.Starting": "登录或恢复失败，停止本次批量任务"
+        },
+        "action": { "type": "StopTask" }
     },
     "RouteLevelingAfterServerSelection": {
         "recognition": {
@@ -155,7 +204,6 @@
             "param": {
                 "custom_recognition": "MatchPopup",
                 "custom_recognition_param": {
-                    "close_timeout": 3,
                     "popups": [
                         { "name": "公告", "template": "popup/Announcement.png", "roi": [ 647, 309, 196, 89 ], "target": [ 962, 352, 13, 12 ] },
                         { "name": "回归", "template": "popup/Return.png", "roi": [ 671, 182, 260, 136 ], "target": [ 901, 233, 13, 12 ] },
@@ -165,13 +213,62 @@
                 }
             }
         },
-        "action": { "type": "Click" },
-        "next": "CloseLoginPopup"
+        "pre_delay": 0,
+        "post_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": { "custom_action": "CloseMatchedLoginPopup" }
+        },
+        "next": "CloseLoginPopup",
+        "on_error": "LoginPopupCloseFailed"
     },
     "CloseLoginPopup": {
         "pre_delay": 0,
         "post_delay": 0,
         "next": [ "LoginPopupAppears", "RouteAfterLogin" ]
+    },
+    "CloseMatchedLoginPopupTask": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 200,
+        "timeout": 3000,
+        "next": [ "CurrentLoginPopupGone", "ClickCurrentLoginPopup" ]
+    },
+    "CurrentLoginPopup": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "popup/Announcement.png",
+                "roi": [ 647, 309, 196, 89 ] // 根据本次 MatchPopup 结果覆盖
+            }
+        }
+    },
+    "CurrentLoginPopupGone": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "CurrentLoginPopup" ] }
+        },
+        "inverse": true,
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "ClickCurrentLoginPopup": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "CurrentLoginPopup" ] }
+        },
+        "action": { "type": "Click" }, // 运行时覆盖为本次弹窗的 target 框
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 200,
+        "timeout": 3000,
+        "next": "CurrentLoginPopupGone"
+    },
+    "LoginPopupCloseFailed": {
+        "focus": {
+            "Node.Action.Starting": "登录弹窗关闭失败，停止本次批量任务"
+        },
+        "action": { "type": "StopTask" }
     },
     "RouteAfterLogin": {
         "next": [ "RouteShoppingFestivalAfterLogin", "RouteClaimingAfterLogin" ]

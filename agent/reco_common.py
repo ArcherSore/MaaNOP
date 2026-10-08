@@ -1,13 +1,10 @@
 import json
-import time
 
 from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
-from common import get_latest_detail, send_focus_message
-
-POPUP_CLOSE_POLL_INTERVAL = 0.2
+from common import send_focus_message
 
 
 def find_entry(
@@ -62,12 +59,10 @@ class FindBottomEntry(CustomRecognition):
 class MatchPopup(CustomRecognition):
     """按顺序识别多种弹窗, 命中后返回该弹窗对应的点击目标位置。
     target 可省略，默认使用识别框；也可指定固定点击框。
+    detail 携带本次模板配置，关闭动作可据此等待该弹窗消失。
 
     custom_recognition_param 格式:
     {
-        "close_timeout": 5,                    // 可省略; 秒。刚点过的弹窗仍在画面里时, 等它消失再识别,
-                                               // 超时才视为点击失效并重新命中 (游戏画面刷新有延迟,
-                                               // 不等的话会对同一位置再点一次, 弹窗已消失就点到了底下)
         "popups": [
             {
                 "name": "弹窗名称",
@@ -85,61 +80,40 @@ class MatchPopup(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        param = json.loads(argv.custom_recognition_param)
-        popups = param["popups"]
-        close_timeout = param.get("close_timeout", 0)
-        last = get_latest_detail(context, argv.node_name) if close_timeout else None
-        last_popup = last.get("popup") if last else None
-        deadline = time.monotonic() + close_timeout
+        popups = json.loads(argv.custom_recognition_param)["popups"]
+        for popup in popups:
+            if context.tasker.stopping:
+                return None
 
-        image = argv.image
-        while True:
-            for popup in popups:
+            template = popup.get("template")
+            if not template:
+                continue
+
+            template_param = {
+                "template": template,
+                "roi": popup.get("roi", [0, 0, 0, 0]),
+            }
+            if "threshold" in popup:
+                template_param["threshold"] = popup["threshold"]
+            recognition = {"type": "TemplateMatch", "param": template_param}
+            reco_detail = context.run_recognition(
+                argv.node_name,
+                argv.image,
+                {argv.node_name: {"recognition": recognition}},
+            )
+            if context.tasker.stopping:
+                return None
+            if not reco_detail or not reco_detail.hit:
+                continue
+
+            if popup.get("focus"):
+                send_focus_message(context, popup["focus"])
                 if context.tasker.stopping:
                     return None
 
-                template = popup.get("template")
-                if not template:
-                    continue
+            return CustomRecognition.AnalyzeResult(
+                box=popup.get("target", reco_detail.box),
+                detail={"popup": popup.get("name", ""), "recognition": recognition},
+            )
 
-                template_param = {
-                    "template": template,
-                    "roi": popup.get("roi", [0, 0, 0, 0]),
-                }
-                if "threshold" in popup:
-                    template_param["threshold"] = popup["threshold"]
-
-                reco_detail = context.run_recognition(
-                    argv.node_name,
-                    image,
-                    {
-                        argv.node_name: {
-                            "recognition": {
-                                "type": "TemplateMatch",
-                                "param": template_param,
-                            }
-                        }
-                    },
-                )
-                if reco_detail and reco_detail.hit:
-                    break
-            else:
-                return None
-
-            name = popup.get("name", "")
-            if name != last_popup or time.monotonic() >= deadline:
-                break
-
-            # 刚点过的弹窗还在画面里, 等它消失
-            time.sleep(POPUP_CLOSE_POLL_INTERVAL)
-            if context.tasker.stopping:
-                return None
-            image = context.tasker.controller.post_screencap().wait().get()
-
-        if popup.get("focus"):
-            send_focus_message(context, popup["focus"])
-
-        return CustomRecognition.AnalyzeResult(
-            box=popup.get("target", reco_detail.box),
-            detail={"popup": name},
-        )
+        return None
