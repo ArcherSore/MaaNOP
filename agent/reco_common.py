@@ -59,7 +59,6 @@ class FindBottomEntry(CustomRecognition):
 class MatchPopup(CustomRecognition):
     """按顺序识别多种弹窗, 命中后返回该弹窗对应的点击目标位置。
     target 可省略，默认使用识别框；也可指定固定点击框。
-    detail 携带本次模板配置，关闭动作可据此等待该弹窗消失。
 
     custom_recognition_param 格式:
     {
@@ -95,11 +94,14 @@ class MatchPopup(CustomRecognition):
             }
             if "threshold" in popup:
                 template_param["threshold"] = popup["threshold"]
-            recognition = {"type": "TemplateMatch", "param": template_param}
             reco_detail = context.run_recognition(
                 argv.node_name,
                 argv.image,
-                {argv.node_name: {"recognition": recognition}},
+                {
+                    argv.node_name: {
+                        "recognition": {"type": "TemplateMatch", "param": template_param}
+                    }
+                },
             )
             if context.tasker.stopping:
                 return None
@@ -113,7 +115,7 @@ class MatchPopup(CustomRecognition):
 
             return CustomRecognition.AnalyzeResult(
                 box=popup.get("target", reco_detail.box),
-                detail={"popup": popup.get("name", ""), "recognition": recognition},
+                detail={"popup": popup.get("name", "")},
             )
 
         return None

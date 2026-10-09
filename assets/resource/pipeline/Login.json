@@ -141,7 +141,7 @@
             }
         },
         "timeout": 60000,
-        "next": [ "RouteLevelingAfterServerSelection", "LoginPopupAppears" ],
+        "next": [ "RouteLevelingAfterServerSelection", "LoginPopupAppears", "LoginScreenClear" ],
         "on_error": [ "RefreshStuckLoading", "LoginFailed" ]
     },
     "RefreshStuckLoading": {
@@ -199,6 +199,9 @@
         "next": "LevelingEntry"
     },
     "LoginPopupAppears": {
+        // 弹窗点中即消失；加载中或被上层弹窗遮罩挡住时点击被丢弃，隔 post_delay 后重新识别整张列表再点。
+        // 底层弹窗被遮罩变暗后仍能命中模板，列表顺序须把上层弹窗排在前面。
+        "max_hit": 12, // 每服点击预算，由 GetNextServer 重置；用尽后弹窗仍在则 LoginScreenClear 不命中，超时停止
         "recognition": {
             "type": "Custom",
             "param": {
@@ -214,55 +217,32 @@
             }
         },
         "pre_delay": 0,
-        "post_delay": 0,
-        "action": {
-            "type": "Custom",
-            "param": { "custom_action": "CloseMatchedLoginPopup" }
-        },
-        "next": "CloseLoginPopup",
+        "post_delay": 1000, // 点中后约 0.1s 消失；等足再识别，避免对已关闭弹窗补点到地图
+        "action": { "type": "Click" },
+        "next": [ "LoginPopupAppears", "LoginScreenClear" ],
         "on_error": "LoginPopupCloseFailed"
     },
-    "CloseLoginPopup": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "next": [ "LoginPopupAppears", "RouteAfterLogin" ]
-    },
-    "CloseMatchedLoginPopupTask": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 200,
-        "timeout": 3000,
-        "next": [ "CurrentLoginPopupGone", "ClickCurrentLoginPopup" ]
-    },
-    "CurrentLoginPopup": {
+    "LoginScreenClear": {
+        // 体力标签未被遮罩变暗：地图已加载且没有弹窗打开或正在加载（10001 对亮度敏感，遮罩下约 0.05）
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "popup/Announcement.png",
-                "roi": [ 647, 309, 196, 89 ] // 根据本次 MatchPopup 结果覆盖
+                "template": "common/login/StaminaLabel.png",
+                "roi": [ 32, 84, 66, 61 ],
+                "method": 10001,
+                "threshold": 0.8
             }
-        }
+        },
+        "post_delay": 2000, // 安静期：相邻弹窗间隔约 0.5s，2s 后仍无弹窗才离开
+        "next": [ "LoginPopupAppears", "LoginScreenStillClear" ],
+        "on_error": "LoginPopupCloseFailed"
     },
-    "CurrentLoginPopupGone": {
+    "LoginScreenStillClear": {
         "recognition": {
             "type": "And",
-            "param": { "all_of": [ "CurrentLoginPopup" ] }
+            "param": { "all_of": [ "LoginScreenClear" ] }
         },
-        "inverse": true,
-        "pre_delay": 0,
-        "post_delay": 0
-    },
-    "ClickCurrentLoginPopup": {
-        "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "CurrentLoginPopup" ] }
-        },
-        "action": { "type": "Click" }, // 运行时覆盖为本次弹窗的 target 框
-        "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 200,
-        "timeout": 3000,
-        "next": "CurrentLoginPopupGone"
+        "next": "RouteAfterLogin"
     },
     "LoginPopupCloseFailed": {
         "focus": {

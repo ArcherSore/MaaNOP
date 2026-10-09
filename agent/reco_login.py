@@ -71,8 +71,9 @@ class GetNextServer(CustomRecognition):
             return None
 
         if not result.get("finished"):
-            # max_hit 按任务累计；只在推进到新服时恢复一次刷新预算。
+            # max_hit 按任务累计；只在推进到新服时恢复刷新与关弹窗预算。
             context.clear_hit_count("RefreshStuckLoading")
+            context.clear_hit_count("LoginPopupAppears")
             region_label = {"public": "公测", "non_wipe": "不删档", "alliance": "联盟"}[result["region_type"]]
             send_focus_message(
                 context,
