@@ -1,0 +1,224 @@
+// 在线领奖：福利大厅 → 在线礼包，点亮着的「领取」，没有亮着的就直接结束；不等倒计时。
+// 每次点「领取」后都要认到那个按钮变灰（已领取）才继续；认不到就是失败，不会盲目再点。
+// 「没有可领取的」是认出来的状态（页面画完且没有橙色按钮），不是 on_error 兜出来的。
+{
+    "OnlineReward": {
+        "focus": {
+            "Node.PipelineNode.Failed": "在线领奖失败：主界面找不到「福利大厅」"
+        },
+        "timeout": 5000,
+        "next": [ "OnlineHallOpened", "OnlineOpenHall" ]
+    },
+    "OnlineOpenHall": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": [ "common/entry/SystemGift.png" ]
+                }
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "在线领奖失败：「福利大厅」没有打开"
+        },
+        "timeout": 10000,
+        "next": [ "OnlineHallOpened" ]
+    },
+    "OnlineHallTitle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "onlineReward/HallTitle.png",
+                "roi": [ 810, 195, 110, 90 ],
+                "threshold": 0.9
+            }
+        }
+    },
+    "OnlineHallOpened": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "OnlineHallTitle" ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "OnlineTabSelected", "OnlineClickTab" ]
+    },
+    "OnlineClickTab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "onlineReward/TabUnselected.png",
+                "roi": [ 400, 273, 80, 35 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "在线领奖失败：切换不到在线礼包页签"
+        },
+        "timeout": 5000,
+        "next": [ "OnlineTabSelected" ]
+    },
+    "OnlineTabSelected": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "onlineReward/TabSelected.png",
+                "roi": [ 375, 273, 100, 35 ],
+                "threshold": 0.9
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "在线领奖失败：在线礼包界面状态异常"
+        },
+        "timeout": 15000,
+        "next": [ "OnlineGiftReady" ]
+    },
+    // 亮着的「领取」是橙色（鼠标悬停时变亮），倒计时中和已领取的是灰色；
+    // 先用模板（普通 / 悬停两张）找到按钮，再数按钮里的橙色像素：橙色约 290 个，灰色 0 个
+    "OnlineClaimButton": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "sub_name": "button",
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": [ "onlineReward/ClaimButton.png", "onlineReward/ClaimButtonHover.png" ],
+                                "roi": [ 490, 500, 420, 50 ],
+                                "threshold": 0.7
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "button",
+                                "roi_offset": [ 4, 3, -8, -6 ],
+                                "method": 40,
+                                "lower": [ 3, 190, 150 ],
+                                "upper": [ 30, 255, 255 ],
+                                "count": 150
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "OnlineClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "OnlineClaimButton" ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "领取在线礼包",
+            "Node.PipelineNode.Failed": "在线领奖失败：点了领取但按钮没有变成已领取"
+        },
+        "max_hit": 6, // 一共 3 个礼包，只是保险
+        "timeout": 4000,
+        "next": [ "OnlineClaimTaken" ]
+    },
+    // 刚点的那个按钮（OnlineClaim 上次识别到的位置）不再是橙色，才算领取生效
+    "OnlineClaimTaken": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "OnlineClaim",
+                "roi_offset": [ 4, 3, -8, -6 ],
+                "method": 40,
+                "lower": [ 3, 190, 150 ],
+                "upper": [ 30, 255, 255 ],
+                "count": 150
+            }
+        },
+        "inverse": true,
+        "focus": {
+            "Node.PipelineNode.Failed": "在线领奖失败：在线礼包界面状态异常"
+        },
+        "next": [ "OnlineClaim", "OnlineNoClaim" ]
+    },
+    // 礼包页已画出后才判断有没有「领取」，避免把还没画好的空白当成领完
+    "OnlineGiftReady": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "onlineReward/GiftPanel.png",
+                "roi": [ 530, 275, 120, 70 ],
+                "threshold": 0.9
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "在线领奖失败：在线礼包界面状态异常"
+        },
+        "next": [ "OnlineClaim", "OnlineNoClaim" ]
+    },
+    // 没有亮着的「领取」；隔 1 秒再确认一次才算领完
+    "OnlineNoClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "OnlineClaimButton" ]
+            }
+        },
+        "inverse": true,
+        "post_delay": 1000,
+        "focus": {
+            "Node.PipelineNode.Failed": "在线领奖失败：在线礼包界面状态异常"
+        },
+        "next": [ "OnlineClaim", "OnlineNoClaimConfirmed" ]
+    },
+    "OnlineNoClaimConfirmed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "OnlineClaimButton" ]
+            }
+        },
+        "inverse": true,
+        "focus": {
+            "Node.Recognition.Succeeded": "没有更多可领取的在线礼包"
+        },
+        "next": [ "OnlineClose" ]
+    },
+    "OnlineClose": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "在线领奖失败：福利大厅关不上"
+        },
+        "timeout": 5000,
+        "next": [ "OnlineHallClosed" ]
+    },
+    "OnlineHallClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "OnlineHallTitle" ]
+            }
+        },
+        "inverse": true,
+        "focus": {
+            "Node.Recognition.Succeeded": "在线领奖结束"
+        }
+    }
+}
