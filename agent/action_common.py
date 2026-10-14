@@ -48,3 +48,15 @@ class CloseAllPopupsWithEsc(CustomAction):
             _focus_and_escape(context)
 
         return True
+
+
+@AgentServer.custom_action("FalseAction")
+class FalseAction(CustomAction):
+    """Always fails. A terminal node for a recognized state that means the goal cannot be met; the failed action ends the task as Failed."""
+
+    def run(
+        self,
+        context: Context,
+        argv: CustomAction.RunArg,
+    ) -> bool:
+        return False

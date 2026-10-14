@@ -1,0 +1,359 @@
+// 强者降临（单人）：先选好队伍 → 顶部入口打开强者降临 → 按游戏当前选中的难度「进入战斗」→ 托管 / 加速 → 胜利确认 → 通关奖励确定，回主地图后再来下一场。
+// 一直打到窗口底部「本周可用普通奖励次数」为 0 才结束（BossEnterBattle 的 max_hit 只是防止次数读不准时一直打的安全上限）。
+// 选队伍复用丰饶之间的 Abundance* 节点（队伍界面相同）：BossSetTeam 先按 interface.json 里的 BossTeam 选项把这些节点改到第 N 个标签；
+// 选完队伍后接哪里由 interface.json 里本任务的 pipeline_override 把 AbundanceTeamClose 的 next 改到 BossGotoWindow。
+// 不选难度：游戏会记住上次选的难度，窗口打开时已经是选中状态。
+{
+    "PowerfulBoss": {
+        "next": [ "BossSetTeam" ]
+    },
+    // 第几个队伍由 interface.json 的 BossTeam 选项覆盖 custom_action_param（1~8）
+    "BossSetTeam": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SetBossTeam",
+                "custom_action_param": 1
+            }
+        },
+        "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
+    },
+
+    // ===== 打开强者降临窗口（每场打完都回到这里） =====
+    "BossGotoWindow": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": "powerfulBoss/BossEntry.png"
+                }
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "「强者降临」无法打开"
+        },
+        "timeout": 10000,
+        "next": [ "BossAttemptsNone", "BossEnterBattle", "BossAttemptsCapped" ]
+    },
+    // 窗口底部「本周可用普通奖励次数：」只在强者降临窗口里出现
+    "BossWindowFooter": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "powerfulBoss/WindowFooter.png",
+                "roi": [ 500, 578, 150, 40 ],
+                "threshold": 0.9
+            }
+        }
+    },
+    // 「本周可用普通奖励次数」的数字：还有次数（1~9）
+    "BossAttemptsLeft": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 632, 588, 28, 22 ],
+                "expected": [ "[1-9]" ]
+            }
+        }
+    },
+    // 次数用完（0）：正常结束，关掉窗口去做下一个任务
+    "BossAttemptsNone": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BossWindowFooter",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 632, 588, 28, 22 ],
+                                "expected": [ "0" ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 942, 249, 18, 18 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "BossWindowClosed" ]
+    },
+    // 点「进入战斗」：只有还有次数时才点；点完必须认到战斗画面才继续，没点中就超时失败，不重复点。
+    // max_hit 是安全上限（每周只有 6 次普通奖励）：打了这么多场次数还没用完，说明次数读得不对，掉到 BossAttemptsCapped 停下
+    "BossEnterBattle": {
+        "max_hit": 12,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BossAttemptsLeft",
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "powerfulBoss/EnterBattle.png",
+                                "roi": [ 490, 455, 150, 55 ],
+                                "threshold": 0.9
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "「强者降临」失败：点了进入战斗但没有进入战斗画面"
+        },
+        // 进战斗先是「开战(N)」倒计时画面；倒计时跑完游戏也会自己开战，这里不等它，直接点
+        "next": [ "BossBattleStart", "BossAutoOn", "BossAutoOff" ]
+    },
+    // 「开战」按钮上的倒计时数字每秒在变，所以模板只截「开战」二字
+    "BossBattleStart": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "powerfulBoss/BattleStart.png",
+                "roi": [ 560, 430, 220, 50 ],
+                "threshold": 0.85
+            }
+        },
+        "action": "Click",
+        "next": [ "BossAutoOn", "BossAutoOff" ]
+    },
+    // 已达安全上限（还有次数，但 BossEnterBattle 不再点）：关掉窗口，再让任务失败（预期的「次数打到 0」没有实现）
+    "BossAttemptsCapped": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossWindowFooter", "BossAttemptsLeft" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 942, 249, 18, 18 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "BossCappedClosed" ]
+    },
+    "BossCappedClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossWindowFooter" ]
+            }
+        },
+        "inverse": true,
+        "next": [ "BossCappedFailed" ]
+    },
+    // 动作必失败的终止节点：已识别出「目标做不成」的状态，任务以 Failed 结束，原因写在这里
+    "BossCappedFailed": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "FalseAction"
+            }
+        },
+        "focus": {
+            "Node.Action.Failed": "「强者降临」失败：已连续打了 12 场，窗口里的次数仍没用完（安全上限），请检查次数读数"
+        }
+    },
+    "BossWindowClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossWindowFooter" ]
+            }
+        },
+        "inverse": true,
+        "focus": {
+            "Node.Recognition.Succeeded": "「强者降临」已完成：本周普通奖励次数已用完"
+        }
+    },
+
+    // ===== 战斗：确认托管 / 加速已开，然后等结算面板 =====
+    "BossAutoOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "next": [ "BossSpeedOn", "BossSpeedOff" ]
+    },
+    "BossAutoOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "BossSpeedOn", "BossSpeedOff" ]
+    },
+    // 三波敌人，普通难度约半分钟；10 分钟还没出结算面板就是卡住了，任务失败
+    "BossSpeedOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOn.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "timeout": 600000,
+        "next": [ "BossBattleWon", "BossBattleLost" ]
+    },
+    "BossSpeedOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOff.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "action": "Click",
+        "timeout": 600000,
+        "next": [ "BossBattleWon", "BossBattleLost" ]
+    },
+
+    // ===== 结算：胜利 → 确认 → 通关奖励 → 确定 → 主地图 =====
+    // 胜 / 败两张面板的「确认」按钮一样，靠中间的「胜」「败」字区分；字出现、动画停稳后才点
+    "BossBattleWonFlag": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "powerfulBoss/BattleWon.png",
+                "roi": [ 540, 260, 260, 230 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "BossBattleLostFlag": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "powerfulBoss/BattleLost.png",
+                "roi": [ 540, 260, 260, 230 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "BossResultButton": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "abundance/ResultConfirm.png",
+                "roi": [ 620, 455, 105, 35 ]
+            }
+        }
+    },
+    "BossBattleWon": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossBattleWonFlag", "BossResultButton" ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "timeout": 15000,
+        "next": [ "BossRewardConfirm" ]
+    },
+    "BossRewardTitle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "powerfulBoss/RewardTitle.png",
+                "roi": [ 540, 270, 250, 90 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "BossRewardConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BossRewardTitle",
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "powerfulBoss/RewardConfirm.png",
+                                "roi": [ 600, 455, 125, 45 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 640, 471, 50, 12 ]
+            }
+        },
+        "next": [ "BossRewardClosed" ]
+    },
+    // 弹窗关掉后才能回到入口（弹窗下的顶部入口栏变暗了也认得出，会点不进去）
+    "BossRewardClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossRewardTitle" ]
+            }
+        },
+        "inverse": true,
+        "timeout": 8000,
+        "next": [ "BossGotoWindow" ]
+    },
+
+    // 战斗失败（例如难度太高）：确认后回主地图，失败不扣奖励次数；任务以失败结束，不带着打不过的难度反复送
+    "BossBattleLost": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossBattleLostFlag", "BossResultButton" ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "timeout": 8000,
+        "next": [ "BossBattleLostClosed" ]
+    },
+    "BossBattleLostClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossBattleLostFlag" ]
+            }
+        },
+        "inverse": true,
+        "next": [ "BossBattleFailed" ]
+    },
+    "BossBattleFailed": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "FalseAction"
+            }
+        },
+        "focus": {
+            "Node.Action.Failed": "「强者降临」战斗失败，请换个能打过的难度或队伍"
+        }
+    }
+}

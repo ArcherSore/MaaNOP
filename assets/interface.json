@@ -106,6 +106,19 @@
             "option": [ "AbundanceTeam" ]
         },
         {
+            "name": "PowerfulBoss",
+            "label": "强者降临",
+            "group": [ "Routine" ],
+            "entry": "PowerfulBoss",
+            "description": "### 开始前\n\n请停留在**主界面**（能看到顶部**强者降临**入口和底部**忍者**入口）。\n\n### 会做什么\n\n先打开**忍者**界面，切换到设置的队伍；再打开**强者降临**，用游戏里**当前选中的难度**单人挑战：进入战斗，自动托管并加速，打完确认战斗结果、领取通关奖励。\n\n一直打到窗口底部**本周可用普通奖励次数**为 **0**，然后关闭窗口并正常结束。\n\n### 注意事项\n\n- **不会选难度**：游戏会记住上次选的难度，请先手动选好自己打得过的难度。\n- 只做**单人**挑战，不组队、不邀请。\n- 战斗**失败**时会确认战败面板，然后让任务显示**失败**（失败不扣奖励次数），不会带着打不过的难度反复送。\n- 如果连续打了 **12 场**窗口里的次数仍没用完（次数读数异常），会关闭窗口并让任务显示**失败**。\n- 队伍按**忍者界面中间的标签**从上到下编号（1～8），请填写已解锁的队伍，否则会停在选队伍这一步。\n- 每场战斗会消耗**本周可用普通奖励次数**（每周 6 次）。",
+            "option": [ "BossTeam" ],
+            "pipeline_override": {
+                "AbundanceTeamClose": {
+                    "next": [ "BossGotoWindow", "AbundanceTeamClose" ]
+                }
+            }
+        },
+        {
             "name": "OnlineReward",
             "label": "在线领奖",
             "group": [ "Routine" ],
@@ -586,6 +599,30 @@
                     }
                 }
             ]
+        },
+        "BossTeam": {
+            "type": "input",
+            "label": "",
+            "inputs": [
+                {
+                    "name": "boss_team",
+                    "label": "出战队伍",
+                    "description": "强者降临用的队伍，填忍者界面中间的标签编号（1～8，从上到下）",
+                    "default": "1",
+                    "pipeline_type": "int",
+                    "verify": "^[1-8]$",
+                    "pattern_msg": "请输入 1～8 的数字"
+                }
+            ],
+            "pipeline_override": {
+                "BossSetTeam": {
+                    "action": {
+                        "param": {
+                            "custom_action_param": "{boss_team}"
+                        }
+                    }
+                }
+            }
         },
         "ShoppingFriendName": {
             "type": "input",
