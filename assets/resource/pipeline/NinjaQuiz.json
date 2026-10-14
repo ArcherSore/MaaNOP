@@ -1,0 +1,527 @@
+// 忍者测验：顶部「日常锻炼」→ 日常活动列表里选中「忍者测验」→ 参与（自动寻路到考官红豆，到了自己弹对话）→ 开始测验
+// → 10 道题都选第一个选项并提交 → 结算面板点「领取」→ 点红叉关掉测验窗口。
+// 不认题目、不判断对错；每题限时 30 秒，超时游戏自己跳到下一题（算答错），所以卡住一题也不会停在那里。
+// 今天做过了：列表里这一行变灰（已完成），右边「参与」也是灰的，点了没反应；认到灰「参与」就关掉日常锻炼窗口，正常结束。
+// 列表顺序不固定：未完成的在上、已完成的沉到最下面，看不到这一行时把滚动条拖到底再找（滚轮对这个列表无效）。
+{
+    "NinjaQuiz": {
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：主界面找不到「日常锻炼」"
+        },
+        "timeout": 15000,
+        // 中途重开任务时可能已经在测验窗口或对话里
+        "next": [ "QuizClaim", "QuizClaimed", "QuizSubmit", "QuizPickA", "QuizStartDialog", "QuizDailyOpened", "QuizOpenDaily" ]
+    },
+
+    // ===== 打开日常锻炼，找到忍者测验 =====
+    // 图标是圆的：模板只取圆内的正方形，点击框就是模板框
+    "QuizDailyEntry": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": [ "ninjaQuiz/DailyEntry.png" ]
+                }
+            }
+        }
+    },
+    "QuizOpenDaily": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "QuizDailyEntry" ]
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：「日常锻炼」窗口没有打开"
+        },
+        "post_delay": 1500, // 窗口有一段打开动画，中间没有可等的状态；1.5 秒后地图还没被压暗才算这一下没点上
+        "timeout": 10000,
+        "next": [ "QuizDailyOpened", "QuizOpenDailyAgain" ]
+    },
+    // 体力标签没被遮罩压暗：地图上没有打开的窗口
+    "QuizMapClear": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/login/StaminaLabel.png",
+                "roi": [ 32, 84, 66, 61 ],
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    // 游戏窗口不在前台时第一下点击会被吞掉（图标变亮但窗口没开）；地图没被压暗、入口还在，再点一次
+    "QuizOpenDailyAgain": {
+        "max_hit": 2,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "QuizMapClear", "QuizDailyEntry" ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：「日常锻炼」窗口没有打开"
+        },
+        "post_delay": 1500, // 同上
+        "timeout": 10000,
+        "next": [ "QuizDailyOpened", "QuizOpenDailyAgain" ]
+    },
+    // 「日常活动」页签（选中状态），窗口打开时默认就在这一页
+    "QuizDailyTab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "ninjaQuiz/DailyTab.png",
+                "roi": [ 355, 195, 110, 40 ],
+                "threshold": 0.85
+            }
+        }
+    },
+    // 列表里「忍者测验」四个字：普通 / 悬停 / 选中 / 已完成（灰）几种底色都在 0.9 以上，别的行最高 0.55
+    "QuizRow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "ninjaQuiz/QuizRow.png",
+                "roi": [ 355, 240, 390, 275 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    // 右侧详情的标题：选中了忍者测验这一行才会显示
+    "QuizPanelTitle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "ninjaQuiz/PanelTitle.png",
+                "roi": [ 760, 232, 90, 32 ],
+                "threshold": 0.85
+            }
+        }
+    },
+    "QuizDailyOpened": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "QuizDailyTab" ]
+            }
+        },
+        // 等打开动画停下来、列表画完，再判断这一行在不在
+        "post_wait_freezes": {
+            "time": 500,
+            "target": [ 350, 235, 600, 285 ]
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：日常锻炼窗口状态异常"
+        },
+        "timeout": 5000,
+        "next": [ "QuizJoin", "QuizAlreadyDone", "QuizSelectRow", "QuizScrollList" ]
+    },
+    "QuizSelectRow": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "QuizRow" ]
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：选不中列表里的「忍者测验」"
+        },
+        "post_delay": 1000, // 选中后右侧详情直接换掉，中间没有别的状态；1 秒后还没换才算这一下没点上
+        "timeout": 5000,
+        "next": [ "QuizJoin", "QuizAlreadyDone", "QuizSelectRowAgain" ]
+    },
+    // 实测第一次点这一行只出了悬停高亮、右侧详情没换；同一帧上看得到这一行、看不到详情标题才再点
+    "QuizSelectRowAgain": {
+        "max_hit": 2,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "QuizRow",
+                    "without": "QuizPanelTitle"
+                }
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：选不中列表里的「忍者测验」"
+        },
+        "post_delay": 1000, // 同上
+        "timeout": 5000,
+        "next": [ "QuizJoin", "QuizAlreadyDone", "QuizSelectRowAgain" ]
+    },
+    // 第一页没有这一行：把滚动条从顶端拖到底（列表打开时总在顶端，滑块从轨道顶端开始）
+    "QuizScrollList": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "QuizDailyTab" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 752, 275, 1, 1 ],
+                "end": [ 752, 520, 1, 1 ],
+                "duration": 500
+            }
+        },
+        "post_wait_freezes": {
+            "time": 500,
+            "target": [ 350, 235, 400, 285 ]
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：日常锻炼列表里找不到「忍者测验」（等级不够或活动没开）"
+        },
+        "timeout": 3000,
+        "next": [ "QuizSelectRow" ]
+    },
+    // 「参与」可点时是橙色（橙色像素约 665），今天做完后是灰色（0）；点击只点两个卷纹之间的按钮面
+    "QuizJoin": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "QuizPanelTitle",
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 822, 492, 62, 16 ],
+                                "method": 40,
+                                "lower": [ 3, 190, 150 ],
+                                "upper": [ 30, 255, 255 ],
+                                "count": 300
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 834, 494, 40, 13 ]
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：点了参与，但没有出现考官红豆的对话"
+        },
+        // 点完窗口关掉、角色自动寻路到考官红豆，到了自己弹对话；从别的地图过来要切地图，给足时间
+        "timeout": 60000,
+        "next": [ "QuizStartDialog" ]
+    },
+    // 灰色「参与」（灰色像素约 830，可点时最多约 100）：今天已经做完；点右上角红叉（圆心约 989,188）关窗口
+    "QuizAlreadyDone": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "QuizPanelTitle",
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 822, 492, 62, 16 ],
+                                "method": 40,
+                                "lower": [ 0, 0, 50 ],
+                                "upper": [ 180, 45, 150 ],
+                                "count": 400
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 985, 184, 8, 8 ]
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "今天的忍者测验已经做完了，跳过",
+            "Node.PipelineNode.Failed": "忍者测验：日常锻炼窗口关不上"
+        },
+        "timeout": 5000,
+        "next": [ "QuizDailyClosed" ]
+    },
+    "QuizDailyClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "QuizDailyTab" ]
+            }
+        },
+        "inverse": true
+    },
+
+    // ===== 考官红豆的对话 → 开始测验 =====
+    // 模板只截「开始测验」四个字，点击落在字上
+    "QuizStartDialog": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "ninjaQuiz/ExaminerName.png",
+                                "roi": [ 450, 475, 100, 40 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "ninjaQuiz/StartQuiz.png",
+                                "roi": [ 575, 400, 90, 40 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：点了开始测验，但没有出现题目"
+        },
+        // 测验窗口先放一段开场动画（约 2 秒）才出第一题
+        "timeout": 15000,
+        "next": [ "QuizPickA", "QuizSubmit", "QuizClaim", "QuizClaimed" ]
+    },
+
+    // ===== 答题：每题点第一个选项 → 提交 =====
+    // 窗口底部「题目中的忍者技能以突破前为准」：答题和结算时都在，飘过的奖励提示不会盖住它
+    "QuizWindowHint": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "ninjaQuiz/QuizHint.png",
+                "roi": [ 760, 545, 170, 50 ],
+                "threshold": 0.85
+            }
+        }
+    },
+    // 第一个选项左半段（避开居中的选项文字）：没选时是浅色（420 个像素全是），
+    // 选中后变成暗色（同样 420）；题目切换的过场动画和结算面板上两者都几乎没有
+    "QuizOptionAFresh": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 560, 390, 35, 12 ],
+                "method": 40,
+                "lower": [ 10, 40, 215 ],
+                "upper": [ 35, 140, 255 ],
+                "count": 300
+            }
+        }
+    },
+    "QuizOptionAPicked": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 560, 390, 35, 12 ],
+                "method": 40,
+                "lower": [ 10, 60, 90 ],
+                "upper": [ 35, 200, 190 ],
+                "count": 300
+            }
+        }
+    },
+    // 提交后选项上出现的红叉（答错，约 160 个像素）或绿色对勾（答对，约 720），没提交时 0
+    "QuizAnswerMark": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 600, 376, 90, 42 ],
+                "method": 40,
+                "lower": [ [ 0, 150, 120 ], [ 170, 150, 120 ], [ 35, 120, 80 ] ],
+                "upper": [ [ 8, 255, 255 ], [ 180, 255, 255 ], [ 85, 255, 255 ] ],
+                "count": 60
+            }
+        }
+    },
+    // 新题：第一个选项还没选中，点它。
+    // 点完等选项区不动了再看：选中就去提交；还是浅色说明这一下没点上（窗口不在前台时会被吞），再点。
+    // max_hit 是安全上限（10 题，留了重点的余量）
+    "QuizPickA": {
+        "max_hit": 30,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "QuizWindowHint", "QuizOptionAFresh" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 560, 389, 170, 14 ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 500,
+            "target": [ 530, 370, 230, 200 ],
+            "rate_limit": 100
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：点了第一个选项，但它没有被选中"
+        },
+        "timeout": 10000,
+        "next": [ "QuizSubmit", "QuizPickA" ]
+    },
+    // 第一个选项已选中、还没出对错标记：点「提交」。
+    // 提交后约 1 秒内出对错标记 → 「下一题」过场 → 新题（选项全变回浅色），最后一题之后是结算面板。
+    // 点完等画面不动了还是「选中且没标记」，说明这一下没点上，再点
+    "QuizSubmit": {
+        "max_hit": 30,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "QuizPickedUnanswered",
+                    "without": "QuizAnswerMark"
+                }
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 618, 530, 56, 22 ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 500,
+            "target": [ 530, 370, 230, 200 ],
+            "rate_limit": 100
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：提交后没有出现下一题或结算面板"
+        },
+        "timeout": 10000,
+        "next": [ "QuizPickA", "QuizClaim", "QuizSubmit" ]
+    },
+    "QuizPickedUnanswered": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "QuizWindowHint", "QuizOptionAPicked" ]
+            }
+        }
+    },
+
+    // ===== 结算：领取 → 关窗口 =====
+    // 结算面板的「领取」：六边形按钮，两端尖角和四角的卷纹不算按钮面，模板和点击都只取两个卷纹之间的橙色面（x 635~676）。
+    // 可领时这块橙色约 390 个像素，领完变灰为 0。开场动画中间那个橙色大图标也盖在这个位置（约 260），
+    // 所以先认按钮模板：橙色 1.0，灰色 0.81，开场动画等其他画面 0.43 以下
+    "QuizClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "QuizWindowHint",
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "ninjaQuiz/ClaimButton.png",
+                                "roi": [ 600, 475, 110, 50 ],
+                                "threshold": 0.9
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 636, 493, 40, 15 ],
+                                "method": 40,
+                                "lower": [ 3, 190, 150 ],
+                                "upper": [ 30, 255, 255 ],
+                                "count": 200
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 639, 495, 34, 11 ]
+            }
+        },
+        // 点完按钮立刻变灰；等按钮附近不动了还是橙色，说明这一下没点上，再点
+        "post_wait_freezes": {
+            "time": 500,
+            "target": [ 600, 470, 120, 60 ],
+            "rate_limit": 100
+        },
+        "max_hit": 3,
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验失败：点了领取，但按钮没有变灰"
+        },
+        "timeout": 5000,
+        "next": [ "QuizClaimed", "QuizClaim" ]
+    },
+    // 灰色「领取」（鼠标停在上面时旁边还有「已领取过奖励」提示）：奖励已领，点右上角红叉关窗口。
+    // 模板同样只取两个卷纹之间的按钮面：灰色 1.0，橙色 0.81
+    "QuizClaimed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "QuizWindowHint",
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "ninjaQuiz/ClaimedButton.png",
+                                "roi": [ 600, 475, 110, 50 ],
+                                "threshold": 0.9
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 915, 273, 8, 8 ]
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "忍者测验：奖励已领取，但测验窗口关不上"
+        },
+        "timeout": 5000,
+        "next": [ "QuizWindowClosed" ]
+    },
+    "QuizWindowClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "QuizWindowHint" ]
+            }
+        },
+        "inverse": true,
+        "focus": {
+            "Node.Recognition.Succeeded": "忍者测验已完成"
+        }
+    }
+}
