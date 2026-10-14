@@ -1,0 +1,338 @@
+// 游戏托管：左上角托管入口 → 开始托管（当天第一次会弹确认框，消耗 1 张托管卡）→ 等托管把事情做完 → 点面板上的「退出托管」。
+// 不改托管设置，做哪些事全按用户自己的勾选；默认「空闲时自动停靠在温泉」没有勾选（勾了的情况不支持）。
+//
+// 托管不会自己停：它一轮一轮地跑（约 80 秒一轮：木叶村 → 组织 → 家园 → 木叶村），每做一件事，左下角托管面板上就换一行日志。
+// 有些事不写日志，这些时候都算还在忙：
+//   - 忍者考试扫荡：面板换成「正在扫荡」（最长 540 秒）；切地图时面板也看不见；
+//   - 托管自己开窗口（扫荡、抽奖等）：地图被遮罩压暗；
+//   - 家园给好友浇水：只弹「好友的成长度已满，不能帮助浇水！」，浇多久因号而异。
+// 除去这些，实测（三个号）一轮之内最长 6 秒没有新日志，两轮之间约 70 秒。
+// 所以「不在忙、面板上的最新日志连续 10 秒没有变化」就算第一轮做完了，由 AutoManageLogQuiet（agent/reco_auto_management.py）判断。
+// 后面几轮偶尔还会补一点（例如再转几次组织转盘），留给下次运行；矿洞收矿这类要等几个小时的也不等。
+{
+    "AutoManagement": {
+        "focus": {
+            "Node.PipelineNode.Failed": "托管失败：主界面左上角找不到托管入口"
+        },
+        // 「激活上忍勋章返还点券」这类提示会盖住充值那一排图标，不到 10 秒自己消失（点击能穿过去，但模板认不出图标），等它消失
+        "timeout": 15000,
+        "next": [ "AutoManageRunning", "AutoManageConfirm", "AutoManageStartReady", "AutoManageWindowRunning", "AutoManageOpenWindow" ]
+    },
+    // 体力条右边「充值」旁的显示器图标；只截按钮里面，旁边常有其他玩家的名字。鼠标停在上面时图标变亮（普通 / 悬停两张）
+    "AutoManageEntryIcon": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "autoManagement/EntryIcon.png", "autoManagement/EntryIconHover.png" ],
+                "roi": [ 294, 131, 52, 53 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "AutoManageOpenWindow": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "AutoManageEntryIcon" ]
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "托管失败：托管系统窗口没有打开"
+        },
+        "post_delay": 1500, // 窗口先出空框、约 1 秒后才画出内容，中间没有可等的状态
+        "timeout": 10000,
+        "next": [ "AutoManageStartReady", "AutoManageWindowRunning", "AutoManageOpenAgain" ]
+    },
+    // 地图没被窗口的遮罩压暗，图标就在地图上
+    "AutoManageIconOnMap": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "AutoManageMapClear", "AutoManageEntryIcon" ],
+                "box_index": 1
+            }
+        }
+    },
+    // 游戏窗口不在前台时，第一下点击只把窗口切到前台，游戏收不到（图标变亮但窗口没开）。
+    // 地图没被遮罩压暗、图标还在，说明窗口确实没开，再点一次。
+    // 托管中点这个图标会直接结束托管，所以同一帧上还要看不到托管面板
+    "AutoManageOpenAgain": {
+        "max_hit": 2,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "AutoManageIconOnMap",
+                    "without": "AutoManagePanelShown"
+                }
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "托管失败：托管系统窗口没有打开"
+        },
+        "post_delay": 1500, // 同上
+        "timeout": 10000,
+        "next": [ "AutoManageStartReady", "AutoManageWindowRunning", "AutoManageOpenAgain" ]
+    },
+    // 窗口右上角「当前拥有托管卡：」，三个页签上都有
+    "AutoManageWindowLabel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "autoManagement/WindowLabel.png",
+                "roi": [ 823, 199, 104, 51 ],
+                "threshold": 0.9
+            }
+        }
+    },
+    // 「开始托管」是橙色的才能点；托管中它变灰，被确认框的遮罩压暗时也不是橙色。
+    // 鼠标停在上面时变亮、饱和度变低（普通 / 悬停两张模板）；橙色像素（S ≥ 120）：可点 220，悬停 247，变灰 / 压暗 0
+    "AutoManageStartReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoManageWindowLabel",
+                    {
+                        "sub_name": "start",
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": [ "autoManagement/StartButton.png", "autoManagement/StartButtonHover.png" ],
+                                "roi": [ 548, 566, 90, 52 ],
+                                "threshold": 0.7
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "start",
+                                "method": 40,
+                                "lower": [ 3, 120, 150 ],
+                                "upper": [ 30, 255, 255 ],
+                                "count": 100
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "托管失败：点了开始托管，但没有进入托管"
+        },
+        "timeout": 10000,
+        "next": [ "AutoManageConfirm", "AutoManageRunning" ]
+    },
+    // 当天第一次开始托管：「您今天为首次进入托管状态，需要消耗托管卡x1……是否确认进入托管状态?」
+    "AutoManageConfirm": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "autoManagement/ConfirmText.png",
+                "roi": [ 602, 353, 130, 55 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 592, 431, 38, 10 ]
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "托管失败：确认后没有进入托管"
+        },
+        "timeout": 10000,
+        "next": [ "AutoManageRunning" ]
+    },
+    // 窗口开着且已经在托管中（用户从面板「查看日志」打开的；托管中点左上角入口会直接结束托管）：窗口里的「退出托管」是蓝色。
+    // 鼠标停在上面时变成浅青色、模板只有 0.75（普通 / 悬停两张）；按钮区域蓝色像素：普通 483，悬停 362，没在托管（灰色）/ 被压暗 0。
+    // 托管中左下角的面板被窗口挡住，关掉窗口才看得到
+    "AutoManageWindowRunning": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoManageWindowLabel",
+                    {
+                        "sub_name": "exit",
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": [ "autoManagement/WindowExitButton.png", "autoManagement/WindowExitButtonHover.png" ],
+                                "roi": [ 706, 566, 84, 52 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "exit",
+                                "roi_offset": [ -6, -2, 12, 4 ],
+                                "method": 40,
+                                "lower": [ 85, 100, 120 ],
+                                "upper": [ 115, 255, 255 ],
+                                "count": 150
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 974, 209, 10, 10 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "AutoManageRunning" ]
+    },
+    // 左下角托管面板的标题「托管中」；切地图的加载画面里认不出来
+    "AutoManagePanelTitle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "autoManagement/PanelTitle.png",
+                "roi": [ 40, 413, 76, 54 ],
+                "threshold": 0.85
+            }
+        }
+    },
+    // 托管里的「忍者考试扫荡」：扫荡期间面板换成「正在扫荡」（扫荡类型、剩余时间倒计时），托管还会开着扫荡窗口；
+    // 扫完面板变回「托管中」。实测一次 40 秒，最长 540 秒
+    "AutoManageSweepPanel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "autoManagement/SweepPanelTitle.png",
+                "roi": [ 37, 401, 82, 54 ],
+                "threshold": 0.85
+            }
+        }
+    },
+    // 在托管中：左下角是「托管中」或「正在扫荡」面板
+    "AutoManagePanelShown": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "AutoManagePanelTitle", "AutoManageSweepPanel" ]
+            }
+        }
+    },
+    "AutoManageRunning": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "AutoManagePanelShown" ]
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "托管中，等这一轮做完后退出托管",
+            "Node.PipelineNode.Failed": "托管失败：20 分钟内未能确认本轮完成，托管尚未退出，请手动检查"
+        },
+        "timeout": 1200000, // 安全上限：实测忍者考试扫荡扫满 540 秒的一次，从开始托管到退出共约 12.6 分钟
+        "next": [ "AutoManageIdle" ]
+    },
+    // 家园里给好友浇水：好友的树长满时只弹「好友的成长度已满，不能帮助浇水！」（屏幕正中，位置固定），不写日志，
+    // 浇水要多久因号而异（实测有一段 20 多秒只有这个提示），看到它就算还在忙。只截左半句，右半句后面常站着自己的人物；
+    // 有提示 0.79~1.0（淡入淡出、被宠物名字挡住时偏低），没有提示 ≤ 0.4
+    "AutoManageWaterFullToast": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "autoManagement/WaterFullToast.png",
+                "roi": [ 526, 330, 144, 60 ],
+                "threshold": 0.7
+            }
+        }
+    },
+    // 面板上的日志（时间 + 内容，两行）连续 10 秒没变；命中后点面板上的「退出托管」，没有确认框，面板约 0.5 秒内消失
+    "AutoManageIdle": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "AutoManageLogQuiet",
+                "custom_recognition_param": {
+                    "require_nodes": [ "AutoManagePanelTitle", "AutoManageMapClear" ],
+                    "busy_nodes": [ "AutoManageWaterFullToast" ],
+                    "line_roi": [ 10, 446, 140, 34 ],
+                    "quiet_seconds": 10
+                }
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 93, 489, 30, 8 ]
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "托管失败：点了退出托管，但托管面板还在"
+        },
+        "post_delay": 1500, // 面板约 0.5 秒内消失，中间没有别的状态可等；1.5 秒后还在才算这一下没点上
+        "timeout": 10000,
+        "next": [ "AutoManageExited", "AutoManageExitAgain" ]
+    },
+    // 游戏窗口不在前台时（等了几分钟，用户多半切走了），第一下点击只把窗口切到前台，游戏收不到：
+    // 实测按钮亮了（鼠标在上面）但没退出。面板还在、地图也正常，说明还没退出，再点一次
+    "AutoManageExitAgain": {
+        "max_hit": 2,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "AutoManageMapClear", "AutoManagePanelTitle" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 93, 489, 30, 8 ]
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "托管失败：点了退出托管，但托管面板还在"
+        },
+        "post_delay": 1500, // 同上
+        "timeout": 10000,
+        "next": [ "AutoManageExited", "AutoManageExitAgain" ]
+    },
+    // 地图画面：体力标签没被遮罩压暗、也不在切地图的加载画面
+    "AutoManageMapClear": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/login/StaminaLabel.png",
+                "roi": [ 32, 84, 66, 61 ],
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    // 同一帧上看得到地图、看不到托管面板才算退出。拆成两个节点分两帧判断不行：
+    // 托管中切地图很频繁（有时 1 秒内连着两次），加载画面里面板也看不到，退出没点上也会被当成已退出
+    "AutoManageExited": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "AutoManageMapClear",
+                    "without": "AutoManagePanelShown"
+                }
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "托管已完成，已退出托管"
+        }
+    }
+}

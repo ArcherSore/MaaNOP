@@ -55,6 +55,29 @@ class FindBottomEntry(CustomRecognition):
         return find_entry(context, argv, "BottomEntryTemplate")
 
 
+@AgentServer.custom_recognition("MatchWithout")
+class MatchWithout(CustomRecognition):
+    """同一张截图上 match 节点命中、without 节点不命中时命中，返回 match 的识别框。
+
+    pipeline 里「A 且非 B」只能拆成两个节点，分别在两帧上判断；两帧之间画面变了（比如切地图的加载画面）就会误判。
+    custom_recognition_param: {"match": "节点名", "without": "节点名"}
+    """
+
+    def analyze(
+        self,
+        context: Context,
+        argv: CustomRecognition.AnalyzeArg,
+    ) -> CustomRecognition.AnalyzeResult:
+        param = json.loads(argv.custom_recognition_param)
+        matched = context.run_recognition(param["match"], argv.image)
+        if not matched or not matched.hit:
+            return None
+        excluded = context.run_recognition(param["without"], argv.image)
+        if excluded and excluded.hit:
+            return None
+        return CustomRecognition.AnalyzeResult(box=matched.box, detail={})
+
+
 @AgentServer.custom_recognition("MatchPopup")
 class MatchPopup(CustomRecognition):
     """按顺序识别多种弹窗, 命中后返回该弹窗对应的点击目标位置。

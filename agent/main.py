@@ -12,6 +12,7 @@ import action_ninjutsu_training
 import action_shopping
 import action_survival
 import action_training
+import reco_auto_management
 import reco_common
 import reco_login
 import reco_shopping

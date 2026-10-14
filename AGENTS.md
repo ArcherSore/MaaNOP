@@ -28,7 +28,7 @@ MaaFramework automation for the Windows client of 火影忍者 Online.
 - Set template `threshold` from scores measured on real screenshots, with margin for cross-device rendering differences. Do not copy a number from another node.
 - Tiny templates (a digit): crop only the glyph that differs. A whole `0次` crop scored `1次` at 0.83 (vs 1.0 on `0次`); the lone `0` scored `1` at 0.54.
 - If a template misses intermittently, the target probably has another state (e.g. hover after a click). Capture it (PrintWindow screenshot) and test against it.
-- In `And.all_of`, a node name only borrows that node's recognition params; its `inverse` is ignored. `"recognition": "OtherNode"` is not valid outside `And`. Express "A and not B" as two chained nodes, with `inverse` on the node that tests absence.
+- In `And.all_of`, a node name only borrows that node's recognition params; its `inverse` is ignored. `"recognition": "OtherNode"` is not valid outside `And`. Express "A and not B" as two chained nodes, with `inverse` on the node that tests absence. When both must hold on the same frame (the screen can change between two polls, e.g. a loading screen also hides B), use the `MatchWithout` custom recognition (`reco_common.py`).
 
 ## Clicks & Button States
 - A pipeline Click lands at a random point inside its target box, so target boxes and template ROIs must lie strictly inside the clickable area. Use `PreciseClick` (pipeline) or `click_center` (Python) when the exact center matters.
