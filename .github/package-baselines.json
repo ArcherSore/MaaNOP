@@ -1,9 +1,9 @@
 {
   "windows_x64": {
     "repository": "ArcherSore/NarutoAutoGUI",
-    "tag": "v1.8.3",
+    "tag": "v1.9.1",
     "asset_name": "NarutoAutoGUI-win-x64-{tag}.zip",
-    "sha256": "2bbe304b1bc607c27ab99ef5c0238345f31e32a5c1080bdd08266d46c13dd8e2"
+    "sha256": "3defd02ff0d9b69f022498add86a7a928bf4a488f58d7cfa5b8ae7762953e48a"
   },
   "python_embed_windows_x64": {
     "version": "3.12.9",
