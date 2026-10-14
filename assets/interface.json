@@ -153,6 +153,19 @@
             }
         },
         {
+            "name": "TeamDungeon",
+            "label": "组队副本",
+            "group": [ "Routine" ],
+            "entry": "TeamDungeon",
+            "description": "### 开始前\n\n请停留在**主界面**（能看到顶部入口栏里的**日常锻炼**和底部**忍者**入口）。\n\n### 会做什么\n\n先打开**忍者**界面，切换到设置的队伍；再打开**日常锻炼**的**限时活动**，选中**组队副本**并点**参与**。在组队副本窗口的**全部副本**里找到设置的副本，调到设置的难度，**单人**进入（确认「当前没有队伍或队伍未满」提示），点**开战**，战斗中自动托管并加速。\n\n打赢后在结算界面直接点**返回游戏**（游戏自动翻牌领奖并重新打开组队副本窗口），再打下一场；一直打到窗口底部**本日奖励次数**（或本周奖励次数）为 **0**，然后关闭窗口并正常结束。\n\n### 注意事项\n\n- 只打**单人**，不点「匹配队友」。\n- 战斗**失败**时（输了不扣次数）任务会显示**失败**，请换更强的队伍或低一点的难度。\n- 所选副本还没解锁，或者调不到所选难度时，任务会显示**失败**。\n- 副本战斗后有小概率出现**精英忍者**：结算后又进了一场战斗会照常托管打完；出现其他带「精英」字样的界面时任务会**停下**，请手动处理（这部分还没在游戏里实测过）。\n- 队伍按**忍者界面中间的标签**从上到下编号（1～8），请填写已解锁的队伍，否则会停在选队伍这一步。",
+            "option": [ "TeamDungeonTeam", "TeamDungeonName", "TeamDungeonDifficulty" ],
+            "pipeline_override": {
+                "AbundanceTeamClose": {
+                    "next": [ "TeamDungeonOpenDaily", "AbundanceTeamClose" ]
+                }
+            }
+        },
+        {
             "name": "AutoManagement",
             "label": "游戏托管",
             "group": [ "Routine" ],
@@ -674,6 +687,211 @@
                     }
                 }
             }
+        },
+        "TeamDungeonTeam": {
+            "type": "input",
+            "label": "",
+            "inputs": [
+                {
+                    "name": "team_dungeon_team",
+                    "label": "出战队伍",
+                    "description": "组队副本用的队伍，填忍者界面中间的标签编号（1～8，从上到下）",
+                    "default": "1",
+                    "pipeline_type": "int",
+                    "verify": "^[1-8]$",
+                    "pattern_msg": "请输入 1～8 的数字"
+                }
+            ],
+            "pipeline_override": {
+                "TeamDungeonSetTeam": {
+                    "action": {
+                        "param": {
+                            "custom_action_param": "{team_dungeon_team}"
+                        }
+                    }
+                }
+            }
+        },
+        "TeamDungeonName": {
+            "type": "select",
+            "label": "副本",
+            "description": "要打的副本（全部副本页里的卡片）",
+            "default_case": "BridgeBattle",
+            "cases": [
+                {
+                    "name": "BridgeBattle",
+                    "label": "桥上的决战",
+                    "pipeline_override": {
+                        "TeamDungeonCard": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/dungeon/BridgeBattle.png"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "ChaseGaara",
+                    "label": "追击我爱罗",
+                    "pipeline_override": {
+                        "TeamDungeonCard": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/dungeon/ChaseGaara.png"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "SoundFive",
+                    "label": "音之五人众",
+                    "pipeline_override": {
+                        "TeamDungeonCard": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/dungeon/SoundFive.png"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "JoninTrial",
+                    "label": "上忍试炼",
+                    "pipeline_override": {
+                        "TeamDungeonCard": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/dungeon/JoninTrial.png"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AkatsukiDescent",
+                    "label": "晓组织降临",
+                    "pipeline_override": {
+                        "TeamDungeonCard": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/dungeon/AkatsukiDescent.png"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "SnakeBirth",
+                    "label": "蛇之诞生",
+                    "pipeline_override": {
+                        "TeamDungeonCard": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/dungeon/SnakeBirth.png"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "PainRebirth",
+                    "label": "痛苦轮回",
+                    "pipeline_override": {
+                        "TeamDungeonCard": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/dungeon/PainRebirth.png"
+                                }
+                            }
+                        },
+                        "TeamDungeonJumpBottom": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "BrothersFarewell",
+                    "label": "兄弟诀别",
+                    "pipeline_override": {
+                        "TeamDungeonCard": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/dungeon/BrothersFarewell.png"
+                                }
+                            }
+                        },
+                        "TeamDungeonJumpBottom": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "FiveKageSummit",
+                    "label": "五影会谈",
+                    "pipeline_override": {
+                        "TeamDungeonCard": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/dungeon/FiveKageSummit.png"
+                                }
+                            }
+                        },
+                        "TeamDungeonJumpBottom": {
+                            "enabled": true
+                        }
+                    }
+                }
+            ]
+        },
+        "TeamDungeonDifficulty": {
+            "type": "select",
+            "label": "难度",
+            "description": "副本难度；所选副本还没解锁这个难度时任务会失败",
+            "default_case": "Easy",
+            "cases": [
+                {
+                    "name": "Easy",
+                    "label": "简单",
+                    "pipeline_override": {
+                        "TeamDungeonDiffTarget": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/difficulty/Easy.png"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Normal",
+                    "label": "普通",
+                    "pipeline_override": {
+                        "TeamDungeonDiffTarget": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/difficulty/Normal.png"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Hard",
+                    "label": "困难",
+                    "pipeline_override": {
+                        "TeamDungeonDiffTarget": {
+                            "recognition": {
+                                "param": {
+                                    "template": "teamDungeon/difficulty/Hard.png"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
         },
         "ShoppingFriendName": {
             "type": "input",
