@@ -1,10 +1,22 @@
 // 丰饶之间：先选好队伍 → 打开丰饶之间，赏金试炼切到简单难度并开战 → 托管战斗 → 领收益，打到本日次数用完
 {
     "AbundanceRoom": {
+        "next": [ "AbundanceSetTeam" ]
+    },
+    // 第几个队伍由 interface.json 的 AbundanceTeam 选项覆盖 custom_action_param（1~8）；和强者降临、通缉任务、组队副本一样，
+    // SetBossTeam 把下面的 Abundance* 选队伍节点改到第 N 个标签
+    "AbundanceSetTeam": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SetBossTeam",
+                "custom_action_param": 1
+            }
+        },
         "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
     },
 
-    // ===== 选队伍：队伍标签从上到下编号 1~8，选中的标签是金色（选哪个由 interface.json 的 AbundanceTeam 选项覆盖） =====
+    // ===== 选队伍：队伍标签从上到下编号 1~8，选中的标签是金色 =====
     "AbundanceGotoTeam": {
         "recognition": {
             "type": "Custom",
