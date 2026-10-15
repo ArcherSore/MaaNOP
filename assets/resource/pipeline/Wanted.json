@@ -336,7 +336,52 @@
                 "all_of": [ "WantedDailyTab" ]
             }
         },
-        "inverse": true
+        "inverse": true,
+        "next": [ "WantedInVillage", "WantedBackToVillage" ]
+    },
+    // 自动完成打完后人停在最后一张战斗地图上，不回村。后面再跑别的任务（例如忍者测验要从木叶村南走路过去）会走很久直到超时，
+    // 所以收尾点右上角的叶子图标（鼠标放上去写着「无论身在何处，点击回到木叶村」，实测会读条加载后落在木叶村南）。
+    // 右上角地图名已经是「木叶村南」就不用点（点了也会白白重新加载一次）。
+    "WantedInVillage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wanted/VillageName.png",
+                "roi": [ 1190, 116, 148, 26 ],
+                "threshold": 0.9
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "通缉任务完成，已在木叶村南"
+        }
+    },
+    "WantedBackToVillage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wanted/BackToVillage.png",
+                "roi": [ 1290, 90, 50, 30 ],
+                "threshold": 0.8
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.PipelineNode.Failed": "通缉任务：点了回村图标，但没有回到木叶村南"
+        },
+        // 点完要读条加载，给 10 秒
+        "timeout": 10000,
+        "next": [ "WantedInVillage", "WantedParkCursor" ]
+    },
+    // 鼠标还停在叶子图标上时，提示框「无论身在何处…」会盖住地图名（实测 on_error 截图），认不出「木叶村南」。
+    // 点一下游戏画布外、浏览器工具栏的空白处把鼠标移开（点游戏地图会让角色走路）；没有识别条件，只在地图名没认到时轮到它，移一次后回去等地图名。
+    "WantedParkCursor": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 500, 33, 200, 6 ]
+            }
+        },
+        "next": [ "WantedInVillage" ]
     },
 
     // ===== 通缉任务窗口：自动完成 =====
