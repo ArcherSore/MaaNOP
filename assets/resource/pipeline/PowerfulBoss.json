@@ -271,6 +271,56 @@
         "timeout": 15000,
         "next": [ "BossRewardConfirm" ]
     },
+    // 单人打最高难度时，通关奖励确定之后还会多一个「通关评分」弹窗（带「确定」，实测），低难度没有
+    "BossScoreTitle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "powerfulBoss/ScoreTitle.png",
+                "roi": [ 540, 190, 260, 100 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "BossScoreConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BossScoreTitle",
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "powerfulBoss/RewardConfirm.png",
+                                "roi": [ 600, 480, 125, 40 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 640, 496, 50, 10 ]
+            }
+        },
+        "next": [ "BossScoreClosed" ]
+    },
+    "BossScoreClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossScoreTitle" ]
+            }
+        },
+        "inverse": true,
+        "timeout": 8000,
+        "next": [ "BossGotoWindow" ]
+    },
     "BossRewardTitle": {
         "recognition": {
             "type": "TemplateMatch",
@@ -319,7 +369,7 @@
         },
         "inverse": true,
         "timeout": 8000,
-        "next": [ "BossGotoWindow" ]
+        "next": [ "BossScoreConfirm", "BossGotoWindow" ]
     },
 
     // 战斗失败（例如难度太高）：确认后回主地图，失败不扣奖励次数；任务以失败结束，不带着打不过的难度反复送
