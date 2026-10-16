@@ -262,11 +262,8 @@
     "SkipDialogue_新忍者登记": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -583,11 +580,8 @@
     },
     "SkipDialogue_木叶丸三人组": {
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -884,11 +878,8 @@
     },
     "SkipDialogue_宇智波佐助": {
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -1741,11 +1732,8 @@
     "SkipDialogue_猪鹿蝶组合": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -1773,11 +1761,8 @@
     },
     "SkipDialogueAgain_猪鹿蝶组合": {
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -1903,11 +1888,8 @@
     "ClickDialogue_前往生存试炼场": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -2016,11 +1998,8 @@
     "SkipDialogue_卡卡西入场": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -2246,11 +2225,8 @@
     "SkipDialogue_护送达兹纳": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -2682,11 +2658,8 @@
     "SkipDialogue_海边侦察": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -2829,11 +2802,8 @@
     "SkipDialogue_谨慎前行": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -2907,11 +2877,8 @@
         "timeout": 5000,
         "post_delay": 1000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -3032,11 +2999,8 @@
         "timeout": 5000,
         "post_delay": 700,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -3410,11 +3374,8 @@
     "SkipDialogue_保护大桥": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -3701,11 +3662,8 @@
     "SkipDialogue_捉兔大赛": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -4097,11 +4055,8 @@
     "SkipDialogueAgain_捉兔大赛": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
@@ -4286,15 +4241,24 @@
             }
         }
     },
+    // 点击未生效时，鼠标停留会使按钮进入 hover 高亮，普通模板可能漏识别；两种状态都需覆盖才能重试。
+    "SkipDialogueButton": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "leveling/buttons/SkipDialogue.png", "leveling/buttons/SkipDialogueHover.png" ],
+                "roi": [ 909, 638, 79, 63 ],
+                "method": 5,
+                "order_by": "Score"
+            }
+        }
+    },
     "SkipDialogue": {
         "timeout": 5000,
         "post_delay": 700,
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/buttons/SkipDialogue.png",
-                "roi": [ 909, 638, 79, 63 ]
-            }
+            "type": "And",
+            "param": { "all_of": [ "SkipDialogueButton" ] }
         },
         "action": {
             "type": "Click"
