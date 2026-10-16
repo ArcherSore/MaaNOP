@@ -468,7 +468,6 @@
     },
     "DeployNaruto": {
         "timeout": 5000,
-        "post_delay": 1000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -482,6 +481,20 @@
                 "begin": [ 764, 287, 93, 40 ], // Naruto
                 "end": [ 452, 410, 18, 11 ], // position
                 "duration": 800
+            }
+        },
+        // 拖拽可能没被游戏接收；「上阵」标签没出现就回去重拖，出现了才关界面。
+        "on_error": [ "DeployNaruto" ],
+        "next": [ "NarutoDeployed" ]
+    },
+    // 「我的小队」第 2 格出现「上阵」标签（实测：未上阵 ≤0.43，已上阵 1.0，换忍者头像也是 1.0）。
+    "NarutoDeployed": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "leveling/flags/Deployed.png",
+                "roi": [ 205, 305, 40, 30 ],
+                "threshold": 0.9
             }
         },
         "next": [ "ExitCharacterSystem" ]
@@ -1081,6 +1094,19 @@
                 "begin": [ 764, 287, 93, 40 ], // Sasuke
                 "end": [ 433, 507, 19, 14 ], // position
                 "duration": 800
+            }
+        },
+        "on_error": [ "DeploySasuke" ],
+        "next": [ "SasukeDeployed" ]
+    },
+    // 第 3 格（鸣人已在第 2 格）；实测已上阵 0.99。
+    "SasukeDeployed": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "leveling/flags/Deployed.png",
+                "roi": [ 205, 361, 40, 30 ],
+                "threshold": 0.9
             }
         },
         "next": [ "ClickOnProgression" ]
