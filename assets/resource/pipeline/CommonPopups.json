@@ -21,8 +21,9 @@
                         "recognition": {
                             "type": "TemplateMatch",
                             "param": {
-                                "template": "leveling/buttons/Close.png",
-                                "roi": [ 1290, 480, 50, 65 ]
+                                "template": [ "leveling/buttons/Close.png", "leveling/buttons/CloseHover.png" ],
+                                "roi": [ 1290, 480, 50, 65 ],
+                                "order_by": "Score"
                             }
                         }
                     }

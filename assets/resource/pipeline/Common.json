@@ -1,0 +1,19 @@
+{
+    // 移开鼠标，避免按钮高亮或悬浮说明干扰后续识别。
+    "MouseMoveReset": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 100, 400 ],
+                "end": [ 100, 400 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "anchor": {
+            "MouseMoveResetAnchor": ""
+        },
+        "post_delay": 0,
+        "rate_limit": 0
+    }
+}

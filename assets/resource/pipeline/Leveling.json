@@ -342,7 +342,9 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "common/entry/CharacterSystem.png",
-                "roi": [ 836, 648, 504, 72 ]
+                "roi": [ 836, 648, 504, 72 ],
+                // 入口出现动画中的图标也能低分命中，等图标清晰后再点击。
+                "threshold": 0.8
             }
         }
     },
@@ -3156,7 +3158,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "common/battle/AutoOn.png",
+                "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
                 "roi": [ 828, 620, 80, 80 ]
             }
         },
@@ -3168,7 +3170,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "common/battle/AutoOff.png",
+                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
                 "roi": [ 828, 620, 80, 80 ]
             }
         },
@@ -3203,8 +3205,10 @@
         },
         "post_delay": 200,
         "timeout": 5000,
-        "on_error": [ "SpeedOffFirstTime" ],
-        "next": [ "SpeedOnFirstTime" ]
+        "anchor": {
+            "MouseMoveResetAnchor": "MouseMoveReset"
+        },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "SpeedOnFirstTime", "SpeedOffFirstTime" ]
     },
     "MoveToBridgeEnemies2": {
         "recognition": {
