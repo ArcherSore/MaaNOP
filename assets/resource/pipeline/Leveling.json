@@ -165,7 +165,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 1238, 599, 30, 12 ] }
         },
         "on_error": [ "EquipGearFirst" ],
         "next": [ "AcceptMainTask_新忍者登记" ]
@@ -707,7 +708,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 1238, 599, 30, 12 ] }
         },
         "on_error": [ "EquipGearSecond" ],
         "next": [ "AcceptMainTask_向伊鲁卡报告" ]
@@ -798,7 +800,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 1238, 599, 30, 12 ] }
         },
         "on_error": [ "EquipGearThird" ],
         "next": [ "AcceptMainTask_初遇佐助", "ClickOnMainTask_初遇佐助" ]
@@ -4271,14 +4274,15 @@
             "type": "Click"
         }
     },
-    // 升级/新系统弹窗的遮罩下一键装备按钮仍能命中模板，点击却被弹窗吞掉（升级弹窗点击丢失时会死循环）。
+    // 升级/新系统弹窗的遮罩下仍能读到装备提示，点击却被弹窗吞掉（升级弹窗点击丢失时会死循环）。
     // 对话框不算：装备弹窗和任务对话框会同时出现，装备要先点。
+    // 按钮小字跨设备模板得分低、OCR 也会误读；改读上方提示，装备动作使用固定 target 点击按钮内部。
     "EquipGearButton": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/EquipGear.png",
-                "roi": [ 1196, 574, 116, 62 ]
+                "roi": [ 1185, 574, 145, 23 ],
+                "expected": [ "新装备.*提升战斗力" ]
             }
         }
     },
@@ -4303,7 +4307,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 1238, 599, 30, 12 ] }
         }
     },
     "HandleStartBattleButton": {
