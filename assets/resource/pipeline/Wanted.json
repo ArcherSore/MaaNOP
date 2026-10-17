@@ -1,10 +1,10 @@
-// 通缉自动完成会连续执行剩余轮次；地图闲置后仍须核对「参与」是否变灰。
-// 选队复用 Abundance*；interface.json 的 pipeline_override 将 AbundanceTeamClose 接到 WantedOpenDaily。
+// 自动完成会连续执行剩余轮次；闲置后核对「参与」是否变灰。
+// 选队复用 Abundance*；interface.json 将 AbundanceTeamClose 接到 WantedTeamGate。
 {
     "WantedTask": {
         "next": [ "WantedSetTeam" ]
     },
-    // WantedTeam 选项传入队伍编号（1~8），SetBossTeam 据此修改 Abundance* 选队节点。
+    // WantedTeam 传入阵容编号（1~8），复用 Abundance* 选阵容。
     "WantedSetTeam": {
         "action": {
             "type": "Custom",
@@ -14,6 +14,241 @@
             }
         },
         "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
+    },
+    // WantedSoloTeam 选项切换到组队流程。
+    "WantedTeamGate": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "WantedMapClear" ]
+            }
+        },
+        "next": [ "WantedOpenDaily" ]
+    },
+    // 入口须未组队；创建、退队各点击一次，等待悬停高亮变化。
+    // 高亮像素 38，未高亮 ≤4，遮罩下 0。
+    "WantedGroupHover": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1195, 101, 7, 7 ],
+                "method": 40,
+                "lower": [ 0, 0, 235 ],
+                "upper": [ 180, 25, 255 ],
+                "count": 25
+            }
+        }
+    },
+    "WantedTeamOpen": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "WantedMapClear" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1193, 102, 10, 10 ]
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "通缉任务失败：点了组队按钮，但窗口没有打开"
+        },
+        "timeout": 10000,
+        "next": [ "WantedTeamListOpened" ]
+    },
+
+    // 匹配分数：正常 1.0，遮罩下 0.77，其他 ≤0.45。
+    "WantedTeamListOpened": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wanted/TeamCreateBtn.png",
+                "roi": [ 740, 535, 150, 50 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 782, 551, 50, 14 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "WantedTeamDialog" ]
+    },
+    // 匹配分数：目标 1.0，其他 ≤0.38。
+    "WantedTeamDialog": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wanted/TeamCreateTitle.png",
+                "roi": [ 600, 300, 150, 50 ],
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 600, 452, 50, 12 ]
+            }
+        },
+        "next": [ "WantedTeamHover" ]
+    },
+    "WantedTeamHover": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 1193, 102, 10, 10 ],
+                "end": [ 1193, 102, 10, 10 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "next": [ "WantedTeamCreated" ]
+    },
+    "WantedTeamCreated": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "WantedMapClear", "WantedGroupHover" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1193, 102, 10, 10 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "WantedTeamUntick" ]
+    },
+    // 标签分数 1.0，其他 ≤0.30；绿勾像素约 36，未勾选 0。
+    "WantedTeamWinLabel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "wanted/TeamWindowLabel.png",
+                "roi": [ 480, 552, 140, 38 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "WantedTeamTicked": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 496, 560, 22, 22 ],
+                "method": 40,
+                "lower": [ 40, 120, 120 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 15
+            }
+        }
+    },
+    // 新队伍默认勾选；取消一次后确认绿勾消失。
+    "WantedTeamUntick": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "WantedTeamWinLabel" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 499, 566, 11, 11 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "WantedTeamAutoJoinOff" ]
+    },
+    "WantedTeamAutoJoinOff": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "WantedTeamWinLabel",
+                    "without": "WantedTeamTicked"
+                }
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 863, 225, 11, 11 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "WantedTeamWinClosed" ]
+    },
+    "WantedTeamWinClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "WantedMapClear" ]
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "已创建单人队伍，并取消「允许玩家自动加入」"
+        },
+        "next": [ "WantedOpenDaily" ]
+    },
+
+    // 「离开组队」蓝底像素：有队伍 ≥60，无队伍 0。
+    "WantedTeamExit": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 248, 172, 40, 13 ],
+                "method": 40,
+                "lower": [ 95, 200, 60 ],
+                "upper": [ 108, 255, 255 ],
+                "count": 40
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 255, 174, 28, 8 ]
+            }
+        },
+        "next": [ "WantedTeamExitHover" ]
+    },
+    "WantedTeamExitHover": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 1193, 102, 10, 10 ],
+                "end": [ 1193, 102, 10, 10 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "timeout": 20000,
+        "next": [ "WantedTeamExited" ]
+    },
+    "WantedTeamExited": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "WantedMapClear",
+                    "without": "WantedGroupHover"
+                }
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "已退出单人队伍"
+        }
     },
 
     "WantedDailyEntry": {

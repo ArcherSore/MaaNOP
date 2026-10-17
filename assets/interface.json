@@ -144,11 +144,11 @@
             "label": "通缉任务",
             "group": [ "Routine" ],
             "entry": "WantedTask",
-            "description": "用设置的队伍**单人**参加**通缉任务**，点**自动完成**后由游戏跑完今天剩下的所有轮次，最后核对已全部完成。\n\n- 请从**主界面**开始。\n- 只做单人，拿不到组队双倍经验。\n- 全部做完约需十分钟（每轮约 2 分钟），期间请**勿操作角色**，否则自动完成会中断。\n- 被中断后会自动补做剩余轮次；补做两次后仍有剩余，任务显示**失败**。\n- 战斗失败时游戏会终止自动通缉，任务显示**失败**，请换更强的队伍。\n- 今天已完成时直接结束。\n- 队伍需已解锁，否则任务会在选队伍时停止。",
-            "option": [ "WantedTeam" ],
+            "description": "用设置的队伍**单人**参加**通缉任务**，点**自动完成**后由游戏跑完今天剩下的所有轮次，最后核对已全部完成。\n\n- 请从**主界面**开始。\n- 支持压级，选**组单人队伍**\n- 全部做完约需十分钟（每轮约 2 分钟），期间请**勿操作角色**，否则自动完成会中断。\n- 被中断后会自动补做剩余轮次；补做两次后仍有剩余，任务显示**失败**。\n- 战斗失败时游戏会终止自动通缉，任务显示**失败**，请换更强的队伍。\n- 今天已完成时直接结束。\n- 队伍需已解锁，否则任务会在选队伍时停止。",
+            "option": [ "WantedTeam", "WantedSoloTeam" ],
             "pipeline_override": {
                 "AbundanceTeamClose": {
-                    "next": [ "WantedOpenDaily", "AbundanceTeamClose" ]
+                    "next": [ "WantedTeamGate", "AbundanceTeamClose" ]
                 }
             }
         },
@@ -518,6 +518,29 @@
                     }
                 }
             }
+        },
+        "WantedSoloTeam": {
+            "type": "switch",
+            "label": "压级",
+            "default_case": "No",
+            "cases": [
+                {
+                    "name": "No",
+                    "label": "不组队"
+                },
+                {
+                    "name": "Yes",
+                    "label": "单人组队",
+                    "pipeline_override": {
+                        "WantedTeamGate": {
+                            "next": [ "WantedTeamOpen" ]
+                        },
+                        "WantedInVillage": {
+                            "next": [ "WantedTeamExit" ]
+                        }
+                    }
+                }
+            ]
         },
         "TeamDungeonTeam": {
             "type": "input",
