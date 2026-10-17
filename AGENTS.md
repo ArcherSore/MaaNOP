@@ -1,78 +1,52 @@
-# Agent Notes for MaaNOP
+# MaaNOP 智能体须知
 
-MaaFramework automation for the Windows client of 火影忍者 Online.
+基于 MaaFramework，为《火影忍者 Online》Windows 客户端实现自动化。
 
-- Pipeline JSON (`assets/resource/pipeline/`, templates in `assets/resource/image/`) is the default. Add Python in `agent/` only for what the pipeline cannot express: cross-node state, dynamic computation, branching on earlier results.
-- Tasks and options exposed to the GUI live in `assets/interface.json`.
+## 修改范围与证据
 
-## Names Are Interfaces
-- Node names are referenced as strings from several places:
-  - Python: `get_latest_detail(context, "GetNextServer")`, `run_recognition("FindDownArrow", ...)`, `run_task(...)`, `clear_hit_count(...)`.
-  - `reco_login.py` maps task entry names (`AccountLeveling`, ...) to task modes.
-  - `interface.json` `pipeline_override` targets node names.
-- Before renaming a node, task entry or custom registration name, grep `agent/`, the pipelines and `interface.json`.
-- `Leveling.json` is large and tuned against live runs; keep edits local.
+- 默认使用 `assets/resource/pipeline/` 中的 Pipeline JSON，模板位于 `assets/resource/image/`，GUI 任务和选项位于 `assets/interface.json`。只有流水线无法表达的跨节点状态、动态计算和历史结果分支才在 `agent/` 中添加 Python。
+- 节点、任务入口和自定义注册名称是接口。重命名前搜索 `agent/`、流水线和 `interface.json` 中的引用，包括任务模式映射和 `pipeline_override`。
+- 修改保持局部化，尤其是经过运行调优的 `Leveling.json`；新增节点或 Python 实现前，先检查现有流水线和公共组件能否复用。
+- 新增或修改协议字段时，按 `agent/requirements.txt` 锁定的 maafw 版本核对名称、类型和语义；不要直接套用最新版文档或其他项目的协议。
+- 根目录仅保留跨任务规则。任务专属的弹窗顺序、等待条件、按钮状态和测量数据写在对应节点附近，只维护一处；有截图或运行记录时注明来源。
+- 不得仅凭旧注释或人为构造的测试画面新增游戏状态分支；先用真实截图或运行记录确认该状态及其触发条件。
 
-## Login
-- `AccountLeveling`, `AccountClaims` and `ShoppingFestivalTask` share `Login.json`, then route by task mode. New accounts (leveling) get no login popups; existing accounts always do, so the other modes must pass through popup handling before routing.
-- Popup behaviour (measured live):
-  - An accepted close click removes the popup within ~0.1s.
-  - Clicks made while the game is still loading, or on a popup under another popup's dim mask, are dropped, not queued.
-  - Each popup darkens everything below it, but a dimmed lower popup still matches its template (method 5). `LoginPopupAppears` therefore relies on the order of its `popups` list (upper popups first) and re-evaluates after every click.
-- Exit only through `LoginScreenClear` (体力 label, method 10001, fails under any mask), checked twice 2s apart.
+## 识别与点击
 
-## Recognition
-- Verify every recognition (OCR and template) against real screenshots before relying on it. Do not assume a popup, toast or button always appears, or always looks the same.
-- OCR misreads small game text often; prefer TemplateMatch where a stable image exists.
-- Do not put OCR nodes with overlapping ROIs in the same `next` list; results get corrupted.
-- Set template `threshold` from scores measured on real screenshots, with margin for cross-device rendering differences. Do not copy a number from another node.
-- Tiny templates (a digit): crop only the glyph that differs. A whole `0次` crop scored `1次` at 0.83 (vs 1.0 on `0次`); the lone `0` scored `1` at 0.54.
-- If a template misses intermittently, the target probably has another state (e.g. hover after a click). Capture it (PrintWindow screenshot) and test against it.
-- In `And.all_of`, a node name only borrows that node's recognition params; its `inverse` is ignored. `"recognition": "OtherNode"` is not valid outside `And`. Express "A and not B" as two chained nodes, with `inverse` on the node that tests absence. When both must hold on the same frame (the screen can change between two polls, e.g. a loading screen also hides B), use the `MatchWithout` custom recognition (`reco_common.py`).
+- 依赖 OCR 或模板识别前，用真实截图验证，覆盖相关状态并为设备渲染差异留余量。模板阈值依据目标与易混淆画面的测量结果设置，不照搬其他节点。
+- 小字和带文字的按钮优先考虑 OCR，或 OCR 识别标识后点击固定位置；此类小模板跨设备渲染差异较大，容易低于阈值。图标等稳定图像可使用模板，最终以截图验证结果选择。
+- 用标识识别配合固定位置点击时，验证标识与点击目标的出现时序：只有标识能证明目标已出现且可点击时才能直接点击；目标晚于标识出现时，须继续等待目标就绪，不能仅凭先出现的标题等标识点击。
+- 不要将 ROI 重叠的 OCR 节点放在同一个 `next` 列表中，会导致结果损坏。
+- `And.all_of` 引用节点名只借用识别参数，忽略其 `inverse`；在 `And` 之外不能用 `"recognition": "OtherNode"`。表达“A 且非 B”可串联识别并对 B 设置 `inverse`；必须同帧判断时使用 `agent/reco_common.py` 中的 `MatchWithout`。
+- Click 在目标框内随机落点，点击框须严格位于可点击区域内部；以模板匹配框作为目标时也要满足此条件。精确中心点击使用 `PreciseClick` 或 Python 的 `click_center`。
 
-## Clicks & Button States
-- A pipeline Click lands at a random point inside its target box, so target boxes and template ROIs must lie strictly inside the clickable area. Use `PreciseClick` (pipeline) or `click_center` (Python) when the exact center matters.
-- Buttons whose meaning is their colour (orange 领取, blue 扫荡, grey = unavailable) also brighten on hover, and Seize leaves the cursor where the last click was. Find the button with a loose template (`threshold` ~0.7, `sub_name`), then decide its state with a `ColorMatch` on `roi: "<sub_name>"`. Measure pixel counts for every state.
-- Text on a button whose background changes (hover, pressed): match with `green_mask` over a text-only crop.
-- Modal windows swallow clicks silently while `FindTopEntry` still finds the icon under the dim mask. A click on an entry is only "done" once the target window's own flag is recognized.
-- Toasts can outlive the popup that triggered them. When checking for a toast right after another one, give the old one time to fade (`post_delay`; this is one of the accepted delay cases below).
+## 流程与失败语义
 
-## Pipeline Flow
-Adapted from MaaEnd's pipeline guide; MaaNOP keeps its own conventions (`FindTopEntry`, quiet-period checks).
+- **根据识别到的状态推进。** `Node.Action.Succeeded` 只表示动作已发送。打开、关闭、领取、消耗或确认后，须识别到结果状态才能继续；已有后继识别可以承担验证，不必额外新增确认节点。验证条件应反映业务目标，不能把必须完成的操作降为可跳过。
+- 重试点击必须以识别到“仍待处理”为前提，不能仅因计时结束而补点。
+- 优先通过状态识别或 `post_wait_freezes` 等待。仅在没有可用画面信号时使用延迟，并在节点旁说明原因；不要照搬其他任务的静默期。
+- `next` 覆盖预期画面，包括中途恢复、对话框、加载和正常完成。无 `recognition` 的节点总会命中，应放在需要优先判断的状态之后。等待的 `timeout` 写在持有该 `next` 的节点上。
+- **框架语义：** A 的 `next` 识别超时进入 A 的 `on_error`；命中 B 但 B 动作失败，进入 B 的 `on_error`。错误分支成功执行后会继续正常流程；若最终正常结束，任务报告 Succeeded，先前错误不会自动使最终结果失败。参见 [Pipeline 协议](https://maafw.com/docs/3.1-PipelineProtocol.html)；最终结果逻辑已对照 v5.12.3 的 `PipelineTask::run`。
+- **项目约束：** 正常完成和“无事可做”通过 `next` 识别；`on_error` 仅用于恢复、清理或明确需要的持续等待。禁止把“未识别到预期画面”当作“无事可做”，直接转入成功终止节点或下一任务；重试前仍须识别当前状态。若清理后目标仍未达成，应以失败结束。
+- 没有 `on_error` 时，超时或动作失败会自然结束为 Failed，无需另加报告节点。已识别到无法达成目标的状态时，使用 `agent/action_common.py` 的 `FalseAction` 主动失败；不要用永不匹配的节点强制超时。
+- 有消耗或不可逆操作须以前一步已验证的状态为前提，并设置 `max_hit` 安全上限；不能依靠上限结束正常循环。
 
-- **Recognize, act, recognize.** `Node.Action.Succeeded` only means the click was sent. After every click that opens, closes, claims, spends or confirms something, the next node must recognize the new state (target window flag, button turned grey, dialog gone) before the flow moves on. Gate irreversible or spending steps (sweeps, resets, purchases) on the previous step's verified state, and cap them with `max_hit`.
-- **Do not click again to "make sure".** Re-click only when the recognized state says the target is still pending (still-orange 领取), never because a timer ran out; a second click may land on the next screen.
-- **Delays hide missing states.** Prefer an intermediate recognition node or `post_wait_freezes` over `pre_delay`/`post_delay`. A delay is acceptable only where the screen offers no usable signal (a toast animation that never freezes, a row replaced in place by the next tier); say so in a comment.
-- **Make `next` complete.** List every expected screen (resume mid-flow, dialogs, loading) so one screenshot hits the right node. A node with no `recognition` always hits: never put it ahead of states that should be tried first.
-- **`next` carries the flow; `on_error` is only for recovery.**
-  - Normal transitions, completion and "nothing to do" are recognized states in `next` (no orange 领取 twice in a row, reset count 0, window flag gone).
-  - `on_error` runs when a node's `next` times out or its action fails. A task that ends through an `on_error` branch reports **Succeeded** (measured: a timed-out wait routed to a terminal node ends with `Tasker.Task.Succeeded`).
-  - Use it only when the branch really does something: an alternative route, cleanup, or the keep-waiting pattern (`on_error` pointing at an always-hit node; see `ArenaBattleKeepWaiting`). Never use it just to print a failure message, retry the same action, or turn a failure into a "skip".
-- **Let real failures fail.** With no `on_error`, a `next` that times out (or a hit node whose action fails) ends the task as `Tasker.Task.Failed`. The GUI shows that, and the log names the node; that is already the failure report. Do not hide it behind `on_error`, and do not end a failed path in an empty `next` just to show a message.
-  - A wait's `timeout` belongs to the node whose `next` is waiting, not to the node being waited for.
-  - Deliberate failure, for a *recognized* state that means the user's goal cannot be met (battle lost, a safety `max_hit` reached): end in one terminal node whose action fails (MaaEnd's `FalseAction`; MaaNOP has none yet, so add it to `agent/` the first time it is needed). If the user needs a message, put it on that node as `Node.Action.Failed`. The failed action also sends `Node.PipelineNode.Failed`, but with the `focus` of the predecessor whose `next` hit it, so do not put the reason there too. Do not chain to a never-matching node to force a timeout. "Expected screen never appeared" needs no fail node: the timeout already fails.
-- **`focus` is for the user, not for every node** (MaaEnd rule: do not add it unless asked). Add it only where it tells the user something the task status and log do not:
-  - Progress on long runs and the outcome: level reached, attempts used up, nothing to claim.
-  - A failure the user can act on or should understand (team locked, battle lost, so lower the difficulty). Put it on the node whose `next` is waiting, at the stage the user would recognize (entry not found, window does not open). Do not repeat it on every internal wait (panel did not close, button did not turn grey). If several nodes would get the same text, consolidate it into one message at a meaningful stage boundary when possible; otherwise rely on the task status and log.
-  - Say what was observed, not a guessed cause. `Node.PipelineNode.Failed` fires both on a `next` timeout and when the hit node's action fails, so "点了领取但按钮没有变灰" is fine; "网络卡顿" or "次数不足" is not, unless recognized.
-  - One cause, one message. Do not add another message on a wrapper node or a `run_task` caller when the inner node already reported. Do not put failure text on a node whose `on_error` recovers (including keep-waiting): `Node.PipelineNode.Failed` is sent before `on_error` runs. Never use `Node.NextList.Failed` (it fires every polling round).
-  - `focus` never changes flow or result. Do not add nodes, branches or `on_error` just to produce a nicer message. Use plain-string messages; MaaNOP has no telemetry, so `trace` does nothing.
-  - Keep existing messages when editing a node, unless its behaviour changes.
-- **`max_hit` is a safety cap, not a loop fix.** If a loop needs it to end, the recognition or logic is wrong; fix that.
-- **One ESC, then verify.** Close a window with one ESC whose `next` is an inverse check of the window flag. If the window is still there, the wait times out and the task fails; do not press ESC again, since the second press may land on whatever is underneath.
+## 用户消息
 
-## Python Actions
-- Call maafw APIs directly; do not add helpers that only re-wrap them.
-- Express waits as a pipeline sub-task via `context.run_task("Node")` (`next` / `timeout` / `post_delay`), and decide the outcome from the node names in `TaskDetail.nodes`. Do not rely on `status`: it is Failed when a `next` times out with no `on_error`, but Succeeded when an `on_error` branch handled it, so it cannot tell a handled timeout from a clean finish.
-- Check `context.tasker.stopping` after each blocking call.
+- 未要求时不新增 `focus`；保留行为未变的已有消息，不为输出消息增加节点或分支。
+- 必须添加时，一个原因只报告一次；不用每轮轮询都会触发的 `Node.NextList.Failed`，不在将由 `on_error` 恢复的节点上提前报告任务失败。
 
-## Validation
-CI (`.github/workflows/check.yml`) runs:
-- `npx @nekosu/maa-tools check`. **Leave this to CI**: a local run on Windows deleted the tracked images under `assets/resource/image/` (recover with `git restore`).
-- `python tools/validate_schema.py --schema-dir deps/tools --resource-dirs assets/resource --exclude-dirs assets/resource/announcement --interface-files assets/interface.json`. Pipeline files contain `//` comments, so plain `json.loads` fails on them.
+## Python 动作
 
-CI does not catch everything. Locally:
-1. After editing `agent/`, run `python -m compileall agent` (CI does not check Python).
-2. After editing pipelines, load the bundle with the project's `.venv` maafw (`Resource.post_bundle` is enough). `validate_schema.py` misses a `next` / `on_error` naming a missing node, or a node name used as `recognition` outside `And`, and the engine refuses to load the whole resource for either.
-3. Run the changed task against a fake `CustomController` that serves saved screenshots and switches frame on click (a click-to-state table). Cover "click lost", "state did not change" and "screen refreshes late".
-4. Run spending or irreversible steps on the real game only after checking the current screen and getting approval.
+- 直接调用 maafw API，不添加仅再次封装 API 的辅助函数。
+- 用 `context.run_task("Node")` 执行流水线等待，根据 `TaskDetail.nodes` 中的节点名判断路径。`status` 无法区分正常完成和经 `on_error` 处理的超时。
+- 每次阻塞调用后检查 `context.tasker.stopping`。
+
+## 验证
+
+- **`npx @nekosu/maa-tools check` 仅交给 CI 执行**：曾在 Windows 本地运行时删除已跟踪模板图片。
+- Schema 校验命令：`python tools/validate_schema.py --schema-dir deps/tools --resource-dirs assets/resource --exclude-dirs assets/resource/announcement --interface-files assets/interface.json`。流水线含 `//` 注释，不能直接用 `json.loads` 解析。
+- 修改 `agent/` 后运行 `python -m compileall agent`，CI 不检查 Python。
+- 修改流水线后，用项目 `.venv` 中的 maafw 执行 `Resource.post_bundle` 加载资源包。Schema 校验无法发现不存在的 `next` / `on_error` 引用或非法的节点名识别引用；这些会使引擎拒绝加载。
+- 对修改后的任务使用模拟 `CustomController`：提供已保存的真实截图，按点击映射切换画面，覆盖点击被丢弃、状态未改变和延迟刷新。
+- 真实游戏中有消耗或不可逆的步骤，只能在检查当前画面并获得批准后执行。
