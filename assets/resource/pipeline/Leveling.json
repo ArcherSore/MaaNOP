@@ -406,10 +406,10 @@
     "ConfirmRecruitment": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ConfirmRecruitment.png",
-                "roi": [ 570, 398, 81, 64 ]
+                "expected": [ "^确定$" ],
+                "roi": [ 580, 415, 65, 30 ]
             }
         },
         "action": {
@@ -421,10 +421,10 @@
     "ConfirmCharacterObtained": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ConfirmCharObtained.png",
-                "roi": [ 575, 517, 79, 66 ]
+                "expected": [ "^确定$" ],
+                "roi": [ 585, 535, 60, 30 ]
             }
         },
         "action": {
@@ -613,14 +613,17 @@
     },
     "ConfirmCopyResults_木叶丸三人组": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_木叶丸三人组" ],
         "timeout": 7000,
@@ -892,14 +895,17 @@
     },
     "ConfirmCopyResults_宇智波佐助": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_宇智波佐助" ],
         "timeout": 9000,
@@ -1024,10 +1030,10 @@
     "ConfirmRecruitmentAgain": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ConfirmRecruitment.png",
-                "roi": [ 570, 398, 81, 64 ]
+                "expected": [ "^确定$" ],
+                "roi": [ 580, 415, 65, 30 ]
             }
         },
         "action": {
@@ -1039,10 +1045,10 @@
     "ConfirmCharacterObtainedAgain": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ConfirmCharObtained.png",
-                "roi": [ 575, 517, 79, 66 ]
+                "expected": [ "^确定$" ],
+                "roi": [ 585, 535, 60, 30 ]
             }
         },
         "action": {
@@ -1388,14 +1394,17 @@
     },
     "ConfirmCopyResults_狼群退治": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_狼群退治" ],
         "timeout": 9000,
@@ -1775,14 +1784,17 @@
     },
     "ConfirmCopyResults_猪鹿蝶组合": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_猪鹿蝶组合" ],
         "timeout": 8000,
@@ -2068,14 +2080,17 @@
     "ConfirmCopyResults_卡卡西的试炼": {
         "timeout": 7000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_卡卡西的试炼" ],
         "next": [ "ConfirmSasukeLevel9", "ConfirmNarutoLevel9" ]
@@ -2388,14 +2403,17 @@
     "ConfirmCopyResults_前往波之国": {
         "timeout": 7000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_前往波之国" ],
         "next": [ "ConfirmSasukeLevel10", "ConfirmNarutoLevel10" ]
@@ -2690,14 +2708,17 @@
     "ConfirmCopyResults_海边侦察": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_海边侦察" ],
         "next": [ "ConfirmSasukeLevel11", "ConfirmNarutoLevel11" ]
@@ -2947,14 +2968,17 @@
     "ConfirmCopyResults_鬼人再不斩": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_鬼人再不斩" ],
         "next": [ "ConfirmSasukeLevel12", "ConfirmNarutoLevel12" ]
@@ -3264,14 +3288,17 @@
     "ConfirmCopyResults_保护大桥": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_保护大桥" ],
         "next": [ "ConfirmSasukeLevel13", "ConfirmNarutoLevel13" ]
@@ -3585,14 +3612,17 @@
     "ConfirmCopyResults_独自修行": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_独自修行" ],
         "next": [ "ConfirmSasukeLevel15", "ConfirmNarutoLevel15" ]
@@ -3949,14 +3979,17 @@
     },
     "ConfirmCopyResults_捉兔大赛": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ExitCopy.png",
-                "roi": [ 618, 550, 95, 66 ]
+                "expected": [ "结算" ],
+                "roi": [ 600, 180, 140, 40 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [ 648, 579, 34, 9 ] // 返回游戏按钮
+            }
         },
         "on_error": [ "ConfirmCopyResults_捉兔大赛" ],
         "timeout": 5000,
