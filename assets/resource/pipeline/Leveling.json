@@ -1314,10 +1314,10 @@
     "StartBattle_WolvesNoOne": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -1347,10 +1347,10 @@
     "StartBattle_WolvesNoTwo": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -1379,10 +1379,10 @@
     },
     "StartBattle_WolvesNoThree": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -2336,10 +2336,10 @@
     "StartBattle_LandOfWavesEnemies1": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -2369,10 +2369,10 @@
     "StartBattle_LandOfWavesEnemies2": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -2612,10 +2612,10 @@
     "StartBattle_SeasideEnemies1": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -2645,10 +2645,10 @@
     "StartBattle_SeasideEnemies2": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -3154,10 +3154,10 @@
     },
     "StartBattle_BridgeEnemies1": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -3254,10 +3254,10 @@
     },
     "StartBattle_BridgeEnemies2": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -3545,10 +3545,10 @@
     },
     "StartBattle_SoloTrainingEnemies1": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -3578,10 +3578,10 @@
     },
     "StartBattle_SoloTrainingEnemies2": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -3789,10 +3789,10 @@
     },
     "StartBattle_RabbitContestEnemies1": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -3822,10 +3822,10 @@
     },
     "StartBattle_RabbitContestEnemies2": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -3855,10 +3855,10 @@
     },
     "StartBattle_RabbitContestEnemies3": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
@@ -4341,10 +4341,10 @@
     "HandleStartBattleButton": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/StartBattle.png",
-                "roi": [ 572, 421, 198, 63 ]
+                "expected": [ "^开战(?:[（(][0-9S]+[）)])?$" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": {
