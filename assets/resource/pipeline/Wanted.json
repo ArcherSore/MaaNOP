@@ -250,70 +250,24 @@
             "Node.Recognition.Succeeded": "已退出单人队伍"
         }
     },
-
-    "WantedDailyEntry": {
-        "recognition": {
+    "WantedOpenDaily": {
+        "action": {
             "type": "Custom",
             "param": {
-                "custom_recognition": "FindTopEntry",
-                "custom_recognition_param": {
-                    "template": [ "ninjaQuiz/DailyEntry.png" ]
+                "custom_action": "EnterDailyTask",
+                "custom_action_param": {
+                    "row": "WantedRow",
+                    "title": "WantedPanelTitle"
                 }
             }
-        }
-    },
-    "WantedOpenDaily": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "WantedDailyEntry" ]
-            }
         },
-        "action": "Click",
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：「日常锻炼」窗口没有打开"
-        },
-        "post_delay": 1500, // 窗口打开动画无中间状态，等待 1.5 秒后再判断是否需要重试。
-        "timeout": 10000,
-        "next": [ "WantedDailyOpened", "WantedOpenDailyAgain" ]
+        "next": [ "WantedJoin", "WantedJoinCapped", "WantedAlreadyDone" ]
     },
-    // 体力标签未变暗表示地图无遮挡；战斗、加载时该标签也不可见。
     "WantedMapClear": {
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/login/StaminaLabel.png",
-                "roi": [ 32, 84, 66, 61 ],
-                "method": 10001,
-                "threshold": 0.8
-            }
-        }
-    },
-    // 窗口不在前台时首次点击可能只激活窗口，游戏不接收点击。
-    "WantedOpenDailyAgain": {
-        "max_hit": 8,
-        "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "WantedMapClear", "WantedDailyEntry" ],
-                "box_index": 1
-            }
-        },
-        "action": "Click",
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：「日常锻炼」窗口没有打开"
-        },
-        "post_delay": 1500, // 同上
-        "timeout": 10000,
-        "next": [ "WantedDailyOpened", "WantedOpenDailyAgain" ]
-    },
-    "WantedDailyTab": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "ninjaQuiz/DailyTab.png",
-                "roi": [ 355, 195, 110, 40 ],
-                "threshold": 0.85
+                "all_of": [ "DailyMapClear" ]
             }
         }
     },
@@ -339,105 +293,13 @@
             }
         }
     },
-    "WantedDailyOpened": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "WantedDailyTab" ]
-            }
-        },
-        "post_wait_freezes": {
-            "time": 500,
-            "target": [ 350, 235, 600, 285 ]
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：日常锻炼窗口状态异常"
-        },
-        "timeout": 5000,
-        "next": [ "WantedJoin", "WantedJoinCapped", "WantedAlreadyDone", "WantedSelectRow", "WantedScrollList" ]
-    },
-    "WantedSelectRow": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "WantedRow" ]
-            }
-        },
-        "action": "Click",
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：选不中列表里的「通缉任务」"
-        },
-        "post_delay": 1000, // 详情原位替换，无中间状态；等待 1 秒后再判断是否需要重试。
-        "timeout": 5000,
-        "next": [ "WantedJoin", "WantedJoinCapped", "WantedAlreadyDone", "WantedSelectRowAgain" ]
-    },
-    // 首次点击可能只触发悬停；需在同一帧确认行存在且详情未切换。
-    "WantedSelectRowAgain": {
-        "max_hit": 8,
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "MatchWithout",
-                "custom_recognition_param": {
-                    "match": "WantedRow",
-                    "without": "WantedPanelTitle"
-                }
-            }
-        },
-        "action": "Click",
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：选不中列表里的「通缉任务」"
-        },
-        "post_delay": 1000, // 同上
-        "timeout": 5000,
-        "next": [ "WantedJoin", "WantedJoinCapped", "WantedAlreadyDone", "WantedSelectRowAgain" ]
-    },
-    // 已完成任务沉到列表底部；列表打开时在顶端，且不响应滚轮。
-    "WantedScrollList": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "WantedDailyTab" ]
-            }
-        },
-        "action": {
-            "type": "Swipe",
-            "param": {
-                "begin": [ 752, 275, 1, 1 ],
-                "end": [ 752, 520, 1, 1 ],
-                "duration": 500
-            }
-        },
-        "post_wait_freezes": {
-            "time": 500,
-            "target": [ 350, 235, 400, 285 ]
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：日常锻炼列表里找不到「通缉任务」（等级不够或活动没开）"
-        },
-        "timeout": 3000,
-        "next": [ "WantedSelectRow" ]
-    },
-    // 「参与」橙色像素实测：可用约 665，次数用完为 0。
-    "WantedJoinOrange": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": [ 822, 492, 62, 16 ],
-                "method": 40,
-                "lower": [ 3, 190, 150 ],
-                "upper": [ 30, 255, 255 ],
-                "count": 300
-            }
-        }
-    },
     // 参与预算：首次开始 + 2 次补做。
     "WantedJoin": {
         "max_hit": 3,
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "WantedPanelTitle", "WantedJoinOrange" ]
+                "all_of": [ "DailyJoinAvailable" ]
             }
         },
         "action": {
@@ -459,7 +321,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "WantedDailyTab", "WantedPanelTitle", "WantedJoinOrange" ]
+                "all_of": [ "DailyTab", "WantedPanelTitle", "DailyJoinAvailable" ]
             }
         },
         "action": {
@@ -479,7 +341,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "WantedPanelTitle", "WantedJoinOrange" ]
+                "all_of": [ "DailyJoinAvailable" ]
             }
         },
         "action": {
@@ -495,7 +357,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "WantedDailyTab" ]
+                "all_of": [ "DailyTab" ]
             }
         },
         "inverse": true,
@@ -512,26 +374,12 @@
             "Node.Action.Failed": "通缉任务失败：已经自动完成了 3 次，日常锻炼里通缉任务仍有剩余次数"
         }
     },
-    // 灰色像素实测：次数用完约 830，可参与时最多约 40。
+
     "WantedAlreadyDone": {
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [
-                    "WantedPanelTitle",
-                    {
-                        "recognition": {
-                            "type": "ColorMatch",
-                            "param": {
-                                "roi": [ 822, 492, 62, 16 ],
-                                "method": 40,
-                                "lower": [ 0, 0, 50 ],
-                                "upper": [ 180, 45, 150 ],
-                                "count": 400
-                            }
-                        }
-                    }
-                ]
+                "all_of": [ "DailyJoinUnavailable" ]
             }
         },
         "action": {
@@ -541,8 +389,7 @@
             }
         },
         "focus": {
-            "Node.Recognition.Succeeded": "今天的通缉任务已全部完成",
-            "Node.PipelineNode.Failed": "通缉任务：日常锻炼窗口关不上"
+            "Node.Recognition.Succeeded": "今天的通缉任务已全部完成"
         },
         "timeout": 5000,
         "next": [ "WantedDailyClosed" ]
@@ -551,7 +398,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "WantedDailyTab" ]
+                "all_of": [ "DailyTab" ]
             }
         },
         "inverse": true,

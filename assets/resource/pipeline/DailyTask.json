@@ -1,0 +1,217 @@
+// 通过 EnterDailyTask 调用：传入目标行、详情标题和页签；停在参与之前。
+{
+    "DailyTask": {
+        "timeout": 10000,
+        "next": [ "DailyWindowOpened", "DailyOpen" ]
+    },
+    "DailyMapClear": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/login/StaminaLabel.png",
+                "roi": [ 32, 84, 66, 61 ],
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    "DailyEntry": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": [ "ninjaQuiz/DailyEntry.png" ]
+                }
+            }
+        }
+    },
+    "DailyOpen": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyMapClear", "DailyEntry" ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "timeout": 10000,
+        "next": [ "DailyWindowOpened" ]
+    },
+    "DailyTab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "ninjaQuiz/DailyTab.png",
+                "roi": [ 355, 195, 110, 40 ],
+                "threshold": 0.85
+            }
+        }
+    },
+    // 限时页签：选中 1.0，日常活动页 0.52。
+    "DailyLimitedTab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "teamDungeon/HubLimitedTab.png",
+                "roi": [ 455, 195, 100, 40 ],
+                "threshold": 0.85
+            }
+        }
+    },
+    "DailyWindowOpened": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "DailyTab", "DailyLimitedTab" ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "DailyPageReady", "DailySwitchPage" ]
+    },
+    // 目标页签、任务行和标题由 EnterDailyTask 在克隆上下文中绑定。
+    "DailyTargetPage": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyTab" ]
+            }
+        }
+    },
+    "DailyPageReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyTargetPage" ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 500,
+            "target": [ 350, 235, 600, 285 ]
+        },
+        "timeout": 5000,
+        "next": [ "DailyTaskSelected", "DailyListTop" ]
+    },
+    "DailySwitchPage": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyWindowOpened" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 378, 207, 50, 14 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "DailyPageReady" ]
+    },
+    "DailyListTop": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyTargetPage" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 752, 520, 1, 1 ],
+                "end": [ 752, 275, 1, 1 ],
+                "duration": 500
+            }
+        },
+        "post_wait_freezes": {
+            "time": 500,
+            "target": [ 350, 235, 400, 285 ]
+        },
+        "timeout": 5000,
+        "next": [ "DailyTaskSelected", "DailySelectTask", "DailyListBottom" ]
+    },
+    "DailyListBottom": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyTargetPage" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 752, 275, 1, 1 ],
+                "end": [ 752, 520, 1, 1 ],
+                "duration": 500
+            }
+        },
+        "post_wait_freezes": {
+            "time": 500,
+            "target": [ 350, 235, 400, 285 ]
+        },
+        "timeout": 3000,
+        "next": [ "DailyTaskSelected", "DailySelectTask" ]
+    },
+    "DailySelectTask": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyTargetPage" ]
+            }
+        },
+        "action": "Click",
+        "timeout": 5000,
+        "next": [ "DailyTaskSelected" ]
+    },
+    "DailyTaskSelected": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyTargetPage" ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "DailyTaskReady" ]
+    },
+    // 参与按钮：橙色可用约 665；灰色不可用约 830、可用时 ≤100。
+    "DailyJoinAvailable": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 822, 492, 62, 16 ],
+                "method": 40,
+                "lower": [ 3, 190, 150 ],
+                "upper": [ 30, 255, 255 ],
+                "count": 300
+            }
+        }
+    },
+    "DailyJoinUnavailable": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 822, 492, 62, 16 ],
+                "method": 40,
+                "lower": [ 0, 0, 50 ],
+                "upper": [ 180, 45, 150 ],
+                "count": 400
+            }
+        }
+    },
+    "DailyJoinKnown": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "DailyJoinAvailable", "DailyJoinUnavailable" ]
+            }
+        }
+    },
+    "DailyTaskReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyTaskSelected", "DailyJoinKnown" ]
+            }
+        }
+    }
+}
