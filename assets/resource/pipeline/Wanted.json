@@ -1,17 +1,10 @@
-// 通缉任务：先选好队伍 → 顶部「日常锻炼」→ 日常活动列表里选中「通缉任务」→ 参与（自动寻路到通缉任务 NPC，到了自己弹出通缉任务窗口）
-// → 点「自动完成」→ 单人时弹「无法获得双倍经验」确认框，点「是」→ 窗口关掉，游戏自己跑完今天剩下的所有轮次：
-//   寻路到通缉目标 → 自动开战（战斗托管）→ 胜利 → 回 NPC 自动接下一个，中间不用点任何东西（实测 5 轮，每轮约 100 秒）。
-// 跑完的标志：角色停在最后一场战斗的地图上，没有「自动寻路中」、没有战斗、没有窗口。地图连续约 20 秒都是这样就当作停下来了，
-// 再打开日常锻炼核对：「参与」变灰（今天次数用完）才算完成；还是橙色就再参与一次（自动完成会接着做剩下的轮次）。
-// 战斗输了：游戏自己结束自动通缉并弹框提示，点掉弹框后任务失败（换队伍再来）。
-// 今天做过了：列表里这一行变灰（已完成）沉到最下面，右边「参与」也是灰的；认到灰「参与」就关掉日常锻炼窗口，正常结束。
-// 选队伍复用丰饶之间的 Abundance* 节点（和强者降临一样）：WantedSetTeam 先按 interface.json 里的 WantedTeam 选项把这些节点改到第 N 个标签；
-// 选完队伍后接哪里由 interface.json 里本任务的 pipeline_override 把 AbundanceTeamClose 的 next 改到 WantedOpenDaily。
+// 通缉自动完成会连续执行剩余轮次；地图闲置后仍须核对「参与」是否变灰。
+// 选队复用 Abundance*；interface.json 的 pipeline_override 将 AbundanceTeamClose 接到 WantedOpenDaily。
 {
     "WantedTask": {
         "next": [ "WantedSetTeam" ]
     },
-    // 第几个队伍由 interface.json 的 WantedTeam 选项覆盖 custom_action_param（1~8）；SetBossTeam 只是改 Abundance* 的选队伍节点，和强者降临共用
+    // WantedTeam 选项传入队伍编号（1~8），SetBossTeam 据此修改 Abundance* 选队节点。
     "WantedSetTeam": {
         "action": {
             "type": "Custom",
@@ -23,8 +16,6 @@
         "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
     },
 
-    // ===== 打开日常锻炼，找到通缉任务（开始时一次，跑完核对时再一次） =====
-    // 入口图标和「日常活动」页签和忍者测验是同一个，直接用它的模板
     "WantedDailyEntry": {
         "recognition": {
             "type": "Custom",
@@ -47,11 +38,11 @@
         "focus": {
             "Node.PipelineNode.Failed": "通缉任务失败：「日常锻炼」窗口没有打开"
         },
-        "post_delay": 1500, // 窗口有一段打开动画，中间没有可等的状态；1.5 秒后地图还没被压暗才算这一下没点上
+        "post_delay": 1500, // 窗口打开动画无中间状态，等待 1.5 秒后再判断是否需要重试。
         "timeout": 10000,
         "next": [ "WantedDailyOpened", "WantedOpenDailyAgain" ]
     },
-    // 体力标签没被遮罩压暗：地图上没有打开的窗口（战斗、加载画面里也没有这个标签）
+    // 体力标签未变暗表示地图无遮挡；战斗、加载时该标签也不可见。
     "WantedMapClear": {
         "recognition": {
             "type": "TemplateMatch",
@@ -63,8 +54,7 @@
             }
         }
     },
-    // 游戏窗口不在前台时第一下点击会被吞掉（图标变亮但窗口没开）；地图没被压暗、入口还在，再点一次。
-    // 跑完一轮要十分钟，用户中途切走窗口很常见，所以核对时也可能用到；每次打开最多补点 2 下，最多打开 4 次
+    // 窗口不在前台时首次点击可能只激活窗口，游戏不接收点击。
     "WantedOpenDailyAgain": {
         "max_hit": 8,
         "recognition": {
@@ -82,7 +72,6 @@
         "timeout": 10000,
         "next": [ "WantedDailyOpened", "WantedOpenDailyAgain" ]
     },
-    // 「日常活动」页签（选中状态），窗口打开时默认就在这一页
     "WantedDailyTab": {
         "recognition": {
             "type": "TemplateMatch",
@@ -93,7 +82,7 @@
             }
         }
     },
-    // 列表里「通缉任务」四个字：普通 / 选中 / 已完成（灰）底色都在 0.93 以上，别的行和别的画面最高 0.41
+    // 模板实测：普通/选中/已完成均 ≥0.93，其他行或画面最高 0.41。
     "WantedRow": {
         "recognition": {
             "type": "TemplateMatch",
@@ -104,7 +93,7 @@
             }
         }
     },
-    // 右侧详情的标题：选中了通缉任务这一行才会显示（1.0；选中别的行时最高 0.52）
+    // 详情标题仅在选中通缉任务时出现：1.0；其他行最高 0.52。
     "WantedPanelTitle": {
         "recognition": {
             "type": "TemplateMatch",
@@ -122,7 +111,6 @@
                 "all_of": [ "WantedDailyTab" ]
             }
         },
-        // 等打开动画停下来、列表画完，再判断这一行在不在
         "post_wait_freezes": {
             "time": 500,
             "target": [ 350, 235, 600, 285 ]
@@ -144,11 +132,11 @@
         "focus": {
             "Node.PipelineNode.Failed": "通缉任务失败：选不中列表里的「通缉任务」"
         },
-        "post_delay": 1000, // 选中后右侧详情直接换掉，中间没有别的状态；1 秒后还没换才算这一下没点上
+        "post_delay": 1000, // 详情原位替换，无中间状态；等待 1 秒后再判断是否需要重试。
         "timeout": 5000,
         "next": [ "WantedJoin", "WantedJoinCapped", "WantedAlreadyDone", "WantedSelectRowAgain" ]
     },
-    // 第一次点这一行可能只出悬停高亮、右侧详情没换；同一帧上看得到这一行、看不到详情标题才再点
+    // 首次点击可能只触发悬停；需在同一帧确认行存在且详情未切换。
     "WantedSelectRowAgain": {
         "max_hit": 8,
         "recognition": {
@@ -169,7 +157,7 @@
         "timeout": 5000,
         "next": [ "WantedJoin", "WantedJoinCapped", "WantedAlreadyDone", "WantedSelectRowAgain" ]
     },
-    // 第一页没有这一行（做完后会沉到最下面）：把滚动条从顶端拖到底（列表打开时总在顶端，滚轮对这个列表无效）
+    // 已完成任务沉到列表底部；列表打开时在顶端，且不响应滚轮。
     "WantedScrollList": {
         "recognition": {
             "type": "And",
@@ -195,7 +183,7 @@
         "timeout": 3000,
         "next": [ "WantedSelectRow" ]
     },
-    // 「参与」可点时是橙色（橙色像素约 665），今天次数用完后是灰色（0）；和忍者测验的「参与」是同一个按钮
+    // 「参与」橙色像素实测：可用约 665，次数用完为 0。
     "WantedJoinOrange": {
         "recognition": {
             "type": "ColorMatch",
@@ -208,9 +196,7 @@
             }
         }
     },
-    // 点了参与窗口就关掉，角色自动寻路到通缉任务 NPC，到了自己弹出通缉任务窗口。
-    // 第一次是开始；之后再命中说明跑完核对时还有次数（例如中途停了），再参与一次让自动完成接着做。
-    // max_hit 3：开始 1 次 + 补做 2 次，再有剩余就由 WantedJoinCapped 收尾
+    // 参与预算：首次开始 + 2 次补做。
     "WantedJoin": {
         "max_hit": 3,
         "recognition": {
@@ -228,12 +214,11 @@
         "focus": {
             "Node.PipelineNode.Failed": "通缉任务失败：点了参与，但没有出现通缉任务窗口"
         },
-        "post_delay": 1500, // 实测点上后日常锻炼窗口立刻关掉、开始寻路；1.5 秒后窗口还在才算这一下没点上
-        // 从别的地图过来要切地图（跑完时人停在野外），给足时间
+        "post_delay": 1500, // 点击后窗口立即关闭；等待 1.5 秒后再判断是否需要重试。
+        // 从野外参与需要切地图，超时包含寻路时间。
         "timeout": 90000,
         "next": [ "WantedAutoStart", "WantedJoinAgain" ]
     },
-    // 日常锻炼窗口还开着、「参与」还是橙色：上一下没点上，再点
     "WantedJoinAgain": {
         "max_hit": 2,
         "recognition": {
@@ -255,7 +240,6 @@
         "timeout": 90000,
         "next": [ "WantedAutoStart", "WantedJoinAgain" ]
     },
-    // 已经参与了 3 次，日常锻炼里还是可以参与：关掉窗口，再让任务失败
     "WantedJoinCapped": {
         "recognition": {
             "type": "And",
@@ -282,7 +266,6 @@
         "inverse": true,
         "next": [ "WantedCappedFailed" ]
     },
-    // 动作必失败的终止节点：已识别出「目标做不成」的状态，任务以 Failed 结束，原因写在这里
     "WantedCappedFailed": {
         "action": {
             "type": "Custom",
@@ -294,7 +277,7 @@
             "Node.Action.Failed": "通缉任务失败：已经自动完成了 3 次，日常锻炼里通缉任务仍有剩余次数"
         }
     },
-    // 灰色「参与」（灰色像素约 830，可点时最多约 40）：今天的次数已经用完；点右上角红叉（圆心约 989,188）关窗口
+    // 灰色像素实测：次数用完约 830，可参与时最多约 40。
     "WantedAlreadyDone": {
         "recognition": {
             "type": "And",
@@ -339,9 +322,8 @@
         "inverse": true,
         "next": [ "WantedInVillage", "WantedBackToVillage" ]
     },
-    // 自动完成打完后人停在最后一张战斗地图上，不回村。后面再跑别的任务（例如忍者测验要从木叶村南走路过去）会走很久直到超时，
-    // 所以收尾点右上角的叶子图标（鼠标放上去写着「无论身在何处，点击回到木叶村」，实测会读条加载后落在木叶村南）。
-    // 右上角地图名已经是「木叶村南」就不用点（点了也会白白重新加载一次）。
+    // 完成后停在野外，需回木叶村南，避免后续任务长途寻路超时。
+    // 回村图标会触发加载；已在木叶村南时点击仍会重新加载。
     "WantedInVillage": {
         "recognition": {
             "type": "TemplateMatch",
@@ -368,18 +350,16 @@
         "focus": {
             "Node.PipelineNode.Failed": "通缉任务：点了回村图标，但没有回到木叶村南"
         },
-        // 点完要读条加载，给 10 秒
         "timeout": 10000,
-        // 回村图标的悬浮说明会盖住地图名，先移开鼠标再确认回村。
+        // 回村图标的悬浮说明会遮住地图名，确认前需移开鼠标。
         "anchor": {
             "MouseMoveResetAnchor": "MouseMoveReset"
         },
         "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "WantedInVillage" ]
     },
 
-    // ===== 通缉任务窗口：自动完成 =====
-    // 窗口里「今日余下次数」几个字：窗口在时 0.89 以上（被确认框压暗也在），其他画面最高 0.27。
-    // 窗口位置固定，「自动完成」按钮就在它右边，直接点按钮的蓝色面（x 810~862，两端尖角不算）
+    // 窗口标签实测：含确认框遮罩时 ≥0.89，其他画面最高 0.27。
+    // 自动完成按钮仅蓝色面可点击（x 810~862），两端尖角不可点。
     "WantedRemainLabel": {
         "recognition": {
             "type": "TemplateMatch",
@@ -403,8 +383,7 @@
                 "target": [ 815, 291, 42, 11 ]
             }
         },
-        // 实测确认框 0.7 秒内弹出；点「是」之后窗口还要停 2~3.5 秒才关，中间没有别的状态可等。
-        // 5 秒后窗口还在、也没弹框才算这一下没点上（不弹框时窗口应该也一样会自己关掉）
+        // 确认框实测 0.7 秒内出现，确认后窗口还需 2~3.5 秒关闭，无中间状态；等待 5 秒再判重试。
         "post_delay": 5000,
         "focus": {
             "Node.PipelineNode.Failed": "通缉任务失败：点了自动完成，但通缉任务窗口没有关掉"
@@ -412,7 +391,6 @@
         "timeout": 10000,
         "next": [ "WantedSoloConfirm", "WantedStarted", "WantedAutoStartAgain" ]
     },
-    // 窗口还在、没有确认框：上一下没点上，再点
     "WantedAutoStartAgain": {
         "max_hit": 2,
         "recognition": {
@@ -438,7 +416,7 @@
         "timeout": 10000,
         "next": [ "WantedSoloConfirm", "WantedStarted", "WantedAutoStartAgain" ]
     },
-    // 单人时的确认框「你现在为单人状态，继续进行通缉任务将无法获得双倍经验奖励，是否继续本操作？」（1.0，其他画面最高 0.42）
+    // 单人确认框模板实测：1.0，其他画面最高 0.42。
     "WantedSoloText": {
         "recognition": {
             "type": "TemplateMatch",
@@ -449,8 +427,7 @@
             }
         }
     },
-    // 点「是」（只点两个卷纹之间的橙色面）。实测点上后确认框立刻消失，通缉任务窗口约 3 秒后自己关掉；
-    // 1 秒后确认框还在才算没点上，再点
+    // 确认按钮仅两侧卷纹之间可点击；确认框立即消失，任务窗口约 3 秒后关闭。
     "WantedSoloConfirm": {
         "max_hit": 3,
         "recognition": {
@@ -465,14 +442,13 @@
                 "target": [ 598, 425, 36, 9 ]
             }
         },
-        "post_delay": 1000, // 确认框消失后窗口要过一阵才关，中间没有别的状态可等
+        "post_delay": 1000, // 确认框消失后窗口延迟关闭，无中间状态。
         "focus": {
             "Node.PipelineNode.Failed": "通缉任务失败：点了自动完成，但通缉任务窗口没有关掉"
         },
         "timeout": 10000,
         "next": [ "WantedStarted", "WantedSoloConfirm" ]
     },
-    // 通缉任务窗口关掉了：游戏开始自己跑
     "WantedStarted": {
         "recognition": {
             "type": "And",
@@ -487,8 +463,7 @@
         "next": [ "WantedWaitDone" ]
     },
 
-    // ===== 等游戏跑完：地图连续约 20 秒没有窗口、没有「自动寻路中」 =====
-    // 「自动寻路中」横幅：显示时 0.99 以上，淡入淡出时 0.59~0.93，没有时最高 0.31
+    // 寻路横幅模板实测：显示时 ≥0.99，淡入淡出 0.59~0.93，无横幅时最高 0.31。
     "WantedPathing": {
         "recognition": {
             "type": "TemplateMatch",
@@ -499,7 +474,6 @@
             }
         }
     },
-    // 闲着的一帧：体力标签没被压暗（不在战斗、加载、窗口里），也没有「自动寻路中」
     "WantedIdleFrame": {
         "recognition": {
             "type": "Custom",
@@ -512,8 +486,7 @@
             }
         }
     },
-    // 一直等到地图闲下来；WantedIdle1~5 中间有一帧不闲就回到这里重新等。
-    // 20 分钟：实测 5 轮共约 8 分半，留出打得慢、轮次多的余量
+    // 超时依据：实测 5 轮共约 8 分半，预留较慢战斗和更多轮次的时间。
     "WantedWaitDone": {
         "focus": {
             "Node.PipelineNode.Failed": "通缉任务失败：20 分钟内角色一直没有停下来（一直在寻路、战斗或有窗口挡着）"
@@ -521,9 +494,8 @@
         "timeout": 1200000,
         "next": [ "WantedBattleLost", "WantedIdle1" ]
     },
-    // 战斗打输了：游戏自己结束自动通缉，弹框「很遗憾，由于你战斗失败，自动通缉任务结束，请调整好阵容后再来挑战吧！」，一直停在那里。
-    // 弹框在时文字都在 0.8 以上（实测 63 帧），单人确认框最高 0.53。点「确定」（只点两个卷纹之间的橙色面），框关掉后让任务失败；
-    // 不再参与：同一个队伍再打同一个目标还是会输
+    // 战败会结束自动通缉并停在失败提示框。
+    // 失败提示模板实测：63 帧均 ≥0.8，单人确认框最高 0.53；确认按钮仅卷纹之间可点。
     "WantedBattleLostText": {
         "recognition": {
             "type": "TemplateMatch",
@@ -548,7 +520,7 @@
                 "target": [ 655, 424, 32, 10 ]
             }
         },
-        "post_delay": 1000, // 弹框点上后直接消失，中间没有别的状态；1 秒后还在才算没点上
+        "post_delay": 1000, // 提示框立即消失，无中间状态；等待 1 秒后再判断是否需要重试。
         "timeout": 5000,
         "next": [ "WantedBattleLostClosed", "WantedBattleLost" ]
     },
@@ -562,7 +534,6 @@
         "inverse": true,
         "next": [ "WantedBattleLostFailed" ]
     },
-    // 动作必失败的终止节点：已识别出战斗失败，任务以 Failed 结束
     "WantedBattleLostFailed": {
         "action": {
             "type": "Custom",
@@ -574,11 +545,10 @@
             "Node.Action.Failed": "通缉任务失败：战斗失败，游戏结束了自动通缉，请换更强的队伍后再运行"
         }
     },
-    // 闲着的帧每 5 秒看一次，连续 5 次（约 20 秒）都闲才算跑完。
-    // 跑的过程中也会短暂地像闲着：刚切完地图、到 NPC 还没弹窗口、镜头平移时横幅暂时消失，实测最长约 9 秒。
-    // 这里只能靠时间区分，所以用 post_delay 隔开；就算误判，后面核对日常锻炼也会接着做
+    // 切地图、到达 NPC、镜头平移时会短暂呈闲置状态，实测最长约 9 秒。
+    // 无其他状态可区分，需间隔采样确认约 20 秒闲置，再核对日常次数。
     "WantedIdle1": {
-        "max_hit": 200, // 安全上限：每次跑的过程中短暂闲着都会命中一次
+        "max_hit": 200, // 安全上限：途中短暂闲置也会累计命中。
         "recognition": {
             "type": "And",
             "param": {
@@ -618,7 +588,6 @@
         "post_delay": 5000,
         "next": [ "WantedIdle5", "WantedWaitDone" ]
     },
-    // 停下来了：打开日常锻炼核对次数（灰「参与」→ 完成；橙「参与」→ 再参与一次）
     "WantedIdle5": {
         "recognition": {
             "type": "And",

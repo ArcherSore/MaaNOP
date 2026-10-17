@@ -199,9 +199,8 @@
         "next": "LevelingEntry"
     },
     "LoginPopupAppears": {
-        // 弹窗点中即消失；加载中或被上层弹窗遮罩挡住时点击被丢弃，隔 post_delay 后重新识别整张列表再点。
-        // 底层弹窗被遮罩变暗后仍能命中模板，列表顺序须把上层弹窗排在前面。
-        "max_hit": 12, // 每服点击预算，由 GetNextServer 重置；用尽后弹窗仍在则 LoginScreenClear 不命中，超时停止
+        // 加载中或被上层遮罩挡住时点击会丢失；下层弹窗变暗后仍能匹配，须按上层优先排序。
+        "max_hit": 12, // 每服点击预算，由 GetNextServer 重置。
         "recognition": {
             "type": "Custom",
             "param": {
@@ -217,13 +216,13 @@
             }
         },
         "pre_delay": 0,
-        "post_delay": 1000, // 点中后约 0.1s 消失；等足再识别，避免对已关闭弹窗补点到地图
+        "post_delay": 1000, // 弹窗点中后约 0.1 秒消失，等待后再识别，避免补点到地图。
         "action": { "type": "Click" },
         "next": [ "LoginPopupAppears", "LoginScreenClear" ],
         "on_error": "LoginPopupCloseFailed"
     },
     "LoginScreenClear": {
-        // 体力标签未被遮罩变暗：地图已加载且没有弹窗打开或正在加载（10001 对亮度敏感，遮罩下约 0.05）
+        // 10001 对亮度敏感，体力标签在遮罩下实测约 0.05，可用于确认地图无遮挡。
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -233,7 +232,7 @@
                 "threshold": 0.8
             }
         },
-        "post_delay": 2000, // 安静期：相邻弹窗间隔约 0.5s，2s 后仍无弹窗才离开
+        "post_delay": 2000, // 相邻弹窗实测间隔约 0.5 秒，需留出 2 秒安静期。
         "next": [ "LoginPopupAppears", "LoginScreenStillClear" ],
         "on_error": "LoginPopupCloseFailed"
     },

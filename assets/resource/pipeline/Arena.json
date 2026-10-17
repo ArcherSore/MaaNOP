@@ -1,5 +1,4 @@
 {
-    // ---------------一口气打到六道---------------
     "ArenaRankGrind": {
         "next": [ "WaitArenaMain", "GotoArena" ]
     },
@@ -100,8 +99,6 @@
         }
     },
 
-    // ---------------主题竞技场---------------
-    // 一直打到六道 / 九胜可领取
     "ThemeArena": {
         "next": [ "WaitThemeMain" ]
     },
@@ -173,7 +170,7 @@
         "action": "Click"
     },
 
-    // ---------------公共战斗流程（两个竞技场任务共用）---------------
+    // 两个竞技场任务共用战斗节点。
     "ArenaSceneLoaded": {
         "recognition": {
             "type": "And",

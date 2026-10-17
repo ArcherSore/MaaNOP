@@ -1,10 +1,7 @@
-// 丰饶之间：先选好队伍 → 打开丰饶之间，赏金试炼切到简单难度并开战 → 托管战斗 → 领收益，打到本日次数用完
 {
     "AbundanceRoom": {
         "next": [ "AbundanceSetTeam" ]
     },
-    // 第几个队伍由 interface.json 的 AbundanceTeam 选项覆盖 custom_action_param（1~8）；和强者降临、通缉任务、组队副本一样，
-    // SetBossTeam 把下面的 Abundance* 选队伍节点改到第 N 个标签
     "AbundanceSetTeam": {
         "action": {
             "type": "Custom",
@@ -16,7 +13,7 @@
         "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
     },
 
-    // ===== 选队伍：队伍标签从上到下编号 1~8，选中的标签是金色 =====
+    // 队伍标签从上到下编号 1~8；金色为选中，蓝色为可选，灰色为未解锁。
     "AbundanceGotoTeam": {
         "recognition": {
             "type": "Custom",
@@ -42,7 +39,6 @@
         "next": [ "AbundanceTeamSelected", "AbundanceClickTeam" ],
         "on_error": [ "AbundanceTeamLocked" ]
     },
-    // 既不是选中的（金色）也不是能点的（蓝色）：标签是灰的，队伍没解锁，一下都不点
     "AbundanceTeamLocked": {
         "focus": {
             "Node.Action.Succeeded": "设置的队伍还没解锁（标签是灰色的），已停止"
@@ -61,9 +57,7 @@
         },
         "next": [ "AbundanceTeamClose" ]
     },
-    // 点完标签要等一阵才会变金，期间不能再点：同一个标签连点两下会进入队伍改名，输入框会吞掉之后的第一次点击。
-    // 所以只在等待超时（网络慢/没点中）后才重点，最多 3 次
-    // 只点已解锁的标签：没选中的已解锁标签是蓝色，没解锁的是灰色
+    // 标签变金有延迟；连点会进入改名，输入框会吞掉后续第一次点击。
     "AbundanceClickTeam": {
         "max_hit": 3,
         "recognition": {
@@ -86,13 +80,12 @@
         "next": [ "AbundanceTeamSelected" ],
         "on_error": [ "AbundanceClickTeam", "AbundanceTeamFailed" ]
     },
-    // 标签点不亮（队伍没解锁等）：停下来，不要带着别的队伍去打
     "AbundanceTeamFailed": {
         "focus": {
             "Node.Action.Succeeded": "队伍未解锁"
         }
     },
-    // 点关闭偶尔会被吞掉：界面还在就接着点，直到关掉
+    // 关闭点击偶尔丢失，仅在忍者界面仍可识别时重试。
     "AbundanceTeamClose": {
         "max_hit": 15,
         "recognition": {
@@ -118,7 +111,6 @@
         }
     },
 
-    // ===== 丰饶之间：每打完一场回到这里，直到赏金试炼的次数用完 =====
     "AbundanceGotoRoom": {
         "recognition": {
             "type": "Custom",
@@ -142,7 +134,6 @@
         },
         "next": [ "AbundanceNoChance", "AbundanceSimple", "AbundanceLeftArrow" ]
     },
-    // 赏金试炼标题栏："本日剩余挑战次数 N次" / "本日次数已用完"
     "AbundanceTimesLeft": {
         "recognition": {
             "type": "TemplateMatch",
@@ -170,7 +161,7 @@
             "Node.Action.Succeeded": "丰饶之间本日挑战次数已用完"
         }
     },
-    // 赏金试炼默认先显示困难/极限/极限，要点左箭头翻到简单/普通/困难（每次打开都会重置）
+    // 每次打开都重置到「困难/极限/极限」页，简单难度在前一页。
     "AbundanceSimpleLabel": {
         "recognition": {
             "type": "TemplateMatch",
@@ -198,7 +189,7 @@
         "post_delay": 500,
         "next": [ "AbundanceSimple", "AbundanceLeftArrow" ]
     },
-    // 点简单关卡的中间区域（避开"查看掉落"和"扫荡"按钮）；鼠标悬停时关卡图会有火焰动画，所以认的是左上角的"简单"字样
+    // 悬停时关卡图有火焰动画，改用「简单」文字识别；点击区域避开「查看掉落」和「扫荡」。
     "AbundanceSimple": {
         "recognition": {
             "type": "And",
@@ -215,7 +206,6 @@
         "next": [ "AbundanceBattleStart" ]
     },
 
-    // ===== 开战 → 托管 / 加速 → 等关卡结算 =====
     "AbundanceBattleStart": {
         "recognition": {
             "type": "TemplateMatch",
@@ -273,7 +263,6 @@
         "next": [ "AbundanceResultConfirm" ],
         "on_error": [ "AbundanceBattleTimeoutProbe" ]
     },
-    // 等了 30 秒还没出胜利面板：还在战斗（看得到加速按钮）就再等一轮，否则直接去找面板
     "AbundanceBattleTimeoutProbe": {
         "recognition": {
             "type": "TemplateMatch",
@@ -285,7 +274,6 @@
         "next": [ "AbundanceSpeedOn" ],
         "on_error": [ "AbundanceResultConfirm" ]
     },
-    // 战斗胜利面板：不点就一直停着
     "AbundanceResultConfirm": {
         "recognition": {
             "type": "TemplateMatch",
@@ -297,7 +285,7 @@
         "action": "Click",
         "next": [ "AbundanceSettle" ]
     },
-    // 关卡结算：点"返回游戏"领收益（按钮上的倒计时数字会变，所以模板只截文字），然后回主界面接着打下一场
+    // 「返回游戏」按钮带动态倒计时，模板仅截取文字。
     "AbundanceSettle": {
         "recognition": {
             "type": "TemplateMatch",

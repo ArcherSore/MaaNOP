@@ -2,7 +2,6 @@
     "MidAutumnLanternEntry": {
         "next": [ "MidAutumnNoTickets", "StartMidAutumnLantern" ]
     },
-    // Reads the 剩余参与券 count; stop once it is 0.
     "MidAutumnNoTickets": {
         "recognition": {
             "type": "OCR",
@@ -73,8 +72,7 @@
         },
         "next": [ "MoveMouseAwayFromReset" ]
     },
-    // Reset sits on the Start button; a hovering cursor highlights Start
-    // and breaks its template match, so park the cursor on the spiral.
+    // Reset 与 Start 位置重叠；悬停高亮会干扰 Start 模板，需先移开鼠标。
     "MoveMouseAwayFromReset": {
         "action": {
             "type": "TouchMove",
@@ -84,7 +82,6 @@
         },
         "next": [ "WaitMidAutumnReset" ]
     },
-    // Hits once the Reset button is gone, i.e. the click took effect.
     "WaitMidAutumnReset": {
         "recognition": {
             "type": "TemplateMatch",

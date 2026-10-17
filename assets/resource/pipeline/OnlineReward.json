@@ -1,6 +1,4 @@
-// 在线领奖：福利大厅 → 在线礼包，点亮着的「领取」，没有亮着的就直接结束；不等倒计时。
-// 每次点「领取」后都要认到那个按钮变灰（已领取）才继续；认不到就是失败，不会盲目再点。
-// 「没有可领取的」是认出来的状态（页面画完且没有橙色按钮），不是 on_error 兜出来的。
+// 仅领取当前可领礼包，不等待倒计时。
 {
     "OnlineReward": {
         "focus": {
@@ -81,8 +79,8 @@
         "timeout": 15000,
         "next": [ "OnlineGiftReady" ]
     },
-    // 亮着的「领取」是橙色（鼠标悬停时变亮），倒计时中和已领取的是灰色；
-    // 先用模板（普通 / 悬停两张）找到按钮，再数按钮里的橙色像素：橙色约 290 个，灰色 0 个
+    // 可领取按钮悬停时变亮，需兼容两种外观。
+    // 橙色像素实测：可领取约 290，倒计时/已领取为 0。
     "OnlineClaimButton": {
         "recognition": {
             "type": "And",
@@ -130,11 +128,11 @@
             "Node.Action.Succeeded": "领取在线礼包",
             "Node.PipelineNode.Failed": "在线领奖失败：点了领取但按钮没有变成已领取"
         },
-        "max_hit": 6, // 一共 3 个礼包，只是保险
+        "max_hit": 6, // 共 3 个礼包，max_hit 为安全上限。
         "timeout": 4000,
         "next": [ "OnlineClaimTaken" ]
     },
-    // 刚点的那个按钮（OnlineClaim 上次识别到的位置）不再是橙色，才算领取生效
+    // 核对 OnlineClaim 上次命中的按钮位置，避免用其他礼包按钮判断领取结果。
     "OnlineClaimTaken": {
         "recognition": {
             "type": "ColorMatch",
@@ -153,7 +151,7 @@
         },
         "next": [ "OnlineClaim", "OnlineNoClaim" ]
     },
-    // 礼包页已画出后才判断有没有「领取」，避免把还没画好的空白当成领完
+    // 页面空白过渡期也没有橙色按钮，需先确认礼包页已绘制。
     "OnlineGiftReady": {
         "recognition": {
             "type": "TemplateMatch",
@@ -168,7 +166,6 @@
         },
         "next": [ "OnlineClaim", "OnlineNoClaim" ]
     },
-    // 没有亮着的「领取」；隔 1 秒再确认一次才算领完
     "OnlineNoClaim": {
         "recognition": {
             "type": "And",

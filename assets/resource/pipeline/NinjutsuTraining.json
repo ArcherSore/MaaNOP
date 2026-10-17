@@ -68,8 +68,7 @@
             "Node.Action.Succeeded": "忍术特训失败"
         }
     },
-    // The CustomAction invokes these nodes through context.run_recognition.
-    // Slot ROIs are supplied at runtime from action_ninjutsu_training.py.
+    // 由 action_ninjutsu_training.py 调用 run_recognition，槽位 ROI 在运行时传入。
     "HandSealRatTemplate": {
         "recognition": {
             "type": "TemplateMatch",

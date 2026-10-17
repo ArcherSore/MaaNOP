@@ -1,4 +1,3 @@
-// 生存演习：打完上一轮 → 领奖 → 有重置次数就重置、选难度 → 打新一轮 → 领奖
 {
     "SurvivalDrill": {
         "next": [ "SurvivalRound", "GotoSurvival" ]
@@ -44,7 +43,6 @@
             }
         }
     },
-    // 主界面能读到积分后，交给自定义动作：它按 SS→C 点关卡，直到积分满或次数用完
     "SurvivalRound": {
         "recognition": {
             "type": "And",
@@ -60,7 +58,7 @@
         },
         "next": [ "SurvivalClaim" ]
     },
-    // 动作点完关卡后用 run_task 从这里开始：要么进入战斗，要么出现"次数已用尽"提示
+    // 自定义动作通过 run_task 从此处等待挑战结果。
     "SurvivalStageOutcome": {
         "next": [ "SurvivalStartBattle", "SurvivalStageExhausted" ]
     },
@@ -72,7 +70,7 @@
                 "expected": [ "已用尽" ]
             }
         },
-        "post_delay": 2000 // 等提示"该区域挑战次数已用尽"消失
+        "post_delay": 2000 // 等待次数耗尽提示消退。
     },
     "SurvivalClaim": {
         "action": {
@@ -193,7 +191,6 @@
         "next": [ "[JumpBack]SurvivalSwitchConfirm", "SurvivalNoUnlockScroll", "SurvivalTabSelected",
             "SurvivalClickTab" ]
     },
-    // 极限之卷不足：改选精英
     "SurvivalNoUnlockScroll": {
         "recognition": {
             "type": "OCR",
@@ -244,7 +241,6 @@
         },
         "post_delay": 800
     },
-    // ===== 开战 → 自动/加速 → 确定 → 回到主界面 =====
     "SurvivalStartBattle": {
         "recognition": {
             "type": "TemplateMatch",
