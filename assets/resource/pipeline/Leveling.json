@@ -1140,27 +1140,62 @@
         "on_error": [ "ClickOnSasuke" ],
         "next": [ "FeedSasukeOnce" ]
     },
+    // 检测引导黄框上沿，避开文字和箭头动画干扰。
     "FeedSasukeOnce": {
-        "timeout": 5000,
-        "post_delay": 1000,
+        "timeout": 3000,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "ClickOnSasuke",
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 572, 334, 46, 4 ],
+                                "method": 40,
+                                "lower": [ 20, 60, 100 ],
+                                "upper": [ 40, 255, 255 ],
+                                "count": 60,
+                                "connected": true
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "max_hit": 3,
         "action": {
             "type": "Click",
             "param": {
                 "target": [ 578, 340, 32, 11 ] // feed once button
             }
         },
-        // 本节点无识别：选中或喂养点击丢失后均需重选 Sasuke 再喂。
-        "on_error": [ "ClickOnSasuke" ],
+        // 关闭引导表示喂养已完成；重试须确认喂养引导仍在，避免重复消耗。
+        "on_error": [ "ExitCharacterSystemAgain", "FeedSasukeOnce" ],
         "next": [ "ExitCharacterSystemAgain" ]
     },
     "ExitCharacterSystemAgain": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "leveling/flags/Eaten.png",
-                "roi": [ 549, 312, 92, 67 ],
-                "threshold": 0.9
+                "all_of": [
+                    "ClickOnSasuke",
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 1090, 98, 37, 5 ],
+                                "method": 40,
+                                "lower": [ 20, 60, 100 ],
+                                "upper": [ 40, 255, 255 ],
+                                "count": 60,
+                                "connected": true
+                            }
+                        }
+                    }
+                ]
             }
         },
         "action": {
