@@ -255,8 +255,8 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 23000,
-        "next": [ "SkipDialogue_新忍者登记" ]
+        "timeout": 30000,
+        "next": [ "SkipDialogue_新忍者登记", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "SkipDialogue_新忍者登记": {
         "timeout": 5000,
@@ -689,8 +689,8 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 21000,
-        "next": [ "CompleteMainTask_木叶丸的行踪" ]
+        "timeout": 30000,
+        "next": [ "CompleteMainTask_木叶丸的行踪", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_木叶丸的行踪": {
         "timeout": 5000,
@@ -759,8 +759,8 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 7000,
-        "next": [ "CompleteMainTask_向伊鲁卡报告" ]
+        "timeout": 30000,
+        "next": [ "CompleteMainTask_向伊鲁卡报告", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_向伊鲁卡报告": {
         "timeout": 5000,
@@ -964,7 +964,7 @@
         "next": [ "ConfirmRunning_初遇佐助" ]
     },
     "ConfirmRunning_初遇佐助": {
-        "timeout": 5000,
+        "timeout": 30000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -972,7 +972,7 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "next": [ "CompleteMainTask_初遇佐助" ]
+        "next": [ "CompleteMainTask_初遇佐助", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_初遇佐助": {
         "timeout": 5000,
@@ -1259,8 +1259,8 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 9000,
-        "next": [ "CompleteMainTask_开始修炼" ]
+        "timeout": 30000,
+        "next": [ "CompleteMainTask_开始修炼", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_开始修炼": {
         "timeout": 5000,
@@ -1658,8 +1658,8 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 55000,
-        "next": [ "CompleteMainTask_击退来袭狼群" ]
+        "timeout": 30000,
+        "next": [ "CompleteMainTask_击退来袭狼群", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_击退来袭狼群": {
         "timeout": 5000,
@@ -1709,8 +1709,8 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 33000,
-        "next": [ "CompleteMainTask_联系阿斯玛" ]
+        "timeout": 30000,
+        "next": [ "CompleteMainTask_联系阿斯玛", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_联系阿斯玛": {
         "timeout": 5000,
@@ -1960,8 +1960,8 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 37000,
-        "next": [ "ClickDialogue_前往生存试炼场" ]
+        "timeout": 30000,
+        "next": [ "ClickDialogue_前往生存试炼场", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "ClickDialogue_前往生存试炼场": {
         "timeout": 5000,
@@ -2300,8 +2300,8 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 71000,
-        "next": [ "SkipDialogue_护送达兹纳" ]
+        "timeout": 30000,
+        "next": [ "SkipDialogue_护送达兹纳", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "SkipDialogue_护送达兹纳": {
         "timeout": 5000,
@@ -2893,8 +2893,8 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 13000,
-        "next": [ "SkipDialogue_谨慎前行" ]
+        "timeout": 30000,
+        "next": [ "SkipDialogue_谨慎前行", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "SkipDialogue_谨慎前行": {
         "timeout": 5000,
@@ -3493,8 +3493,8 @@
                 "roi": [ 617, 126, 62, 66 ]
             }
         },
-        "timeout": 8000,
-        "next": [ "SkipDialogue_保护大桥" ]
+        "timeout": 30000,
+        "next": [ "SkipDialogue_保护大桥", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
     },
     "SkipDialogue_保护大桥": {
         "timeout": 5000,
@@ -4332,6 +4332,44 @@
                     "match": "QuestTaskList",
                     "without": "QuestBlocker"
                 }
+            }
+        }
+    },
+    /* ---------------------------------------- walk progress (shared) ---------------------------------------- */
+    // 网络慢时寻路途中会久无变化，固定 timeout 会误判卡死；命中这些进度画面即续等，timeout 只计静默时长。
+    "WalkAutoPathing": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "leveling/flags/Running.png",
+                "roi": [ 617, 126, 62, 66 ]
+            }
+        }
+    },
+    // 等待服务器响应的转圈，背景多变，故用 green_mask 只比对旋涡；宁可漏帧也不误判。
+    "WalkServerBusy": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "leveling/flags/ServerBusy/00.png", "leveling/flags/ServerBusy/01.png",
+                    "leveling/flags/ServerBusy/02.png", "leveling/flags/ServerBusy/03.png",
+                    "leveling/flags/ServerBusy/04.png", "leveling/flags/ServerBusy/05.png",
+                    "leveling/flags/ServerBusy/06.png", "leveling/flags/ServerBusy/07.png",
+                    "leveling/flags/ServerBusy/08.png", "leveling/flags/ServerBusy/09.png",
+                    "leveling/flags/ServerBusy/10.png", "leveling/flags/ServerBusy/11.png" ],
+                "roi": [ 640, 382, 60, 44 ],
+                "threshold": 0.7,
+                "green_mask": true
+            }
+        }
+    },
+    // ROI 须避开 QuestDialogComplete 的 OCR ROI，否则不能同列。
+    "WalkLoading": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 430, 404, 300, 24 ],
+                "expected": [ "LOADING" ]
             }
         }
     },
