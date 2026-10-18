@@ -189,10 +189,47 @@
     },
     "HandleConfirmPopup": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "illusion/ConfirmFlag.png",
-                "roi": [ 573, 393, 78, 65 ]
+                "all_of": [ "IllusionLowRewardWarning", "IllusionWarningConfirmText" ]
+            }
+        },
+        // 已勾选时直接确认，不再次点击小框将其取消。
+        "next": [ "IllusionWarningChecked", "IllusionWarningUnchecked" ]
+    },
+    "IllusionWarningChecked": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                // 未勾选绿色0，已勾选42；加载空壳为0。
+                "roi": [ 570, 447, 15, 15 ],
+                "method": 40,
+                "lower": [ 35, 120, 100 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 20
+            }
+        },
+        "next": "CloseConfirmPopup"
+    },
+    "IllusionWarningUnchecked": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                // 未选框内部暗色55，已选9。这里只分流，点击前仍重验正文。
+                "roi": [ 572, 451, 7, 8 ],
+                "method": 4,
+                "lower": [ 10, 10, 10 ],
+                "upper": [ 60, 60, 60 ],
+                "count": 40
+            }
+        },
+        "next": "CheckIllusionWarning"
+    },
+    "CheckIllusionWarning": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "IllusionLowRewardWarning", "IllusionWarningConfirmText", "IllusionWarningUnchecked" ]
             }
         },
         "action": {
@@ -201,18 +238,41 @@
                 "target": [ 574, 452, 5, 5 ]
             }
         },
+        "timeout": 5000,
         "next": [ "CloseConfirmPopup" ]
     },
     "CloseConfirmPopup": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "illusion/ConfirmFlag.png",
-                "roi": [ 573, 393, 78, 65 ]
+                "all_of": [
+                    "IllusionLowRewardWarning",
+                    "IllusionWarningConfirmText",
+                    "IllusionWarningChecked"
+                ],
+                "box_index": 1
             }
         },
         "action": {
             "type": "Click"
+        }
+    },
+    "IllusionLowRewardWarning": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "您的战力已有大幅度提升",
+                "roi": [ 557, 373, 225, 37 ]
+            }
+        }
+    },
+    "IllusionWarningConfirmText": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "^确定$",
+                "roi": [ 574, 414, 74, 23 ]
+            }
         }
     }
 }
