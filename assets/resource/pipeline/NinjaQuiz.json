@@ -1,9 +1,7 @@
 // 固定选择第一项，不识别答案；每题超时 30 秒由游戏判错并切换。
-// 已完成项目沉到列表底部；列表不响应滚轮。
 {
     "NinjaQuiz": {
-        "timeout": 15000,
-        "next": [ "QuizClaim", "QuizClaimed", "QuizSubmit", "QuizPickA", "QuizStartDialog", "QuizOpenDaily" ]
+        "next": [ "QuizOpenDaily" ]
     },
     "QuizOpenDaily": {
         "action": {
@@ -18,7 +16,7 @@
         },
         "next": [ "QuizJoin", "QuizAlreadyDone" ]
     },
-    // 列表行模板实测：普通/悬停/选中/已完成均 ≥0.9，其他行最高 0.55。
+    // 行模板兼容普通、悬停、选中和已完成状态。
     "QuizRow": {
         "recognition": {
             "type": "TemplateMatch",
@@ -114,7 +112,7 @@
         "action": "Click",
         // 测验窗口有约 2 秒开场动画，之后才出现第一题。
         "timeout": 15000,
-        "next": [ "QuizPickA", "QuizSubmit", "QuizClaim", "QuizClaimed" ]
+        "next": [ "QuizPickA" ]
     },
     // 窗口底部说明在答题和结算时均可见，且不被奖励飘字遮挡。
     "QuizWindowHint": {
@@ -127,8 +125,7 @@
             }
         }
     },
-    // 选项左半段避开文字；未选为浅色、已选为暗色，均为 420 像素。
-    // 切题过场与结算时两种颜色均接近 0。
+    // 选项左侧避开文字；浅色表示未选，暗色表示已选，过场与结算均不匹配。
     "QuizOptionAFresh": {
         "recognition": {
             "type": "ColorMatch",
@@ -153,7 +150,7 @@
             }
         }
     },
-    // 对错标记像素实测：红叉约 160、绿勾约 720，未提交为 0。
+    // 对错标记用于排除已提交、尚未切题的状态，避免重复提交。
     "QuizAnswerMark": {
         "recognition": {
             "type": "ColorMatch",
@@ -166,7 +163,6 @@
             }
         }
     },
-    // 窗口不在前台时选项点击可能丢失。
     // 共 10 题，max_hit 为丢失点击预留重试余量。
     "QuizPickA": {
         "max_hit": 30,
@@ -188,7 +184,7 @@
             "rate_limit": 100
         },
         "focus": {
-            "Node.PipelineNode.Failed": "忍者测验失败：点了第一个选项，但它没有被选中"
+            "Node.PipelineNode.Failed": "未能选择答案，请检查游戏画面后重试"
         },
         "timeout": 10000,
         "next": [ "QuizSubmit", "QuizPickA" ]
@@ -218,7 +214,7 @@
             "rate_limit": 100
         },
         "focus": {
-            "Node.PipelineNode.Failed": "忍者测验失败：提交后没有出现下一题或结算面板"
+            "Node.PipelineNode.Failed": "未能继续答题或进入领奖，请检查游戏画面后重试"
         },
         "timeout": 10000,
         "next": [ "QuizPickA", "QuizClaim", "QuizSubmit" ]
@@ -233,8 +229,7 @@
     },
 
     // 六边形领取按钮仅中部 x 635~676 可点，两端尖角和卷纹不可点。
-    // 橙色像素实测：可领取约 390，已领为 0；同位置开场图标约 260，需先用模板排除。
-    // 按钮模板实测：橙色 1.0、灰色 0.81，开场动画等画面 ≤0.43。
+    // 颜色区分可领取状态；模板排除同位置的橙色开场动画。
     "QuizClaim": {
         "recognition": {
             "type": "And",
@@ -279,12 +274,12 @@
         },
         "max_hit": 3,
         "focus": {
-            "Node.PipelineNode.Failed": "忍者测验失败：点了领取，但按钮没有变灰"
+            "Node.PipelineNode.Failed": "未能领取奖励，请检查游戏画面后重试"
         },
         "timeout": 5000,
         "next": [ "QuizClaimed", "QuizClaim" ]
     },
-    // 已领模板仅取按钮面：灰色 1.0，橙色 0.81。
+    // 已领模板仅取灰色按钮面，确认领取成功后再关闭。
     "QuizClaimed": {
         "recognition": {
             "type": "And",
@@ -311,7 +306,7 @@
             }
         },
         "focus": {
-            "Node.PipelineNode.Failed": "忍者测验：奖励已领取，但测验窗口关不上"
+            "Node.PipelineNode.Failed": "奖励已领取，但未能关闭窗口，请手动关闭后继续其他任务"
         },
         "timeout": 5000,
         "next": [ "QuizWindowClosed" ]
