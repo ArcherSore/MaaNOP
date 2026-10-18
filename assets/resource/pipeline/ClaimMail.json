@@ -23,14 +23,55 @@
     },
     "WaitMailAttachmentButton": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": [ "mail/Attachments.png", "mail/NoAttachments.png" ],
-                "roi": [ 775, 563, 65, 32 ],
-                "threshold": 0.75
+                // 同时确认邮件在前台，避免读到仓库遮罩下的底层文字。
+                "all_of": [
+                    "MailMainReady",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "expected": "附件仓库",
+                                "roi": [ 770, 560, 80, 35 ]
+                            }
+                        }
+                    }
+                ]
             }
         },
         "next": [ "ClickOnAttachments", "NoAttachments" ]
+    },
+    "MailMainReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "expected": "收件箱",
+                                "roi": [ 411, 237, 68, 26 ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                // 邮件前台 414，仓库及其加载遮罩为 0。
+                                "roi": [ 418, 241, 50, 14 ],
+                                "method": 40,
+                                "lower": [ 85, 100, 120 ],
+                                "upper": [ 115, 255, 255 ],
+                                "count": 200
+                            }
+                        }
+                    }
+                ]
+            }
+        }
     },
     "ClickOnAttachments": {
         "recognition": {
@@ -49,15 +90,27 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "pre_delay": 100,
-        "next": "MailClaimAll"
+        "timeout": 8000,
+        // 三个分支的 OCR ROI 互不重叠：提取、删除、仓库页脚。
+        "next": [ "MailClaimAll", "MailDeleteAll", "MailWarehouseEmpty" ]
     },
     "MailClaimAll": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "mail/ClaimAll.png",
-                "roi": [ 755, 519, 98, 67 ]
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "expected": "全部提取",
+                                "roi": [ 775, 539, 70, 29 ]
+                            }
+                        }
+                    },
+                    "MailClaimButtonBlue",
+                    "MailDeleteButtonGray"
+                ]
             }
         },
         "action": {
@@ -66,23 +119,120 @@
                 "custom_action": "PreciseClick"
             }
         },
+        "timeout": 8000,
+        "next": "MailClaimed"
+    },
+    "MailClaimed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                // 提取后每行显示已领取，提取变灰、删除变蓝。
+                // 仅删除按钮存在不算领取成功；加载空壳没有完整页脚。
+                "all_of": [ "MailWarehouseFooter", "MailClaimButtonGray", "MailDeleteButtonBlue" ]
+            }
+        },
         "focus": {
-            "Node.Action.Succeeded": "成功领取邮件附件"
+            "Node.Recognition.Succeeded": "成功领取邮件附件"
         },
         "next": "MailDeleteAll"
     },
     "MailDeleteAll": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "mail/DeleteAll.png",
-                "roi": [ 676, 518, 98, 68 ]
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "expected": "删除",
+                                "roi": [ 699, 542, 57, 22 ],
+                                "only_rec": true
+                            }
+                        }
+                    },
+                    "MailClaimButtonGray",
+                    "MailDeleteButtonBlue"
+                ]
             }
         },
         "action": {
             "type": "Custom",
             "param": {
                 "custom_action": "PreciseClick"
+            }
+        },
+        "timeout": 8000,
+        "next": "MailWarehouseEmpty"
+    },
+    "MailWarehouseFooter": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                // 只取页脚稳定短语，避免依赖整句和数字；仍须同时满足按钮状态。
+                "expected": "保存",
+                "roi": [ 488, 545, 195, 30 ]
+            }
+        }
+    },
+    "MailClaimButtonBlue": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                // 1007 实图：蓝态 260，灰态及仓库加载为 0；仅采样按钮内部。
+                "roi": [ 785, 545, 42, 14 ],
+                "method": 40,
+                "lower": [ 85, 100, 70 ],
+                "upper": [ 115, 255, 255 ],
+                "count": 130
+            }
+        }
+    },
+    "MailClaimButtonGray": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                // 蓝态 210，灰态 486，加载为 0。
+                "roi": [ 785, 545, 42, 14 ],
+                "method": 40,
+                "lower": [ 0, 0, 40 ],
+                "upper": [ 179, 45, 200 ],
+                "count": 350
+            }
+        }
+    },
+    "MailDeleteButtonBlue": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                // 蓝态 306，灰态及仓库加载为 0。
+                "roi": [ 707, 545, 42, 14 ],
+                "method": 40,
+                "lower": [ 85, 100, 70 ],
+                "upper": [ 115, 255, 255 ],
+                "count": 150
+            }
+        }
+    },
+    "MailDeleteButtonGray": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                // 蓝态 166，灰态 492，加载为 0。
+                "roi": [ 707, 545, 42, 14 ],
+                "method": 40,
+                "lower": [ 0, 0, 40 ],
+                "upper": [ 179, 45, 200 ],
+                "count": 350
+            }
+        }
+    },
+    "MailWarehouseEmpty": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                // 列表清空、两个按钮均灰，无额外确认框。
+                "all_of": [ "MailWarehouseFooter", "MailClaimButtonGray", "MailDeleteButtonGray" ]
             }
         },
         "next": "CloseAttachments"
@@ -101,23 +251,40 @@
         "focus": {
             "Node.Recognition.Succeeded": "无需领取邮件附件"
         },
-        "next": "CloseAttachments"
+        "next": [ "CloseMail" ]
     },
     "CloseAttachments": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "MailWarehouseEmpty" ] }
+        },
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 27
             }
         },
+        "timeout": 5000,
         "next": "CloseMail"
     },
     "CloseMail": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "MailMainReady" ] }
+        },
         "action": {
             "type": "ClickKey",
             "param": {
                 "key": 27
             }
+        },
+        "timeout": 5000,
+        "next": "MailClosed"
+    },
+    "MailClosed": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "LoginScreenClear" ] }
         },
         "next": [ "ClaimLevelEntry", "Login" ]
     }

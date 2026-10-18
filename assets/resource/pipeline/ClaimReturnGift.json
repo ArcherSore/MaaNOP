@@ -56,10 +56,21 @@
     },
     "ClaimReturnGift": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "returnGift/ClaimButton.png",
-                "roi": [ 572, 504, 165, 120 ]
+                "all_of": [
+                    "isClaimReturnGift",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "expected": "^领取$",
+                                "roi": [ 620, 548, 85, 35 ]
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
             }
         },
         "action": {
@@ -72,10 +83,22 @@
     },
     "ConfirmClaimReturnGift": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "returnGift/ConfirmButton.png",
-                "roi": [ 588, 369, 152, 120 ]
+                // 先识别实际到账回执，而不是任意弹框的“确定”。
+                "all_of": [
+                    "ReturnGiftRewardReceipt",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "expected": "^确定$",
+                                "roi": [ 635, 413, 75, 34 ]
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
             }
         },
         "action": {
@@ -84,10 +107,36 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "focus": {
-            "Node.Action.Succeeded": "成功领取回归礼包"
+        "next": [ "CloseClaimedReturnGift" ]
+    },
+    "ReturnGiftRewardReceipt": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "开启宝箱获得.*主角经验",
+                "roi": [ 570, 377, 220, 40 ]
+            }
+        }
+    },
+    "CloseClaimedReturnGift": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "CloseAllPopupsWithEsc"
+            }
         },
-        "next": [ "CloseReturnGift" ]
+        "timeout": 5000,
+        "next": "ReturnGiftClaimDone"
+    },
+    "ReturnGiftClaimDone": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "LoginScreenClear" ] }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "成功领取回归礼包"
+        },
+        "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
     },
     "noClaimReturnGift": {
         "recognition": {
@@ -108,6 +157,14 @@
             "param": {
                 "custom_action": "CloseAllPopupsWithEsc"
             }
+        },
+        "timeout": 5000,
+        "next": "ReturnGiftClosed"
+    },
+    "ReturnGiftClosed": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "LoginScreenClear" ] }
         },
         "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
     },
