@@ -182,42 +182,24 @@
             }
         }
     },
-    // 本日次数用单字模板：每天 5 次，OCR 实测漏读「3」。
-    // 9x11 数字模板实测：自身 1.0、遮罩下 0.96；「0」与 1~5 互相最高 0.71。
+    // 只读取本日奖励次数；数字区域直接识别，跳过小字检测。
     "TeamDungeonDailyLeft": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": [
-                    "teamDungeon/daily/1.png",
-                    "teamDungeon/daily/2.png",
-                    "teamDungeon/daily/3.png",
-                    "teamDungeon/daily/4.png",
-                    "teamDungeon/daily/5.png"
-                ],
                 "roi": [ 522, 564, 20, 17 ],
-                "threshold": 0.9
+                "expected": [ "^[1-5]$" ],
+                "only_rec": true
             }
         }
     },
     "TeamDungeonDailyNone": {
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "teamDungeon/daily/0.png",
-                "roi": [ 522, 564, 20, 17 ],
-                "threshold": 0.9
-            }
-        }
-    },
-    // 本周最多 20 次；单字模板会误认 10/20 中的 0，因此用 OCR 精确读「0」。
-    // 本周次数耗尽状态未经实测。
-    "TeamDungeonWeeklyNone": {
-        "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 442, 564, 24, 17 ],
-                "expected": [ "^0$" ]
+                "roi": [ 522, 564, 20, 17 ],
+                "expected": [ "^0$" ],
+                "only_rec": true
             }
         }
     },
@@ -250,17 +232,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [
-                    "TeamDungeonWindowFront",
-                    {
-                        "recognition": {
-                            "type": "Or",
-                            "param": {
-                                "any_of": [ "TeamDungeonDailyNone", "TeamDungeonWeeklyNone" ]
-                            }
-                        }
-                    }
-                ]
+                "all_of": [ "TeamDungeonWindowFront", "TeamDungeonDailyNone" ]
             }
         },
         "action": {
