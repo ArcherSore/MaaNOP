@@ -1172,8 +1172,12 @@
             }
         },
         // 关闭引导表示喂养已完成；重试须确认喂养引导仍在，避免重复消耗。
-        "on_error": [ "ExitCharacterSystemAgain", "FeedSasukeOnce" ],
+        "on_error": [ "ResumeSasukeFeeding" ],
         "next": [ "ExitCharacterSystemAgain" ]
+    },
+    "ResumeSasukeFeeding": {
+        "timeout": 3000,
+        "next": [ "ExitCharacterSystemAgain", "FeedSasukeOnce" ]
     },
     "ExitCharacterSystemAgain": {
         "timeout": 5000,
