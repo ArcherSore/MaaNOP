@@ -1238,7 +1238,18 @@
         },
         "post_delay": 1000,
         "on_error": [ "CompleteMainTask_开始修炼" ],
-        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "AcceptMainTask_击退来袭狼群" ]
+        "next": [ "EquipGearAfter开始修炼", "[JumpBack]CloseBottomRightPopups" ]
+    },
+    "EquipGearAfter开始修炼": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "EquipGear" ] }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": [ 1238, 599, 30, 12 ] }
+        },
+        "next": [ "EquipGearAfter开始修炼", "[JumpBack]CloseBottomRightPopups", "AcceptMainTask_击退来袭狼群" ]
     },
     /* ---------------------------------------- main task 击退来袭狼群 start ---------------------------------------- */
     "AcceptMainTask_击退来袭狼群": {
@@ -1626,8 +1637,18 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_击退来袭狼群" ],
-        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
-            "ClickOnMainTask_联系阿斯玛" ]
+        "next": [ "EquipGearAfter击退来袭狼群", "[JumpBack]CloseBottomRightPopups" ]
+    },
+    "EquipGearAfter击退来袭狼群": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "EquipGear" ] }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": [ 1238, 599, 30, 12 ] }
+        },
+        "next": [ "EquipGearAfter击退来袭狼群", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_联系阿斯玛" ]
     },
     /* ---------------------------------------- main task 联系阿斯玛 start ---------------------------------------- */
     "ClickOnMainTask_联系阿斯玛": {
@@ -1867,7 +1888,18 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_合战演练" ],
-        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_前往生存试炼场" ]
+        "next": [ "EquipGearAfter合战演练", "[JumpBack]CloseBottomRightPopups" ]
+    },
+    "EquipGearAfter合战演练": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "EquipGear" ] }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": [ 1238, 599, 30, 12 ] }
+        },
+        "next": [ "EquipGearAfter合战演练", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_前往生存试炼场" ]
     },
     /* ----------------------------------- main task 前往生存试炼场 start ----------------------------------- */
     "ClickOnMainTask_前往生存试炼场": {
@@ -2549,8 +2581,18 @@
             "Node.Recognition.Succeeded": "Level 11"
         },
         "on_error": [ "ConfirmMainCharLevel11" ],
-        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
-            "ClickOnCopy_谨慎前行" ]
+        "next": [ "EquipGearAfter护送达兹纳", "[JumpBack]CloseBottomRightPopups" ]
+    },
+    "EquipGearAfter护送达兹纳": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "EquipGear" ] }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": [ 1238, 599, 30, 12 ] }
+        },
+        "next": [ "EquipGearAfter护送达兹纳", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_谨慎前行" ]
     },
     "ClickOnCopy_谨慎前行": {
         "timeout": 5000,
@@ -2904,8 +2946,18 @@
             "type": "Click"
         },
         "on_error": [ "SkipDialogue_MainTask鬼人再不斩" ],
-        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
-            "ClickOnCopy_鬼人再不斩" ]
+        "next": [ "EquipGearAfter谨慎前行", "[JumpBack]CloseBottomRightPopups" ]
+    },
+    "EquipGearAfter谨慎前行": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "EquipGear" ] }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": [ 1238, 599, 30, 12 ] }
+        },
+        "next": [ "EquipGearAfter谨慎前行", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_鬼人再不斩" ]
     },
     "ClickOnCopy_鬼人再不斩": {
         "timeout": 5000,
@@ -3092,8 +3144,18 @@
             "Node.Recognition.Succeeded": "Level 13"
         },
         "on_error": [ "ConfirmMainCharLevel13" ],
-        "next": [ "[JumpBack]EquipGear", "[JumpBack]CloseBottomRightPopups",
-            "ClickOnCopy_保护大桥" ]
+        "next": [ "EquipGearAfter鬼人再不斩", "[JumpBack]CloseBottomRightPopups" ]
+    },
+    "EquipGearAfter鬼人再不斩": {
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "EquipGear" ] }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": [ 1238, 599, 30, 12 ] }
+        },
+        "next": [ "EquipGearAfter鬼人再不斩", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_保护大桥" ]
     },
     "ClickOnCopy_保护大桥": {
         "timeout": 5000,
@@ -4169,7 +4231,7 @@
             }
         }
     },
-    // 任务列表标志在过场、加载和装备成功的黑屏中不可见。
+    // 任务列表标志在过场、加载画面中不可见。
     "QuestTaskList": {
         "recognition": {
             "type": "TemplateMatch",
