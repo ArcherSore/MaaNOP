@@ -1,0 +1,85 @@
+// 通过 SelectTeam 动作调用，传入阵容编号（1～8）；选中后关闭忍者界面。
+{
+    "SelectTeam": {
+        "timeout": 10000,
+        "next": [ "SelectTeamWindow", "SelectTeamOpen" ]
+    },
+    "SelectTeamOpen": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindBottomEntry",
+                "custom_recognition_param": {
+                    "template": "common/entry/NinjaEntry.png"
+                }
+            }
+        },
+        "action": "Click",
+        "timeout": 10000,
+        "next": [ "SelectTeamWindow" ]
+    },
+    "SelectTeamWindow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/team/TeamTitle.png",
+                "roi": [ 236, 222, 100, 34 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "SelectTeamClose", "SelectTeamClick" ]
+    },
+    // 蓝色为可选；标签变金有延迟，连点会进入改名。
+    "SelectTeamClick": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 358, 235, 34, 12 ],
+                "method": 40,
+                "lower": [ 90, 100, 60 ],
+                "upper": [ 110, 255, 255 ],
+                "count": 120
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 360, 236, 30, 11 ]
+            }
+        },
+        "timeout": 6000,
+        "next": [ "SelectTeamClose" ]
+    },
+    // 金色确认目标阵容已选中，然后关闭一次。
+    "SelectTeamClose": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 358, 235, 34, 12 ],
+                "method": 40,
+                "lower": [ 8, 100, 60 ],
+                "upper": [ 25, 255, 255 ],
+                "count": 120
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1114, 108, 14, 14 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "SelectTeamDone" ]
+    },
+    "SelectTeamDone": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/login/StaminaLabel.png",
+                "roi": [ 32, 84, 66, 61 ],
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    }
+}

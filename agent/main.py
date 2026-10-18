@@ -3,7 +3,6 @@ import sys
 from maa.agent.agent_server import AgentServer
 from maa.tasker import Tasker
 
-import action_boss
 import action_common
 import action_entry
 import action_login

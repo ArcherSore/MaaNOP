@@ -1,19 +1,18 @@
 // 自动完成会连续执行剩余轮次；闲置后核对「参与」是否变灰。
-// 选队复用 Abundance*；interface.json 将 AbundanceTeamClose 接到 WantedTeamGate。
 {
     "WantedTask": {
         "next": [ "WantedSetTeam" ]
     },
-    // WantedTeam 传入阵容编号（1~8），复用 Abundance* 选阵容。
+    // WantedTeam 传入阵容编号（1~8）。
     "WantedSetTeam": {
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "SetBossTeam",
+                "custom_action": "SelectTeam",
                 "custom_action_param": 1
             }
         },
-        "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
+        "next": [ "WantedTeamGate" ]
     },
     // WantedSoloTeam 选项切换到组队流程。
     "WantedTeamGate": {

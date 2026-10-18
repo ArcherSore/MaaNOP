@@ -1,3 +1,4 @@
+import json
 import time
 
 from maa.agent.agent_server import AgentServer
@@ -6,6 +7,37 @@ from maa.context import Context
 from maa.pipeline import JActionType, JClickKey
 
 from common import click_center
+
+
+TEAM_TAB_Y = [235, 256, 276, 297, 317, 338, 358, 379]
+
+
+@AgentServer.custom_action("SelectTeam")
+class SelectTeam(CustomAction):
+    """选中指定阵容并关闭忍者界面，编号从上到下为 1～8。"""
+
+    def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
+        team = int(json.loads(argv.custom_action_param))
+        if not 1 <= team <= len(TEAM_TAB_Y):
+            return False
+
+        y = TEAM_TAB_Y[team - 1]
+        roi = [358, y, 34, 12]
+        selection = context.clone()
+        result = selection.run_task(
+            "SelectTeam",
+            pipeline_override={
+                "SelectTeamClose": {"recognition": {"param": {"roi": roi}}},
+                "SelectTeamClick": {
+                    "recognition": {"param": {"roi": roi}},
+                    "action": {"param": {"target": [360, y + 1, 30, 11]}},
+                },
+            },
+        )
+        if context.tasker.stopping:
+            return False
+        nodes = result.nodes if result else []
+        return bool(nodes and nodes[-1].name == "SelectTeamDone")
 
 
 @AgentServer.custom_action("PreciseClick")

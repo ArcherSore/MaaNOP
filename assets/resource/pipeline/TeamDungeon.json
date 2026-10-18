@@ -4,7 +4,6 @@
 // 重开窗口默认推荐页，全部副本列表回到顶端，卡片难度回到各副本已解锁的最高档。
 // 精英忍者界面未经实测；后续战斗继续托管，非战斗中的「精英」界面则停止并报告。
 // 卡片标题框（44x66）是难度栏、箭头和卡片点击区域的共同偏移基准。
-// 选队复用 Abundance*；interface.json 将 AbundanceTeamClose 接到 TeamDungeonOpenDaily。
 {
     "TeamDungeon": {
         "next": [ "TeamDungeonSetTeam" ]
@@ -14,11 +13,11 @@
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "SetBossTeam",
+                "custom_action": "SelectTeam",
                 "custom_action_param": 1
             }
         },
-        "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
+        "next": [ "TeamDungeonOpenDaily" ]
     },
 
     "TeamDungeonOpenDaily": {

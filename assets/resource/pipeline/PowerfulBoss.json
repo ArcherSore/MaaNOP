@@ -1,5 +1,4 @@
 // 沿用游戏记住的上次难度，不自动选择难度。
-// 选队复用 Abundance*；interface.json 将 AbundanceTeamClose 接到 BossGotoWindow。
 {
     "PowerfulBoss": {
         "next": [ "BossSetTeam" ]
@@ -9,11 +8,11 @@
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "SetBossTeam",
+                "custom_action": "SelectTeam",
                 "custom_action_param": 1
             }
         },
-        "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
+        "next": [ "BossGotoWindow" ]
     },
 
     "BossGotoWindow": {

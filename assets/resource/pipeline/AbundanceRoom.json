@@ -6,109 +6,11 @@
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "SetBossTeam",
+                "custom_action": "SelectTeam",
                 "custom_action_param": 1
             }
         },
-        "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
-    },
-
-    // 队伍标签从上到下编号 1~8；金色为选中，蓝色为可选，灰色为未解锁。
-    "AbundanceGotoTeam": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "FindBottomEntry",
-                "custom_recognition_param": {
-                    "template": "common/entry/NinjaEntry.png"
-                }
-            }
-        },
-        "action": "Click",
-        "next": [ "AbundanceTeamScreen" ]
-    },
-    "AbundanceTeamScreen": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "abundance/TeamTitle.png",
-                "roi": [ 236, 222, 100, 34 ]
-            }
-        },
-        "timeout": 5000,
-        "next": [ "AbundanceTeamSelected", "AbundanceClickTeam" ],
-        "on_error": [ "AbundanceTeamLocked" ]
-    },
-    "AbundanceTeamLocked": {
-        "focus": {
-            "Node.Action.Succeeded": "设置的队伍还没解锁（标签是灰色的），已停止"
-        }
-    },
-    "AbundanceTeamSelected": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": [ 358, 235, 34, 12 ],
-                "method": 40,
-                "lower": [ 8, 100, 60 ],
-                "upper": [ 25, 255, 255 ],
-                "count": 120
-            }
-        },
-        "next": [ "AbundanceTeamClose" ]
-    },
-    // 标签变金有延迟；连点会进入改名，输入框会吞掉后续第一次点击。
-    "AbundanceClickTeam": {
-        "max_hit": 3,
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": [ 358, 235, 34, 12 ],
-                "method": 40,
-                "lower": [ 90, 100, 60 ],
-                "upper": [ 110, 255, 255 ],
-                "count": 120
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 360, 236, 30, 11 ]
-            }
-        },
-        "timeout": 6000,
-        "next": [ "AbundanceTeamSelected" ],
-        "on_error": [ "AbundanceClickTeam", "AbundanceTeamFailed" ]
-    },
-    "AbundanceTeamFailed": {
-        "focus": {
-            "Node.Action.Succeeded": "队伍未解锁"
-        }
-    },
-    // 关闭点击偶尔丢失，仅在忍者界面仍可识别时重试。
-    "AbundanceTeamClose": {
-        "max_hit": 15,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "abundance/TeamTitle.png",
-                "roi": [ 236, 222, 100, 34 ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 1114, 108, 14, 14 ]
-            }
-        },
-        "post_delay": 1000,
-        "next": [ "AbundanceGotoRoom", "AbundanceTeamClose" ],
-        "on_error": [ "AbundanceTeamCloseFailed" ]
-    },
-    "AbundanceTeamCloseFailed": {
-        "focus": {
-            "Node.Action.Succeeded": "关不掉忍者界面，已停止"
-        }
+        "next": [ "AbundanceGotoRoom" ]
     },
 
     "AbundanceGotoRoom": {
