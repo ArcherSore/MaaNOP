@@ -3,7 +3,6 @@
     "PowerfulBoss": {
         "next": [ "BossSetTeam" ]
     },
-    // BossTeam 选项传入队伍编号（1~8）。
     "BossSetTeam": {
         "action": {
             "type": "Custom",
@@ -14,7 +13,6 @@
         },
         "next": [ "BossGotoWindow" ]
     },
-
     "BossGotoWindow": {
         "recognition": {
             "type": "Custom",
@@ -26,11 +24,8 @@
             }
         },
         "action": "Click",
-        "focus": {
-            "Node.PipelineNode.Failed": "「强者降临」无法打开"
-        },
         "timeout": 10000,
-        "next": [ "BossAttemptsNone", "BossEnterBattle", "BossAttemptsCapped" ]
+        "next": [ "BossAttemptsNone", "BossEnterBattle" ]
     },
     // 「本周可用普通奖励次数」是强者降临窗口独有标识。
     "BossWindowFooter": {
@@ -79,9 +74,7 @@
         "timeout": 5000,
         "next": [ "BossWindowClosed" ]
     },
-    // 每周 6 次普通奖励；max_hit 为次数误识别设置安全上限。
     "BossEnterBattle": {
-        "max_hit": 12,
         "recognition": {
             "type": "And",
             "param": {
@@ -103,59 +96,20 @@
         },
         "action": "Click",
         "focus": {
-            "Node.PipelineNode.Failed": "「强者降临」失败：点了进入战斗但没有进入战斗画面"
+            "Node.Recognition.Succeeded": "开始一次「强者降临」"
         },
-        "next": [ "BossBattleStart", "BossAutoOn", "BossAutoOff" ]
+        "next": [ "BossBattleStart" ]
     },
-    // 开战按钮倒计时每秒变化，模板仅截文字。
     "BossBattleStart": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "powerfulBoss/BattleStart.png",
-                "roi": [ 560, 430, 220, 50 ],
-                "threshold": 0.85
+                "expected": [ "开战" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": "Click",
         "next": [ "BossAutoOn", "BossAutoOff" ]
-    },
-    "BossAttemptsCapped": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "BossWindowFooter", "BossAttemptsLeft" ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 942, 249, 18, 18 ]
-            }
-        },
-        "timeout": 5000,
-        "next": [ "BossCappedClosed" ]
-    },
-    "BossCappedClosed": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "BossWindowFooter" ]
-            }
-        },
-        "inverse": true,
-        "next": [ "BossCappedFailed" ]
-    },
-    "BossCappedFailed": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "FalseAction"
-            }
-        },
-        "focus": {
-            "Node.Action.Failed": "「强者降临」失败：已连续打了 12 场，窗口里的次数仍没用完（安全上限），请检查次数读数"
-        }
     },
     "BossWindowClosed": {
         "recognition": {
@@ -166,7 +120,7 @@
         },
         "inverse": true,
         "focus": {
-            "Node.Recognition.Succeeded": "「强者降临」已完成：本周普通奖励次数已用完"
+            "Node.Recognition.Succeeded": "「强者降临」本周普通奖励次数已用完"
         }
     },
 
@@ -191,7 +145,6 @@
         "action": "Click",
         "next": [ "BossSpeedOn", "BossSpeedOff" ]
     },
-    // 超时依据：三波敌人，普通难度实测约半分钟。
     "BossSpeedOn": {
         "recognition": {
             "type": "TemplateMatch",
@@ -201,7 +154,7 @@
             }
         },
         "timeout": 600000,
-        "next": [ "BossBattleWon", "BossBattleLost" ]
+        "next": [ "BossBattleWon" ]
     },
     "BossSpeedOff": {
         "recognition": {
@@ -213,25 +166,15 @@
         },
         "action": "Click",
         "timeout": 600000,
-        "next": [ "BossBattleWon", "BossBattleLost" ]
+        "next": [ "BossBattleWon" ]
     },
 
-    // 胜败面板共用确认按钮，需以「胜」「败」字区分并等待动画稳定。
+    // 结果确认按钮，需同时识别胜利标识，且等待按钮出现后再点击。
     "BossBattleWonFlag": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "template": "powerfulBoss/BattleWon.png",
-                "roi": [ 540, 260, 260, 230 ],
-                "threshold": 0.8
-            }
-        }
-    },
-    "BossBattleLostFlag": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "powerfulBoss/BattleLost.png",
                 "roi": [ 540, 260, 260, 230 ],
                 "threshold": 0.8
             }
@@ -258,7 +201,7 @@
         "timeout": 15000,
         "next": [ "BossRewardConfirm" ]
     },
-    // 单人最高难度实测在奖励确认后多出「通关评分」弹窗，低难度没有。
+    // 最高难度领奖后还有评分弹窗，须确认后才能重新打开入口。
     "BossScoreTitle": {
         "recognition": {
             "type": "TemplateMatch",
@@ -295,18 +238,7 @@
                 "target": [ 640, 496, 50, 10 ]
             }
         },
-        "next": [ "BossScoreClosed" ]
-    },
-    "BossScoreClosed": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "BossScoreTitle" ]
-            }
-        },
-        "inverse": true,
-        "timeout": 8000,
-        "next": [ "BossGotoWindow" ]
+        "next": [ "BossMapReady" ]
     },
     "BossRewardTitle": {
         "recognition": {
@@ -318,6 +250,7 @@
             }
         }
     },
+    // 普通领奖为「确定」，评分领奖为「查看分数」；后者只匹配较稳定的「分数」，并用奖励标题限定界面。
     "BossRewardConfirm": {
         "recognition": {
             "type": "And",
@@ -326,11 +259,11 @@
                     "BossRewardTitle",
                     {
                         "recognition": {
-                            "type": "TemplateMatch",
+                            "type": "OCR",
                             "param": {
-                                "template": "powerfulBoss/RewardConfirm.png",
+                                "expected": [ "^确定$", "分数$" ],
                                 "roi": [ 600, 455, 125, 45 ],
-                                "threshold": 0.8
+                                "threshold": 0.6
                             }
                         }
                     }
@@ -344,53 +277,19 @@
                 "target": [ 640, 471, 50, 12 ]
             }
         },
-        "next": [ "BossRewardClosed" ]
-    },
-    // 顶部入口在弹窗遮罩下仍可识别，但点击被吞；需等弹窗关闭。
-    "BossRewardClosed": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "BossRewardTitle" ]
-            }
-        },
-        "inverse": true,
         "timeout": 8000,
-        "next": [ "BossScoreConfirm", "BossGotoWindow" ]
+        "next": [ "BossScoreConfirm", "BossMapReady" ]
     },
 
-    // 战败不扣奖励次数；停止重试，避免反复挑战同一难度。
-    "BossBattleLost": {
+    // 顶部入口在遮罩下仍可识别；用未压暗的体力标识确认弹窗已关闭。
+    "BossMapReady": {
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "BossBattleLostFlag", "BossResultButton" ],
-                "box_index": 1
+                "all_of": [ "DailyMapClear" ]
             }
         },
-        "action": "Click",
         "timeout": 8000,
-        "next": [ "BossBattleLostClosed" ]
-    },
-    "BossBattleLostClosed": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "BossBattleLostFlag" ]
-            }
-        },
-        "inverse": true,
-        "next": [ "BossBattleFailed" ]
-    },
-    "BossBattleFailed": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "FalseAction"
-            }
-        },
-        "focus": {
-            "Node.Action.Failed": "「强者降临」战斗失败，请换个能打过的难度或队伍"
-        }
+        "next": [ "BossGotoWindow" ]
     }
 }
