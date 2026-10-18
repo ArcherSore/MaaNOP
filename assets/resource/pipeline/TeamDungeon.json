@@ -1,14 +1,9 @@
 // 单人组队副本；副本与难度由 interface.json 覆盖 TeamDungeonCard / TeamDungeonDiffTarget 模板。
-// 实测（2026-10-14，1007 区 78 级）：
-// 战败只短暂显示「败北」，随后重开副本窗口且不扣次数；未经过结算就回窗口视为战败。
-// 重开窗口默认推荐页，全部副本列表回到顶端，卡片难度回到各副本已解锁的最高档。
-// 精英忍者界面未经实测；后续战斗继续托管，非战斗中的「精英」界面则停止并报告。
 // 卡片标题框（44x66）是难度栏、箭头和卡片点击区域的共同偏移基准。
 {
     "TeamDungeon": {
         "next": [ "TeamDungeonSetTeam" ]
     },
-    // TeamDungeonTeam 选项传入队伍编号（1~8）。
     "TeamDungeonSetTeam": {
         "action": {
             "type": "Custom",
@@ -34,15 +29,6 @@
         },
         "next": [ "TeamDungeonJoin", "TeamDungeonJoinGrey" ]
     },
-    "TeamDungeonMapClear": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "DailyMapClear" ]
-            }
-        }
-    },
-    // 列表行模板实测：选中 1.0、未选中 0.93，其他画面最高 0.31。
     // 限时活动顺序随今日活动/预告变化，不能使用固定行号。
     "TeamDungeonRow": {
         "recognition": {
@@ -54,7 +40,6 @@
             }
         }
     },
-    // 详情标题模板实测：选中 1.0，其他行 0.60。
     "TeamDungeonPanelTitle": {
         "recognition": {
             "type": "TemplateMatch",
@@ -66,7 +51,6 @@
         }
     },
 
-    // 参与后直接打开副本窗口，无寻路过程，实测约 2 秒。
     "TeamDungeonJoin": {
         "recognition": {
             "type": "And",
@@ -80,35 +64,13 @@
                 "target": [ 834, 494, 40, 13 ]
             }
         },
-        "post_delay": 1500, // 点击后日常窗口立即关闭；等待 1.5 秒后再判断是否需要重试。
         "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：点了「参与」，组队副本窗口没有打开"
+            "Node.Recognition.Succeeded": "开始「组队副本」ing"
         },
-        "timeout": 15000,
-        "next": [ "TeamDungeonWindow", "TeamDungeonJoinAgain" ]
+        "timeout": 5000,
+        "next": [ "TeamDungeonWindow" ]
     },
-    "TeamDungeonJoinAgain": {
-        "max_hit": 2,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "DailyLimitedTab", "TeamDungeonPanelTitle", "DailyJoinAvailable" ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 834, 494, 40, 13 ]
-            }
-        },
-        "post_delay": 1500, // 同上
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：点了「参与」，组队副本窗口没有打开"
-        },
-        "timeout": 15000,
-        "next": [ "TeamDungeonWindow", "TeamDungeonJoinAgain" ]
-    },
-    // 灰色仅表示不可参与，不推断任务已完成。
+    // 灰色表示活动未开放；关闭日常窗口后正常结束。
     "TeamDungeonJoinGrey": {
         "recognition": {
             "type": "And",
@@ -122,6 +84,9 @@
                 "target": [ 985, 184, 8, 8 ]
             }
         },
+        "focus": {
+            "Node.Recognition.Succeeded": "「组队副本」未开放..."
+        },
         "timeout": 5000,
         "next": [ "TeamDungeonJoinGreyClosed" ]
     },
@@ -132,22 +97,9 @@
                 "all_of": [ "DailyLimitedTab" ]
             }
         },
-        "inverse": true,
-        "next": [ "TeamDungeonJoinGreyFailed" ]
+        "inverse": true
     },
-    "TeamDungeonJoinGreyFailed": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "FalseAction"
-            }
-        },
-        "focus": {
-            "Node.Action.Failed": "组队副本失败：日常锻炼里组队副本的「参与」是灰的，进不去（开放时间 08:00~24:00）"
-        }
-    },
-
-    // 10001 模板实测：前台窗口 ≥0.95，公告遮挡时 0.947，弹窗遮罩下为 0。
+    // 用 10001 排除遮罩下的窗口，避免对弹窗下方操作。
     "TeamDungeonWindowFront": {
         "recognition": {
             "type": "TemplateMatch",
@@ -159,7 +111,7 @@
             }
         }
     },
-    // 普通匹配在遮罩下仍能命中，用于判断窗口是否关闭。
+    // 关闭检查使用普通匹配：被遮罩覆盖不等于窗口已关闭。
     "TeamDungeonWindowAny": {
         "recognition": {
             "type": "TemplateMatch",
@@ -170,7 +122,7 @@
             }
         }
     },
-    // 10001 页签模板实测：选中 1.0，未选中 0.62，遮罩下 ≤0.17。
+    // 必须识别选中状态；未选中时也显示「全部副本」，不能只用 OCR。
     "TeamDungeonAllTab": {
         "recognition": {
             "type": "TemplateMatch",
@@ -182,17 +134,7 @@
             }
         }
     },
-    // 只读取本日奖励次数；数字区域直接识别，跳过小字检测。
-    "TeamDungeonDailyLeft": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 522, 564, 20, 17 ],
-                "expected": [ "^[1-5]$" ],
-                "only_rec": true
-            }
-        }
-    },
+    // 每次打开或返回副本窗口时检查本日次数；为 0 就结束。
     "TeamDungeonDailyNone": {
         "recognition": {
             "type": "OCR",
@@ -214,9 +156,6 @@
         "post_wait_freezes": {
             "time": 500,
             "target": [ 390, 260, 580, 300 ]
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：组队副本窗口里认不出当前状态（可能被别的弹窗挡住）"
         },
         "timeout": 10000,
         "next": [
@@ -241,9 +180,6 @@
                 "target": [ 985, 214, 10, 10 ]
             }
         },
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：次数已用完，但组队副本窗口点了关闭没关上"
-        },
         "timeout": 5000,
         "next": [ "TeamDungeonClosed" ]
     },
@@ -256,18 +192,22 @@
         },
         "inverse": true,
         "focus": {
-            "Node.Recognition.Succeeded": "组队副本完成：今日奖励次数已用完"
+            "Node.Recognition.Succeeded": "「组队副本」今日奖励次数已用完"
         }
     },
-    // 重开窗口默认回推荐页，需重新选择全部副本。
+    // 重开默认推荐页；仅在窗口在前台且全部页未选中时补点。
     "TeamDungeonShowAll": {
         "pre_delay": 0,
         "post_delay": 0,
-        "max_hit": 20, // 安全上限：每场打完都要切一次
+        "max_hit": 20,
         "recognition": {
-            "type": "And",
+            "type": "Custom",
             "param": {
-                "all_of": [ "TeamDungeonWindowFront" ]
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "TeamDungeonWindowFront",
+                    "without": "TeamDungeonAllTab"
+                }
             }
         },
         "action": {
@@ -280,9 +220,6 @@
             "time": 300,
             "target": [ 390, 260, 580, 300 ]
         },
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：点了「全部副本」页签，没有切过去"
-        },
         "timeout": 5000,
         "next": [
             "TeamDungeonCardFound",
@@ -292,8 +229,7 @@
             "TeamDungeonShowAll"
         ]
     },
-    // 卡片模板实测：自身 1.0，其他卡片/画面最高 0.36，边缘裁掉半张仍约 0.95。
-    // ROI 底边限制为 y 490，确保标题顶部 ≤420，下方难度栏仍在可点击范围。
+    // 限制标题识别范围，确保下方难度栏和卡片点击区域完整可见。
     "TeamDungeonCard": {
         "recognition": {
             "type": "TemplateMatch",
@@ -315,10 +251,9 @@
             }
         },
         "timeout": 5000,
-        "next": [ "TeamDungeonRaise", "TeamDungeonAtMax" ]
+        "next": [ "TeamDungeonDiffTarget", "TeamDungeonLower", "TeamDungeonDiffMissing" ]
     },
-    // 滑块到底时下端为 y 530、得分 1.0；差 2 像素未到底时仍有 0.86。
-    // 最后一排仅到底后可点，ROI 必须与模板等大，避免提前命中。
+    // 最后一排需滚到底才能点击；ROI 与模板等大，避免把接近底部误判为到底。
     "TeamDungeonListEnd": {
         "recognition": {
             "type": "And",
@@ -349,16 +284,15 @@
             }
         },
         "focus": {
-            "Node.Action.Failed": "组队副本失败：全部副本列表翻到底也没找到所选副本（可能还没解锁，显示「封」）"
+            "Node.Action.Failed": "列表翻到底也没找到所选副本..."
         }
     },
-    // 第 4、5 排副本选项启用直接拖底；最后两排可在同一屏显示。
-    // 两个号实测顶端滑块均占 y 280~473，从 y 290 拖到滑槽下方可到底。
+    // interface 为最后两排副本启用拖底，减少逐次翻找；两排可在底部同屏显示。
     "TeamDungeonJumpBottom": {
         "pre_delay": 0,
         "post_delay": 0,
         "enabled": false,
-        "max_hit": 20, // 安全上限：每场一次
+        "max_hit": 20,
         "recognition": {
             "type": "And",
             "param": {
@@ -379,12 +313,11 @@
         },
         "next": [ "TeamDungeonCardFound", "TeamDungeonListEnd", "TeamDungeonScrollDown" ]
     },
-    // 下箭头每次滚动 19~37 像素；滚轮无效，点击滑槽的距离不固定。
-    // 翻页后直接找卡片，避免重复等待窗口稳定和读取次数。
+    // 滚轮无效，点击滑槽距离不固定，因此用下箭头翻找；翻页不重复读取次数。
     "TeamDungeonScrollDown": {
         "pre_delay": 0,
         "post_delay": 0,
-        "max_hit": 300, // 安全上限：每场都要从顶往下翻
+        "max_hit": 300,
         "recognition": {
             "type": "And",
             "param": {
@@ -401,64 +334,11 @@
             "time": 200,
             "target": [ 390, 260, 580, 300 ]
         },
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：翻找副本列表时窗口被挡住或关掉了"
-        },
         "timeout": 5000,
         "next": [ "TeamDungeonCardFound", "TeamDungeonListEnd", "TeamDungeonScrollDown" ]
     },
 
-    // 相对标题框 (x0,y0,44,66)：难度栏 y0+116，左箭头 x0+100~116，文字 x0+124~153，右箭头 x0+163~179。
-    // 箭头蓝色像素实测：可用/悬停 39~54，到头变灰为 0。
-    "TeamDungeonRaise": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "max_hit": 40, // 安全上限：每场最多调 4 下
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "TeamDungeonCardFound",
-                "roi_offset": [ 165, 119, -32, -56 ],
-                "method": 40,
-                "lower": [ 90, 120, 120 ],
-                "upper": [ 110, 255, 255 ],
-                "count": 20
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": "TeamDungeonCardFound",
-                "target_offset": [ 166, 118, -32, -54 ]
-            }
-        },
-        "post_wait_freezes": {
-            "time": 400,
-            "target": "TeamDungeonCardFound",
-            "target_offset": [ 100, 112, 36, -46 ]
-        },
-        "timeout": 3000,
-        "next": [ "TeamDungeonRaise", "TeamDungeonAtMax" ]
-    },
-    "TeamDungeonAtMax": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "TeamDungeonCardFound",
-                "roi_offset": [ 165, 119, -32, -56 ],
-                "method": 40,
-                "lower": [ 90, 120, 120 ],
-                "upper": [ 110, 255, 255 ],
-                "count": 20
-            }
-        },
-        "inverse": true,
-        "timeout": 3000,
-        "next": [ "TeamDungeonDiffTarget", "TeamDungeonLower", "TeamDungeonDiffMissing" ]
-    },
-    // 难度模板实测：自身 ≥0.93，简单/普通/困难互相最高 0.35。
+    // 打开窗口或切换页签后默认最高已解锁难度，只需向左调整。
     "TeamDungeonDiffTarget": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -471,13 +351,20 @@
                 "threshold": 0.8
             }
         },
-        "timeout": 3000,
-        "next": [ "TeamDungeonEnter", "TeamDungeonRunsCapped" ]
+        // 点击卡片中部，避开左上标题与右下推荐战力。
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": "TeamDungeonCardFound",
+                "target_offset": [ 80, 30, 76, -16 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "TeamDungeonSoloConfirm" ]
     },
     "TeamDungeonLower": {
         "pre_delay": 0,
         "post_delay": 0,
-        "max_hit": 40, // 安全上限：每场最多调 4 下
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -504,7 +391,7 @@
         "timeout": 3000,
         "next": [ "TeamDungeonDiffTarget", "TeamDungeonLower", "TeamDungeonDiffMissing" ]
     },
-    // ◀ 也到头了还不是所选难度：这个副本没有这个难度，或者还没解锁
+    // 难度不匹配且左箭头已不可用，说明所选难度不可用，正常跳过。
     "TeamDungeonDiffMissing": {
         "recognition": {
             "type": "ColorMatch",
@@ -518,74 +405,6 @@
             }
         },
         "inverse": true,
-        "next": [ "TeamDungeonDiffMissingFailed" ]
-    },
-    "TeamDungeonDiffMissingFailed": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "FalseAction"
-            }
-        },
-        "focus": {
-            "Node.Action.Failed": "组队副本失败：所选副本调不到所选难度（未解锁，五影会谈目前只有简单），请换个难度"
-        }
-    },
-
-    // 每日 5 次奖励；max_hit 为异常次数识别及重试预留安全预算。
-    "TeamDungeonEnter": {
-        "max_hit": 8,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonWindowFront", "TeamDungeonAllTab", "TeamDungeonDailyLeft" ]
-            }
-        },
-        // 点击卡片中部，避开左上标题与右下推荐战力。
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": "TeamDungeonCardFound",
-                "target_offset": [ 80, 30, 76, -16 ]
-            }
-        },
-        "post_delay": 1500, // 提示框无过渡状态，等待 1.5 秒后再判断是否需要重试。
-        "focus": {
-            "Node.Recognition.Succeeded": "组队副本开始",
-            "Node.PipelineNode.Failed": "组队副本失败：点了副本卡片，没有弹出确认框，也没有进入战斗"
-        },
-        "timeout": 30000,
-        "next": [ "TeamDungeonSoloConfirm", "TeamDungeonBattleStart", "TeamDungeonAutoOn", "TeamDungeonAutoOff", "TeamDungeonEnterAgain" ]
-    },
-    "TeamDungeonEnterAgain": {
-        "max_hit": 4,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonWindowFront", "TeamDungeonAllTab", "TeamDungeonDailyLeft" ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": "TeamDungeonCardFound",
-                "target_offset": [ 80, 30, 76, -16 ]
-            }
-        },
-        "post_delay": 1500, // 同上
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：点了副本卡片，没有弹出确认框，也没有进入战斗"
-        },
-        "timeout": 30000,
-        "next": [ "TeamDungeonSoloConfirm", "TeamDungeonBattleStart", "TeamDungeonAutoOn", "TeamDungeonAutoOff", "TeamDungeonEnterAgain" ]
-    },
-    "TeamDungeonRunsCapped": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonWindowFront", "TeamDungeonDailyLeft" ]
-            }
-        },
         "action": {
             "type": "Click",
             "param": {
@@ -593,9 +412,9 @@
             }
         },
         "timeout": 5000,
-        "next": [ "TeamDungeonCappedClosed" ]
+        "next": [ "TeamDungeonDiffMissingClosed" ]
     },
-    "TeamDungeonCappedClosed": {
+    "TeamDungeonDiffMissingClosed": {
         "recognition": {
             "type": "And",
             "param": {
@@ -603,38 +422,18 @@
             }
         },
         "inverse": true,
-        "next": [ "TeamDungeonCappedFailed" ]
-    },
-    "TeamDungeonCappedFailed": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "FalseAction"
-            }
-        },
         "focus": {
-            "Node.Action.Failed": "组队副本失败：已经进了 8 次副本，本日奖励次数仍未用完（安全上限），请检查次数是否识别正确"
+            "Node.Recognition.Succeeded": "所选难度未解锁或该副本不支持！已跳过..."
         }
     },
-    // 单人提示模板实测：1.0，其他画面最高 0.26。
-    // 勾选「本次登录不再提示」后会跳过提示直接进战斗。
-    "TeamDungeonSoloText": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "teamDungeon/SoloPopupText.png",
-                "roi": [ 540, 365, 260, 35 ],
-                "threshold": 0.8
-            }
-        }
-    },
+
     // 确认按钮两端尖角不可点。
     "TeamDungeonSoloConfirm": {
-        "max_hit": 24, // 每场一次，没点上时每场最多补 2 下
         "recognition": {
-            "type": "And",
+            "type": "OCR",
             "param": {
-                "all_of": [ "TeamDungeonSoloText" ]
+                "expected": [ "^确认进入$" ],
+                "roi": [ 580, 397, 80, 30 ]
             }
         },
         "action": {
@@ -643,23 +442,18 @@
                 "target": [ 598, 406, 44, 12 ]
             }
         },
-        "post_delay": 1000, // 提示框立即消失并载入战斗；等待 1 秒后再判断是否需要重试。
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：点了「确认进入」，30 秒内没有进入战斗"
-        },
         "timeout": 30000,
-        "next": [ "TeamDungeonBattleStart", "TeamDungeonAutoOn", "TeamDungeonAutoOff", "TeamDungeonSoloConfirm" ]
+        "next": [ "TeamDungeonBattleStart" ]
     },
 
-    // 开战倒计时会自动结束，无需补点；模板仅截文字以避开动态数字，实测 0.91。
+    // 只匹配「开战」，忽略后面的倒计时。
     "TeamDungeonBattleStart": {
         "max_hit": 20,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "powerfulBoss/BattleStart.png",
-                "roi": [ 560, 430, 220, 50 ],
-                "threshold": 0.85
+                "expected": [ "开战" ],
+                "roi": [ 567, 416, 208, 73 ]
             }
         },
         "action": "Click",
@@ -709,105 +503,19 @@
         "action": "Click",
         "next": [ "TeamDungeonBattleWait" ]
     },
-    // 实测战斗耗时：托管二倍速约 1 分钟，手动一倍速约 3 分半。
-    // 连续战斗中托管/加速可能重置，需再次检查。
+    // 精英触发时会短暂回副本窗口再出现「开战」；此处不操作窗口，继续等开战或结算。
     "TeamDungeonBattleWait": {
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：战斗 10 分钟没有结束，或者出现了没见过的界面（见截图）"
-        },
         "timeout": 600000,
-        "next": [
-            "TeamDungeonSettleReturn",
-            "TeamDungeonSettleSeen",
-            "TeamDungeonBattleLost",
-            "TeamDungeonEliteNotice",
-            "TeamDungeonReStart",
-            "TeamDungeonReAuto",
-            "TeamDungeonReSpeed"
-        ]
-    },
-    "TeamDungeonReStart": {
-        "max_hit": 10,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "powerfulBoss/BattleStart.png",
-                "roi": [ 560, 430, 220, 50 ],
-                "threshold": 0.85
-            }
-        },
-        "action": "Click",
-        "post_delay": 1000, // 按钮立即消失，无过渡状态；等待 1 秒后再判断是否需要重试。
-        "next": [ "TeamDungeonBattleWait" ]
-    },
-    "TeamDungeonReAuto": {
-        "max_hit": 20,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        },
-        "action": "Click",
-        "post_delay": 1000, // 按钮立即换图，无过渡状态；等待 1 秒后再判断是否需要重试。
-        "next": [ "TeamDungeonBattleWait" ]
-    },
-    "TeamDungeonReSpeed": {
-        "max_hit": 20,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/SpeedOff.png",
-                "roi": [ 870, 635, 69, 69 ]
-            }
-        },
-        "action": "Click",
-        "post_delay": 1000, // 同上
-        "next": [ "TeamDungeonBattleWait" ]
+        "next": [ "TeamDungeonSettleReturn", "TeamDungeonBattleStart" ]
     },
 
-    // 实测「返回游戏」会自动翻每排第一张牌并扣 1 次奖励，约 3 秒后重开副本窗口。
-    // 结算标题模板实测：稳定后 1.0，入场动画 ≥0.77，其他画面最高 0.21。
-    "TeamDungeonSettleTitle": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "teamDungeon/SettleTitle.png",
-                "roi": [ 540, 160, 260, 90 ],
-                "threshold": 0.7
-            }
-        }
-    },
-    // 返回按钮模板不含倒计时；实测显示时 ≥0.91，其他画面最高 0.40。
-    "TeamDungeonReturnButton": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "teamDungeon/ReturnGame.png",
-                "roi": [ 810, 575, 120, 40 ],
-                "threshold": 0.8
-            }
-        }
-    },
-    // 牌背模板实测：未翻 1.0，已翻 ≤0.22；洗牌中 0.71~0.83，但此时无按钮。
-    "TeamDungeonCardBack": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "teamDungeon/CardBack.png",
-                "roi": [ 445, 250, 90, 120 ],
-                "threshold": 0.85
-            }
-        }
-    },
+    // 只匹配「返回」，避免后续文字和倒计时干扰；点击后会自动领奖并重开副本窗口。
     "TeamDungeonSettleReturn": {
-        "max_hit": 30,
         "recognition": {
-            "type": "And",
+            "type": "OCR",
             "param": {
-                "all_of": [ "TeamDungeonSettleTitle", "TeamDungeonCardBack", "TeamDungeonReturnButton" ],
-                "box_index": 2
+                "expected": [ "返回" ],
+                "roi": [ 810, 575, 120, 40 ]
             }
         },
         "action": {
@@ -816,254 +524,7 @@
                 "target": [ 838, 589, 56, 10 ]
             }
         },
-        "post_delay": 1000, // 翻牌动画延迟开始；等待 1 秒后再判断是否需要重试。
-        "focus": {
-            "Node.Recognition.Succeeded": "组队副本胜利",
-            "Node.PipelineNode.Failed": "组队副本失败：胜利结算后没有回到组队副本窗口，可能出现了没见过的界面（如精英忍者，见截图）"
-        },
-        "timeout": 60000,
-        "next": [
-            "TeamDungeonWindow",
-            "TeamDungeonSettleReturn",
-            "TeamDungeonEliteNotice",
-            "TeamDungeonEliteStart",
-            "TeamDungeonEliteAutoOn",
-            "TeamDungeonEliteAutoOff",
-            "TeamDungeonMapIdle1"
-        ]
-    },
-    // 洗牌时已有标题但无按钮；按钮未出现时仍可能由倒计时自动返回窗口。
-    "TeamDungeonSettleSeen": {
-        "max_hit": 20,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonSettleTitle" ]
-            }
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：胜利结算后没有回到组队副本窗口，可能出现了没见过的界面（如精英忍者，见截图）"
-        },
-        "timeout": 120000,
-        "next": [
-            "TeamDungeonSettleReturn",
-            "TeamDungeonWindow",
-            "TeamDungeonEliteNotice",
-            "TeamDungeonEliteStart",
-            "TeamDungeonEliteAutoOn",
-            "TeamDungeonEliteAutoOff",
-            "TeamDungeonMapIdle1"
-        ]
-    },
-    "TeamDungeonBattleLost": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonWindowFront" ]
-            }
-        },
-        "next": [ "TeamDungeonBattleLostFailed" ]
-    },
-    "TeamDungeonBattleLostFailed": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "FalseAction"
-            }
-        },
-        "focus": {
-            "Node.Action.Failed": "组队副本失败：战斗失败（不扣奖励次数），请换更强的队伍或降低难度"
-        }
-    },
-
-    // 非战斗画面的「精英」提示未经实测，识别后停止，不继续点击。
-    "TeamDungeonBattleHud": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "common/battle/AutoOn.png",
-                    "common/battle/AutoOnHover.png",
-                    "common/battle/AutoOff.png",
-                    "common/battle/AutoOffHover.png"
-                ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        }
-    },
-    "TeamDungeonEliteText": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 330, 220, 680, 400 ],
-                "expected": [ "精英" ]
-            }
-        }
-    },
-    "TeamDungeonEliteNotice": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "MatchWithout",
-                "custom_recognition_param": {
-                    "match": "TeamDungeonEliteText",
-                    "without": "TeamDungeonBattleHud"
-                }
-            }
-        },
-        "next": [ "TeamDungeonEliteUnknown" ]
-    },
-    "TeamDungeonEliteUnknown": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "FalseAction"
-            }
-        },
-        "focus": {
-            "Node.Action.Failed": "组队副本停止：出现了精英忍者界面（还没适配），请手动处理并把截图发给开发者"
-        }
-    },
-    // 结算后续战斗按精英战处理；副本已胜利，后续直接回窗口不视为任务失败。
-    "TeamDungeonEliteStart": {
-        "max_hit": 10,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "powerfulBoss/BattleStart.png",
-                "roi": [ 560, 430, 220, 50 ],
-                "threshold": 0.85
-            }
-        },
-        "action": "Click",
-        "focus": {
-            "Node.Recognition.Succeeded": "结算后又进入一场战斗（可能是精英忍者），继续托管"
-        },
-        "timeout": 20000,
-        "next": [ "TeamDungeonEliteAutoOn", "TeamDungeonEliteAutoOff" ]
-    },
-    "TeamDungeonEliteAutoOn": {
-        "max_hit": 10,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        },
-        "focus": {
-            "Node.Recognition.Succeeded": "结算后又进入一场战斗（可能是精英忍者），继续托管"
-        },
-        "next": [ "TeamDungeonEliteSpeedOn", "TeamDungeonEliteSpeedOff" ]
-    },
-    "TeamDungeonEliteAutoOff": {
-        "max_hit": 10,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        },
-        "action": "Click",
-        "focus": {
-            "Node.Recognition.Succeeded": "结算后又进入一场战斗（可能是精英忍者），继续托管"
-        },
-        "next": [ "TeamDungeonEliteSpeedOn", "TeamDungeonEliteSpeedOff" ]
-    },
-    "TeamDungeonEliteSpeedOn": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/SpeedOn.png",
-                "roi": [ 870, 635, 69, 69 ]
-            }
-        },
-        "next": [ "TeamDungeonEliteWait" ]
-    },
-    "TeamDungeonEliteSpeedOff": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/SpeedOff.png",
-                "roi": [ 870, 635, 69, 69 ]
-            }
-        },
-        "action": "Click",
-        "next": [ "TeamDungeonEliteWait" ]
-    },
-    "TeamDungeonEliteWait": {
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：结算后的那场战斗（可能是精英忍者）10 分钟没有结束，或出现了没见过的界面（见截图）"
-        },
-        "timeout": 600000,
-        "next": [ "TeamDungeonSettleReturn", "TeamDungeonSettleSeen", "TeamDungeonWindow", "TeamDungeonEliteNotice" ]
-    },
-
-    // 返回后会先露出 1~2 秒地图再淡入窗口，仅凭单帧地图不能判断需重开。
-    // 无其他信号可区分，间隔 1.5 秒采样；连续 6 次仅见地图才从日常入口重开。
-    "TeamDungeonMapIdle1": {
-        "max_hit": 10, // 安全上限：每场最多一次
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonMapClear" ]
-            }
-        },
-        "post_delay": 1500,
-        "next": [ "TeamDungeonWindow", "TeamDungeonMapIdle2" ]
-    },
-    "TeamDungeonMapIdle2": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonMapClear" ]
-            }
-        },
-        "post_delay": 1500,
-        "next": [ "TeamDungeonWindow", "TeamDungeonMapIdle3" ]
-    },
-    "TeamDungeonMapIdle3": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonMapClear" ]
-            }
-        },
-        "post_delay": 1500,
-        "next": [ "TeamDungeonWindow", "TeamDungeonMapIdle4" ]
-    },
-    "TeamDungeonMapIdle4": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonMapClear" ]
-            }
-        },
-        "post_delay": 1500,
-        "next": [ "TeamDungeonWindow", "TeamDungeonMapIdle5" ]
-    },
-    "TeamDungeonMapIdle5": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonMapClear" ]
-            }
-        },
-        "post_delay": 1500,
-        "next": [ "TeamDungeonWindow", "TeamDungeonMapIdle6" ]
-    },
-    "TeamDungeonMapIdle6": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonMapClear" ]
-            }
-        },
-        "focus": {
-            "Node.Recognition.Succeeded": "结算后组队副本窗口没有自动打开，从日常锻炼重新进入"
-        },
-        "timeout": 10000,
-        "next": [ "TeamDungeonWindow", "TeamDungeonOpenDaily" ]
+        "timeout": 30000,
+        "next": [ "TeamDungeonWindow" ]
     }
 }
