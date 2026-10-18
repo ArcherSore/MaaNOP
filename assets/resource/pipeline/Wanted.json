@@ -261,7 +261,7 @@
                 }
             }
         },
-        "next": [ "WantedJoin", "WantedJoinCapped", "WantedAlreadyDone" ]
+        "next": [ "WantedJoin", "WantedAlreadyDone" ]
     },
     "WantedMapClear": {
         "recognition": {
@@ -293,9 +293,7 @@
             }
         }
     },
-    // 参与预算：首次开始 + 2 次补做。
     "WantedJoin": {
-        "max_hit": 3,
         "recognition": {
             "type": "And",
             "param": {
@@ -308,73 +306,9 @@
                 "target": [ 834, 494, 40, 13 ]
             }
         },
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：点了参与，但没有出现通缉任务窗口"
-        },
-        "post_delay": 1500, // 点击后窗口立即关闭；等待 1.5 秒后再判断是否需要重试。
-        // 从野外参与需要切地图，超时包含寻路时间。
-        "timeout": 90000,
-        "next": [ "WantedAutoStart", "WantedJoinAgain" ]
+        "timeout": 60000,
+        "next": [ "WantedAutoStart" ]
     },
-    "WantedJoinAgain": {
-        "max_hit": 2,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "DailyTab", "WantedPanelTitle", "DailyJoinAvailable" ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 834, 494, 40, 13 ]
-            }
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：点了参与，但没有出现通缉任务窗口"
-        },
-        "post_delay": 1500, // 同上
-        "timeout": 90000,
-        "next": [ "WantedAutoStart", "WantedJoinAgain" ]
-    },
-    "WantedJoinCapped": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "DailyJoinAvailable" ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 985, 184, 8, 8 ]
-            }
-        },
-        "timeout": 5000,
-        "next": [ "WantedCappedClosed" ]
-    },
-    "WantedCappedClosed": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "DailyTab" ]
-            }
-        },
-        "inverse": true,
-        "next": [ "WantedCappedFailed" ]
-    },
-    "WantedCappedFailed": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "FalseAction"
-            }
-        },
-        "focus": {
-            "Node.Action.Failed": "通缉任务失败：已经自动完成了 3 次，日常锻炼里通缉任务仍有剩余次数"
-        }
-    },
-
     "WantedAlreadyDone": {
         "recognition": {
             "type": "And",
@@ -429,9 +363,6 @@
             }
         },
         "action": "Click",
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务：点了回村图标，但没有回到木叶村南"
-        },
         "timeout": 10000,
         // 回村图标的悬浮说明会遮住地图名，确认前需移开鼠标。
         "anchor": {
@@ -439,7 +370,6 @@
         },
         "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "WantedInVillage" ]
     },
-
     // 窗口标签实测：含确认框遮罩时 ≥0.89，其他画面最高 0.27。
     // 自动完成按钮仅蓝色面可点击（x 810~862），两端尖角不可点。
     "WantedRemainLabel": {
@@ -465,38 +395,7 @@
                 "target": [ 815, 291, 42, 11 ]
             }
         },
-        // 确认框实测 0.7 秒内出现，确认后窗口还需 2~3.5 秒关闭，无中间状态；等待 5 秒再判重试。
-        "post_delay": 5000,
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：点了自动完成，但通缉任务窗口没有关掉"
-        },
-        "timeout": 10000,
-        "next": [ "WantedSoloConfirm", "WantedStarted", "WantedAutoStartAgain" ]
-    },
-    "WantedAutoStartAgain": {
-        "max_hit": 2,
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "MatchWithout",
-                "custom_recognition_param": {
-                    "match": "WantedRemainLabel",
-                    "without": "WantedSoloText"
-                }
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 815, 291, 42, 11 ]
-            }
-        },
-        "post_delay": 5000, // 同上
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：点了自动完成，但通缉任务窗口没有关掉"
-        },
-        "timeout": 10000,
-        "next": [ "WantedSoloConfirm", "WantedStarted", "WantedAutoStartAgain" ]
+        "next": [ "WantedSoloConfirm" ]
     },
     // 单人确认框模板实测：1.0，其他画面最高 0.42。
     "WantedSoloText": {
@@ -511,7 +410,6 @@
     },
     // 确认按钮仅两侧卷纹之间可点击；确认框立即消失，任务窗口约 3 秒后关闭。
     "WantedSoloConfirm": {
-        "max_hit": 3,
         "recognition": {
             "type": "And",
             "param": {
@@ -524,12 +422,7 @@
                 "target": [ 598, 425, 36, 9 ]
             }
         },
-        "post_delay": 1000, // 确认框消失后窗口延迟关闭，无中间状态。
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：点了自动完成，但通缉任务窗口没有关掉"
-        },
-        "timeout": 10000,
-        "next": [ "WantedStarted", "WantedSoloConfirm" ]
+        "next": [ "WantedStarted" ]
     },
     "WantedStarted": {
         "recognition": {
@@ -540,11 +433,10 @@
         },
         "inverse": true,
         "focus": {
-            "Node.Recognition.Succeeded": "通缉任务已开始自动完成，等游戏打完今天剩下的轮次（每轮约 2 分钟）"
+            "Node.Recognition.Succeeded": "开始自动完成「通缉任务」"
         },
         "next": [ "WantedWaitDone" ]
     },
-
     // 寻路横幅模板实测：显示时 ≥0.99，淡入淡出 0.59~0.93，无横幅时最高 0.31。
     "WantedPathing": {
         "recognition": {
@@ -571,61 +463,10 @@
     // 超时依据：实测 5 轮共约 8 分半，预留较慢战斗和更多轮次的时间。
     "WantedWaitDone": {
         "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：20 分钟内角色一直没有停下来（一直在寻路、战斗或有窗口挡着）"
+            "Node.PipelineNode.Failed": "失败, 20分钟没有结束..."
         },
         "timeout": 1200000,
-        "next": [ "WantedBattleLost", "WantedIdle1" ]
-    },
-    // 战败会结束自动通缉并停在失败提示框。
-    // 失败提示模板实测：63 帧均 ≥0.8，单人确认框最高 0.53；确认按钮仅卷纹之间可点。
-    "WantedBattleLostText": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "wanted/BattleLost.png",
-                "roi": [ 545, 365, 130, 40 ],
-                "threshold": 0.8
-            }
-        }
-    },
-    "WantedBattleLost": {
-        "max_hit": 3,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "WantedBattleLostText" ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 655, 424, 32, 10 ]
-            }
-        },
-        "post_delay": 1000, // 提示框立即消失，无中间状态；等待 1 秒后再判断是否需要重试。
-        "timeout": 5000,
-        "next": [ "WantedBattleLostClosed", "WantedBattleLost" ]
-    },
-    "WantedBattleLostClosed": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "WantedBattleLostText" ]
-            }
-        },
-        "inverse": true,
-        "next": [ "WantedBattleLostFailed" ]
-    },
-    "WantedBattleLostFailed": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "FalseAction"
-            }
-        },
-        "focus": {
-            "Node.Action.Failed": "通缉任务失败：战斗失败，游戏结束了自动通缉，请换更强的队伍后再运行"
-        }
+        "next": [ "WantedIdle1" ]
     },
     // 切地图、到达 NPC、镜头平移时会短暂呈闲置状态，实测最长约 9 秒。
     // 无其他状态可区分，需间隔采样确认约 20 秒闲置，再核对日常次数。
@@ -676,9 +517,6 @@
             "param": {
                 "all_of": [ "WantedIdleFrame" ]
             }
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "通缉任务失败：跑完后主界面找不到「日常锻炼」，无法核对次数"
         },
         "timeout": 10000,
         "next": [ "WantedOpenDaily" ]
