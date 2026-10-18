@@ -21,103 +21,27 @@
         "next": [ "AbundanceTeamScreen", "AbundanceGotoTeam" ]
     },
 
-    "TeamDungeonDailyEntry": {
-        "recognition": {
+    "TeamDungeonOpenDaily": {
+        "action": {
             "type": "Custom",
             "param": {
-                "custom_recognition": "FindTopEntry",
-                "custom_recognition_param": {
-                    "template": [ "ninjaQuiz/DailyEntry.png" ]
+                "custom_action": "EnterDailyTask",
+                "custom_action_param": {
+                    "row": "TeamDungeonRow",
+                    "title": "TeamDungeonPanelTitle",
+                    "page": "limited"
                 }
             }
-        }
-    },
-    "TeamDungeonOpenDaily": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonDailyEntry" ]
-            }
         },
-        "action": "Click",
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：点了顶部「日常锻炼」图标，窗口没有打开（请确认停在主界面、入口没被挡住）"
-        },
-        "post_delay": 1500, // 窗口打开动画无中间状态，等待 1.5 秒后再判断是否需要重试。
-        "timeout": 10000,
-        "next": [ "TeamDungeonLimitedOpened", "TeamDungeonClickLimitedTab", "TeamDungeonOpenDailyAgain" ]
+        "next": [ "TeamDungeonJoin", "TeamDungeonJoinGrey" ]
     },
-    // 体力标签未变暗表示地图无遮挡；战斗、加载时该标签也不可见。
     "TeamDungeonMapClear": {
         "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/login/StaminaLabel.png",
-                "roi": [ 32, 84, 66, 61 ],
-                "method": 10001,
-                "threshold": 0.8
-            }
-        }
-    },
-    // 窗口不在前台时首次点击可能只激活窗口，游戏不接收点击。
-    "TeamDungeonOpenDailyAgain": {
-        "max_hit": 4,
-        "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "TeamDungeonMapClear", "TeamDungeonDailyEntry" ],
-                "box_index": 1
-            }
-        },
-        "action": "Click",
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：点了顶部「日常锻炼」图标，窗口没有打开（请确认停在主界面、入口没被挡住）"
-        },
-        "post_delay": 1500, // 同上
-        "timeout": 10000,
-        "next": [ "TeamDungeonLimitedOpened", "TeamDungeonClickLimitedTab", "TeamDungeonOpenDailyAgain" ]
-    },
-    "TeamDungeonDailyTab": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "ninjaQuiz/DailyTab.png",
-                "roi": [ 355, 195, 110, 40 ],
-                "threshold": 0.85
+                "all_of": [ "DailyMapClear" ]
             }
         }
-    },
-    // 页签模板实测：选中 1.0，日常活动页为 0.52。
-    "TeamDungeonLimitedTab": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "teamDungeon/HubLimitedTab.png",
-                "roi": [ 455, 195, 100, 40 ],
-                "threshold": 0.85
-            }
-        }
-    },
-    "TeamDungeonClickLimitedTab": {
-        "max_hit": 4,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonDailyTab" ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 478, 207, 50, 14 ]
-            }
-        },
-        "post_delay": 1000, // 页签切换无过渡状态，等待 1 秒后再判断是否需要重试。
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：日常锻炼里点了「限时活动」页签，没有切过去"
-        },
-        "timeout": 5000,
-        "next": [ "TeamDungeonLimitedOpened", "TeamDungeonClickLimitedTab" ]
     },
     // 列表行模板实测：选中 1.0、未选中 0.93，其他画面最高 0.31。
     // 限时活动顺序随今日活动/预告变化，不能使用固定行号。
@@ -142,103 +66,13 @@
             }
         }
     },
-    "TeamDungeonLimitedOpened": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonLimitedTab" ]
-            }
-        },
-        "post_wait_freezes": {
-            "time": 500,
-            "target": [ 350, 235, 600, 285 ]
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：日常锻炼窗口打开后没认出限时活动页"
-        },
-        "timeout": 5000,
-        "next": [ "TeamDungeonJoin", "TeamDungeonJoinGrey", "TeamDungeonSelectRow", "TeamDungeonScrollList" ]
-    },
-    "TeamDungeonSelectRow": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonRow" ]
-            }
-        },
-        "action": "Click",
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：限时活动列表里点了「组队副本」这一行，右侧详情没有切过去"
-        },
-        "post_delay": 1000, // 详情原位替换，无中间状态；等待 1 秒后再判断是否需要重试。
-        "timeout": 5000,
-        "next": [ "TeamDungeonJoin", "TeamDungeonJoinGrey", "TeamDungeonSelectRowAgain" ]
-    },
-    // 首次点击可能只触发悬停；需在同一帧确认行存在且详情未切换。
-    "TeamDungeonSelectRowAgain": {
-        "max_hit": 4,
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "MatchWithout",
-                "custom_recognition_param": {
-                    "match": "TeamDungeonRow",
-                    "without": "TeamDungeonPanelTitle"
-                }
-            }
-        },
-        "action": "Click",
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：限时活动列表里点了「组队副本」这一行，右侧详情没有切过去"
-        },
-        "post_delay": 1000, // 同上
-        "timeout": 5000,
-        "next": [ "TeamDungeonJoin", "TeamDungeonJoinGrey", "TeamDungeonSelectRowAgain" ]
-    },
-    // 活动列表不响应滚轮。
-    "TeamDungeonScrollList": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TeamDungeonLimitedTab" ]
-            }
-        },
-        "action": {
-            "type": "Swipe",
-            "param": {
-                "begin": [ 752, 275, 1, 1 ],
-                "end": [ 752, 520, 1, 1 ],
-                "duration": 500
-            }
-        },
-        "post_wait_freezes": {
-            "time": 500,
-            "target": [ 350, 235, 400, 285 ]
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "组队副本失败：限时活动列表里找不到「组队副本」（等级不到 30 或活动没开）"
-        },
-        "timeout": 3000,
-        "next": [ "TeamDungeonSelectRow" ]
-    },
-    "TeamDungeonJoinOrange": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": [ 822, 492, 62, 16 ],
-                "method": 40,
-                "lower": [ 3, 190, 150 ],
-                "upper": [ 30, 255, 255 ],
-                "count": 300
-            }
-        }
-    },
+
     // 参与后直接打开副本窗口，无寻路过程，实测约 2 秒。
     "TeamDungeonJoin": {
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "TeamDungeonPanelTitle", "TeamDungeonJoinOrange" ]
+                "all_of": [ "DailyJoinAvailable" ]
             }
         },
         "action": {
@@ -259,7 +93,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "TeamDungeonLimitedTab", "TeamDungeonPanelTitle", "TeamDungeonJoinOrange" ]
+                "all_of": [ "DailyLimitedTab", "TeamDungeonPanelTitle", "DailyJoinAvailable" ]
             }
         },
         "action": {
@@ -275,26 +109,12 @@
         "timeout": 15000,
         "next": [ "TeamDungeonWindow", "TeamDungeonJoinAgain" ]
     },
-    // 灰色「参与」的成因未经实测，仅报告按钮不可用。
+    // 灰色仅表示不可参与，不推断任务已完成。
     "TeamDungeonJoinGrey": {
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [
-                    "TeamDungeonPanelTitle",
-                    {
-                        "recognition": {
-                            "type": "ColorMatch",
-                            "param": {
-                                "roi": [ 822, 492, 62, 16 ],
-                                "method": 40,
-                                "lower": [ 0, 0, 50 ],
-                                "upper": [ 180, 45, 150 ],
-                                "count": 400
-                            }
-                        }
-                    }
-                ]
+                "all_of": [ "DailyJoinUnavailable" ]
             }
         },
         "action": {
@@ -310,7 +130,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "TeamDungeonLimitedTab" ]
+                "all_of": [ "DailyLimitedTab" ]
             }
         },
         "inverse": true,
