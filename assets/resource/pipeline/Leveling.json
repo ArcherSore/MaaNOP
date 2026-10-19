@@ -2094,16 +2094,17 @@
     "MoveToKakashi": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/flags/KakashiCopyEntered.png",
-                "roi": [ 665, 436, 85, 74 ]
+                "expected": [ "卡卡西" ],
+                "roi": [ 1200, 124, 116, 15 ],
+                "only_rec": true
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 714, 290, 8, 31 ] // position of Kakashi (1st battle)
+                "target": [ 717, 315 ]
             }
         },
         "on_error": [ "MoveToKakashi" ],
