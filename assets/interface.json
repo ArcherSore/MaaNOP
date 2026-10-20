@@ -170,6 +170,14 @@
             "group": [ "LimitedEvent" ],
             "entry": "MidAutumnLanternEntry",
             "description": "识别初始的两盏灯笼，自动点亮其余 **14 盏**，使五种灯笼各至少 3 盏，领取奖励后重置并继续，直到**参与券**用完。\n\n- 请从**中秋盛典点灯笼界面**开始，需能看到**「开始」**按钮。"
+        },
+        {
+            "name": "AbilityExam",
+            "label": "忍者能力考试",
+            "group": [ "LimitedEvent" ],
+            "entry": "AbilityExam",
+            "description": "用设置的队伍，从限时热点**忍者能力考试**进入最高档**高级考试**，自动托管并加速，逐关挑战 **10 关**；通过后关闭通告，并领取四档考试的**全部奖励**（通关高档后可直接领取低档奖励）。\n\n- 请从**主界面**开始，不提供档位选项。\n- 已通过的关卡不会重打，从游戏记录的当前关继续；奖励都已领完时直接结束。\n- 请确保所选阵容能战胜高级考试；暂不处理战败情况。\n- 队伍需已解锁，否则任务会在选队伍时停止。",
+            "option": [ "ExamTeam" ]
         }
     ],
     "option": {
@@ -451,6 +459,30 @@
                     "action": {
                         "param": {
                             "custom_action_param": "{abundance_team}"
+                        }
+                    }
+                }
+            }
+        },
+        "ExamTeam": {
+            "type": "input",
+            "label": "",
+            "inputs": [
+                {
+                    "name": "exam_team",
+                    "label": "出战队伍",
+                    "description": "从上到下编号（1～8）",
+                    "default": "1",
+                    "pipeline_type": "int",
+                    "verify": "^[1-8]$",
+                    "pattern_msg": "请输入 1～8 的数字"
+                }
+            ],
+            "pipeline_override": {
+                "AbilityExamSetTeam": {
+                    "action": {
+                        "param": {
+                            "custom_action_param": "{exam_team}"
                         }
                     }
                 }

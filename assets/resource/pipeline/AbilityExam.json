@@ -1,0 +1,250 @@
+{
+    "AbilityExam": {
+        "focus": {
+            "Node.Action.Succeeded": "开始「忍者能力考试」任务"
+        },
+        "next": [ "AbilityExamSetTeam" ]
+    },
+    "AbilityExamSetTeam": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SelectTeam",
+                "custom_action_param": 1
+            }
+        },
+        "next": [ "AbilityExamEnter" ]
+    },
+    "AbilityExamEnter": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "EnterHotspotActivity",
+                "custom_action_param": {
+                    "expected": [ "忍者能力" ]
+                }
+            }
+        },
+        "timeout": 10000,
+        "next": [ "AbilityExamJoinHigh", "AbilityExamClaimDone" ]
+    },
+    // 最高档在最右列。
+    "AbilityExamJoinHigh": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 850, 460, 75, 28 ],
+                "expected": [ "参加考试" ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 1000,
+        "timeout": 10000,
+        "next": [ "AbilityExamChallenge" ]
+    },
+    // 橙色面积判可领并排除红章：单按钮 ≥390，全盖章 ≤70。
+    "AbilityExamHubClaimable": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 515, 462, 420, 24 ],
+                "method": 40,
+                "lower": [ 8, 160, 140 ],
+                "upper": [ 15, 255, 255 ],
+                "count": 250
+            }
+        },
+        "timeout": 5000,
+        "next": [ "AbilityExamClaim" ]
+    },
+    // 领奖无弹窗，等 1 秒刷新后继续领取。
+    "AbilityExamClaim": {
+        "max_hit": 8,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 515, 460, 420, 28 ],
+                "expected": [ "领取奖励" ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 1000,
+        "timeout": 10000,
+        "next": [ "AbilityExamClaim", "AbilityExamClaimDone" ]
+    },
+    // 四档全盖章才结束；印章实测分数：未领 ≤0.22，已领 1.0。
+    "AbilityExamClaimDone": {
+        "focus": {
+            "Node.Action.Succeeded": "「忍者能力考试」任务完成"
+        },
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    { "recognition": "TemplateMatch", "template": "abilityExam/Stamp1.png", "roi": [ 508, 424, 96, 58 ], "threshold": 0.85 },
+                    { "recognition": "TemplateMatch", "template": "abilityExam/Stamp2.png", "roi": [ 616, 424, 96, 58 ], "threshold": 0.85 },
+                    { "recognition": "TemplateMatch", "template": "abilityExam/Stamp3.png", "roi": [ 720, 423, 96, 58 ], "threshold": 0.85 },
+                    { "recognition": "TemplateMatch", "template": "abilityExam/Stamp4.png", "roi": [ 823, 424, 96, 58 ], "threshold": 0.85 }
+                ]
+            }
+        }
+    },
+    // 挑战按钮书法字 OCR 不稳且悬停放大，改识别金色面积。
+    "AbilityExamPageTitle": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 590, 190, 160, 50 ],
+                "expected": [ "高级考试" ]
+            }
+        }
+    },
+    "AbilityExamChallengeButton": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 610, 500, 115, 56 ],
+                "method": 40,
+                "lower": [ 15, 150, 180 ],
+                "upper": [ 32, 255, 255 ],
+                "count": 600
+            }
+        }
+    },
+    "AbilityExamChallenge": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "AbilityExamPageTitle", "AbilityExamChallengeButton" ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 640, 517, 60, 24 ]
+            }
+        },
+        "post_delay": 5000,
+        "timeout": 30000,
+        "next": [ "AbilityExamStart" ]
+    },
+    "AbilityExamStart": {
+        "max_hit": 24,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 580, 440, 100, 24 ],
+                "expected": [ "开战" ]
+            }
+        },
+        "action": "Click",
+        "next": [ "AbilityExamAutoOn", "AbilityExamAutoOff" ]
+    },
+    "AbilityExamAutoOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "next": [ "AbilityExamSpeedOn", "AbilityExamSpeedOff" ]
+    },
+    "AbilityExamAutoOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
+                "roi": [ 828, 620, 80, 80 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "AbilityExamSpeedOn", "AbilityExamSpeedOff" ]
+    },
+    "AbilityExamSpeedOn": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOn.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "timeout": 180000,
+        "next": [ "AbilityExamNext", "AbilityExamPassed" ]
+    },
+    "AbilityExamSpeedOff": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOff.png",
+                "roi": [ 870, 635, 69, 69 ]
+            }
+        },
+        "action": "Click",
+        "timeout": 180000,
+        "next": [ "AbilityExamNext", "AbilityExamPassed" ]
+    },
+
+    // 悬停文字可能识别为「下关」；only_rec 避免批量 OCR 拆字。
+    // 会吞点击，等 1 秒仍有按钮才补点。
+    "AbilityExamNext": {
+        "max_hit": 24,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 600, 465, 50, 20 ],
+                "only_rec": true,
+                "expected": [ "下.?关" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 608, 468, 35, 10 ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 1000,
+        "rate_limit": 100,
+        "timeout": 30000,
+        "next": [ "AbilityExamStart", "AbilityExamNext", "AbilityExamPassed" ]
+    },
+    // 通关通告关闭后回到四档领奖页。
+    "AbilityExamPassedText": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 540, 505, 380, 40 ],
+                "expected": [ "领取结业奖励" ]
+            }
+        }
+    },
+    "AbilityExamPassed": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AbilityExamPassedText",
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "abilityExam/DialogClose.png",
+                                "roi": [ 890, 445, 40, 40 ]
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "post_delay": 1000,
+        "timeout": 10000,
+        "next": [ "AbilityExamHubClaimable" ]
+    }
+}
