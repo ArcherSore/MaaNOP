@@ -236,18 +236,18 @@
     },
     "WantedTeamExited": {
         "recognition": {
-            "type": "Custom",
+            "type": "And",
             "param": {
-                "custom_recognition": "MatchWithout",
-                "custom_recognition_param": {
-                    "match": "WantedMapClear",
-                    "without": "WantedGroupHover"
-                }
+                "all_of": [ "WantedGroupHover" ]
             }
         },
         "focus": {
             "Node.Recognition.Succeeded": "已退出单人队伍"
-        }
+        },
+        "anchor": {
+            "MouseMoveResetAnchor": "MouseMoveReset"
+        },
+        "next": [ "[Anchor]MouseMoveResetAnchor" ]
     },
     "WantedOpenDaily": {
         "action": {
