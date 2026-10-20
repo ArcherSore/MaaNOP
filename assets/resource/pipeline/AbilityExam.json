@@ -132,60 +132,35 @@
         "next": [ "AbilityExamStart" ]
     },
     "AbilityExamStart": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "max_hit": 24,
         "recognition": {
-            "type": "OCR",
+            "type": "And",
             "param": {
-                "roi": [ 580, 440, 100, 24 ],
-                "expected": [ "开战" ]
+                "all_of": [ "CommonBattleStartButton" ]
             }
         },
-        "action": "Click",
-        "next": [ "AbilityExamAutoOn", "AbilityExamAutoOff" ]
+        "anchor": {
+            "CommonBattleStartTarget": "AbilityExamStart",
+            "CommonBattleOutcome": "AbilityExamBattleOutcome",
+            "CommonBattleContinue": "AbilityExamBattleWait"
+        },
+        "next": [ "CommonBattleClickStart" ]
     },
-    "AbilityExamAutoOn": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        },
-        "next": [ "AbilityExamSpeedOn", "AbilityExamSpeedOff" ]
-    },
-    "AbilityExamAutoOff": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        },
-        "action": "Click",
-        "next": [ "AbilityExamSpeedOn", "AbilityExamSpeedOff" ]
-    },
-    "AbilityExamSpeedOn": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/SpeedOn.png",
-                "roi": [ 870, 635, 69, 69 ]
-            }
-        },
+    "AbilityExamBattleWait": {
         "timeout": 180000,
         "next": [ "AbilityExamNext", "AbilityExamPassed" ]
     },
-    "AbilityExamSpeedOff": {
+    // 与上面的两个结果出口对应；短战斗可能在设置托管 / 加速时已结束。
+    "AbilityExamBattleOutcome": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "Or",
             "param": {
-                "template": "common/battle/SpeedOff.png",
-                "roi": [ 870, 635, 69, 69 ]
+                "any_of": [ "AbilityExamNext", "AbilityExamPassed" ]
             }
         },
-        "action": "Click",
-        "timeout": 180000,
-        "next": [ "AbilityExamNext", "AbilityExamPassed" ]
+        "next": [ "AbilityExamBattleWait" ]
     },
 
     // 悬停文字可能识别为「下关」；only_rec 避免批量 OCR 拆字。

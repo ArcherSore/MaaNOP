@@ -109,72 +109,35 @@
     },
 
     "AbundanceBattleStart": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "abundance/BattleStart.png",
-                "roi": [ 583, 443, 85, 22 ]
+                "all_of": [ "CommonBattleStartButton" ]
             }
         },
-        "action": "Click",
-        "next": [ "AbundanceBattleStart", "AbundanceAutoOn", "AbundanceAutoOff" ]
+        "anchor": {
+            "CommonBattleStartTarget": "AbundanceBattleStart",
+            "CommonBattleOutcome": "AbundanceBattleOutcome",
+            "CommonBattleContinue": "AbundanceBattleWait"
+        },
+        "next": [ "CommonBattleClickStart" ]
     },
-    "AbundanceAutoOn": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        },
-        "next": [ "AbundanceSpeedOn", "AbundanceSpeedOff" ]
+    // 删除迁移遗留的 30 秒探测循环；与组队 / 强者相同，最多等 10 分钟结算。
+    "AbundanceBattleWait": {
+        "timeout": 600000,
+        "next": [ "AbundanceResultConfirm" ]
     },
-    "AbundanceAutoOff": {
+    // 设置阶段已出现结果时，仍由上面的正常结算分支继续。
+    "AbundanceBattleOutcome": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
+                "all_of": [ "AbundanceResultConfirm" ]
             }
         },
-        "action": "Click",
-        "next": [ "AbundanceSpeedOn", "AbundanceSpeedOff" ]
-    },
-    "AbundanceSpeedOn": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/SpeedOn.png",
-                "roi": [ 870, 635, 69, 69 ]
-            }
-        },
-        "timeout": 30000,
-        "next": [ "AbundanceResultConfirm" ],
-        "on_error": [ "AbundanceBattleTimeoutProbe" ]
-    },
-    "AbundanceSpeedOff": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/SpeedOff.png",
-                "roi": [ 870, 635, 69, 69 ]
-            }
-        },
-        "action": "Click",
-        "timeout": 30000,
-        "next": [ "AbundanceResultConfirm" ],
-        "on_error": [ "AbundanceBattleTimeoutProbe" ]
-    },
-    "AbundanceBattleTimeoutProbe": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/SpeedOn.png",
-                "roi": [ 870, 635, 69, 69 ]
-            }
-        },
-        "next": [ "AbundanceSpeedOn" ],
-        "on_error": [ "AbundanceResultConfirm" ]
+        "next": [ "AbundanceBattleWait" ]
     },
     "AbundanceResultConfirm": {
         "recognition": {
