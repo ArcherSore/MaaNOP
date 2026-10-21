@@ -4219,26 +4219,25 @@
         "timeout": 5000,
         "post_delay": 1000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/buttons/ClaimReward.png",
-                "roi": [ 635, 515, 89, 64 ]
+                "roi": [ 635, 515, 89, 64 ],
+                "expected": [ "^领取$" ]
             }
         },
         "action": {
             "type": "Click"
         },
-        "on_error": [ "ClaimCompensation" ],
         "next": [ "CloseCompensation" ]
     },
     "CloseCompensation": {
         "timeout": 5000,
         "post_delay": 1000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/flags/CompensationClaimed.png",
-                "roi": [ 616, 511, 124, 70 ]
+                "roi": [ 616, 511, 124, 70 ],
+                "expected": [ "已领取" ]
             }
         },
         "action": {
@@ -4247,7 +4246,18 @@
                 "key": 27
             }
         },
-        "on_error": [ "CloseCompensation" ],
+        "next": [ "CompensationClosed" ]
+    },
+    "CompensationClosed": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 655, 537, 48, 22 ],
+                "only_rec": true,
+                "expected": [ "领取" ]
+            }
+        },
+        "inverse": true,
         "next": [ "Login" ]
     },
     /* ---------------------------------------- quest dialog and HUD recognition (shared) ---------------------------------------- */

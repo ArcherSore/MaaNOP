@@ -21,7 +21,7 @@
             "param": {
                 "custom_action": "EnterHotspotActivity",
                 "custom_action_param": {
-                    "expected": [ "忍者能力" ]
+                    "expected": [ "能力" ]
                 }
             }
         },
