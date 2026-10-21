@@ -101,15 +101,20 @@
         "next": [ "BossBattleStart" ]
     },
     "BossBattleStart": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
-            "type": "OCR",
+            "type": "And",
             "param": {
-                "expected": [ "开战" ],
-                "roi": [ 567, 416, 208, 73 ]
+                "all_of": [ "CommonBattleStartButton" ]
             }
         },
-        "action": "Click",
-        "next": [ "BossAutoOn", "BossAutoOff" ]
+        "anchor": {
+            "CommonBattleStartTarget": "BossBattleStart",
+            "CommonBattleOutcome": "BossBattleOutcome",
+            "CommonBattleContinue": "BossBattleWait"
+        },
+        "next": [ "CommonBattleClickStart" ]
     },
     "BossWindowClosed": {
         "recognition": {
@@ -124,49 +129,19 @@
         }
     },
 
-    "BossAutoOn": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        },
-        "next": [ "BossSpeedOn", "BossSpeedOff" ]
-    },
-    "BossAutoOff": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        },
-        "action": "Click",
-        "next": [ "BossSpeedOn", "BossSpeedOff" ]
-    },
-    "BossSpeedOn": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/SpeedOn.png",
-                "roi": [ 870, 635, 69, 69 ]
-            }
-        },
+    "BossBattleWait": {
         "timeout": 600000,
         "next": [ "BossBattleWon" ]
     },
-    "BossSpeedOff": {
+    // 设置托管 / 加速时若已结束，先确认结果，再交回上面的等待节点处理。
+    "BossBattleOutcome": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "common/battle/SpeedOff.png",
-                "roi": [ 870, 635, 69, 69 ]
+                "all_of": [ "BossBattleWon" ]
             }
         },
-        "action": "Click",
-        "timeout": 600000,
-        "next": [ "BossBattleWon" ]
+        "next": [ "BossBattleWait" ]
     },
 
     // 结果确认按钮，需同时识别胜利标识，且等待按钮出现后再点击。

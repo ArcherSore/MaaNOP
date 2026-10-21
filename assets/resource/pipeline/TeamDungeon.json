@@ -446,67 +446,37 @@
         "next": [ "TeamDungeonBattleStart" ]
     },
 
-    // 只匹配「开战」，忽略后面的倒计时。
     "TeamDungeonBattleStart": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "max_hit": 20,
         "recognition": {
-            "type": "OCR",
+            "type": "And",
             "param": {
-                "expected": [ "开战" ],
-                "roi": [ 567, 416, 208, 73 ]
+                "all_of": [ "CommonBattleStartButton" ]
             }
         },
-        "action": "Click",
-        "timeout": 20000,
-        "next": [ "TeamDungeonAutoOn", "TeamDungeonAutoOff" ]
-    },
-    // 托管/加速状态会沿用上一场。
-    "TeamDungeonAutoOn": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
+        "anchor": {
+            "CommonBattleStartTarget": "TeamDungeonBattleStart",
+            "CommonBattleOutcome": "TeamDungeonBattleOutcome",
+            "CommonBattleContinue": "TeamDungeonBattleWait"
         },
-        "next": [ "TeamDungeonSpeedOn", "TeamDungeonSpeedOff" ]
-    },
-    "TeamDungeonAutoOff": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
-            }
-        },
-        "action": "Click",
-        "next": [ "TeamDungeonSpeedOn", "TeamDungeonSpeedOff" ]
-    },
-    "TeamDungeonSpeedOn": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/SpeedOn.png",
-                "roi": [ 870, 635, 69, 69 ]
-            }
-        },
-        "next": [ "TeamDungeonBattleWait" ]
-    },
-    "TeamDungeonSpeedOff": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/battle/SpeedOff.png",
-                "roi": [ 870, 635, 69, 69 ]
-            }
-        },
-        "action": "Click",
-        "next": [ "TeamDungeonBattleWait" ]
+        "next": [ "CommonBattleClickStart" ]
     },
     // 精英触发时会短暂回副本窗口再出现「开战」；此处不操作窗口，继续等开战或结算。
     "TeamDungeonBattleWait": {
         "timeout": 600000,
         "next": [ "TeamDungeonSettleReturn", "TeamDungeonBattleStart" ]
+    },
+    // 仅借用结算识别；新开战由公共 StartTarget 接管，避免同轮重复 OCR。
+    "TeamDungeonBattleOutcome": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "TeamDungeonSettleReturn" ]
+            }
+        },
+        "next": [ "TeamDungeonBattleWait" ]
     },
 
     // 只匹配「返回」，避免后续文字和倒计时干扰；点击后会自动领奖并重开副本窗口。

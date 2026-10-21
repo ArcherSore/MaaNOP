@@ -1,15 +1,34 @@
 {
-    "AutoBattle": {
+    // 四个 PvE 任务共用。调用方保留开战入口名和次数上限，并设置三个锚点：
+    // CommonBattleStartTarget 指向自己的开战节点，兼作点击目标和重试入口；
+    // CommonBattleContinue 指向结果等待，CommonBattleOutcome 只识别已有结果。
+    // 不接入竞技场。
+    // 2026-10-20 历史实图：强者 t3.png 为居中单按钮；组队 intro_a.png、
+    // 考试 007-AbilityExamStart.png、丰饶会话 e53c4c0c 的 z_start.png 为双按钮。
+    // ROI 下边界为 464，避开考试「下一关」从 y=465 开始的 OCR 区域。
+    "CommonBattleStartButton": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/flags/BattleStart.png",
-                "roi": [ 629, 81, 129, 113 ]
+                "roi": [ 575, 440, 175, 24 ],
+                "expected": [ "开战" ]
+            }
+        }
+    },
+    "CommonBattleClickStart": {
+        // 整个任务累计的安全上限；组队 / 考试还保留各自的 20 / 24 次上限。
+        "max_hit": 80,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": "[Anchor]CommonBattleStartTarget"
             }
         },
-        "next": [ "AutoOn", "AutoOff" ]
+        "timeout": 20000,
+        // 只有再次识别到开战按钮才补点，进入战斗后不再点击旧位置。
+        "next": [ "[Anchor]CommonBattleOutcome", "CommonBattleAutoOn", "CommonBattleAutoOff", "[Anchor]CommonBattleStartTarget" ]
     },
-    "AutoOn": {
+    "CommonBattleAutoOn": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -17,9 +36,9 @@
                 "roi": [ 828, 620, 80, 80 ]
             }
         },
-        "next": [ "SpeedOn", "SpeedOff" ]
+        "next": [ "[Anchor]CommonBattleOutcome", "CommonBattleSpeedOn", "CommonBattleSpeedOff", "[Anchor]CommonBattleStartTarget" ]
     },
-    "AutoOff": {
+    "CommonBattleAutoOff": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -28,9 +47,10 @@
             }
         },
         "action": "Click",
-        "next": [ "SpeedOn", "SpeedOff" ]
+        // 点击后等 On 验证；切换期间可能显示旧状态，不立即重复切换。
+        "next": [ "[Anchor]CommonBattleOutcome", "CommonBattleAutoOn", "[Anchor]CommonBattleStartTarget" ]
     },
-    "SpeedOn": {
+    "CommonBattleSpeedOn": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -38,10 +58,9 @@
                 "roi": [ 870, 635, 69, 69 ]
             }
         },
-        "timeout": 120000,
-        "next": [ "AutoBattleEnd" ]
+        "next": [ "[Anchor]CommonBattleContinue" ]
     },
-    "SpeedOff": {
+    "CommonBattleSpeedOff": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -50,17 +69,6 @@
             }
         },
         "action": "Click",
-        "timeout": 120000,
-        "next": [ "AutoBattleEnd" ]
-    },
-    "AutoBattleEnd": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "leveling/flags/BattleEnd.png",
-                "roi": [ 1054, 624, 82, 79 ]
-            }
-        },
-        "post_delay": 800
+        "next": [ "[Anchor]CommonBattleOutcome", "CommonBattleSpeedOn", "[Anchor]CommonBattleStartTarget" ]
     }
 }
