@@ -1,44 +1,58 @@
 {
+    // 入口只指定公共组件的返回去向；选服、网页登录和弹窗识别共用。
+    "GameEntry": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": {
+            "ServerSelected": "LoginPopupAppears",
+            "LoginComplete": "SingleLoginDone"
+        },
+        "next": "SetServerRegion"
+    },
     "AccountLeveling": {
-        "next": "SetLevelingTaskMode"
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": { "ServerSelected": "LevelingEntry" },
+        "next": "BatchLoginEntry"
     },
     "AccountClaims": {
-        "next": "SetClaimingTaskMode"
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": {
+            "ServerSelected": "LoginPopupAppears",
+            "LoginComplete": "ClaimingTasks"
+        },
+        "next": "BatchLoginEntry"
     },
     "ShoppingFestivalTask": {
-        "next": "SetShoppingFestivalTaskMode"
-    },
-    "SetLevelingTaskMode": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "SetTaskMode",
-                "custom_recognition_param": "leveling"
-            }
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": {
+            "ServerSelected": "LoginPopupAppears",
+            "LoginComplete": "ShoppingFestivalEntry"
         },
+        "next": "BatchLoginEntry"
+    },
+    "BatchLoginEntry": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": "SetServerRegion"
     },
-    "SetClaimingTaskMode": {
-        "recognition": {
+    "SingleLoginDone": {
+        "action": {
             "type": "Custom",
-            "param": {
-                "custom_recognition": "SetTaskMode",
-                "custom_recognition_param": "claiming"
-            }
-        },
-        "next": "SetServerRegion"
+            "param": { "custom_action": "ClearServerSession" }
+        }
     },
-    "SetShoppingFestivalTaskMode": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "SetTaskMode",
-                "custom_recognition_param": "shopping"
-            }
-        },
-        "next": "SetServerRegion"
+    // 只由本服业务出口进入；先推进并判断完成，最后一服不刷新。
+    "BatchServerDone": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": "GetNextServer"
     },
     "SetServerRegion": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "Custom",
             "param": {
@@ -49,16 +63,15 @@
         "next": "ParseServer"
     },
     "ParseServer": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "Custom",
             "param": {
                 "custom_recognition": "ParseServerRange"
             }
         },
-        "next": "Login"
-    },
-    "Login": {
-        "next": [ "ReChooseServer", "RefreshPage" ]
+        "next": "GetNextServer"
     },
     "RefreshPage": {
         "recognition": {
@@ -74,7 +87,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "ReChooseServer"
+        "next": "WebLogin"
     },
     "ReChooseServer": {
         "recognition": {
@@ -90,16 +103,68 @@
                 "target": [ 665, 601, 33, 6 ] // 重新选区button
             }
         },
-        "next": [ "ReChooseServer", "GetNextServer" ]
+        "next": [ "ReChooseServer", "ChooseRecentServer", "DeterminePage" ]
     },
+    // 首次运行和切服统一刷新，再判断 QQ 登录态；列表完成时不刷新。
     "GetNextServer": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "Custom",
             "param": {
                 "custom_recognition": "GetNextServer"
             }
         },
-        "next": [ "AllServerCompleted", "DeterminePage" ]
+        "next": [ "AllServerCompleted", "RefreshPage" ]
+    },
+    "ChooseRecentServer": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "RecentServerFirst", "RecentServerSecond", "RecentServerThird" ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "timeout": 60000,
+        "next": [ "[Anchor]ServerSelected" ]
+    },
+    "RecentServerFirst": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 437, 238, 107, 16 ],
+                "expected": "set in code"
+            }
+        }
+    },
+    "RecentServerSecond": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 546, 238, 108, 16 ],
+                "expected": "set in code"
+            }
+        }
+    },
+    "RecentServerThird": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 655, 238, 107, 16 ],
+                "expected": "set in code"
+            }
+        }
     },
     "DeterminePage": {
         "recognition": {
@@ -114,8 +179,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "ScrollToTarget",
-        "on_error": "LoginFailed"
+        "next": "ScrollToTarget"
     },
     "ScrollToTarget": {
         "action": {
@@ -124,8 +188,7 @@
                 "custom_action": "ScrollToTargetServer"
             }
         },
-        "next": "ChooseServer",
-        "on_error": "LoginFailed"
+        "next": "ChooseServer"
     },
     "ChooseServer": {
         "recognition": {
@@ -141,66 +204,11 @@
             }
         },
         "timeout": 60000,
-        "next": [ "RouteLevelingAfterServerSelection", "LoginPopupAppears", "LoginScreenClear" ],
-        "on_error": [ "RefreshStuckLoading", "LoginFailed" ]
-    },
-    "RefreshStuckLoading": {
-        "max_hit": 1, // 每服最多刷新恢复一次，由 GetNextServer 重置
-        "timeout": 60000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/login/Refresh.png",
-                "roi": [ 796, 0, 131, 110 ]
-            }
-        },
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "PreciseClick"
-            }
-        },
-        "focus": {
-            "Node.Action.Succeeded": "等待登录超时，刷新后重新选择本服（仅重试一次）"
-        },
-        "next": "ReopenServerList",
-        "on_error": "LoginFailed"
-    },
-    "ReopenServerList": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/login/GameButton.png",
-                "roi": [ 578, 495, 207, 98 ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 665, 601, 33, 6 ] // 重新选区button
-            }
-        },
-        "next": [ "ReopenServerList", "DeterminePage" ],
-        "on_error": "LoginFailed"
-    },
-    "LoginFailed": {
-        "focus": {
-            "Node.Action.Starting": "登录或恢复失败，停止本次批量任务"
-        },
-        "action": { "type": "StopTask" }
-    },
-    "RouteLevelingAfterServerSelection": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "IsLevelingTask"
-            }
-        },
-        "next": "LevelingEntry"
+        "next": [ "[Anchor]ServerSelected" ]
     },
     "LoginPopupAppears": {
+        // 注册完成账号登录后必须先识别并处理弹窗；选服节点不得直接进入清屏完成分支。
         // 加载中或被上层遮罩挡住时点击会丢失；下层弹窗变暗后仍能匹配，须按上层优先排序。
-        "max_hit": 12, // 每服点击预算，由 GetNextServer 重置。
         "recognition": {
             "type": "Custom",
             "param": {
@@ -218,10 +226,24 @@
         "pre_delay": 0,
         "post_delay": 1000, // 弹窗点中后约 0.1 秒消失，等待后再识别，避免补点到地图。
         "action": { "type": "Click" },
-        "next": [ "LoginPopupAppears", "LoginScreenClear" ],
-        "on_error": "LoginPopupCloseFailed"
+        "next": [ "LoginPopupAppears", "LoginScreenClear" ]
     },
     "LoginScreenClear": {
+        "pre_delay": 0,
+        "post_delay": 2000, // 相邻弹窗实测间隔约 0.5 秒，需留出 2 秒安静期。
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": { "match": "LoginMapVisible", "without": "WalkLoading" }
+            }
+        },
+        // 实图：体力标签出现时 LOADING 仍未消失，须同帧排除加载。
+        "next": [ "LoginPopupAppears", "LoginScreenStillClear" ]
+    },
+    "LoginMapVisible": {
+        "pre_delay": 0,
+        "post_delay": 0,
         // 10001 对亮度敏感，体力标签在遮罩下实测约 0.05，可用于确认地图无遮挡。
         "recognition": {
             "type": "TemplateMatch",
@@ -231,46 +253,47 @@
                 "method": 10001,
                 "threshold": 0.8
             }
-        },
-        "post_delay": 2000, // 相邻弹窗实测间隔约 0.5 秒，需留出 2 秒安静期。
-        "next": [ "LoginPopupAppears", "LoginScreenStillClear" ],
-        "on_error": "LoginPopupCloseFailed"
+        }
     },
     "LoginScreenStillClear": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": { "all_of": [ "LoginScreenClear" ] }
         },
-        "next": "RouteAfterLogin"
+        "next": [ "LoginHidePlayers", "LoginPlayersHidden" ]
     },
-    "LoginPopupCloseFailed": {
-        "focus": {
-            "Node.Action.Starting": "登录弹窗关闭失败，停止本次批量任务"
-        },
-        "action": { "type": "StopTask" }
-    },
-    "RouteAfterLogin": {
-        "next": [ "RouteShoppingFestivalAfterLogin", "RouteClaimingAfterLogin" ]
-    },
-    "RouteShoppingFestivalAfterLogin": {
+    "LoginHidePlayers": {
         "recognition": {
-            "type": "Custom",
+            "type": "And",
+            "param": { "all_of": [ "HidePlayersIcon" ] }
+        },
+        "action": { "type": "Click" },
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "LoginPlayersHidden" ]
+    },
+    "LoginPlayersHidden": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
             "param": {
-                "custom_recognition": "IsShoppingFestivalTask"
+                "template": "common/login/PlayersHidden.png",
+                "roi": [ 1262, 78, 61, 60 ],
+                "threshold": 0.85
             }
         },
-        "next": "ShoppingFestivalEntry"
+        "next": "[Anchor]LoginComplete"
     },
-    "RouteClaimingAfterLogin": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "IsClaimingTask"
-            }
-        },
-        "next": [ "ClaimReturnGiftEntry", "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
+    "ClaimingTasks": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "ClaimReturnGiftEntry", "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "BatchServerDone" ]
     },
     "AllServerCompleted": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "Custom",
             "param": {
@@ -279,6 +302,8 @@
         }
     },
     "FindDownArrow": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -289,6 +314,8 @@
         }
     },
     "ChooseServerButton": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -298,6 +325,8 @@
         }
     },
     "LoginMsg": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "focus": {
             "Node.Action.Succeeded": "Action msg set in code",
             "Node.Recognition.Succeeded": "Recognition msg set in code"

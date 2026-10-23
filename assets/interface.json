@@ -25,6 +25,14 @@
             "path": [ "./resource/" ]
         }
     ],
+    "pretask": {
+        "name": "LaunchNaruto",
+        "label": "启动微端",
+        "description": "启动微端；已有游戏窗口时直接使用。建议填写后续任务使用的 QQ 号，减少切服时的账号选择。",
+        "exec": "./python/python.exe",
+        "args": [ "./agent/pretask_launch.py" ],
+        "option": [ "LoginAccount" ]
+    },
     "agent": {
         "child_exec": "./python/python.exe",
         "child_args": [
@@ -37,43 +45,51 @@
             "label": "练小号"
         },
         {
-            "name": "LimitedEvent",
-            "label": "限时活动"
-        },
-        {
             "name": "Routine",
             "label": "日常任务"
+        },
+        {
+            "name": "LimitedEvent",
+            "label": "限时活动"
         }
     ],
     "task": [
+        {
+            "name": "GameEntry",
+            "label": "进入游戏",
+            "group": [ "Routine" ],
+            "entry": "GameEntry",
+            "description": "刷新页面并登录所选服务器，处理进入游戏时的弹窗。\n\n请放在其他任务之前；使用快捷登录时，QQ 须已在电脑上登录。",
+            "option": [ "LoginAccount", "ServerRegionType", "SingleServer" ]
+        },
         {
             "name": "AccountLeveling",
             "label": "注册并练级",
             "group": [ "AltAccount" ],
             "entry": "AccountLeveling",
-            "description": "按设置的服务器范围，依次注册新账号并练到 **16 级**。\n\n- 请从**选服务器界面**开始。\n- **请勿提前注册账号**，任务会自己注册。\n- 某个服务器登录失败时，会停止整个批量任务。",
-            "option": [ "ServerRegionType", "ServerRange", "AccountNamePrefix" ]
+            "description": "依次在所选服务器注册角色并练到 **16 级**，请勿提前注册。\n\n某服登录失败时停止整个任务。",
+            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "AccountNamePrefix" ]
         },
         {
             "name": "AccountClaims",
             "label": "批量领取",
             "group": [ "AltAccount" ],
             "entry": "AccountClaims",
-            "description": "按设置的服务器范围，依次登录并领取勾选的奖励。\n\n- 请从**选服务器界面**开始，并确认目标服务器的账号已完成**注册和练级**。\n- 某个服务器登录失败时，会停止整个批量任务。\n\n各项奖励：\n\n- **等级经验**：用铜币找回 50% 经验，获得 **300,000 经验**，帮助小号升到 **30 级**。适合 **16～30 级**期间使用，请确保铜币足够。\n- **邮件附件**：领取邮件附件（每周更新补偿、幻象奖励等邮件里的点券）。长期使用，每 7 天领一次即可。\n- **幻象奖励**：执行幻象扫荡，完成每周一次的扫荡。**52 级**后使用，每周一次即可，重复运行会再次扫荡；暂不支持自动完成首次伤害，请先手动完成。\n- **回归奖励**：领取连续 **7 天未登录**后可得的回归点券。**30 级**以后使用。",
-            "option": [ "ServerRegionType", "ServerRange", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
+            "description": "依次登录所选服务器，领取勾选的奖励。请先完成各服角色的注册和练级。\n\n某服登录失败时停止整个任务。\n\n- **等级经验**：用铜币找回 50% 经验，适合 16～30 级小号，请备足铜币。\n- **邮件附件**：领取邮件中的附件。\n- **幻象奖励**：52 级解锁后使用，请先手动完成首次伤害。每周运行一次即可，重复运行会再次扫荡。\n- **回归奖励**：领取 30 级及以上角色连续 7 天未登录后触发的回归点券。",
+            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
         },
         {
             "name": "ArenaRankGrind",
             "label": "竞技场一键六道",
             "entry": "ArenaRankGrind",
-            "description": "连续挑战竞技场，达到**六道段位**后停止；已经是六道段位时不会挑战。\n\n- 请从**竞技场主界面**，或能看到竞技场入口的界面开始。\n- 不会领取**月印奖励**，请手动领取。"
+            "description": "连续挑战竞技场，达到**六道段位**后停止。\n\n请从竞技场主界面或地图界面开始。"
         },
         {
             "name": "ThemeArena",
             "label": "主题竞技场",
             "group": [ "LimitedEvent" ],
             "entry": "ThemeArena",
-            "description": "自动点击**战斗**并托管，反复挑战，直到达成所选**目标**（**六道**段位，或**胜利 9 场**的**领取**按钮亮起）。\n\n- 请从**主题竞技场主界面**开始。\n- 不会领取奖励，请手动领取。",
+            "description": "自动挑战并托管，达到所选目标后停止；选择「九胜」时，以九胜奖励可领取为准。\n\n请从**主题竞技场主界面**开始。",
             "option": [ "ThemeArenaEndCondition" ],
             "pipeline_override": {
                 "WaitBattleEnd": {
@@ -86,101 +102,139 @@
             "label": "购物节送字",
             "group": [ "AltAccount" ],
             "entry": "ShoppingFestivalTask",
-            "description": "按设置的服务器范围，依次在**木叶购物节**购买 **3 个字**，并赠送给指定的大号。\n\n- 请从**选服务器界面**开始。\n- **大号保持在线**，并已被送字的小号手动加为好友。\n- 每个小号消耗 **1500 点券**，剩余点券不足时无法购买。\n- 当天首页四个商品中，**至少有一个的价格能整除 1500**（任务不会向下滚动查找）。\n- 每个小号每天只能处理一次，请勿重复运行。\n- 某个服务器登录失败时，会停止整个批量任务。",
-            "option": [ "ServerRegionType", "ServerRange", "ShoppingFriendName" ]
-        },
-        {
-            "name": "SurvivalDrill",
-            "label": "生存演习",
-            "group": [ "Routine" ],
-            "entry": "SurvivalDrill",
-            "description": "先打完上一轮并领奖；当天还有重置次数时，重置一次并切换到设置的难度，按关卡积分从高到低依次挑战，直到**演习积分**满分或挑战次数用完，再领奖。\n\n- 请从**主界面**开始。\n- 没有重置次数时，只打完上一轮并领奖，不开始新一轮。\n- 选择**极限**但尚未解锁时，会自动消耗**极限之卷**解锁；卷不足则改打**精英**。",
-            "option": [ "SurvivalLevel" ]
-        },
-        {
-            "name": "AbundanceRoom",
-            "label": "丰饶之间",
-            "group": [ "Routine" ],
-            "entry": "AbundanceRoom",
-            "description": "**刷铜币**：用设置的队伍反复挑战**赏金试炼**（**简单**难度，自动托管并加速，战后领取收益），直到本日挑战次数用完。\n\n- 请从**主界面**开始。\n- 只打赏金试炼，不打经验试炼。\n- 每场消耗 **10 点体力**，任务**不会处理体力不足**（不会补充体力），请确保体力足够。\n- 队伍需已解锁，否则任务会在选队伍时停止。",
-            "option": [ "AbundanceTeam" ]
-        },
-        {
-            "name": "PowerfulBoss",
-            "label": "强者降临",
-            "group": [ "Routine" ],
-            "entry": "PowerfulBoss",
-            "description": "用设置的队伍，以游戏里**当前选中的难度**单人反复挑战，直到**本周可用普通奖励次数**为 **0**。\n\n- 请从**主界面**开始。\n- 任务**不会选难度**，请先在游戏里选好自己打得过的难度。\n- 每场消耗 1 次奖励次数（每周 6 次）和 **10 点体力**，任务**不会处理体力不足**（不会补充体力），请确保体力足够。\n- 请确保所选阵容能战胜当前难度；暂不处理战败情况。\n- 队伍需已解锁，否则任务会在选队伍时停止。",
-            "option": [ "BossTeam" ]
-        },
-        {
-            "name": "OnlineReward",
-            "label": "在线领奖",
-            "group": [ "Routine" ],
-            "entry": "OnlineReward",
-            "description": "领取**福利大厅**里**现在能领**的在线礼包。\n\n- 请从**主界面**开始。\n- 不等待倒计时，未到时间的礼包会跳过；没有可领的礼包时直接结束。\n- 礼包按在线时长解锁，要领完当天全部，需要在不同时间多次运行。"
-        },
-        {
-            "name": "TrainingJournal",
-            "label": "修行录领取",
-            "group": [ "Routine" ],
-            "entry": "TrainingJournal",
-            "description": "领取**忍者修行录**「任务」页签里所有可领取的奖励；领完一条后换上的下一档任务如果可领，也会继续领。\n\n- 请从**主界面**开始。\n- 不会领取「奖励」页签里的内容。"
-        },
-        {
-            "name": "NinjaQuiz",
-            "label": "忍者测验",
-            "group": [ "Routine" ],
-            "entry": "NinjaQuiz",
-            "description": "参与**忍者测验**，10 道题**都选第一个选项**，答完领取奖励。\n\n- 请从**主界面**开始。\n- 今天已完成时直接结束。\n- 角色走向考官的途中请**勿操作角色**，否则任务会失败。"
-        },
-        {
-            "name": "WantedTask",
-            "label": "通缉任务",
-            "group": [ "Routine" ],
-            "entry": "WantedTask",
-            "description": "用设置的队伍**单人**参加**通缉任务**，点**自动完成**后由游戏跑完今天剩下的所有轮次，最后核对已全部完成。\n\n- 请从**主界面**开始。\n- 支持压级，选**组单人队伍**\n- 全部做完约需十分钟（每轮约 2 分钟），期间请**勿操作角色**，否则自动完成会中断。\n- 被中断后会自动补做剩余轮次；补做两次后仍有剩余，任务显示**失败**。\n- 战斗失败时游戏会终止自动通缉，任务显示**失败**，请换更强的队伍。\n- 今天已完成时直接结束。\n- 队伍需已解锁，否则任务会在选队伍时停止。",
-            "option": [ "WantedTeam", "WantedSoloTeam" ]
-        },
-        {
-            "name": "TeamDungeon",
-            "label": "组队副本",
-            "group": [ "Routine" ],
-            "entry": "TeamDungeon",
-            "description": "使用设置的阵容，**单人**挑战所选副本和难度，自动领取奖励并继续挑战，直到**本日奖励次数为 0**。\n\n- 请从**主界面**开始，确保所选阵容已解锁，且能战胜所选难度；暂不处理战败情况。\n- 不匹配队友，请勿勾选单人确认弹窗中的「本次登录不再提示」。\n- 支持自动挑战途中触发的**精英怪**。\n- 活动未开放或所选难度不可用时，自动跳过。\n- 未找到所选副本时，任务显示失败。",
-            "option": [ "TeamDungeonTeam", "TeamDungeonName", "TeamDungeonDifficulty" ]
+            "description": "依次登录所选服务器，在**木叶购物节**消费 **1500 点券**，再将获得的字赠送给指定大号。\n\n- 大号须保持在线，并已被各小号加为好友。\n- 首页四个商品中，须至少有一个单价能整除 1500；不会向下翻找商品。\n- 每个小号每天只运行一次，重复运行会再次购买。\n- 某服登录失败时停止整个任务。",
+            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "ShoppingFriendName" ]
         },
         {
             "name": "AutoManagement",
             "label": "游戏托管",
             "group": [ "Routine" ],
             "entry": "AutoManagement",
-            "description": "按游戏**托管设置**里的勾选开始托管，等托管做完第一轮（含忍者考试扫荡、家园浇水）后自动退出。\n\n- 请从**主界面**开始。\n- 请先在游戏里勾选好要做的项目，任务不会修改托管设置。\n- 每天第一次托管消耗 **1 张托管卡**。\n- **请勿**勾选「空闲时自动停靠在温泉」；设置了二级密码时，**请勿**勾选「兑换商人」。\n- 只等第一轮，需要等几个小时的事（如矿洞收矿）不等。"
+            "description": "按游戏内的**托管设置**执行一轮后退出。\n\n- 请先在游戏里勾选要做的项目；每天首次托管消耗 **1 张托管卡**。\n- 请勿勾选「空闲时自动停靠在温泉」；设置了二级密码时，也请勿勾选「兑换商人」。"
+        },
+        {
+            "name": "WantedTask",
+            "label": "通缉任务",
+            "group": [ "Routine" ],
+            "entry": "WantedTask",
+            "description": "**单人**自动完成今天剩余的通缉任务，约需十分钟。中断后会检查完成情况，仍有剩余时再次启动。\n\n请使用能打过的队伍，运行期间**勿操作角色**，以免打断自动完成。",
+            "option": [ "WantedTeam", "WantedSoloTeam" ]
+        },
+        {
+            "name": "AbundanceRoom",
+            "label": "丰饶之间",
+            "group": [ "Routine" ],
+            "entry": "AbundanceRoom",
+            "description": "刷铜币专用，不打经验试炼。\n\n每场消耗 **10 点体力**，请备足体力，不会自动补充。",
+            "option": [ "AbundanceTeam" ]
+        },
+        {
+            "name": "SurvivalDrill",
+            "label": "生存演习",
+            "group": [ "Routine" ],
+            "entry": "SurvivalDrill",
+            "description": "打完当前一轮并领奖；当天还有重置次数时，再重置并按所选难度打一轮。每轮打到积分满或挑战次数用完。\n\n选择**极限**但尚未解锁时，会消耗**极限之卷**解锁；卷不足则改打精英。",
+            "option": [ "SurvivalLevel" ]
+        },
+        {
+            "name": "TeamDungeon",
+            "label": "组队副本",
+            "group": [ "Routine" ],
+            "entry": "TeamDungeon",
+            "description": "**单人**挑战所选副本，自动领奖，直到本日奖励次数用完；支持途中触发的精英怪。\n\n- 请选能打过的难度，暂不处理战败。\n- 请勿勾选单人确认弹窗中的「本次登录不再提示」。\n- 活动未开放或所选难度不可用时跳过；找不到所选副本时失败。",
+            "option": [ "TeamDungeonTeam", "TeamDungeonName", "TeamDungeonDifficulty" ]
+        },
+        {
+            "name": "PowerfulBoss",
+            "label": "强者降临",
+            "group": [ "Routine" ],
+            "entry": "PowerfulBoss",
+            "description": "**单人**反复挑战并领奖，直到本周普通奖励次数用完。\n\n- 沿用游戏记住的难度，请提前选好能打过的难度；暂不处理战败。\n- 每场消耗 **10 点体力**和 1 次奖励次数，不会自动补充体力。",
+            "option": [ "BossTeam" ]
+        },
+        {
+            "name": "NinjaQuiz",
+            "label": "忍者测验",
+            "group": [ "Routine" ],
+            "entry": "NinjaQuiz",
+            "description": "完成 10 道题并领奖，**每题固定选第一项，不保证答对**。今天已完成时跳过。\n\n角色走向考官时请勿操作角色，以免打断寻路。"
+        },
+        {
+            "name": "TrainingJournal",
+            "label": "修行录领取",
+            "group": [ "Routine" ],
+            "entry": "TrainingJournal",
+            "description": "领取**忍者修行录「任务」页签**中所有可领奖励，包括领取后解锁的可领奖励；不领取「奖励」页签。"
+        },
+        {
+            "name": "OnlineReward",
+            "label": "在线领奖",
+            "group": [ "Routine" ],
+            "entry": "OnlineReward",
+            "description": "领取**福利大厅**中当前可领的在线礼包，不等待倒计时。\n\n要领完当天全部礼包，请在达到相应在线时长后再次运行。"
         },
         {
             "name": "NinjutsuTraining",
             "label": "忍术特训",
             "group": [ "LimitedEvent" ],
             "entry": "NinjutsuTrainingEntry",
-            "description": "自动完成忍术特训并领取奖励。\n\n- 请从**忍术特训界面**开始，需能看到**「开启特训」**按钮。\n- 其他活动中的忍术特训也可能适用，可以尝试。"
+            "description": "自动完成忍术特训并领奖。\n\n请先打开**忍术特训界面**，确保能看到「开启特训」按钮。"
         },
         {
             "name": "MidAutumnLantern",
             "label": "中秋盛典",
             "group": [ "LimitedEvent" ],
             "entry": "MidAutumnLanternEntry",
-            "description": "识别初始的两盏灯笼，自动点亮其余 **14 盏**，使五种灯笼各至少 3 盏，领取奖励后重置并继续，直到**参与券**用完。\n\n- 请从**中秋盛典点灯笼界面**开始，需能看到**「开始」**按钮。"
+            "description": "自动完成点灯并领奖，重复进行，直到**参与券**用完。\n\n请先打开**中秋盛典点灯笼界面**，确保能看到「开始」按钮。"
         },
         {
             "name": "AbilityExam",
             "label": "忍者能力考试",
             "group": [ "LimitedEvent" ],
             "entry": "AbilityExam",
-            "description": "用设置的队伍，从限时热点**忍者能力考试**进入最高档**高级考试**，自动托管并加速，逐关挑战 **10 关**；通过后关闭通告，并领取四档考试的**全部奖励**（通关高档后可直接领取低档奖励）。\n\n- 请从**主界面**开始，不提供档位选项。\n- 已通过的关卡不会重打，从游戏记录的当前关继续；奖励都已领完时直接结束。\n- 请确保所选阵容能战胜高级考试；暂不处理战败情况。\n- 队伍需已解锁，否则任务会在选队伍时停止。",
+            "description": "自动挑战**高级考试**，通关后领取各档奖励；已通过的关卡会跳过。\n\n请使用能打过高级考试的队伍，暂不处理战败。",
             "option": [ "ExamTeam" ]
         }
     ],
     "option": {
+        "LoginAccount": {
+            "type": "input",
+            "label": "自动登录 QQ 号",
+            "pipeline_override": {
+                "WebManualLogin": {
+                    "recognition": {
+                        "param": {
+                            "custom_recognition_param": {
+                                "uin": "{uin}",
+                                "threshold": 0.85
+                            }
+                        }
+                    }
+                },
+                "WebAccountMatch": {
+                    "recognition": {
+                        "param": {
+                            "custom_recognition_param": {
+                                "uin": "{uin}",
+                                "source": "WebReadNumber",
+                                "threshold": 0.85
+                            }
+                        }
+                    }
+                }
+            },
+            "inputs": [
+                {
+                    "name": "uin",
+                    "label": "QQ 号",
+                    "default": "",
+                    "description": "启动微端时用作启动参数；普通登录和批量切服时用于网页快捷登录。",
+                    "pipeline_type": "string",
+                    "verify": "^$|^[1-9][0-9]{4,11}$",
+                    "pattern_msg": "请输入 5～12 位 QQ 号，或留空手动登录"
+                }
+            ]
+        },
         "ServerRegionType": {
             "type": "select",
             "label": "大区类型",
@@ -233,6 +287,32 @@
                     }
                 }
             ]
+        },
+        "SingleServer": {
+            "type": "input",
+            "label": "服务器选择",
+            "inputs": [
+                {
+                    "name": "server_id",
+                    "label": "服务器编号",
+                    "description": "只输入一个服务器编号，如 1006。",
+                    "default": "1",
+                    "pipeline_type": "string",
+                    "verify": "^[1-9][0-9]*$",
+                    "pattern_msg": "请输入一个正整数服务器编号"
+                }
+            ],
+            "pipeline_override": {
+                "ParseServer": {
+                    "recognition": {
+                        "type": "Custom",
+                        "param": {
+                            "custom_recognition": "ParseServerRange",
+                            "custom_recognition_param": "{server_id}"
+                        }
+                    }
+                }
+            }
         },
         "ServerRange": {
             "type": "input",
