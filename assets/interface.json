@@ -27,8 +27,8 @@
     ],
     "pretask": {
         "name": "LaunchNaruto",
-        "label": "启动微端并登录",
-        "description": "填写已在微端保存密码的 QQ 号。请先关闭分身中已有的微端，避免沿用错误账号。\n\n留空时仅打开登录窗口，需在 60 秒内手动登录；已有游戏窗口则沿用当前账号。\n\n60 秒内未出现游戏窗口则停止后续任务，不自动重试。",
+        "label": "启动微端",
+        "description": "启动微端，最多等待游戏窗口 60 秒。已有窗口时直接复用。\n\n建议填写后续任务实际使用的 QQ 号。账号一致时，切服刷新可沿用登录态，避免反复弹出 QQ 选择窗口。\n\n请将任务「进入游戏」放在其他普通任务之前。",
         "exec": "./python/python.exe",
         "args": [ "./agent/pretask_launch.py" ],
         "option": [ "LoginAccount" ]
@@ -54,6 +54,30 @@
         }
     ],
     "task": [
+        {
+            "name": "GameEntry",
+            "label": "进入游戏",
+            "entry": "SetServerRegion",
+            "description": "刷新页面，出现快捷登录时选择填写的 QQ，然后进入指定服务器并关闭游戏登录弹窗。\n\n请放在其他普通任务之前。QQ 须已在主机登录\n\n暂时只支持进入一个服。",
+            "option": [ "LoginAccount", "ServerRegionType", "SingleServer" ],
+            "pipeline_override": {
+                "ParseServer": {
+                    "next": [ "RefreshPage" ]
+                },
+                "RefreshPage": {
+                    "next": [ "WebLogin" ]
+                },
+                "WebLoginReady": {
+                    "next": [ "ReChooseServer" ]
+                },
+                "ChooseServer": {
+                    "next": [ "LoginPopupAppears", "LoginScreenClear" ]
+                },
+                "LoginScreenStillClear": {
+                    "next": [ "GetNextServer" ]
+                }
+            }
+        },
         {
             "name": "AccountLeveling",
             "label": "注册并练级",
@@ -192,11 +216,35 @@
         "LoginAccount": {
             "type": "input",
             "label": "自动登录 QQ 号",
+            "pipeline_override": {
+                "WebManualLogin": {
+                    "recognition": {
+                        "param": {
+                            "custom_recognition_param": {
+                                "uin": "{uin}",
+                                "threshold": 0.85
+                            }
+                        }
+                    }
+                },
+                "WebAccountMatch": {
+                    "recognition": {
+                        "param": {
+                            "custom_recognition_param": {
+                                "uin": "{uin}",
+                                "source": "WebReadNumber",
+                                "threshold": 0.85
+                            }
+                        }
+                    }
+                }
+            },
             "inputs": [
                 {
                     "name": "uin",
                     "label": "QQ 号",
-                    "description": "已在官方微端勾选记住密码的账号；留空则手动登录。",
+                    "default": "",
+                    "description": "启动微端时用作启动参数；进入游戏时用于网页快捷登录。",
                     "pipeline_type": "string",
                     "verify": "^$|^[1-9][0-9]{4,11}$",
                     "pattern_msg": "请输入 5～12 位 QQ 号，或留空手动登录"
@@ -255,6 +303,32 @@
                     }
                 }
             ]
+        },
+        "SingleServer": {
+            "type": "input",
+            "label": "服务器选择",
+            "inputs": [
+                {
+                    "name": "server_id",
+                    "label": "服务器编号",
+                    "description": "只输入一个服务器编号，如 1006。",
+                    "default": "1",
+                    "pipeline_type": "string",
+                    "verify": "^[1-9][0-9]*$",
+                    "pattern_msg": "请输入一个正整数服务器编号"
+                }
+            ],
+            "pipeline_override": {
+                "ParseServer": {
+                    "recognition": {
+                        "type": "Custom",
+                        "param": {
+                            "custom_recognition": "ParseServerRange",
+                            "custom_recognition_param": "{server_id}"
+                        }
+                    }
+                }
+            }
         },
         "ServerRange": {
             "type": "input",

@@ -1,0 +1,288 @@
+{
+    "WebLogin": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 60000,
+        "next": [ "WebLoginReady", "WebQuickLogin" ]
+    },
+    "WebLoginReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "ReChooseServer" ]
+            }
+        }
+    },
+    "WebQuickLogin": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 610, 270, 120, 35 ],
+                "expected": "快捷登录"
+            }
+        },
+        "next": [ "WebManualLogin", "WebProbe594" ]
+    },
+    "WebManualLogin": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "CompareWebAccount",
+                "custom_recognition_param": {
+                    "uin": "",
+                    "threshold": 0.85
+                }
+            }
+        },
+        "timeout": 90000,
+        "next": [ "WebLoginReady" ]
+    },
+    // 锚点保存当前号码 ROI 与下一候选节点；target_offset 将操作点移到头像内部。
+    "WebProbe594": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {
+                "roi": [ 560, 376, 68, 18 ]
+            }
+        },
+        "anchor": {
+            "WebCandidate": "WebProbe594",
+            "WebNextCandidate": "WebProbe670"
+        },
+        "action": {
+            "type": "TouchMove",
+            "param": {
+                "target": [ 850, 220 ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 200,
+            "target": [ 560, 330, 220, 80 ],
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "next": [ "WebLoginReady", "WebPhoneAccount", "WebHoverCandidate" ]
+    },
+    "WebProbe670": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {
+                "roi": [ 636, 376, 68, 18 ]
+            }
+        },
+        "anchor": {
+            "WebCandidate": "WebProbe670",
+            "WebNextCandidate": "WebProbe707"
+        },
+        "action": {
+            "type": "TouchMove",
+            "param": {
+                "target": [ 850, 220 ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 200,
+            "target": [ 560, 330, 220, 80 ],
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "next": [ "WebLoginReady", "WebPhoneAccount", "WebHoverCandidate" ]
+    },
+    "WebProbe707": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {
+                "roi": [ 673, 376, 68, 18 ]
+            }
+        },
+        "anchor": {
+            "WebCandidate": "WebProbe707",
+            "WebNextCandidate": "WebProbe744"
+        },
+        "action": {
+            "type": "TouchMove",
+            "param": {
+                "target": [ 850, 220 ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 200,
+            "target": [ 560, 330, 220, 80 ],
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "next": [ "WebLoginReady", "WebPhoneAccount", "WebHoverCandidate" ]
+    },
+    "WebProbe744": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {
+                "roi": [ 710, 376, 68, 18 ]
+            }
+        },
+        "anchor": {
+            "WebCandidate": "WebProbe744",
+            "WebNextCandidate": "WebAfterCandidates"
+        },
+        "action": {
+            "type": "TouchMove",
+            "param": {
+                "target": [ 850, 220 ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 200,
+            "target": [ 560, 330, 220, 80 ],
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "next": [ "WebLoginReady", "WebPhoneAccount", "WebHoverCandidate" ]
+    },
+    // 手机标记得分 0.9957～1.0，其他位置最高 0.6992。
+    "WebPhoneAccount": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/login/WebPhone.png",
+                "roi": "[Anchor]WebCandidate",
+                "roi_offset": [ 44, -6, -38, 9 ],
+                "threshold": 0.85
+            }
+        },
+        "next": [ "[Anchor]WebNextCandidate" ]
+    },
+    "WebHoverCandidate": {
+        "action": {
+            "type": "TouchMove",
+            "param": {
+                "target": "[Anchor]WebCandidate",
+                "target_offset": [ 33, -17, -66, -16 ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 200,
+            "target": "[Anchor]WebCandidate",
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "next": [ "WebReadNumber" ]
+    },
+    // 探测位置可能是空白或二维码。OCR 结果保存在 Or.sub_results 中。
+    // DirectHit 仅允许继续比较或探测下一位置，不作为登录成功依据。
+    "WebReadNumber": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "OCR",
+                        "roi": "[Anchor]WebCandidate",
+                        "expected": "^[1-9][0-9]{4,11}$"
+                    },
+                    {
+                        "recognition": "DirectHit",
+                        "roi": "[Anchor]WebCandidate"
+                    }
+                ]
+            }
+        },
+        "next": [ "WebAccountMatch", "[Anchor]WebNextCandidate" ]
+    },
+    "WebAccountMatch": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "CompareWebAccount",
+                "custom_recognition_param": {
+                    "uin": "",
+                    "source": "WebReadNumber",
+                    "threshold": 0.85
+                }
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": "[Anchor]WebCandidate",
+                "target_offset": [ 33, -17, -66, -16 ]
+            }
+        },
+        "max_hit": 1,
+        "timeout": 60000,
+        "next": [ "WebLoginReady" ]
+    },
+    "WebAfterCandidates": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "WebQuickLogin" ]
+            }
+        },
+        "next": [ "WebLoginReady", "WebClickNext", "WebNoNextPage" ]
+    },
+    // 箭头得分 1.0，无箭头时为 0.0。
+    "WebNextPage": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/login/WebNext.png",
+                "roi": [ 780, 345, 25, 35 ],
+                "threshold": 0.95
+            }
+        }
+    },
+    // 只有仍处于快捷登录页且识别到右箭头时才允许翻页。
+    // max_hit 仅作安全上限；无下一页且未找到目标账号时明确失败。
+    "WebClickNext": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "WebNextPage" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 792, 360, 3, 4 ]
+            }
+        },
+        "max_hit": 20,
+        "post_wait_freezes": {
+            "time": 200,
+            "target": [ 560, 330, 220, 80 ],
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "timeout": 3000,
+        "next": [ "WebLoginReady", "WebQuickLogin" ]
+    },
+    "WebNoNextPage": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "WebNextPage" ]
+            }
+        },
+        "inverse": true,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "FalseAction"
+            }
+        }
+    }
+}
