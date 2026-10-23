@@ -71,6 +71,21 @@ class GetNextServer(CustomRecognition):
             return None
 
         if not result.get("finished"):
+            # 最近登录可混排不同区服，必须同时匹配类型和完整服号；不使用列表网格推断。
+            region_prefix = {
+                "public": r"公\s*测\s*",
+                "non_wipe": "",
+                "alliance": r"联\s*盟\s*",
+            }
+            expected = (
+                rf"^\s*{region_prefix[result['region_type']]}"
+                rf"{result['server_id']}\s*区"
+            )
+            if not context.override_pipeline({
+                name: {"recognition": {"param": {"expected": expected}}}
+                for name in ("RecentServerFirst", "RecentServerSecond", "RecentServerThird")
+            }):
+                return None
             # max_hit 按任务累计；只在推进到新服时恢复刷新与关弹窗预算。
             context.clear_hit_count("RefreshStuckLoading")
             context.clear_hit_count("LoginPopupAppears")

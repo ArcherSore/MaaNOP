@@ -99,7 +99,57 @@
                 "custom_recognition": "GetNextServer"
             }
         },
-        "next": [ "AllServerCompleted", "DeterminePage" ]
+        "next": [ "AllServerCompleted", "ChooseRecentServer", "DeterminePage" ]
+    },
+    "ChooseRecentServer": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "RecentServerFirst", "RecentServerSecond", "RecentServerThird" ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "timeout": 60000,
+        "next": [ "RouteLevelingAfterServerSelection", "LoginPopupAppears" ],
+        "on_error": [ "RefreshStuckLoading", "LoginFailed" ]
+    },
+    "RecentServerFirst": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 437, 238, 107, 16 ],
+                "expected": "set in code"
+            }
+        }
+    },
+    "RecentServerSecond": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 546, 238, 108, 16 ],
+                "expected": "set in code"
+            }
+        }
+    },
+    "RecentServerThird": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 655, 238, 107, 16 ],
+                "expected": "set in code"
+            }
+        }
     },
     "DeterminePage": {
         "recognition": {
@@ -141,7 +191,7 @@
             }
         },
         "timeout": 60000,
-        "next": [ "RouteLevelingAfterServerSelection", "LoginPopupAppears", "LoginScreenClear" ],
+        "next": [ "RouteLevelingAfterServerSelection", "LoginPopupAppears" ],
         "on_error": [ "RefreshStuckLoading", "LoginFailed" ]
     },
     "RefreshStuckLoading": {
@@ -180,14 +230,14 @@
                 "target": [ 665, 601, 33, 6 ] // 重新选区button
             }
         },
-        "next": [ "ReopenServerList", "DeterminePage" ],
+        "next": [ "ReopenServerList", "ChooseRecentServer", "DeterminePage" ],
         "on_error": "LoginFailed"
     },
     "LoginFailed": {
         "focus": {
             "Node.Action.Starting": "登录或恢复失败，停止本次批量任务"
         },
-        "action": { "type": "StopTask" }
+        "action": { "type": "Custom", "param": { "custom_action": "FalseAction" } }
     },
     "RouteLevelingAfterServerSelection": {
         "recognition": {
@@ -199,6 +249,7 @@
         "next": "LevelingEntry"
     },
     "LoginPopupAppears": {
+        // 注册完成账号登录后必须先识别并处理弹窗；选服节点不得直接进入清屏完成分支。
         // 加载中或被上层遮罩挡住时点击会丢失；下层弹窗变暗后仍能匹配，须按上层优先排序。
         "max_hit": 12, // 每服点击预算，由 GetNextServer 重置。
         "recognition": {
@@ -222,6 +273,21 @@
         "on_error": "LoginPopupCloseFailed"
     },
     "LoginScreenClear": {
+        "post_delay": 2000, // 相邻弹窗实测间隔约 0.5 秒，需留出 2 秒安静期。
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": { "match": "LoginMapVisible", "without": "WalkLoading" }
+            }
+        },
+        // 2026-10-23 17:36:21 实图：体力标签出现时 LOADING 仍未消失，须同帧排除加载。
+        "next": [ "LoginPopupAppears", "LoginScreenStillClear" ],
+        "on_error": "LoginPopupCloseFailed"
+    },
+    "LoginMapVisible": {
+        "pre_delay": 0,
+        "post_delay": 0,
         // 10001 对亮度敏感，体力标签在遮罩下实测约 0.05，可用于确认地图无遮挡。
         "recognition": {
             "type": "TemplateMatch",
@@ -231,10 +297,7 @@
                 "method": 10001,
                 "threshold": 0.8
             }
-        },
-        "post_delay": 2000, // 相邻弹窗实测间隔约 0.5 秒，需留出 2 秒安静期。
-        "next": [ "LoginPopupAppears", "LoginScreenStillClear" ],
-        "on_error": "LoginPopupCloseFailed"
+        }
     },
     "LoginScreenStillClear": {
         "recognition": {
@@ -247,7 +310,7 @@
         "focus": {
             "Node.Action.Starting": "登录弹窗关闭失败，停止本次批量任务"
         },
-        "action": { "type": "StopTask" }
+        "action": { "type": "Custom", "param": { "custom_action": "FalseAction" } }
     },
     "RouteAfterLogin": {
         "next": [ "RouteShoppingFestivalAfterLogin", "RouteClaimingAfterLogin" ]

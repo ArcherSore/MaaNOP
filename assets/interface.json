@@ -71,7 +71,10 @@
                     "next": [ "ReChooseServer" ]
                 },
                 "ChooseServer": {
-                    "next": [ "LoginPopupAppears", "LoginScreenClear" ]
+                    "next": [ "LoginPopupAppears" ]
+                },
+                "ChooseRecentServer": {
+                    "next": [ "LoginPopupAppears" ]
                 },
                 "LoginScreenStillClear": {
                     "next": [ "GetNextServer" ]
