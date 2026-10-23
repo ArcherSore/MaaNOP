@@ -291,6 +291,6 @@
                 "key": 27
             }
         },
-        "next": [ "Login" ]
+        "next": [ "BatchServerDone" ]
     }
 }

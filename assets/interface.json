@@ -57,45 +57,25 @@
         {
             "name": "GameEntry",
             "label": "进入游戏",
-            "entry": "SetServerRegion",
-            "description": "刷新页面，出现快捷登录时选择填写的 QQ，然后进入指定服务器并关闭游戏登录弹窗。\n\n请放在其他普通任务之前。QQ 须已在主机登录\n\n暂时只支持进入一个服。",
-            "option": [ "LoginAccount", "ServerRegionType", "SingleServer" ],
-            "pipeline_override": {
-                "ParseServer": {
-                    "next": [ "RefreshPage" ]
-                },
-                "RefreshPage": {
-                    "next": [ "WebLogin" ]
-                },
-                "WebLoginReady": {
-                    "next": [ "ReChooseServer" ]
-                },
-                "ChooseServer": {
-                    "next": [ "LoginPopupAppears" ]
-                },
-                "ChooseRecentServer": {
-                    "next": [ "LoginPopupAppears" ]
-                },
-                "LoginScreenStillClear": {
-                    "next": [ "GetNextServer" ]
-                }
-            }
+            "entry": "GameEntry",
+            "description": "先刷新游戏页面，再判断登录态；出现快捷登录时选择填写的 QQ。进入指定服务器后处理登录弹窗。\n\n请放在其他普通任务之前。QQ 须已在主机登录\n\n暂时只支持进入一个服。",
+            "option": [ "LoginAccount", "ServerRegionType", "SingleServer" ]
         },
         {
             "name": "AccountLeveling",
             "label": "注册并练级",
             "group": [ "AltAccount" ],
             "entry": "AccountLeveling",
-            "description": "按设置的服务器范围，依次注册新账号并练到 **16 级**。\n\n- 请从**选服务器界面**开始。\n- **请勿提前注册账号**，任务会自己注册。\n- 某个服务器登录失败时，会停止整个批量任务。",
-            "option": [ "ServerRegionType", "ServerRange", "AccountNamePrefix" ]
+            "description": "按设置的服务器范围，依次注册新账号并练到 **16 级**。\n\n- 支持从**游戏内、进入游戏按钮所在页面或 QQ 快捷登录页**开始，每次进入服务器前先刷新。\n- **请勿提前注册账号**，任务会自己注册。\n- 某个服务器登录失败时，会停止整个批量任务。",
+            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "AccountNamePrefix" ]
         },
         {
             "name": "AccountClaims",
             "label": "批量领取",
             "group": [ "AltAccount" ],
             "entry": "AccountClaims",
-            "description": "按设置的服务器范围，依次登录并领取勾选的奖励。\n\n- 请从**选服务器界面**开始，并确认目标服务器的账号已完成**注册和练级**。\n- 某个服务器登录失败时，会停止整个批量任务。\n\n各项奖励：\n\n- **等级经验**：用铜币找回 50% 经验，获得 **300,000 经验**，帮助小号升到 **30 级**。适合 **16～30 级**期间使用，请确保铜币足够。\n- **邮件附件**：领取邮件附件（每周更新补偿、幻象奖励等邮件里的点券）。长期使用，每 7 天领一次即可。\n- **幻象奖励**：执行幻象扫荡，完成每周一次的扫荡。**52 级**后使用，每周一次即可，重复运行会再次扫荡；暂不支持自动完成首次伤害，请先手动完成。\n- **回归奖励**：领取连续 **7 天未登录**后可得的回归点券。**30 级**以后使用。",
-            "option": [ "ServerRegionType", "ServerRange", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
+            "description": "按设置的服务器范围，依次登录并领取勾选的奖励。\n\n- 支持从**游戏内、进入游戏按钮所在页面或 QQ 快捷登录页**开始，每次进入服务器前先刷新，并确认目标服务器的账号已完成**注册和练级**。\n- 某个服务器登录失败时，会停止整个批量任务。\n\n各项奖励：\n\n- **等级经验**：用铜币找回 50% 经验，获得 **300,000 经验**，帮助小号升到 **30 级**。适合 **16～30 级**期间使用，请确保铜币足够。\n- **邮件附件**：领取邮件附件（每周更新补偿、幻象奖励等邮件里的点券）。长期使用，每 7 天领一次即可。\n- **幻象奖励**：执行幻象扫荡，完成每周一次的扫荡。**52 级**后使用，每周一次即可，重复运行会再次扫荡；暂不支持自动完成首次伤害，请先手动完成。\n- **回归奖励**：领取连续 **7 天未登录**后可得的回归点券。**30 级**以后使用。",
+            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
         },
         {
             "name": "ArenaRankGrind",
@@ -121,8 +101,8 @@
             "label": "购物节送字",
             "group": [ "AltAccount" ],
             "entry": "ShoppingFestivalTask",
-            "description": "按设置的服务器范围，依次在**木叶购物节**购买 **3 个字**，并赠送给指定的大号。\n\n- 请从**选服务器界面**开始。\n- **大号保持在线**，并已被送字的小号手动加为好友。\n- 每个小号消耗 **1500 点券**，剩余点券不足时无法购买。\n- 当天首页四个商品中，**至少有一个的价格能整除 1500**（任务不会向下滚动查找）。\n- 每个小号每天只能处理一次，请勿重复运行。\n- 某个服务器登录失败时，会停止整个批量任务。",
-            "option": [ "ServerRegionType", "ServerRange", "ShoppingFriendName" ]
+            "description": "按设置的服务器范围，依次在**木叶购物节**购买 **3 个字**，并赠送给指定的大号。\n\n- 支持从**游戏内、进入游戏按钮所在页面或 QQ 快捷登录页**开始，每次进入服务器前先刷新。\n- **大号保持在线**，并已被送字的小号手动加为好友。\n- 每个小号消耗 **1500 点券**，剩余点券不足时无法购买。\n- 当天首页四个商品中，**至少有一个的价格能整除 1500**（任务不会向下滚动查找）。\n- 每个小号每天只能处理一次，请勿重复运行。\n- 某个服务器登录失败时，会停止整个批量任务。",
+            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "ShoppingFriendName" ]
         },
         {
             "name": "SurvivalDrill",
@@ -247,7 +227,7 @@
                     "name": "uin",
                     "label": "QQ 号",
                     "default": "",
-                    "description": "启动微端时用作启动参数；进入游戏时用于网页快捷登录。",
+                    "description": "启动微端时用作启动参数；普通登录和批量切服时用于网页快捷登录。",
                     "pipeline_type": "string",
                     "verify": "^$|^[1-9][0-9]{4,11}$",
                     "pattern_msg": "请输入 5～12 位 QQ 号，或留空手动登录"

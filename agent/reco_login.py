@@ -86,9 +86,6 @@ class GetNextServer(CustomRecognition):
                 for name in ("RecentServerFirst", "RecentServerSecond", "RecentServerThird")
             }):
                 return None
-            # max_hit 按任务累计；只在推进到新服时恢复刷新与关弹窗预算。
-            context.clear_hit_count("RefreshStuckLoading")
-            context.clear_hit_count("LoginPopupAppears")
             region_label = {"public": "公测", "non_wipe": "不删档", "alliance": "联盟"}[result["region_type"]]
             send_focus_message(
                 context,
@@ -186,81 +183,3 @@ class AllCompleted(CustomRecognition):
             box=(0, 0, 0, 0),
             detail={"finished": True},
         )
-
-
-@AgentServer.custom_recognition("SetTaskMode")
-class SetTaskMode(CustomRecognition):
-    def analyze(
-        self,
-        context: Context,
-        argv: CustomRecognition.AnalyzeArg,
-    ) -> CustomRecognition.AnalyzeResult:
-        task_mode = json.loads(argv.custom_recognition_param)
-        return CustomRecognition.AnalyzeResult(
-            box=(0, 0, 0, 0),
-            detail={"task_mode": task_mode},
-        )
-
-
-TASK_MODE_BY_ENTRY = {
-    "ShoppingFestivalTask": "shopping",
-    "AccountLeveling": "leveling",
-    "AccountClaims": "claiming",
-}
-TASK_MODE_NODES = ["SetShoppingFestivalTaskMode", "SetLevelingTaskMode", "SetClaimingTaskMode"]
-
-
-def _get_task_mode(context: Context, argv: CustomRecognition.AnalyzeArg):
-    task_mode = TASK_MODE_BY_ENTRY.get(argv.task_detail.entry)
-    if task_mode:
-        return task_mode
-
-    for node_name in TASK_MODE_NODES:
-        detail = get_latest_detail(context, node_name)
-        if detail and detail.get("task_mode"):
-            return detail["task_mode"]
-
-    return None
-
-
-def _match_task_mode(
-    context: Context, argv: CustomRecognition.AnalyzeArg, task_mode: str
-) -> CustomRecognition.AnalyzeResult:
-    if _get_task_mode(context, argv) != task_mode:
-        return None
-
-    return CustomRecognition.AnalyzeResult(
-        box=(0, 0, 0, 0),
-        detail={"task_mode": task_mode},
-    )
-
-
-@AgentServer.custom_recognition("IsLevelingTask")
-class IsLevelingTask(CustomRecognition):
-    def analyze(
-        self,
-        context: Context,
-        argv: CustomRecognition.AnalyzeArg,
-    ) -> CustomRecognition.AnalyzeResult:
-        return _match_task_mode(context, argv, "leveling")
-
-
-@AgentServer.custom_recognition("IsClaimingTask")
-class IsClaimingTask(CustomRecognition):
-    def analyze(
-        self,
-        context: Context,
-        argv: CustomRecognition.AnalyzeArg,
-    ) -> CustomRecognition.AnalyzeResult:
-        return _match_task_mode(context, argv, "claiming")
-
-
-@AgentServer.custom_recognition("IsShoppingFestivalTask")
-class IsShoppingFestivalTask(CustomRecognition):
-    def analyze(
-        self,
-        context: Context,
-        argv: CustomRecognition.AnalyzeArg,
-    ) -> CustomRecognition.AnalyzeResult:
-        return _match_task_mode(context, argv, "shopping")
-

@@ -8,7 +8,7 @@
         "focus": {
             "Node.Recognition.Succeeded": "无限幻象未解锁（52级解锁）"
         },
-        "next": [ "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
+        "next": [ "ClaimMailEntry", "ClaimLevelEntry", "BatchServerDone" ]
     },
     "ClickOnInfiniteIllusion": {
         "timeout": 5000,
@@ -185,7 +185,7 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClaimMailEntry", "ClaimLevelEntry", "Login" ]
+        "next": [ "ClaimMailEntry", "ClaimLevelEntry", "BatchServerDone" ]
     },
     "HandleConfirmPopup": {
         "recognition": {

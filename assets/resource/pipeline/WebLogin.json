@@ -13,7 +13,8 @@
             "param": {
                 "all_of": [ "ReChooseServer" ]
             }
-        }
+        },
+        "next": "ReChooseServer"
     },
     "WebQuickLogin": {
         "pre_delay": 0,
@@ -217,7 +218,6 @@
                 "target_offset": [ 33, -17, -66, -16 ]
             }
         },
-        "max_hit": 1,
         "timeout": 60000,
         "next": [ "WebLoginReady" ]
     },
@@ -230,7 +230,7 @@
                 "all_of": [ "WebQuickLogin" ]
             }
         },
-        "next": [ "WebLoginReady", "WebClickNext", "WebNoNextPage" ]
+        "next": [ "WebLoginReady", "WebClickNext" ]
     },
     // 箭头得分 1.0，无箭头时为 0.0。
     "WebNextPage": {
@@ -246,7 +246,6 @@
         }
     },
     // 只有仍处于快捷登录页且识别到右箭头时才允许翻页。
-    // max_hit 仅作安全上限；无下一页且未找到目标账号时明确失败。
     "WebClickNext": {
         "recognition": {
             "type": "And",
@@ -260,7 +259,6 @@
                 "target": [ 792, 360, 3, 4 ]
             }
         },
-        "max_hit": 20,
         "post_wait_freezes": {
             "time": 200,
             "target": [ 560, 330, 220, 80 ],
@@ -269,20 +267,5 @@
         },
         "timeout": 3000,
         "next": [ "WebLoginReady", "WebQuickLogin" ]
-    },
-    "WebNoNextPage": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "WebNextPage" ]
-            }
-        },
-        "inverse": true,
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "FalseAction"
-            }
-        }
     }
 }

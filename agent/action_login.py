@@ -5,6 +5,7 @@ from maa.custom_action import CustomAction
 from maa.context import Context
 
 from common import click_center, get_latest_detail, recognize_server
+from server_session import clear_server_session
 from constants import (
     SERVER_1000_SCROLL_CLICKS_PER_ATTEMPT,
     SERVER_1000_SEARCH_ATTEMPTS,
@@ -73,3 +74,10 @@ class ScrollToTargetServer(CustomAction):
                 time.sleep(SERVER_SCROLL_CLICK_INTERVAL)
 
         return False
+
+
+@AgentServer.custom_action("ClearServerSession")
+class ClearServerSession(CustomAction):
+    def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
+        clear_server_session(argv.task_detail.task_id)
+        return True
