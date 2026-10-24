@@ -9,8 +9,8 @@ from maa.pipeline import JTemplateMatch, JWaitFreezes
 
 # The left board shows the picture dimmed to DIM_FACTOR of its brightness; the
 # loose pieces are piled in the right panel in full color, at the same scale.
-BOARD = (388, 261, 296, 296)
-PILE = (776, 262, 176, 294)
+BOARD = (388, 240, 296, 296)
+PILE = (776, 241, 176, 294)
 DIM_FACTOR = 0.295
 
 # Only the middle of a cell is identical on every piece shape; the tabs and

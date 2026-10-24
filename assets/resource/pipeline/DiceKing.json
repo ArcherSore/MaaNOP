@@ -9,7 +9,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 530, 300, 260, 190 ],
+                "roi": [ 530, 258, 260, 190 ],
                 "expected": [ "骰子手气王" ]
             }
         },

@@ -10,7 +10,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 530, 300, 260, 190 ],
+                "roi": [ 530, 258, 260, 190 ],
                 "expected": [ "忍者拼图" ]
             }
         },
@@ -64,7 +64,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "puzzle/Claimed.png",
-                "roi": [ 818, 385, 28, 18 ],
+                "roi": [ 818, 343, 28, 18 ],
                 "threshold": 0.5
             }
         },
@@ -76,7 +76,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 819, 391, 8, 7 ],
+                "roi": [ 819, 349, 8, 7 ],
                 "method": 40,
                 "lower": [ 5, 150, 100 ],
                 "upper": [ 20, 255, 255 ],
@@ -86,7 +86,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 828, 391, 24, 7 ]
+                "target": [ 828, 349, 24, 7 ]
             }
         },
         "focus": {
@@ -100,7 +100,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 880, 391, 9, 7 ],
+                "roi": [ 880, 349, 9, 7 ],
                 "method": 40,
                 "lower": [ 95, 120, 100 ],
                 "upper": [ 125, 255, 255 ],
@@ -110,7 +110,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 884, 390, 34, 9 ]
+                "target": [ 884, 348, 34, 9 ]
             }
         },
         "anchor": {
@@ -127,7 +127,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "puzzle/BoardReady.png",
-                "roi": [ 695, 341, 68, 68 ],
+                "roi": [ 695, 320, 68, 68 ],
                 "threshold": 0.9
             }
         },
@@ -151,7 +151,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "puzzle/Claimed.png",
-                "roi": [ 818, 442, 28, 18 ],
+                "roi": [ 818, 400, 28, 18 ],
                 "threshold": 0.5
             }
         },
@@ -162,7 +162,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 819, 448, 8, 7 ],
+                "roi": [ 819, 406, 8, 7 ],
                 "method": 40,
                 "lower": [ 5, 150, 100 ],
                 "upper": [ 20, 255, 255 ],
@@ -172,7 +172,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 828, 448, 24, 7 ]
+                "target": [ 828, 406, 24, 7 ]
             }
         },
         "focus": {
@@ -185,7 +185,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 880, 448, 9, 7 ],
+                "roi": [ 880, 406, 9, 7 ],
                 "method": 40,
                 "lower": [ 95, 120, 100 ],
                 "upper": [ 125, 255, 255 ],
@@ -195,7 +195,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 884, 447, 34, 9 ]
+                "target": [ 884, 405, 34, 9 ]
             }
         },
         "anchor": {
@@ -212,7 +212,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "puzzle/BoardReady.png",
-                "roi": [ 695, 341, 68, 68 ],
+                "roi": [ 695, 320, 68, 68 ],
                 "threshold": 0.9
             }
         },
@@ -236,7 +236,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "puzzle/Claimed.png",
-                "roi": [ 818, 499, 28, 18 ],
+                "roi": [ 818, 457, 28, 18 ],
                 "threshold": 0.5
             }
         },
@@ -247,7 +247,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 819, 505, 8, 7 ],
+                "roi": [ 819, 463, 8, 7 ],
                 "method": 40,
                 "lower": [ 5, 150, 100 ],
                 "upper": [ 20, 255, 255 ],
@@ -257,7 +257,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 828, 505, 24, 7 ]
+                "target": [ 828, 463, 24, 7 ]
             }
         },
         "focus": {
@@ -270,7 +270,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 880, 505, 9, 7 ],
+                "roi": [ 880, 463, 9, 7 ],
                 "method": 40,
                 "lower": [ 95, 120, 100 ],
                 "upper": [ 125, 255, 255 ],
@@ -280,7 +280,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 884, 504, 34, 9 ]
+                "target": [ 884, 462, 34, 9 ]
             }
         },
         "anchor": {
@@ -297,7 +297,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "puzzle/BoardReady.png",
-                "roi": [ 695, 341, 68, 68 ],
+                "roi": [ 695, 320, 68, 68 ],
                 "threshold": 0.9
             }
         },
@@ -320,7 +320,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "puzzle/BeginGame.png",
-                "roi": [ 622, 380, 100, 46 ]
+                "roi": [ 622, 359, 100, 46 ]
             }
         },
         "action": "Click",
@@ -332,7 +332,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "puzzle/Confirm.png",
-                "roi": [ 637, 420, 64, 38 ]
+                "roi": [ 637, 399, 64, 38 ]
             }
         },
         "action": "Click",
@@ -343,7 +343,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 990, 211, 12, 12 ]
+                "target": [ 990, 190, 12, 12 ]
             }
         },
         "post_delay": 1000,
@@ -362,7 +362,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "weekend/CloseX.png",
-                "roi": [ 905, 296, 60, 48 ]
+                "roi": [ 905, 254, 60, 48 ]
             }
         },
         "action": "Click",
@@ -376,7 +376,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "puzzle/TimeUp.png",
-                "roi": [ 525, 340, 295, 100 ]
+                "roi": [ 525, 319, 295, 100 ]
             }
         }
     }

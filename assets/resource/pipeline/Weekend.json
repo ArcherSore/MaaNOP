@@ -52,7 +52,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "hotspot/Hotspot.png",
-                "roi": [ 295, 51, 116, 117 ]
+                "roi": [ 295, 9, 116, 117 ]
             }
         },
         "action": "Click",
@@ -68,7 +68,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "hotspot/Hotspot.png",
-                "roi": [ 295, 51, 116, 117 ]
+                "roi": [ 295, 9, 116, 117 ]
             }
         },
         "action": "Click",
@@ -81,7 +81,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 352, 283, 109, 268 ],
+                "roi": [ 352, 241, 109, 268 ],
                 "expected": [ "周末活动" ]
             }
         },
@@ -95,7 +95,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "weekend/ScrollDown.png",
-                "roi": [ 415, 570, 40, 32 ],
+                "roi": [ 415, 528, 40, 32 ],
                 "threshold": 0.9
             }
         },
@@ -110,7 +110,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "weekend/HubTitle.png",
-                "roi": [ 640, 235, 180, 60 ]
+                "roi": [ 640, 193, 180, 60 ]
             }
         },
         "timeout": 6000,
@@ -130,7 +130,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "weekend/CloseX.png",
-                "roi": [ 925, 240, 40, 45 ]
+                "roi": [ 925, 198, 40, 45 ]
             }
         },
         "action": "Click",
