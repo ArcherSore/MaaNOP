@@ -32,7 +32,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": [ ],
-                "roi": [ 391, 82, 800, 114 ]
+                "roi": [ 391, 40, 800, 114 ]
             }
         }
     },
