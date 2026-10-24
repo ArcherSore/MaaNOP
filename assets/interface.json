@@ -27,11 +27,11 @@
     ],
     "pretask": {
         "name": "LaunchNaruto",
-        "label": "启动游戏大厅",
+        "label": "启动QQ大厅",
         "description": "通过 QQ 游戏大厅启动游戏；已有游戏窗口时直接使用。须填写大厅路径和 QQ 号，且该账号已在大厅保存登录状态。",
         "exec": "./python/python.exe",
         "args": [ "./agent/pretask_launch.py" ],
-        "option": [ "GameHallPath", "LoginAccount" ]
+        "option": [ "LoginAccount", "GameHallPath" ]
     },
     "agent": {
         "child_exec": "./python/python.exe",
@@ -64,7 +64,7 @@
         },
         {
             "name": "AccountLeveling",
-            "label": "注册并练级",
+            "label": "注册并练级（微端）",
             "group": [ "AltAccount" ],
             "entry": "AccountLeveling",
             "description": "依次在所选服务器注册角色并练到 **16 级**，请勿提前注册。\n\n某服登录失败时停止整个任务。",
@@ -86,7 +86,7 @@
         },
         {
             "name": "ThemeArena",
-            "label": "主题竞技场",
+            "label": "主题竞技场（微端）",
             "group": [ "LimitedEvent" ],
             "entry": "ThemeArena",
             "description": "自动挑战并托管，达到所选目标后停止；选择「九胜」时，以九胜奖励可领取为准。\n\n请从**主题竞技场主界面**开始。",
@@ -99,7 +99,7 @@
         },
         {
             "name": "ShoppingFestivalTask",
-            "label": "购物节送字",
+            "label": "购物节送字（微端）",
             "group": [ "AltAccount" ],
             "entry": "ShoppingFestivalTask",
             "description": "依次登录所选服务器，在**木叶购物节**消费 **1500 点券**，再将获得的字赠送给指定大号。\n\n- 大号须保持在线，并已被各小号加为好友。\n- 首页四个商品中，须至少有一个单价能整除 1500；不会向下翻找商品。\n- 每个小号每天只运行一次，重复运行会再次购买。\n- 某服登录失败时停止整个任务。",
@@ -175,21 +175,21 @@
         },
         {
             "name": "NinjutsuTraining",
-            "label": "忍术特训",
+            "label": "忍术特训（微端）",
             "group": [ "LimitedEvent" ],
             "entry": "NinjutsuTrainingEntry",
             "description": "自动完成忍术特训并领奖。\n\n请先打开**忍术特训界面**，确保能看到「开启特训」按钮。"
         },
         {
             "name": "MidAutumnLantern",
-            "label": "中秋盛典",
+            "label": "中秋盛典（微端）",
             "group": [ "LimitedEvent" ],
             "entry": "MidAutumnLanternEntry",
             "description": "自动完成点灯并领奖，重复进行，直到**参与券**用完。\n\n请先打开**中秋盛典点灯笼界面**，确保能看到「开始」按钮。"
         },
         {
             "name": "AbilityExam",
-            "label": "忍者能力考试",
+            "label": "忍者能力考试（微端）",
             "group": [ "LimitedEvent" ],
             "entry": "AbilityExam",
             "description": "自动挑战**高级考试**，通关后领取各档奖励；已通过的关卡会跳过。\n\n请使用能打过高级考试的队伍，暂不处理战败。",
