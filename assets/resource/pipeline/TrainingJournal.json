@@ -12,7 +12,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "trainingJournal/PanelTitle.png",
-                "roi": [ 1195, 275, 140, 35 ],
+                "roi": [ 1195, 233, 140, 35 ],
                 "threshold": 0.9
             }
         },
@@ -31,7 +31,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "trainingJournal/WindowLabel.png",
-                "roi": [ 340, 215, 90, 32 ],
+                "roi": [ 340, 194, 90, 32 ],
                 "threshold": 0.85
             }
         },
@@ -46,7 +46,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "trainingJournal/TaskTabUnselected.png",
-                "roi": [ 845, 183, 60, 35 ],
+                "roi": [ 845, 162, 60, 35 ],
                 "threshold": 0.9
             }
         },
@@ -64,7 +64,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "trainingJournal/TaskTabSelected.png",
-                "roi": [ 840, 178, 70, 38 ],
+                "roi": [ 840, 157, 70, 38 ],
                 "threshold": 0.9
             }
         },
@@ -87,7 +87,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": [ "trainingJournal/ClaimButton.png", "trainingJournal/ClaimButtonHover.png" ],
-                                "roi": [ 825, 250, 95, 240 ],
+                                "roi": [ 825, 229, 95, 240 ],
                                 "threshold": 0.7
                             }
                         }
