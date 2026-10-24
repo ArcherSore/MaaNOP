@@ -1,10 +1,11 @@
 import json
+import time
 
 import numpy as np
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_action import CustomAction
-from maa.pipeline import JTemplateMatch, JWaitFreezes
+from maa.pipeline import JTemplateMatch
 
 
 # The left board shows the picture dimmed to DIM_FACTOR of its brightness; the
@@ -26,17 +27,9 @@ FILLED_DELTA = 4
 FILLED_SHARE = 0.5
 
 DRAG_DURATION = 300
-# After a drop, wait for the board and the pile to stop changing: an accepted
-# piece sits on the board, a rejected one flies back to the pile within ~0.3 s.
-FREEZE_TIME = 300
-FREEZE_THRESHOLD = 0.98
-FREEZE_POLL = 100
-FREEZE_TIMEOUT = 3000
+# Recorded rejected pieces return in about 0.3 s; fixed wait tested on 2026-10-24.
+SETTLE_DELAY = 0.3
 MAX_DRAGS_PER_PIECE = 6
-# Cells are tried most distinctive first: the margin over the runner-up piece,
-# relative to how far the score falls short of a perfect 1.0 (softened so that a
-# near-perfect score cannot blow the ratio up).
-RANK_SOFTENING = 0.02
 
 
 def cell_cores(count: int) -> list[tuple[slice, slice]]:
@@ -61,11 +54,9 @@ def filled_cells(image: np.ndarray, picture: np.ndarray, cores: list[tuple[slice
 
 def find_in_pile(
     context: Context, image: np.ndarray, template_name: str, rejected: list[tuple[int, int]]
-) -> tuple[float, float, tuple[int, int]] | None:
-    """Best match of a cell's template in the pile as (score, margin, center),
-    ignoring spots where a drag of this cell was already rejected. The margin is
-    how far the best match beats the best one on another piece: a dark or plain
-    cell matches every piece alike, so its margin is near zero."""
+) -> tuple[float, tuple[int, int]] | None:
+    """Best match of a cell's template in the pile as (score, center), ignoring
+    spots where a drag of this cell was already rejected."""
     detail = context.run_recognition_direct(
         "TemplateMatch",
         # Threshold 0 keeps every candidate, so a rejected spot can be skipped.
@@ -78,25 +69,14 @@ def find_in_pile(
         (result.score, (result.box[0] + result.box[2] // 2, result.box[1] + result.box[3] // 2))
         for result in detail.all_results
     ]
-    candidates = sorted(
+    return max(
         (
             candidate for candidate in candidates
             if all(abs(candidate[1][0] - x) > SAME_PIECE_DISTANCE or abs(candidate[1][1] - y) > SAME_PIECE_DISTANCE
                    for x, y in rejected)
         ),
-        reverse=True,
+        default=None,
     )
-    if not candidates:
-        return None
-    score, (best_x, best_y) = candidates[0]
-    runner_up = next(
-        (
-            other for other, (x, y) in candidates[1:]
-            if abs(x - best_x) > SAME_PIECE_DISTANCE or abs(y - best_y) > SAME_PIECE_DISTANCE
-        ),
-        0.0,
-    )
-    return score, score - runner_up, (best_x, best_y)
 
 
 @AgentServer.custom_action("SolveJigsawPuzzle")
@@ -139,13 +119,10 @@ class SolveJigsawPuzzle(CustomAction):
                     return True
                 guesses = {cell: find_in_pile(context, image, names[cell], rejected[cell]) for cell in remaining}
                 guesses = {cell: guess for cell, guess in guesses.items() if guess is not None}
-                if not guesses and any(rejected.values()):
-                    rejected = {other: [] for other in rejected}
-                    continue
                 if not guesses:
                     raise RuntimeError(f"剩余 {len(remaining)} 块都找不到可拖的碎片")
-                cell = max(guesses, key=lambda c: guesses[c][1] / (1 - guesses[c][0] + RANK_SOFTENING))
-                score, _, (piece_x, piece_y) = guesses[cell]
+                cell = max(guesses, key=lambda c: guesses[c][0])
+                score, (piece_x, piece_y) = guesses[cell]
 
                 drags += 1
                 if drags > MAX_DRAGS_PER_PIECE * len(cores):
@@ -156,11 +133,11 @@ class SolveJigsawPuzzle(CustomAction):
                 if not controller.post_swipe(piece_x, piece_y, *target, DRAG_DURATION).wait().succeeded:
                     raise RuntimeError(f"第{cell + 1}块拖拽失败")
 
-                for region in (BOARD, PILE):
-                    context.wait_freezes(wait_freezes_param=JWaitFreezes(
-                        time=FREEZE_TIME, target=region, threshold=FREEZE_THRESHOLD,
-                        rate_limit=FREEZE_POLL, timeout=FREEZE_TIMEOUT,
-                    ))
+                if context.tasker.stopping:
+                    return False
+                time.sleep(SETTLE_DELAY)
+                if context.tasker.stopping:
+                    return False
                 image = controller.post_screencap().wait().get()
                 filled = filled_cells(image, picture, cores)
                 if cell in filled:
