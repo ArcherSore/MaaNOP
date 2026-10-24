@@ -30,7 +30,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 1195, 101, 7, 7 ],
+                "roi": [ 1195, 59, 7, 7 ],
                 "method": 40,
                 "lower": [ 0, 0, 235 ],
                 "upper": [ 180, 25, 255 ],
@@ -49,7 +49,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1193, 102, 10, 10 ]
+                "target": [ 1193, 60, 10, 10 ]
             }
         },
         "focus": {
@@ -66,14 +66,14 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "wanted/TeamCreateBtn.png",
-                "roi": [ 740, 535, 150, 50 ],
+                "roi": [ 740, 514, 150, 50 ],
                 "threshold": 0.9
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 782, 551, 50, 14 ]
+                "target": [ 782, 530, 50, 14 ]
             }
         },
         "timeout": 10000,
@@ -86,14 +86,14 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "wanted/TeamCreateTitle.png",
-                "roi": [ 600, 300, 150, 50 ],
+                "roi": [ 600, 279, 150, 50 ],
                 "threshold": 0.8
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 600, 452, 50, 12 ]
+                "target": [ 600, 431, 50, 12 ]
             }
         },
         "next": [ "WantedTeamHover" ]
@@ -102,8 +102,8 @@
         "action": {
             "type": "Swipe",
             "param": {
-                "begin": [ 1193, 102, 10, 10 ],
-                "end": [ 1193, 102, 10, 10 ],
+                "begin": [ 1193, 60, 10, 10 ],
+                "end": [ 1193, 60, 10, 10 ],
                 "duration": 100,
                 "only_hover": true
             }
@@ -120,7 +120,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1193, 102, 10, 10 ]
+                "target": [ 1193, 60, 10, 10 ]
             }
         },
         "timeout": 10000,
@@ -132,7 +132,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "wanted/TeamWindowLabel.png",
-                "roi": [ 480, 552, 140, 38 ],
+                "roi": [ 480, 531, 140, 38 ],
                 "threshold": 0.8
             }
         }
@@ -141,7 +141,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 496, 560, 22, 22 ],
+                "roi": [ 496, 539, 22, 22 ],
                 "method": 40,
                 "lower": [ 40, 120, 120 ],
                 "upper": [ 85, 255, 255 ],
@@ -161,7 +161,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 499, 566, 11, 11 ]
+                "target": [ 499, 545, 11, 11 ]
             }
         },
         "timeout": 5000,
@@ -181,7 +181,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 863, 225, 11, 11 ]
+                "target": [ 863, 204, 11, 11 ]
             }
         },
         "timeout": 5000,
@@ -206,7 +206,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 248, 172, 40, 13 ],
+                "roi": [ 248, 130, 40, 13 ],
                 "method": 40,
                 "lower": [ 95, 200, 60 ],
                 "upper": [ 108, 255, 255 ],
@@ -216,7 +216,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 255, 174, 28, 8 ]
+                "target": [ 255, 132, 28, 8 ]
             }
         },
         "next": [ "WantedTeamExitHover" ]
@@ -225,8 +225,8 @@
         "action": {
             "type": "Swipe",
             "param": {
-                "begin": [ 1193, 102, 10, 10 ],
-                "end": [ 1193, 102, 10, 10 ],
+                "begin": [ 1193, 60, 10, 10 ],
+                "end": [ 1193, 60, 10, 10 ],
                 "duration": 100,
                 "only_hover": true
             }
@@ -276,7 +276,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "wanted/WantedRow.png",
-                "roi": [ 355, 240, 390, 275 ],
+                "roi": [ 355, 219, 390, 275 ],
                 "threshold": 0.8
             }
         }
@@ -287,7 +287,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "wanted/PanelTitle.png",
-                "roi": [ 760, 232, 90, 32 ],
+                "roi": [ 760, 211, 90, 32 ],
                 "threshold": 0.85
             }
         }
@@ -302,7 +302,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 834, 494, 40, 13 ]
+                "target": [ 834, 473, 40, 13 ]
             }
         },
         "timeout": 60000,
@@ -318,7 +318,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 985, 184, 8, 8 ]
+                "target": [ 985, 163, 8, 8 ]
             }
         },
         "focus": {
@@ -344,7 +344,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "wanted/VillageName.png",
-                "roi": [ 1190, 116, 148, 26 ],
+                "roi": [ 1190, 74, 148, 26 ],
                 "threshold": 0.9
             }
         },
@@ -357,7 +357,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "wanted/BackToVillage.png",
-                "roi": [ 1290, 90, 50, 30 ],
+                "roi": [ 1290, 48, 50, 30 ],
                 "threshold": 0.8
             }
         },
@@ -376,7 +376,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "wanted/RemainLabel.png",
-                "roi": [ 600, 275, 140, 40 ],
+                "roi": [ 600, 254, 140, 40 ],
                 "threshold": 0.8
             }
         }
@@ -391,7 +391,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 815, 291, 42, 11 ]
+                "target": [ 815, 270, 42, 11 ]
             }
         },
         "next": [ "WantedSoloConfirm" ]
@@ -402,7 +402,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "wanted/SoloConfirm.png",
-                "roi": [ 545, 365, 130, 40 ],
+                "roi": [ 545, 344, 130, 40 ],
                 "threshold": 0.8
             }
         }
@@ -418,7 +418,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 598, 425, 36, 9 ]
+                "target": [ 598, 404, 36, 9 ]
             }
         },
         "next": [ "WantedStarted" ]
@@ -442,7 +442,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "wanted/Pathing.png",
-                "roi": [ 600, 140, 140, 40 ],
+                "roi": [ 600, 98, 140, 40 ],
                 "threshold": 0.45
             }
         }
