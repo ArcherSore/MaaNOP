@@ -1,6 +1,6 @@
 // 周末活动：一个任务自动做完本周开放的所有周末活动，不需要用户选择。
 //
-// 周末活动在 限时热点 → 周末活动 → 周末福利 页里，每个活动一行（忍者拼图 / 追击任务 / 骰子手气王…），
+// 周末活动在 限时热点 → 周末活动 → 周末福利 页里，每个活动一行（忍者拼图 / 追击任务…），
 // 本周开放哪些不固定，行的位置也会变。点开一个活动会弹出它自己的窗口；关掉那个窗口，整个限时热点窗口也跟着关了。
 // 所以每个活动都是「从主界面重新走一遍导航 → 找到自己的行 → 做完 → 关窗口」，由下面的步骤表一个接一个串起来。
 //
@@ -26,13 +26,6 @@
     "WeekendStepPuzzle": {
         "anchor": {
             "WeekendActivity": "PuzzleRow",
-            "WeekendNext": "WeekendStepDice"
-        },
-        "next": [ "WeekendHub" ]
-    },
-    "WeekendStepDice": {
-        "anchor": {
-            "WeekendActivity": "DiceRow",
             "WeekendNext": "WeekendFinished"
         },
         "next": [ "WeekendHub" ]
