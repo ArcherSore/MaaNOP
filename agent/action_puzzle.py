@@ -139,6 +139,9 @@ class SolveJigsawPuzzle(CustomAction):
                     return True
                 guesses = {cell: find_in_pile(context, image, names[cell], rejected[cell]) for cell in remaining}
                 guesses = {cell: guess for cell, guess in guesses.items() if guess is not None}
+                if not guesses and any(rejected.values()):
+                    rejected = {other: [] for other in rejected}
+                    continue
                 if not guesses:
                     raise RuntimeError(f"剩余 {len(remaining)} 块都找不到可拖的碎片")
                 cell = max(guesses, key=lambda c: guesses[c][1] / (1 - guesses[c][0] + RANK_SOFTENING))
