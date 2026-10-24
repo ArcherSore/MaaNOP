@@ -22,7 +22,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 610, 270, 120, 35 ],
+                "roi": [ 610, 228, 120, 35 ],
                 "expected": "快捷登录"
             }
         },
@@ -49,7 +49,7 @@
         "recognition": {
             "type": "DirectHit",
             "param": {
-                "roi": [ 560, 376, 68, 18 ]
+                "roi": [ 560, 334, 68, 18 ]
             }
         },
         "anchor": {
@@ -59,12 +59,12 @@
         "action": {
             "type": "TouchMove",
             "param": {
-                "target": [ 850, 220 ]
+                "target": [ 850, 178 ]
             }
         },
         "post_wait_freezes": {
             "time": 200,
-            "target": [ 560, 330, 220, 80 ],
+            "target": [ 560, 288, 220, 80 ],
             "rate_limit": 100,
             "timeout": 3000
         },
@@ -74,7 +74,7 @@
         "recognition": {
             "type": "DirectHit",
             "param": {
-                "roi": [ 636, 376, 68, 18 ]
+                "roi": [ 636, 334, 68, 18 ]
             }
         },
         "anchor": {
@@ -84,12 +84,12 @@
         "action": {
             "type": "TouchMove",
             "param": {
-                "target": [ 850, 220 ]
+                "target": [ 850, 178 ]
             }
         },
         "post_wait_freezes": {
             "time": 200,
-            "target": [ 560, 330, 220, 80 ],
+            "target": [ 560, 288, 220, 80 ],
             "rate_limit": 100,
             "timeout": 3000
         },
@@ -99,7 +99,7 @@
         "recognition": {
             "type": "DirectHit",
             "param": {
-                "roi": [ 673, 376, 68, 18 ]
+                "roi": [ 673, 334, 68, 18 ]
             }
         },
         "anchor": {
@@ -109,12 +109,12 @@
         "action": {
             "type": "TouchMove",
             "param": {
-                "target": [ 850, 220 ]
+                "target": [ 850, 178 ]
             }
         },
         "post_wait_freezes": {
             "time": 200,
-            "target": [ 560, 330, 220, 80 ],
+            "target": [ 560, 288, 220, 80 ],
             "rate_limit": 100,
             "timeout": 3000
         },
@@ -124,7 +124,7 @@
         "recognition": {
             "type": "DirectHit",
             "param": {
-                "roi": [ 710, 376, 68, 18 ]
+                "roi": [ 710, 334, 68, 18 ]
             }
         },
         "anchor": {
@@ -134,12 +134,12 @@
         "action": {
             "type": "TouchMove",
             "param": {
-                "target": [ 850, 220 ]
+                "target": [ 850, 178 ]
             }
         },
         "post_wait_freezes": {
             "time": 200,
-            "target": [ 560, 330, 220, 80 ],
+            "target": [ 560, 288, 220, 80 ],
             "rate_limit": 100,
             "timeout": 3000
         },
@@ -240,7 +240,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "common/login/WebNext.png",
-                "roi": [ 780, 345, 25, 35 ],
+                "roi": [ 780, 303, 25, 35 ],
                 "threshold": 0.95
             }
         }
@@ -256,12 +256,12 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 792, 360, 3, 4 ]
+                "target": [ 792, 318, 3, 4 ]
             }
         },
         "post_wait_freezes": {
             "time": 200,
-            "target": [ 560, 330, 220, 80 ],
+            "target": [ 560, 288, 220, 80 ],
             "rate_limit": 100,
             "timeout": 3000
         },

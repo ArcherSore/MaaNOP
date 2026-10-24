@@ -210,7 +210,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "leveling/buttons/HidePlayers.png",
-                "roi": [ 1262, 78, 61, 60 ]
+                "roi": [ 1262, 36, 61, 60 ]
             }
         }
     },
@@ -4383,7 +4383,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 430, 404, 300, 24 ],
+                "roi": [ 430, 390, 300, 24 ],
                 "expected": [ "LOADING" ]
             }
         }

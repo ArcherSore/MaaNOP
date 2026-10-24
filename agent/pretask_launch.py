@@ -1,4 +1,4 @@
-"""Start the official microclient; the frontend owns process cleanup on failure/stop."""
+"""Start the QQ Game Hall; the frontend owns process cleanup on failure/stop."""
 import json
 import ctypes
 from ctypes import wintypes
@@ -10,10 +10,10 @@ import time
 
 def game_window(windows):
     return next((w for w in windows
-                 if w.class_name.startswith("MainView_") and "火影忍者Online" in w.window_name), None)
+                 if w.class_name.startswith("MainView_") and "火影忍者online" in w.window_name), None)
 
 def prepare_window(hwnd):
-    # 100% 缩放下该微端外框与客户区一致，1920×1032 对应 Maa 截图 1340×720。
+    # 100% 缩放下该窗口外框与客户区一致，1920×1032 对应 Maa 截图 1340×720。
     user32 = ctypes.WinDLL("user32", use_last_error=True)
     user32.ShowWindow.argtypes = [wintypes.HWND, ctypes.c_int]
     user32.SetWindowPos.argtypes = [
@@ -42,12 +42,18 @@ def launch(uin, executable):
         print("游戏窗口已存在，复用当前窗口。", flush=True)
         return window
     if not executable.is_file():
-        raise RuntimeError("未找到官方微端，请先安装并手动登录一次、勾选记住密码。")
-    args = [str(executable), "-/appid:1103286479"]
-    if uin:
-        args.append(f"-loginuin:{uin}")
-    subprocess.Popen(args, cwd=str(executable.parent))
-    print("已启动微端，等待游戏窗口（最多 60 秒）。", flush=True)
+        raise RuntimeError("未找到 QQ 游戏大厅，请先安装并登录一次、保存登录状态。")
+    if not uin:
+        raise RuntimeError("需要填写自动登录 QQ 号才能启动游戏大厅。")
+    # 必须在当前会话运行计划任务；普通 Run() 可能启动到主桌面。
+    script = (
+        "$s = New-Object -ComObject Schedule.Service; $s.Connect(); "
+        "$sid = [Diagnostics.Process]::GetCurrentProcess().SessionId; "
+        "$s.GetFolder('\\').GetTask('QQGame-SavedAccount').RunEx($env:MAANOP_UIN, 4, $sid, $null) | Out-Null"
+    )
+    subprocess.run(["powershell", "-NoProfile", "-NonInteractive", "-Command", script],
+                   env={**os.environ, "MAANOP_UIN": uin}, check=True)
+    print("已启动游戏大厅，等待游戏窗口（最多 60 秒）。", flush=True)
     deadline = time.monotonic() + 60
     while time.monotonic() < deadline:
         window = game_window(Toolkit.find_desktop_windows())
@@ -55,7 +61,7 @@ def launch(uin, executable):
             print("游戏窗口已出现。", flush=True)
             return window
         time.sleep(0.5)
-    raise RuntimeError("60 秒内未出现游戏窗口。请检查保存密码、验证码或网络；本次停止，不自动重试。")
+    raise RuntimeError("60 秒内未出现游戏窗口。请检查大厅保存的登录状态、验证码或网络；本次停止，不自动重试。")
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
@@ -65,11 +71,8 @@ def main():
             raise RuntimeError("需要前端提供一个选项 JSON 参数。")
         uin = json.loads(sys.argv[1])["LoginAccount"]["uin"]
         if sys.platform != "win32":
-            raise RuntimeError("官方微端仅支持 Windows。")
-        appdata = os.environ.get("APPDATA")
-        if not appdata:
-            raise RuntimeError("无法获取当前用户的 APPDATA 目录。")
-        executable = Path(appdata) / "Tencent" / "QQMicroGameBox" / "Launch.exe"
+            raise RuntimeError("QQ 游戏大厅仅支持 Windows。")
+        executable = Path(r"D:\Program Files (x86)\Tencent\QQGameTempest\QQGame.exe")
         window = launch(uin, executable)
         prepare_window(window.hwnd)
         return 0

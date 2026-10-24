@@ -11,8 +11,8 @@
             "type": "Win32",
             "win32": {
                 "class_regex": ".*",
-                "window_regex": "火影忍者Online",
-                "screencap": "PrintWindow",
+                "window_regex": "火影忍者online",
+                "screencap": "FramePool",
                 "mouse": "Seize",
                 "keyboard": "Seize"
             }
@@ -21,14 +21,14 @@
     "resource": [
         {
             "name": "NarutoMiniClient",
-            "label": "火影微端",
+            "label": "QQ游戏大厅",
             "path": [ "./resource/" ]
         }
     ],
     "pretask": {
         "name": "LaunchNaruto",
-        "label": "启动微端",
-        "description": "启动微端；已有游戏窗口时直接使用。建议填写后续任务使用的 QQ 号，减少切服时的账号选择。",
+        "label": "启动游戏大厅",
+        "description": "通过 QQ 游戏大厅启动游戏；已有游戏窗口时直接使用。须填写 QQ 号，且该账号已在大厅保存登录状态。",
         "exec": "./python/python.exe",
         "args": [ "./agent/pretask_launch.py" ],
         "option": [ "LoginAccount" ]
@@ -228,7 +228,7 @@
                     "name": "uin",
                     "label": "QQ 号",
                     "default": "",
-                    "description": "启动微端时用作启动参数；普通登录和批量切服时用于网页快捷登录。",
+                    "description": "启动游戏大厅时用作启动参数；普通登录和批量切服时用于网页快捷登录。",
                     "pipeline_type": "string",
                     "verify": "^$|^[1-9][0-9]{4,11}$",
                     "pattern_msg": "请输入 5～12 位 QQ 号，或留空手动登录"
