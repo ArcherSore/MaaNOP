@@ -33,6 +33,10 @@ FREEZE_THRESHOLD = 0.98
 FREEZE_POLL = 100
 FREEZE_TIMEOUT = 3000
 MAX_DRAGS_PER_PIECE = 6
+# Cells are tried most distinctive first: the margin over the runner-up piece,
+# relative to how far the score falls short of a perfect 1.0 (softened so that a
+# near-perfect score cannot blow the ratio up).
+RANK_SOFTENING = 0.02
 
 
 def cell_cores(count: int) -> list[tuple[slice, slice]]:
@@ -57,9 +61,11 @@ def filled_cells(image: np.ndarray, picture: np.ndarray, cores: list[tuple[slice
 
 def find_in_pile(
     context: Context, image: np.ndarray, template_name: str, rejected: list[tuple[int, int]]
-) -> tuple[float, tuple[int, int]] | None:
-    """Best match of a cell's template in the pile as (score, center), ignoring
-    spots where a drag of this cell was already rejected."""
+) -> tuple[float, float, tuple[int, int]] | None:
+    """Best match of a cell's template in the pile as (score, margin, center),
+    ignoring spots where a drag of this cell was already rejected. The margin is
+    how far the best match beats the best one on another piece: a dark or plain
+    cell matches every piece alike, so its margin is near zero."""
     detail = context.run_recognition_direct(
         "TemplateMatch",
         # Threshold 0 keeps every candidate, so a rejected spot can be skipped.
@@ -72,14 +78,25 @@ def find_in_pile(
         (result.score, (result.box[0] + result.box[2] // 2, result.box[1] + result.box[3] // 2))
         for result in detail.all_results
     ]
-    return max(
+    candidates = sorted(
         (
             candidate for candidate in candidates
             if all(abs(candidate[1][0] - x) > SAME_PIECE_DISTANCE or abs(candidate[1][1] - y) > SAME_PIECE_DISTANCE
                    for x, y in rejected)
         ),
-        default=None,
+        reverse=True,
     )
+    if not candidates:
+        return None
+    score, (best_x, best_y) = candidates[0]
+    runner_up = next(
+        (
+            other for other, (x, y) in candidates[1:]
+            if abs(x - best_x) > SAME_PIECE_DISTANCE or abs(y - best_y) > SAME_PIECE_DISTANCE
+        ),
+        0.0,
+    )
+    return score, score - runner_up, (best_x, best_y)
 
 
 @AgentServer.custom_action("SolveJigsawPuzzle")
@@ -124,8 +141,8 @@ class SolveJigsawPuzzle(CustomAction):
                 guesses = {cell: guess for cell, guess in guesses.items() if guess is not None}
                 if not guesses:
                     raise RuntimeError(f"剩余 {len(remaining)} 块都找不到可拖的碎片")
-                cell = max(guesses, key=lambda c: guesses[c][0])
-                score, (piece_x, piece_y) = guesses[cell]
+                cell = max(guesses, key=lambda c: guesses[c][1] / (1 - guesses[c][0] + RANK_SOFTENING))
+                score, _, (piece_x, piece_y) = guesses[cell]
 
                 drags += 1
                 if drags > MAX_DRAGS_PER_PIECE * len(cores):
