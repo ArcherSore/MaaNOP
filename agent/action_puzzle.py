@@ -144,8 +144,14 @@ class SolveJigsawPuzzle(CustomAction):
                 image = controller.post_screencap().wait().get()
                 filled = filled_cells(image, picture, cores)
                 if cell in filled:
-                    # Progress: a guess that failed before may work now that a piece is gone.
-                    rejected = {cell: [] for cell in range(len(cores))}
+                    # Progress: a spot that failed before only changes when the piece covering it leaves, so forget just the spots under the body of the piece that left.
+                    rejected = {
+                        other: [
+                            spot for spot in spots
+                            if abs(spot[0] - piece_x) > size / 2 or abs(spot[1] - piece_y) > size / 2
+                        ]
+                        for other, spots in rejected.items()
+                    }
                 else:
                     rejected[cell].append((piece_x, piece_y))
             return False
