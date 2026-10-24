@@ -33,7 +33,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "powerfulBoss/WindowFooter.png",
-                "roi": [ 500, 578, 150, 40 ],
+                "roi": [ 500, 557, 150, 40 ],
                 "threshold": 0.9
             }
         }
@@ -42,7 +42,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 632, 588, 28, 22 ],
+                "roi": [ 632, 567, 28, 22 ],
                 "expected": [ "[1-9]" ]
             }
         }
@@ -57,7 +57,7 @@
                         "recognition": {
                             "type": "OCR",
                             "param": {
-                                "roi": [ 632, 588, 28, 22 ],
+                                "roi": [ 632, 567, 28, 22 ],
                                 "expected": [ "0" ]
                             }
                         }
@@ -68,7 +68,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 942, 249, 18, 18 ]
+                "target": [ 942, 228, 18, 18 ]
             }
         },
         "timeout": 5000,
@@ -85,7 +85,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": "powerfulBoss/EnterBattle.png",
-                                "roi": [ 490, 455, 150, 55 ],
+                                "roi": [ 490, 434, 150, 55 ],
                                 "threshold": 0.9
                             }
                         }
@@ -150,7 +150,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "powerfulBoss/BattleWon.png",
-                "roi": [ 540, 260, 260, 230 ],
+                "roi": [ 540, 239, 260, 230 ],
                 "threshold": 0.8
             }
         }
@@ -160,7 +160,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "abundance/ResultConfirm.png",
-                "roi": [ 620, 455, 105, 35 ]
+                "roi": [ 620, 434, 105, 35 ]
             }
         }
     },
@@ -182,7 +182,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "powerfulBoss/ScoreTitle.png",
-                "roi": [ 540, 190, 260, 100 ],
+                "roi": [ 540, 169, 260, 100 ],
                 "threshold": 0.8
             }
         }
@@ -198,7 +198,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": "powerfulBoss/RewardConfirm.png",
-                                "roi": [ 600, 480, 125, 40 ],
+                                "roi": [ 600, 459, 125, 40 ],
                                 "threshold": 0.8
                             }
                         }
@@ -210,7 +210,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 640, 496, 50, 10 ]
+                "target": [ 640, 475, 50, 10 ]
             }
         },
         "next": [ "BossMapReady" ]
@@ -220,7 +220,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "powerfulBoss/RewardTitle.png",
-                "roi": [ 540, 270, 250, 90 ],
+                "roi": [ 540, 249, 250, 90 ],
                 "threshold": 0.8
             }
         }
@@ -237,7 +237,7 @@
                             "type": "OCR",
                             "param": {
                                 "expected": [ "^确定$", "分数$" ],
-                                "roi": [ 600, 455, 125, 45 ],
+                                "roi": [ 600, 434, 125, 45 ],
                                 "threshold": 0.6
                             }
                         }
@@ -249,7 +249,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 640, 471, 50, 12 ]
+                "target": [ 640, 450, 50, 12 ]
             }
         },
         "timeout": 8000,

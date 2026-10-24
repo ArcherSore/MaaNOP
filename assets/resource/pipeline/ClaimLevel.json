@@ -28,7 +28,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "claimLevel/OffClaimLevel.png",
-                "roi": [ 357, 423, 157, 116 ]
+                "roi": [ 357, 402, 157, 116 ]
             }
         },
         "action": {
@@ -44,7 +44,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "claimLevel/FlagClaimLevel.png",
-                "roi": [ 456, 289, 180, 115 ]
+                "roi": [ 456, 268, 180, 115 ]
             }
         },
         "next": [ "EnsureClaimLevel", "NoNeedClaimLevel", "NeedClaimLevel" ]
@@ -54,7 +54,7 @@
             "type": "OCR",
             "param": {
                 "expected": "无可追[回同问]资源",
-                "roi": [ 642, 336, 67, 18 ],
+                "roi": [ 642, 315, 67, 18 ],
                 "only_rec": true
             }
         },
@@ -75,7 +75,7 @@
                             "param": {
                                 // 第一行铜币按钮内部：普通约 198、悬停 437；
                                 // 已找回底纹及确认框遮罩下为 0。加暗 20% 正例最低 110。
-                                "roi": [ 752, 337, 60, 18 ],
+                                "roi": [ 752, 316, 60, 18 ],
                                 "method": 40,
                                 "lower": [ 85, 130, 140 ],
                                 "upper": [ 115, 255, 255 ],
@@ -89,7 +89,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 765, 343, 30, 5 ]
+                "target": [ 765, 322, 30, 5 ]
             }
         },
         "next": "EnsureClaimLevel"
@@ -100,13 +100,13 @@
             "param": {
                 // 识别铜币经验确认正文，避免单字「是」漂移或误认其它确认框。
                 "expected": "是否花费[0-9]+铜币.*经验奖励",
-                "roi": [ 550, 375, 240, 35 ]
+                "roi": [ 550, 354, 240, 35 ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 595, 426, 30, 5 ]
+                "target": [ 595, 405, 30, 5 ]
             }
         },
         "next": "ClaimLevelConfirmed"
@@ -116,7 +116,7 @@
             "type": "OCR",
             "param": {
                 "expected": "无可追[回同问]资源",
-                "roi": [ 630, 330, 100, 35 ]
+                "roi": [ 630, 309, 100, 35 ]
             }
         },
         "focus": {

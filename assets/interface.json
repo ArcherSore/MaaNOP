@@ -11,8 +11,8 @@
             "type": "Win32",
             "win32": {
                 "class_regex": ".*",
-                "window_regex": "火影忍者Online",
-                "screencap": "PrintWindow",
+                "window_regex": "火影忍者online",
+                "screencap": "FramePool",
                 "mouse": "Seize",
                 "keyboard": "Seize"
             }
@@ -21,17 +21,17 @@
     "resource": [
         {
             "name": "NarutoMiniClient",
-            "label": "火影微端",
+            "label": "QQ游戏大厅",
             "path": [ "./resource/" ]
         }
     ],
     "pretask": {
         "name": "LaunchNaruto",
-        "label": "启动微端",
-        "description": "启动微端；已有游戏窗口时直接使用。建议填写后续任务使用的 QQ 号，减少切服时的账号选择。",
+        "label": "启动QQ大厅",
+        "description": "通过 QQ 游戏大厅启动游戏；已有游戏窗口时直接使用。须填写大厅路径和 QQ 号，且该账号已在大厅保存登录状态。",
         "exec": "./python/python.exe",
         "args": [ "./agent/pretask_launch.py" ],
-        "option": [ "LoginAccount" ]
+        "option": [ "LoginAccount", "GameHallPath" ]
     },
     "agent": {
         "child_exec": "./python/python.exe",
@@ -64,7 +64,7 @@
         },
         {
             "name": "AccountLeveling",
-            "label": "注册并练级",
+            "label": "注册并练级（微端）",
             "group": [ "AltAccount" ],
             "entry": "AccountLeveling",
             "description": "依次在所选服务器注册角色并练到 **16 级**，请勿提前注册。\n\n某服登录失败时停止整个任务。",
@@ -86,7 +86,7 @@
         },
         {
             "name": "ThemeArena",
-            "label": "主题竞技场",
+            "label": "主题竞技场（微端）",
             "group": [ "LimitedEvent" ],
             "entry": "ThemeArena",
             "description": "自动挑战并托管，达到所选目标后停止；选择「九胜」时，以九胜奖励可领取为准。\n\n请从**主题竞技场主界面**开始。",
@@ -99,7 +99,7 @@
         },
         {
             "name": "ShoppingFestivalTask",
-            "label": "购物节送字",
+            "label": "购物节送字（微端）",
             "group": [ "AltAccount" ],
             "entry": "ShoppingFestivalTask",
             "description": "依次登录所选服务器，在**木叶购物节**消费 **1500 点券**，再将获得的字赠送给指定大号。\n\n- 大号须保持在线，并已被各小号加为好友。\n- 首页四个商品中，须至少有一个单价能整除 1500；不会向下翻找商品。\n- 每个小号每天只运行一次，重复运行会再次购买。\n- 某服登录失败时停止整个任务。",
@@ -175,28 +175,50 @@
         },
         {
             "name": "NinjutsuTraining",
-            "label": "忍术特训",
+            "label": "忍术特训（微端）",
             "group": [ "LimitedEvent" ],
             "entry": "NinjutsuTrainingEntry",
             "description": "自动完成忍术特训并领奖。\n\n请先打开**忍术特训界面**，确保能看到「开启特训」按钮。"
         },
         {
             "name": "MidAutumnLantern",
-            "label": "中秋盛典",
+            "label": "中秋盛典（微端）",
             "group": [ "LimitedEvent" ],
             "entry": "MidAutumnLanternEntry",
             "description": "自动完成点灯并领奖，重复进行，直到**参与券**用完。\n\n请先打开**中秋盛典点灯笼界面**，确保能看到「开始」按钮。"
         },
         {
             "name": "AbilityExam",
-            "label": "忍者能力考试",
+            "label": "忍者能力考试（微端）",
             "group": [ "LimitedEvent" ],
             "entry": "AbilityExam",
             "description": "自动挑战**高级考试**，通关后领取各档奖励；已通过的关卡会跳过。\n\n请使用能打过高级考试的队伍，暂不处理战败。",
             "option": [ "ExamTeam" ]
+        },
+        {
+            "name": "WeekendActivities",
+            "label": "周末活动",
+            "group": [ "LimitedEvent" ],
+            "entry": "WeekendActivities",
+            "description": "### 开始前\n\n请停留在**主界面**（能看到左上角的**限时热点**入口）。\n\n### 会做什么\n\n自动从**限时热点 → 周末活动**进入，把本周开放的周末活动逐个做完，不需要选择。每个活动都会从主界面重新进入、做完后关掉窗口。\n\n目前支持：\n\n- **忍者拼图**：按**简单 → 普通 → 困难**依次处理。奖励已领取的跳过，可领取的直接领取，其余的开一局，自动把碎片拖到位，拼完后领取奖励。\n\n### 注意事项\n\n- **周末活动只在周末出现**：限时热点里找不到「周末活动」时，会自动关掉窗口并结束；周末福利里没有某个活动（本周没开放）时，会跳过它。\n- 忍者拼图每个难度都限时（简单 90 秒、困难 180 秒），拼完一局只需约 30～60 秒；超时会关掉重来，每个难度最多开 3 局。\n- 任务期间会占用鼠标，请不要移动。"
         }
     ],
     "option": {
+        "GameHallPath": {
+            "type": "input",
+            "label": "QQ 游戏大厅路径",
+            "inputs": [
+                {
+                    "name": "path",
+                    "label": "QQGame.exe 路径",
+                    "default": "C:\\Program Files (x86)\\Tencent\\QQGameTempest\\QQGame.exe",
+                    "description": "QQ 游戏大厅 QQGame.exe 的完整路径，每台电脑的安装位置不同，请按实际位置填写。",
+                    "pipeline_type": "string",
+                    "verify": "(?i)^.+\\.exe$",
+                    "pattern_msg": "请输入 QQGame.exe 的完整路径"
+                }
+            ]
+        },
         "LoginAccount": {
             "type": "input",
             "label": "自动登录 QQ 号",
@@ -228,7 +250,7 @@
                     "name": "uin",
                     "label": "QQ 号",
                     "default": "",
-                    "description": "启动微端时用作启动参数；普通登录和批量切服时用于网页快捷登录。",
+                    "description": "启动游戏大厅时用作启动参数；普通登录和批量切服时用于网页快捷登录。",
                     "pipeline_type": "string",
                     "verify": "^$|^[1-9][0-9]{4,11}$",
                     "pattern_msg": "请输入 5～12 位 QQ 号，或留空手动登录"
@@ -488,7 +510,7 @@
                         "SurvivalClickTab": {
                             "action": {
                                 "param": {
-                                    "target": [ 355, 150, 35, 50 ]
+                                    "target": [ 355, 129, 35, 50 ]
                                 }
                             }
                         }
@@ -512,7 +534,7 @@
                         "SurvivalClickTab": {
                             "action": {
                                 "param": {
-                                    "target": [ 470, 145, 35, 50 ]
+                                    "target": [ 470, 124, 35, 50 ]
                                 }
                             }
                         }

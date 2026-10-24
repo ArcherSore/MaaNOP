@@ -31,7 +31,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "onlineReward/HallTitle.png",
-                "roi": [ 810, 195, 110, 90 ],
+                "roi": [ 810, 174, 110, 90 ],
                 "threshold": 0.9
             }
         }
@@ -51,7 +51,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "onlineReward/TabUnselected.png",
-                "roi": [ 400, 273, 80, 35 ],
+                "roi": [ 400, 252, 80, 35 ],
                 "threshold": 0.9
             }
         },
@@ -69,7 +69,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "onlineReward/TabSelected.png",
-                "roi": [ 375, 273, 100, 35 ],
+                "roi": [ 375, 252, 100, 35 ],
                 "threshold": 0.9
             }
         },
@@ -92,7 +92,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": [ "onlineReward/ClaimButton.png", "onlineReward/ClaimButtonHover.png" ],
-                                "roi": [ 490, 500, 420, 50 ],
+                                "roi": [ 490, 479, 420, 50 ],
                                 "threshold": 0.7
                             }
                         }
@@ -157,7 +157,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "onlineReward/GiftPanel.png",
-                "roi": [ 530, 275, 120, 70 ],
+                "roi": [ 530, 254, 120, 70 ],
                 "threshold": 0.9
             }
         },

@@ -36,13 +36,13 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "illusion/Flag.png",
-                "roi": [ 441, 87, 62, 64 ]
+                "roi": [ 441, 66, 62, 64 ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 969, 628, 51, 19 ]
+                "target": [ 969, 607, 51, 19 ]
             }
         },
         "next": [ "InfiniteIllusionConfirm1", "[JumpBack]HandleConfirmPopup" ],
@@ -54,7 +54,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "illusion/CloseButton.png",
-                "roi": [ 833, 271, 68, 67 ]
+                "roi": [ 833, 250, 68, 67 ]
             }
         },
         "action": {
@@ -72,7 +72,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "illusion/Tab2.png",
-                "roi": [ 440, 94, 135, 118 ]
+                "roi": [ 440, 73, 135, 118 ]
             }
         },
         "action": {
@@ -90,13 +90,13 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "illusion/Flag.png",
-                "roi": [ 502, 88, 64, 63 ]
+                "roi": [ 502, 67, 64, 63 ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 969, 628, 51, 19 ]
+                "target": [ 969, 607, 51, 19 ]
             }
         },
         "next": [ "InfiniteIllusionConfirm2" ],
@@ -108,7 +108,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "illusion/CloseButton.png",
-                "roi": [ 833, 271, 68, 67 ]
+                "roi": [ 833, 250, 68, 67 ]
             }
         },
         "action": {
@@ -126,7 +126,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "illusion/Tab3.png",
-                "roi": [ 504, 93, 133, 136 ]
+                "roi": [ 504, 72, 133, 136 ]
             }
         },
         "action": {
@@ -144,13 +144,13 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "illusion/Flag.png",
-                "roi": [ 566, 86, 63, 63 ]
+                "roi": [ 566, 65, 63, 63 ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 969, 628, 51, 19 ]
+                "target": [ 969, 607, 51, 19 ]
             }
         },
         "next": [ "InfiniteIllusionConfirm3" ],
@@ -162,7 +162,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "illusion/CloseButton.png",
-                "roi": [ 833, 271, 68, 67 ]
+                "roi": [ 833, 250, 68, 67 ]
             }
         },
         "action": {
@@ -179,7 +179,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "illusion/CloseButton.png",
-                "roi": [ 1107, 77, 69, 67 ]
+                "roi": [ 1107, 56, 69, 67 ]
             }
         },
         "action": {
@@ -202,7 +202,7 @@
             "type": "ColorMatch",
             "param": {
                 // 未勾选绿色0，已勾选42；加载空壳为0。
-                "roi": [ 570, 447, 15, 15 ],
+                "roi": [ 570, 426, 15, 15 ],
                 "method": 40,
                 "lower": [ 35, 120, 100 ],
                 "upper": [ 85, 255, 255 ],
@@ -216,7 +216,7 @@
             "type": "ColorMatch",
             "param": {
                 // 未选框内部暗色55，已选9。这里只分流，点击前仍重验正文。
-                "roi": [ 572, 451, 7, 8 ],
+                "roi": [ 572, 430, 7, 8 ],
                 "method": 4,
                 "lower": [ 10, 10, 10 ],
                 "upper": [ 60, 60, 60 ],
@@ -235,7 +235,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 574, 452, 5, 5 ]
+                "target": [ 574, 431, 5, 5 ]
             }
         },
         "timeout": 5000,
@@ -262,7 +262,7 @@
             "type": "OCR",
             "param": {
                 "expected": "您的战力已有大幅度提升",
-                "roi": [ 557, 373, 225, 37 ]
+                "roi": [ 557, 352, 225, 37 ]
             }
         }
     },
@@ -271,7 +271,7 @@
             "type": "OCR",
             "param": {
                 "expected": "^确定$",
-                "roi": [ 574, 414, 74, 23 ]
+                "roi": [ 574, 393, 74, 23 ]
             }
         }
     }

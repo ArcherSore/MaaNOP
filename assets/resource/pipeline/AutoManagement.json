@@ -17,7 +17,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": [ "autoManagement/EntryIcon.png", "autoManagement/EntryIconHover.png" ],
-                "roi": [ 294, 131, 52, 53 ],
+                "roi": [ 294, 89, 52, 53 ],
                 "threshold": 0.8
             }
         }
@@ -74,7 +74,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "autoManagement/WindowLabel.png",
-                "roi": [ 823, 199, 104, 51 ],
+                "roi": [ 823, 178, 104, 51 ],
                 "threshold": 0.9
             }
         }
@@ -93,7 +93,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": [ "autoManagement/StartButton.png", "autoManagement/StartButtonHover.png" ],
-                                "roi": [ 548, 566, 90, 52 ],
+                                "roi": [ 548, 545, 90, 52 ],
                                 "threshold": 0.7
                             }
                         }
@@ -127,14 +127,14 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "autoManagement/ConfirmText.png",
-                "roi": [ 602, 353, 130, 55 ],
+                "roi": [ 602, 332, 130, 55 ],
                 "threshold": 0.9
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 592, 431, 38, 10 ]
+                "target": [ 592, 410, 38, 10 ]
             }
         },
         "focus": {
@@ -157,7 +157,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": [ "autoManagement/WindowExitButton.png", "autoManagement/WindowExitButtonHover.png" ],
-                                "roi": [ 706, 566, 84, 52 ],
+                                "roi": [ 706, 545, 84, 52 ],
                                 "threshold": 0.8
                             }
                         }
@@ -181,7 +181,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 974, 209, 10, 10 ]
+                "target": [ 974, 188, 10, 10 ]
             }
         },
         "timeout": 10000,
@@ -238,7 +238,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "autoManagement/WaterFullToast.png",
-                "roi": [ 526, 330, 144, 60 ],
+                "roi": [ 526, 309, 144, 60 ],
                 "threshold": 0.7
             }
         }
@@ -297,7 +297,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "common/login/StaminaLabel.png",
-                "roi": [ 32, 84, 66, 61 ],
+                "roi": [ 32, 42, 66, 61 ],
                 "method": 10001,
                 "threshold": 0.8
             }

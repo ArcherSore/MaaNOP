@@ -33,7 +33,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "returnGift/GiftTab.png",
-                "roi": [ 458, 220, 172, 117 ]
+                "roi": [ 458, 199, 172, 117 ]
             }
         },
         "action": {
@@ -49,7 +49,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "returnGift/ToClaim.png",
-                "roi": [ 420, 415, 134, 130 ]
+                "roi": [ 420, 394, 134, 130 ]
             }
         },
         "next": [ "ClaimReturnGift" ]
@@ -65,7 +65,7 @@
                             "type": "OCR",
                             "param": {
                                 "expected": "^领取$",
-                                "roi": [ 620, 548, 85, 35 ]
+                                "roi": [ 620, 527, 85, 35 ]
                             }
                         }
                     }
@@ -93,7 +93,7 @@
                             "type": "OCR",
                             "param": {
                                 "expected": "^确定$",
-                                "roi": [ 635, 413, 75, 34 ]
+                                "roi": [ 635, 392, 75, 34 ]
                             }
                         }
                     }
@@ -114,7 +114,7 @@
             "type": "OCR",
             "param": {
                 "expected": "开启宝箱获得.*主角经验",
-                "roi": [ 570, 377, 220, 40 ]
+                "roi": [ 570, 356, 220, 40 ]
             }
         }
     },
@@ -143,7 +143,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "returnGift/Claimed.png",
-                "roi": [ 417, 410, 139, 144 ]
+                "roi": [ 417, 389, 139, 144 ]
             }
         },
         "focus": {
@@ -173,7 +173,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": [ "popup/Return.png" ],
-                "roi": [ 671, 182, 260, 136 ],
+                "roi": [ 671, 161, 260, 136 ],
                 "order_by": "Score"
             }
         }

@@ -1,0 +1,383 @@
+// 忍者拼图（周末活动之一，步骤是 Weekend.json 里的 WeekendStepPuzzle）：
+// 到了周末福利页后，找到「忍者拼图」那一行，点「去完成」进入窗口，
+// 按 简单/普通/困难 依次检查每个难度：已领取就跳过；奖励亮着就领取；否则开一局，
+// 由 SolveJigsawPuzzle 把碎片拖到位，确定后回来领取，最后关掉窗口，交给 WeekendActivityDone。
+// 三个难度的按钮行相隔 57 像素，除 ROI/目标框的 y 不同外，节点写法完全一样
+{
+    // ===== 周末福利页里「忍者拼图」那一行 =====
+    // 行的位置不固定，按标题 OCR 找；按钮在标题右下方：orange = 去完成，grey = 已完成（本日奖励次数用完）
+    "PuzzleRow": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 530, 258, 260, 190 ],
+                "expected": [ "忍者拼图" ]
+            }
+        },
+        "next": [ "PuzzleGo", "PuzzleRowDone" ]
+    },
+    // roi_offset 的宽高是在标题框的宽高上加：这里取标题框右移 315、下移 44，宽 +20、高 +4，正好盖住按钮
+    "PuzzleGo": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "PuzzleRow",
+                "roi_offset": [ 315, 44, 20, 4 ],
+                "method": 40,
+                "lower": [ 5, 150, 100 ],
+                "upper": [ 20, 255, 255 ],
+                "count": 300
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.Action.Succeeded": "打开忍者拼图"
+        },
+        "next": [ "PuzzleEasy" ]
+    },
+    "PuzzleRowDone": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "PuzzleRow",
+                "roi_offset": [ 315, 44, 20, 4 ],
+                "method": 40,
+                "lower": [ 0, 0, 40 ],
+                "upper": [ 180, 40, 150 ],
+                "count": 400
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "忍者拼图今天的奖励已领完"
+        },
+        "next": [ "WeekendActivityDone" ]
+    },
+
+    // ===== 简单（4×4）：按钮行中心 y=394 =====
+    // 检查这一行的状态：已领取 → 下一个难度；奖励亮着 → 领取；否则开始
+    "PuzzleEasy": {
+        "next": [ "PuzzleEasyClaimed", "PuzzleEasyClaimReady", "PuzzleEasyStart" ]
+    },
+    // 「已领取」的「已」字。没领取的灰色按钮上这里是空白，所以只认这个字
+    "PuzzleEasyClaimed": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "puzzle/Claimed.png",
+                "roi": [ 818, 343, 28, 18 ],
+                "threshold": 0.5
+            }
+        },
+        "next": [ "PuzzleNormal" ]
+    },
+    // 可领取时按钮是橙色，其余状态都是灰色
+    "PuzzleEasyClaimReady": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 819, 349, 8, 7 ],
+                "method": 40,
+                "lower": [ 5, 150, 100 ],
+                "upper": [ 20, 255, 255 ],
+                "count": 40
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 828, 349, 24, 7 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "领取简单难度奖励"
+        },
+        "next": [ "PuzzleEasy" ]
+    },
+    // 开始按钮是蓝色。最多开 3 局，一直通不过就停下来
+    "PuzzleEasyStart": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 880, 349, 9, 7 ],
+                "method": 40,
+                "lower": [ 95, 120, 100 ],
+                "upper": [ 125, 255, 255 ],
+                "count": 30
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 884, 348, 34, 9 ]
+            }
+        },
+        "anchor": {
+            "PuzzleLevel": "PuzzleEasy",
+            "PuzzleSolve": "PuzzleSolveEasy"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "开始简单难度"
+        },
+        "next": [ "PuzzleBeginGame" ]
+    },
+    "PuzzleSolveEasy": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "puzzle/BoardReady.png",
+                "roi": [ 695, 320, 68, 68 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SolveJigsawPuzzle",
+                "custom_action_param": 4
+            }
+        },
+        "next": [ "PuzzleConfirm" ],
+        "on_error": [ "PuzzleSolveFailed" ]
+    },
+
+    // ===== 普通（5×5）：按钮行中心 y=451 =====
+    "PuzzleNormal": {
+        "next": [ "PuzzleNormalClaimed", "PuzzleNormalClaimReady", "PuzzleNormalStart" ]
+    },
+    "PuzzleNormalClaimed": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "puzzle/Claimed.png",
+                "roi": [ 818, 400, 28, 18 ],
+                "threshold": 0.5
+            }
+        },
+        "next": [ "PuzzleHard" ]
+    },
+    "PuzzleNormalClaimReady": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 819, 406, 8, 7 ],
+                "method": 40,
+                "lower": [ 5, 150, 100 ],
+                "upper": [ 20, 255, 255 ],
+                "count": 40
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 828, 406, 24, 7 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "领取普通难度奖励"
+        },
+        "next": [ "PuzzleNormal" ]
+    },
+    "PuzzleNormalStart": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 880, 406, 9, 7 ],
+                "method": 40,
+                "lower": [ 95, 120, 100 ],
+                "upper": [ 125, 255, 255 ],
+                "count": 30
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 884, 405, 34, 9 ]
+            }
+        },
+        "anchor": {
+            "PuzzleLevel": "PuzzleNormal",
+            "PuzzleSolve": "PuzzleSolveNormal"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "开始普通难度"
+        },
+        "next": [ "PuzzleBeginGame" ]
+    },
+    "PuzzleSolveNormal": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "puzzle/BoardReady.png",
+                "roi": [ 695, 320, 68, 68 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SolveJigsawPuzzle",
+                "custom_action_param": 5
+            }
+        },
+        "next": [ "PuzzleConfirm" ],
+        "on_error": [ "PuzzleSolveFailed" ]
+    },
+
+    // ===== 困难（6×6）：按钮行中心 y=508 =====
+    "PuzzleHard": {
+        "next": [ "PuzzleHardClaimed", "PuzzleHardClaimReady", "PuzzleHardStart" ]
+    },
+    "PuzzleHardClaimed": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "puzzle/Claimed.png",
+                "roi": [ 818, 457, 28, 18 ],
+                "threshold": 0.5
+            }
+        },
+        "next": [ "PuzzleFinished" ]
+    },
+    "PuzzleHardClaimReady": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 819, 463, 8, 7 ],
+                "method": 40,
+                "lower": [ 5, 150, 100 ],
+                "upper": [ 20, 255, 255 ],
+                "count": 40
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 828, 463, 24, 7 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "领取困难难度奖励"
+        },
+        "next": [ "PuzzleHard" ]
+    },
+    "PuzzleHardStart": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 880, 463, 9, 7 ],
+                "method": 40,
+                "lower": [ 95, 120, 100 ],
+                "upper": [ 125, 255, 255 ],
+                "count": 30
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 884, 462, 34, 9 ]
+            }
+        },
+        "anchor": {
+            "PuzzleLevel": "PuzzleHard",
+            "PuzzleSolve": "PuzzleSolveHard"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "开始困难难度"
+        },
+        "next": [ "PuzzleBeginGame" ]
+    },
+    "PuzzleSolveHard": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "puzzle/BoardReady.png",
+                "roi": [ 695, 320, 68, 68 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SolveJigsawPuzzle",
+                "custom_action_param": 6
+            }
+        },
+        "next": [ "PuzzleConfirm" ],
+        "on_error": [ "PuzzleSolveFailed" ]
+    },
+
+    // ===== 三个难度共用 =====
+    // 点开始后先停在「开始游戏」按钮上，点了之后有约 6 秒的开场动画。
+    // 动画盖住计时圈，动画一结束圈才露出来：用它判断碎片已经发好、可以开拖
+    "PuzzleBeginGame": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "puzzle/BeginGame.png",
+                "roi": [ 622, 359, 100, 46 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "[Anchor]PuzzleSolve" ]
+    },
+    // 拼完弹出「恭喜你，完成挑战！」，点确定回到难度列表，再从刚才的难度重新检查（这时奖励亮着）
+    "PuzzleConfirm": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "puzzle/Confirm.png",
+                "roi": [ 637, 399, 64, 38 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "[Anchor]PuzzleLevel" ]
+    },
+    // 没拼完（时间到等）：点右上角关闭回到难度列表，让难度节点决定要不要再开一局
+    "PuzzleSolveFailed": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 990, 190, 12, 12 ]
+            }
+        },
+        "post_delay": 1000,
+        "next": [ "[Anchor]PuzzleLevel" ]
+    },
+    // 全部处理完：关掉忍者拼图窗口，其余（限时热点窗口、进入下一步）交给 WeekendActivityDone
+    "PuzzleFinished": {
+        "focus": {
+            "Node.Action.Succeeded": "忍者拼图完成"
+        },
+        "next": [ "ClosePuzzleWindow" ]
+    },
+    "ClosePuzzleWindow": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "weekend/CloseX.png",
+                "roi": [ 905, 254, 60, 48 ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 800,
+        "next": [ "WeekendActivityDone" ]
+    },
+
+    // action_puzzle.py 里调用：出现「时间到」就别再拖了
+    "PuzzleTimeUp": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "puzzle/TimeUp.png",
+                "roi": [ 525, 319, 295, 100 ]
+            }
+        }
+    }
+}

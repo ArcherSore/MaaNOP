@@ -10,7 +10,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 575, 440, 175, 24 ],
+                "roi": [ 575, 419, 175, 24 ],
                 "expected": [ "开战" ]
             }
         }

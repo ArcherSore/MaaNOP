@@ -22,7 +22,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "arena/ArenaMainFlag.png",
-                "roi": [ 217, 522, 79, 73 ]
+                "roi": [ 217, 501, 79, 73 ]
             }
         },
         "next": [ "[JumpBack]CloseArenaPopup", "CheckRank", "RankNotReached" ]
@@ -32,7 +32,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "arena/RankRikudouFlag.png",
-                "roi": [ 231, 194, 91, 98 ]
+                "roi": [ 231, 173, 91, 98 ]
             }
         },
         "next": [ "RankReached" ]
@@ -42,7 +42,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "arena/RankRikudouFlag.png",
-                "roi": [ 231, 194, 91, 98 ]
+                "roi": [ 231, 173, 91, 98 ]
             }
         },
         "inverse": true,
@@ -53,7 +53,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "arena/ButtonFormalBattleStart.png",
-                "roi": [ 399, 556, 160, 83 ]
+                "roi": [ 399, 535, 160, 83 ]
             }
         },
         "action": {
@@ -68,10 +68,10 @@
                 "custom_recognition": "MatchPopup",
                 "custom_recognition_param": {
                     "popups": [
-                        { "name": "战斗胜利", "template": "arena/BattleWinPopup.png", "roi": [ 555, 206, 201, 103 ], "target": [ 647, 506, 30, 13 ] },
-                        { "name": "新增试用忍者", "template": "arena/AddNewTrialNinja.png", "roi": [ 548, 207, 233, 96 ], "target": [ 763, 498, 34, 9 ] },
-                        { "name": "战斗失败", "template": "arena/BattleLosePopup.png", "roi": [ 561, 211, 209, 92 ], "target": [ 649, 493, 44, 13 ] },
-                        { "name": "成为六道", "template": "arena/RankRikudouPopup.png", "roi": [ 557, 205, 206, 101 ], "target": [ 644, 488, 38, 13 ] }
+                        { "name": "战斗胜利", "template": "arena/BattleWinPopup.png", "roi": [ 555, 185, 201, 103 ], "target": [ 647, 485, 30, 13 ] },
+                        { "name": "新增试用忍者", "template": "arena/AddNewTrialNinja.png", "roi": [ 548, 186, 233, 96 ], "target": [ 763, 477, 34, 9 ] },
+                        { "name": "战斗失败", "template": "arena/BattleLosePopup.png", "roi": [ 561, 190, 209, 92 ], "target": [ 649, 472, 44, 13 ] },
+                        { "name": "成为六道", "template": "arena/RankRikudouPopup.png", "roi": [ 557, 184, 206, 101 ], "target": [ 644, 467, 38, 13 ] }
                     ]
                 }
             }
@@ -83,13 +83,13 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "arena/NewTermPopup.png",
-                "roi": [ 575, 243, 183, 68 ]
+                "roi": [ 575, 222, 183, 68 ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 655, 507, 33, 14 ]
+                "target": [ 655, 486, 33, 14 ]
             }
         }
     },
@@ -181,7 +181,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": "arena/BattleSpeedLocked.png",
-                                "roi": [ 870, 635, 69, 69 ]
+                                "roi": [ 870, 614, 69, 69 ]
                             }
                         }
                     },
@@ -189,7 +189,7 @@
                         "recognition": {
                             "type": "ColorMatch",
                             "param": {
-                                "roi": [ 300, 200, 750, 360 ],
+                                "roi": [ 300, 179, 750, 360 ],
                                 "method": 4,
                                 "lower": [ 12, 12, 12 ],
                                 "upper": [ 255, 255, 255 ],
@@ -207,7 +207,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": [ "common/battle/AutoOn.png", "common/battle/AutoOnHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
+                "roi": [ 828, 599, 80, 80 ]
             }
         },
         "timeout": 120000,
@@ -219,7 +219,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
+                "roi": [ 828, 599, 80, 80 ]
             }
         },
         "action": {
@@ -240,7 +240,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "arena/BattleEnd.png",
-                "roi": [ 611, 438, 121, 69 ]
+                "roi": [ 611, 415, 121, 69 ]
             }
         },
         "action": {
