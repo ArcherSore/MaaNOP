@@ -69,10 +69,11 @@ def main():
     try:
         if len(sys.argv) != 2:
             raise RuntimeError("需要前端提供一个选项 JSON 参数。")
-        uin = json.loads(sys.argv[1])["LoginAccount"]["uin"]
+        options = json.loads(sys.argv[1])
+        uin = options["LoginAccount"]["uin"]
         if sys.platform != "win32":
             raise RuntimeError("QQ 游戏大厅仅支持 Windows。")
-        executable = Path(r"D:\Program Files (x86)\Tencent\QQGameTempest\QQGame.exe")
+        executable = Path(options["GameHallPath"]["path"])
         window = launch(uin, executable)
         prepare_window(window.hwnd)
         return 0
