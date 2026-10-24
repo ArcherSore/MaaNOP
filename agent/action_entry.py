@@ -12,8 +12,8 @@ class EnterDailyTask(CustomAction):
     def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
         param = json.loads(argv.custom_action_param)
         pages = {
-            "daily": ("DailyTab", [378, 207, 50, 14]),
-            "limited": ("DailyLimitedTab", [478, 207, 50, 14]),
+            "daily": ("DailyTab", [378, 186, 50, 14]),
+            "limited": ("DailyLimitedTab", [478, 186, 50, 14]),
         }
         page = pages.get(param.get("page", "daily"))
         if page is None:

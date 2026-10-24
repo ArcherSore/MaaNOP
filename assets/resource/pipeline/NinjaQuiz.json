@@ -22,7 +22,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "ninjaQuiz/QuizRow.png",
-                "roi": [ 355, 240, 390, 275 ],
+                "roi": [ 355, 219, 390, 275 ],
                 "threshold": 0.8
             }
         }
@@ -32,7 +32,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "ninjaQuiz/PanelTitle.png",
-                "roi": [ 760, 232, 90, 32 ],
+                "roi": [ 760, 211, 90, 32 ],
                 "threshold": 0.85
             }
         }
@@ -47,7 +47,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 834, 494, 40, 13 ]
+                "target": [ 834, 473, 40, 13 ]
             }
         },
         "next": [ "QuizStartDialog" ]
@@ -62,7 +62,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 985, 184, 8, 8 ]
+                "target": [ 985, 163, 8, 8 ]
             }
         },
         "focus": {
@@ -90,7 +90,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": "ninjaQuiz/ExaminerName.png",
-                                "roi": [ 450, 475, 100, 40 ],
+                                "roi": [ 450, 454, 100, 40 ],
                                 "threshold": 0.8
                             }
                         }
@@ -100,7 +100,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": "ninjaQuiz/StartQuiz.png",
-                                "roi": [ 575, 400, 90, 40 ],
+                                "roi": [ 575, 379, 90, 40 ],
                                 "threshold": 0.8
                             }
                         }
@@ -120,7 +120,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "ninjaQuiz/QuizHint.png",
-                "roi": [ 760, 545, 170, 50 ],
+                "roi": [ 760, 524, 170, 50 ],
                 "threshold": 0.85
             }
         }
@@ -130,7 +130,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 560, 390, 35, 12 ],
+                "roi": [ 560, 369, 35, 12 ],
                 "method": 40,
                 "lower": [ 10, 40, 215 ],
                 "upper": [ 35, 140, 255 ],
@@ -142,7 +142,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 560, 390, 35, 12 ],
+                "roi": [ 560, 369, 35, 12 ],
                 "method": 40,
                 "lower": [ 10, 60, 90 ],
                 "upper": [ 35, 200, 190 ],
@@ -155,7 +155,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 600, 376, 90, 42 ],
+                "roi": [ 600, 355, 90, 42 ],
                 "method": 40,
                 "lower": [ [ 0, 150, 120 ], [ 170, 150, 120 ], [ 35, 120, 80 ] ],
                 "upper": [ [ 8, 255, 255 ], [ 180, 255, 255 ], [ 85, 255, 255 ] ],
@@ -175,12 +175,12 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 560, 389, 170, 14 ]
+                "target": [ 560, 368, 170, 14 ]
             }
         },
         "post_wait_freezes": {
             "time": 500,
-            "target": [ 530, 370, 230, 200 ],
+            "target": [ 530, 349, 230, 200 ],
             "rate_limit": 100
         },
         "focus": {
@@ -205,12 +205,12 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 618, 530, 56, 22 ]
+                "target": [ 618, 509, 56, 22 ]
             }
         },
         "post_wait_freezes": {
             "time": 500,
-            "target": [ 530, 370, 230, 200 ],
+            "target": [ 530, 349, 230, 200 ],
             "rate_limit": 100
         },
         "focus": {
@@ -241,7 +241,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": "ninjaQuiz/ClaimButton.png",
-                                "roi": [ 600, 475, 110, 50 ],
+                                "roi": [ 600, 454, 110, 50 ],
                                 "threshold": 0.9
                             }
                         }
@@ -250,7 +250,7 @@
                         "recognition": {
                             "type": "ColorMatch",
                             "param": {
-                                "roi": [ 636, 493, 40, 15 ],
+                                "roi": [ 636, 472, 40, 15 ],
                                 "method": 40,
                                 "lower": [ 3, 190, 150 ],
                                 "upper": [ 30, 255, 255 ],
@@ -264,12 +264,12 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 639, 495, 34, 11 ]
+                "target": [ 639, 474, 34, 11 ]
             }
         },
         "post_wait_freezes": {
             "time": 500,
-            "target": [ 600, 470, 120, 60 ],
+            "target": [ 600, 449, 120, 60 ],
             "rate_limit": 100
         },
         "max_hit": 3,
@@ -291,7 +291,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": "ninjaQuiz/ClaimedButton.png",
-                                "roi": [ 600, 475, 110, 50 ],
+                                "roi": [ 600, 454, 110, 50 ],
                                 "threshold": 0.9
                             }
                         }
@@ -302,7 +302,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 915, 273, 8, 8 ]
+                "target": [ 915, 252, 8, 8 ]
             }
         },
         "focus": {
