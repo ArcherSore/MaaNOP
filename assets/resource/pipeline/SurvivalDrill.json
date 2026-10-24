@@ -20,7 +20,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 585, 628, 145, 30 ],
+                "roi": [ 585, 607, 145, 30 ],
                 "expected": [ "\\d+/\\d+" ]
             }
         }
@@ -29,7 +29,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 672, 672, 110, 28 ],
+                "roi": [ 672, 651, 110, 28 ],
                 "expected": [ "[1-9]次" ]
             }
         }
@@ -38,7 +38,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 672, 672, 110, 28 ],
+                "roi": [ 672, 651, 110, 28 ],
                 "expected": [ "0次" ]
             }
         }
@@ -66,7 +66,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 440, 250, 460, 122 ],
+                "roi": [ 440, 229, 460, 122 ],
                 "expected": [ "已用尽" ]
             }
         },
@@ -76,7 +76,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 957, 642, 50, 11 ]
+                "target": [ 957, 621, 50, 11 ]
             }
         },
         "next": [ "SurvivalClaimConfirm", "SurvivalClaimRewardClose", "SurvivalClaimNothing" ]
@@ -85,14 +85,14 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 548, 375, 245, 60 ],
+                "roi": [ 548, 354, 245, 60 ],
                 "expected": [ "领取奖励" ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 590, 422, 44, 9 ]
+                "target": [ 590, 401, 44, 9 ]
             }
         },
         "next": [ "SurvivalClaimRewardClose" ]
@@ -102,7 +102,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "survival/RewardConfirm.png",
-                "roi": [ 620, 448, 90, 64 ]
+                "roi": [ 620, 427, 90, 64 ]
             }
         },
         "action": "Click",
@@ -113,7 +113,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 440, 250, 460, 122 ],
+                "roi": [ 440, 229, 460, 122 ],
                 "expected": [ "没有可以领取" ]
             }
         },
@@ -133,7 +133,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 684, 679, 82, 14 ]
+                "target": [ 690, 659, 70, 4 ]
             }
         },
         "post_delay": 500,
@@ -143,14 +143,14 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 548, 375, 245, 60 ],
+                "roi": [ 548, 354, 245, 60 ],
                 "expected": [ "重置会损失|尚未完成|领取奖励" ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 590, 422, 44, 9 ]
+                "target": [ 590, 401, 44, 9 ]
             }
         },
         "post_delay": 800,
@@ -174,7 +174,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "survival/TabEliteSelected.png",
-                "roi": [ 320, 95, 230, 160 ],
+                "roi": [ 320, 74, 230, 160 ],
                 "threshold": 0.9
             }
         },
@@ -184,7 +184,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 412, 145, 35, 50 ]
+                "target": [ 412, 124, 35, 50 ]
             }
         },
         "post_delay": 1000,
@@ -195,7 +195,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 440, 250, 460, 122 ],
+                "roi": [ 440, 229, 460, 122 ],
                 "expected": [ "数量不足|无法解锁" ]
             }
         },
@@ -209,7 +209,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "survival/TabEliteSelected.png",
-                "roi": [ 320, 95, 230, 160 ],
+                "roi": [ 320, 74, 230, 160 ],
                 "threshold": 0.9
             }
         },
@@ -219,7 +219,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 412, 145, 35, 50 ]
+                "target": [ 412, 124, 35, 50 ]
             }
         },
         "post_delay": 1000,
@@ -229,14 +229,14 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 548, 375, 245, 60 ],
+                "roi": [ 548, 354, 245, 60 ],
                 "expected": [ "是否确认(继续|切换)" ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 590, 422, 44, 9 ]
+                "target": [ 590, 401, 44, 9 ]
             }
         },
         "post_delay": 800
@@ -246,7 +246,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": [ "survival/StartBattle.png", "survival/StartBattleHover.png" ],
-                "roi": [ 623, 162, 110, 64 ],
+                "roi": [ 623, 141, 110, 64 ],
                 "threshold": 0.85
             }
         },
@@ -315,7 +315,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "survival/BattleConfirm.png",
-                "roi": [ 620, 468, 105, 30 ]
+                "roi": [ 620, 447, 105, 30 ]
             }
         },
         "action": "Click",
@@ -334,7 +334,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1136, 105, 10, 10 ]
+                "target": [ 1136, 84, 10, 10 ]
             }
         },
         "focus": {

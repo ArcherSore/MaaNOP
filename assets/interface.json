@@ -488,7 +488,7 @@
                         "SurvivalClickTab": {
                             "action": {
                                 "param": {
-                                    "target": [ 355, 150, 35, 50 ]
+                                    "target": [ 355, 129, 35, 50 ]
                                 }
                             }
                         }
@@ -512,7 +512,7 @@
                         "SurvivalClickTab": {
                             "action": {
                                 "param": {
-                                    "target": [ 470, 145, 35, 50 ]
+                                    "target": [ 470, 124, 35, 50 ]
                                 }
                             }
                         }
