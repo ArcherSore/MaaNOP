@@ -31,7 +31,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "abundance/PopupTitle.png",
-                "roi": [ 600, 198, 128, 26 ]
+                "roi": [ 600, 177, 128, 26 ]
             }
         },
         "next": [ "AbundanceNoChance", "AbundanceSimple", "AbundanceLeftArrow" ]
@@ -41,7 +41,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "abundance/TimesLeftLabel.png",
-                "roi": [ 775, 255, 140, 22 ]
+                "roi": [ 775, 234, 140, 22 ]
             }
         }
     },
@@ -50,13 +50,13 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "abundance/NoChanceLabel.png",
-                "roi": [ 775, 262, 140, 30 ]
+                "roi": [ 775, 241, 140, 30 ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 949, 216, 12, 12 ]
+                "target": [ 949, 195, 12, 12 ]
             }
         },
         "focus": {
@@ -69,7 +69,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "abundance/SimpleLabel.png",
-                "roi": [ 400, 285, 200, 40 ],
+                "roi": [ 400, 264, 200, 40 ],
                 "threshold": 0.85
             }
         }
@@ -85,7 +85,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 399, 324, 10, 14 ]
+                "target": [ 399, 303, 10, 14 ]
             }
         },
         "post_delay": 500,
@@ -102,7 +102,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 440, 330, 70, 24 ]
+                "target": [ 440, 309, 70, 24 ]
             }
         },
         "next": [ "AbundanceBattleStart" ]
@@ -144,7 +144,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "abundance/ResultConfirm.png",
-                "roi": [ 620, 455, 105, 35 ]
+                "roi": [ 620, 434, 105, 35 ]
             }
         },
         "action": "Click",
@@ -156,7 +156,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "abundance/SettleBack.png",
-                "roi": [ 600, 455, 140, 32 ]
+                "roi": [ 600, 434, 140, 32 ]
             }
         },
         "action": "Click",

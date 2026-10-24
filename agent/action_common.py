@@ -9,7 +9,7 @@ from maa.pipeline import JActionType, JClickKey
 from common import click_center
 
 
-TEAM_TAB_Y = [235, 256, 276, 297, 317, 338, 358, 379]
+TEAM_TAB_Y = [214, 235, 255, 276, 296, 317, 337, 358]
 
 
 @AgentServer.custom_action("SelectTeam")

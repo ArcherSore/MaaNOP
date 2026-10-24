@@ -23,7 +23,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "common/team/TeamTitle.png",
-                "roi": [ 236, 222, 100, 34 ]
+                "roi": [ 236, 201, 100, 34 ]
             }
         },
         "timeout": 5000,
@@ -34,7 +34,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 358, 235, 34, 12 ],
+                "roi": [ 358, 214, 34, 12 ],
                 "method": 40,
                 "lower": [ 90, 100, 60 ],
                 "upper": [ 110, 255, 255 ],
@@ -44,7 +44,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 360, 236, 30, 11 ]
+                "target": [ 360, 215, 30, 11 ]
             }
         },
         "timeout": 6000,
@@ -55,7 +55,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 358, 235, 34, 12 ],
+                "roi": [ 358, 214, 34, 12 ],
                 "method": 40,
                 "lower": [ 8, 100, 60 ],
                 "upper": [ 25, 255, 255 ],
@@ -65,7 +65,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1114, 108, 14, 14 ]
+                "target": [ 1114, 87, 14, 14 ]
             }
         },
         "timeout": 5000,
@@ -76,7 +76,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "common/login/StaminaLabel.png",
-                "roi": [ 32, 84, 66, 61 ],
+                "roi": [ 32, 42, 66, 61 ],
                 "method": 10001,
                 "threshold": 0.8
             }
