@@ -35,7 +35,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "teamDungeon/HubRow.png",
-                "roi": [ 355, 240, 390, 275 ],
+                "roi": [ 355, 219, 390, 275 ],
                 "threshold": 0.8
             }
         }
@@ -45,7 +45,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "teamDungeon/HubPanelTitle.png",
-                "roi": [ 760, 232, 90, 32 ],
+                "roi": [ 760, 211, 90, 32 ],
                 "threshold": 0.85
             }
         }
@@ -61,7 +61,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 834, 494, 40, 13 ]
+                "target": [ 834, 473, 40, 13 ]
             }
         },
         "focus": {
@@ -81,7 +81,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 985, 184, 8, 8 ]
+                "target": [ 985, 163, 8, 8 ]
             }
         },
         "focus": {
@@ -105,7 +105,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "teamDungeon/WindowTitle.png",
-                "roi": [ 600, 180, 140, 40 ],
+                "roi": [ 600, 159, 140, 40 ],
                 "method": 10001,
                 "threshold": 0.75
             }
@@ -117,7 +117,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "teamDungeon/WindowTitle.png",
-                "roi": [ 600, 180, 140, 40 ],
+                "roi": [ 600, 159, 140, 40 ],
                 "threshold": 0.8
             }
         }
@@ -128,7 +128,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "teamDungeon/AllTabSelected.png",
-                "roi": [ 430, 235, 70, 25 ],
+                "roi": [ 430, 214, 70, 25 ],
                 "method": 10001,
                 "threshold": 0.85
             }
@@ -139,7 +139,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 522, 564, 20, 17 ],
+                "roi": [ 522, 543, 20, 17 ],
                 "expected": [ "^0$" ],
                 "only_rec": true
             }
@@ -155,7 +155,7 @@
         // 卡片有淡入动画，需等画面稳定。
         "post_wait_freezes": {
             "time": 500,
-            "target": [ 390, 260, 580, 300 ]
+            "target": [ 390, 239, 580, 300 ]
         },
         "timeout": 10000,
         "next": [
@@ -177,7 +177,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 985, 214, 10, 10 ]
+                "target": [ 985, 193, 10, 10 ]
             }
         },
         "timeout": 5000,
@@ -213,12 +213,12 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 446, 243, 30, 10 ]
+                "target": [ 446, 222, 30, 10 ]
             }
         },
         "post_wait_freezes": {
             "time": 300,
-            "target": [ 390, 260, 580, 300 ]
+            "target": [ 390, 239, 580, 300 ]
         },
         "timeout": 5000,
         "next": [
@@ -235,7 +235,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "teamDungeon/dungeon/BridgeBattle.png",
-                "roi": [ 395, 262, 570, 228 ],
+                "roi": [ 395, 241, 570, 228 ],
                 "threshold": 0.8
             }
         }
@@ -266,7 +266,7 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": "teamDungeon/ListBottom.png",
-                                "roi": [ 955, 530, 12, 14 ],
+                                "roi": [ 955, 509, 12, 14 ],
                                 "threshold": 0.95
                             }
                         }
@@ -302,14 +302,14 @@
         "action": {
             "type": "Swipe",
             "param": {
-                "begin": [ 958, 288, 4, 6 ],
-                "end": [ 958, 600, 4, 4 ],
+                "begin": [ 958, 267, 4, 6 ],
+                "end": [ 958, 579, 4, 4 ],
                 "duration": 500
             }
         },
         "post_wait_freezes": {
             "time": 300,
-            "target": [ 390, 260, 580, 300 ]
+            "target": [ 390, 239, 580, 300 ]
         },
         "next": [ "TeamDungeonCardFound", "TeamDungeonListEnd", "TeamDungeonScrollDown" ]
     },
@@ -327,12 +327,12 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 955, 545, 10, 8 ]
+                "target": [ 955, 524, 10, 8 ]
             }
         },
         "post_wait_freezes": {
             "time": 200,
-            "target": [ 390, 260, 580, 300 ]
+            "target": [ 390, 239, 580, 300 ]
         },
         "timeout": 5000,
         "next": [ "TeamDungeonCardFound", "TeamDungeonListEnd", "TeamDungeonScrollDown" ]
@@ -408,7 +408,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 985, 214, 10, 10 ]
+                "target": [ 985, 193, 10, 10 ]
             }
         },
         "timeout": 5000,
@@ -433,13 +433,13 @@
             "type": "OCR",
             "param": {
                 "expected": [ "^确认进入$" ],
-                "roi": [ 580, 397, 80, 30 ]
+                "roi": [ 580, 376, 80, 30 ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 598, 406, 44, 12 ]
+                "target": [ 598, 385, 44, 12 ]
             }
         },
         "timeout": 30000,
@@ -485,13 +485,13 @@
             "type": "OCR",
             "param": {
                 "expected": [ "返回" ],
-                "roi": [ 810, 575, 120, 40 ]
+                "roi": [ 810, 554, 120, 40 ]
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 838, 589, 56, 10 ]
+                "target": [ 838, 568, 56, 10 ]
             }
         },
         "timeout": 30000,
