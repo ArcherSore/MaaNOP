@@ -437,9 +437,8 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "leveling/buttons/GroupsIcon.png",
-                "roi": [ 905, 64, 66, 62 ],
-                "threshold": 0.9
+                "template": [ "leveling/buttons/GroupsIcon.png", "leveling/buttons/GroupsIconHover.png" ],
+                "roi": [ 905, 64, 66, 62 ]
             }
         }
     },
@@ -3994,7 +3993,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 674, 214 ] }
         },
         "post_delay": 3000,
         "next": [ "MoveToRabbitContestPositionAgain" ]
@@ -4027,7 +4027,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 570, 598 ] }
         },
         "post_delay": 3000,
         "next": [ "CatchEnemyRabbit3" ]
@@ -4042,7 +4043,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 817, 472 ] }
         },
         "post_delay": 3000,
         "next": [ "CatchEnemyRabbit4" ]
@@ -4057,7 +4059,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 483, 474 ] }
         },
         "post_delay": 3500,
         "next": [ "CatchEnemyRabbit5" ]
@@ -4071,7 +4074,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 821, 484 ] }
         },
         "timeout": 9000,
         "next": [ "ConfirmCopyResults_捉兔大赛" ]
