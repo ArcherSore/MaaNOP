@@ -4,7 +4,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": [ "leveling/flags/BattleStart.png", "leveling/flags/MaskedBattleStart.png" ],
-                "roi": [ 629, 81, 129, 113 ]
+                "roi": [ 629, 60, 129, 113 ]
             }
         },
         "next": [ "UseSkill1" ]
@@ -13,7 +13,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 550, 638, 34, 34 ]
+                "target": [ 550, 617, 34, 34 ]
             }
         },
         "next": [ "[JumpBack]SkipDialogue", "ManulBattleEnd", "UseSkill2" ]
@@ -22,7 +22,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 627, 638, 34, 34 ]
+                "target": [ 627, 617, 34, 34 ]
             }
         },
         "next": [ "[JumpBack]SkipDialogue", "ManulBattleEnd", "UseSkill3" ]
@@ -31,7 +31,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 704, 638, 32, 33 ]
+                "target": [ 704, 617, 32, 33 ]
             }
         },
         "next": [ "[JumpBack]SkipDialogue", "ManulBattleEnd", "UseSkill1" ]
@@ -41,7 +41,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "leveling/flags/BattleStart.png",
-                "roi": [ 629, 81, 129, 113 ]
+                "roi": [ 629, 60, 129, 113 ]
             }
         },
         "inverse": true
