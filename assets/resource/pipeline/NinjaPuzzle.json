@@ -53,19 +53,17 @@
         "next": [ "WeekendActivityDone" ]
     },
 
-    // ===== 简单（4×4）：按钮行中心 y=394 =====
+    // ===== 简单（4×4）：按钮行中心 y=352 =====
     // 检查这一行的状态：已领取 → 下一个难度；奖励亮着 → 领取；否则开始
     "PuzzleEasy": {
         "next": [ "PuzzleEasyClaimed", "PuzzleEasyClaimReady", "PuzzleEasyStart" ]
     },
-    // 「已领取」的「已」字。没领取的灰色按钮上这里是空白，所以只认这个字
     "PuzzleEasyClaimed": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "puzzle/Claimed.png",
-                "roi": [ 818, 343, 28, 18 ],
-                "threshold": 0.5
+                "roi": [ 812, 339, 56, 28 ],
+                "expected": [ "已领取" ]
             }
         },
         "next": [ "PuzzleNormal" ]
@@ -94,17 +92,14 @@
         },
         "next": [ "PuzzleEasy" ]
     },
-    // 开始按钮是蓝色。最多开 3 局，一直通不过就停下来
+    // 直接识别「开始」，不依赖按钮底色的小块像素；最多开 3 局。
     "PuzzleEasyStart": {
         "max_hit": 3,
         "recognition": {
-            "type": "ColorMatch",
+            "type": "OCR",
             "param": {
-                "roi": [ 880, 349, 9, 7 ],
-                "method": 40,
-                "lower": [ 95, 120, 100 ],
-                "upper": [ 125, 255, 255 ],
-                "count": 30
+                "roi": [ 876, 339, 50, 28 ],
+                "expected": [ "开始" ]
             }
         },
         "action": {
@@ -142,17 +137,16 @@
         "on_error": [ "PuzzleSolveFailed" ]
     },
 
-    // ===== 普通（5×5）：按钮行中心 y=451 =====
+    // ===== 普通（5×5）：按钮行中心 y=409 =====
     "PuzzleNormal": {
         "next": [ "PuzzleNormalClaimed", "PuzzleNormalClaimReady", "PuzzleNormalStart" ]
     },
     "PuzzleNormalClaimed": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "puzzle/Claimed.png",
-                "roi": [ 818, 400, 28, 18 ],
-                "threshold": 0.5
+                "roi": [ 812, 396, 56, 28 ],
+                "expected": [ "已领取" ]
             }
         },
         "next": [ "PuzzleHard" ]
@@ -183,13 +177,10 @@
     "PuzzleNormalStart": {
         "max_hit": 3,
         "recognition": {
-            "type": "ColorMatch",
+            "type": "OCR",
             "param": {
-                "roi": [ 880, 406, 9, 7 ],
-                "method": 40,
-                "lower": [ 95, 120, 100 ],
-                "upper": [ 125, 255, 255 ],
-                "count": 30
+                "roi": [ 876, 396, 50, 28 ],
+                "expected": [ "开始" ]
             }
         },
         "action": {
@@ -227,17 +218,16 @@
         "on_error": [ "PuzzleSolveFailed" ]
     },
 
-    // ===== 困难（6×6）：按钮行中心 y=508 =====
+    // ===== 困难（6×6）：按钮行中心 y=466 =====
     "PuzzleHard": {
         "next": [ "PuzzleHardClaimed", "PuzzleHardClaimReady", "PuzzleHardStart" ]
     },
     "PuzzleHardClaimed": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "puzzle/Claimed.png",
-                "roi": [ 818, 457, 28, 18 ],
-                "threshold": 0.5
+                "roi": [ 812, 453, 56, 28 ],
+                "expected": [ "已领取" ]
             }
         },
         "next": [ "PuzzleFinished" ]
@@ -268,13 +258,10 @@
     "PuzzleHardStart": {
         "max_hit": 3,
         "recognition": {
-            "type": "ColorMatch",
+            "type": "OCR",
             "param": {
-                "roi": [ 880, 463, 9, 7 ],
-                "method": 40,
-                "lower": [ 95, 120, 100 ],
-                "upper": [ 125, 255, 255 ],
-                "count": 30
+                "roi": [ 876, 453, 50, 28 ],
+                "expected": [ "开始" ]
             }
         },
         "action": {
@@ -317,10 +304,10 @@
     // 动画盖住计时圈，动画一结束圈才露出来：用它判断碎片已经发好、可以开拖
     "PuzzleBeginGame": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "puzzle/BeginGame.png",
-                "roi": [ 622, 359, 100, 46 ]
+                "roi": [ 622, 359, 100, 46 ],
+                "expected": [ "开始游戏" ]
             }
         },
         "action": "Click",
