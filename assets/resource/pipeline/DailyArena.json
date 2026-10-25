@@ -1,0 +1,541 @@
+{
+    "DailyArena": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaMain", "DailyArenaOpen" ]
+    },
+    "DailyArenaOpen": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": "arena/ArenaEntry.png"
+                }
+            }
+        },
+        "action": "Click",
+        "next": [ "DailyArenaMain" ]
+    },
+    "DailyArenaMain": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyArenaOrdersText", "DailyArenaMainBright" ]
+            }
+        },
+        "next": [ "DailyArenaCheckOrders" ]
+    },
+    "DailyArenaOrdersText": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 680, 205, 75, 25 ],
+                "expected": "战令\\s*[:：]?\\s*\\d+"
+            }
+        }
+    },
+    // 720 高度下，正常主界面战令黄字 96 像素，降难度/结算遮罩 0；40 留出渲染余量。
+    // OCR 在遮罩下仍能读到主界面，需同时确认亮度，不能提前点击背景按钮。
+    "DailyArenaMainBright": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 685, 212, 55, 18 ],
+                "method": 4,
+                "lower": [ 170, 140, 40 ],
+                "upper": [ 255, 255, 220 ],
+                "count": 40
+            }
+        }
+    },
+    "DailyArenaCheckOrders": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 230, 313, 108, 190 ],
+            "threshold": 0.98,
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "next": [ "DailyArenaOrdersEmpty", "DailyArenaCheckClaims" ]
+    },
+    "DailyArenaOrdersEmpty": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 680, 205, 75, 25 ],
+                "expected": "战令\\s*[:：]?\\s*0\\s*个"
+            }
+        },
+        "next": [ "DailyArenaExit" ]
+    },
+    // 每个 next 至多放一个任务卡 OCR，避免同 ROI 的领取/已满足/未满足被批量 OCR 损坏。
+    // 先领取，再逐张处理未满足条件，尽量让两张卡同场完成；最后才检查已满足任务并开战。
+    "DailyArenaCheckClaims": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "DailyArenaClaimTop", "DailyArenaCheckBottomClaim" ]
+    },
+    "DailyArenaCheckBottomClaim": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "DailyArenaClaimBottom", "DailyArenaCheckTopUnmet" ]
+    },
+    "DailyArenaCheckTopReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "DailyArenaTopReady", "DailyArenaCheckBottomReady" ]
+    },
+    "DailyArenaCheckBottomReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "DailyArenaBottomReady", "DailyArenaCheckTasksEmpty" ]
+    },
+    "DailyArenaCheckTopUnmet": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "DailyArenaTopUnmet", "DailyArenaCheckBottomUnmet" ]
+    },
+    "DailyArenaCheckBottomUnmet": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "DailyArenaBottomUnmet", "DailyArenaCheckTopReady" ]
+    },
+    "DailyArenaCheckTasksEmpty": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "DailyArenaTasksEmpty" ]
+    },
+    "DailyArenaEmptyTopText": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": { "type": "OCR", "param": { "roi": [ 232, 332, 105, 35 ], "expected": "[已己]无可挑战" } }
+    },
+    "DailyArenaEmptyBottomText": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": { "type": "OCR", "param": { "roi": [ 232, 419, 105, 35 ], "expected": "[已己]无可挑战" } }
+    },
+    "DailyArenaTasksEmpty": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        // 一张卡完成后显示「已无可挑战任务，明天再来看看吧」；两张都显示才算任务为空。
+        // 「剩余 N 个任务」只计待补充队列，队列耗尽时标题消失，不能据此结束。
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "DailyArenaMainBright",
+                    "DailyArenaEmptyTopText",
+                    "DailyArenaEmptyBottomText"
+                ]
+            }
+        },
+        "next": [ "DailyArenaExit" ]
+    },
+    "DailyArenaClaimTop": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 369, 55, 25 ],
+                "expected": "领取"
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 291, 378, 28, 8 ]
+            }
+        },
+        "max_hit": 12,
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaTopClaimed" ]
+    },
+    // 领取只点击一次，立即移开鼠标，再等待该卡刷新为已满足、未满足或空任务。
+    // 引用节点仅借用识别，不执行其中的点击或悬浮。未刷新则自然超时失败，不补点领取。
+    "DailyArenaTopClaimed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "DailyArenaTopReady", "DailyArenaTopUnmet", "DailyArenaEmptyTopText" ]
+            }
+        },
+        "next": [ "DailyArenaMain" ]
+    },
+    // 720 高度实机下方绿字出现过「条件已溝足」；仅容错满/溝，仍严格区分已和未。
+    "DailyArenaTopReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 369, 55, 25 ],
+                "expected": "条件已[满溝]足"
+            }
+        },
+        "next": [ "DailyArenaStartBattle" ]
+    },
+    "DailyArenaTopUnmet": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 369, 55, 25 ],
+                "expected": "条件未满足"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 306, 381 ],
+                "end": [ 306, 381 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "anchor": {
+            "DailyArenaLowered": "DailyArenaTopLowered"
+        },
+        "next": [ "DailyArenaTopLowerButton" ]
+    },
+    // 2026-10-25 发布包 debug：按钮已出现，但末两字读成「赚虚」（0.651），持续 20 秒未命中。
+    // 同 ROI 中「降低」稳定，且领取/已满足/未满足均不含该前缀；上下按钮统一匹配此前缀。
+    "DailyArenaTopLowerButton": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 369, 55, 25 ],
+                "expected": "^降低"
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 291, 378, 28, 8 ]
+            }
+        },
+        "max_hit": 6,
+        "next": [ "DailyArenaLowerDialog" ]
+    },
+    "DailyArenaTopLowered": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 369, 55, 25 ],
+                "expected": "条件已[满溝]足"
+            }
+        },
+        "next": [ "DailyArenaMain" ]
+    },
+    "DailyArenaClaimBottom": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 456, 55, 25 ],
+                "expected": "领取"
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 291, 465, 28, 8 ]
+            }
+        },
+        "max_hit": 12,
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaBottomClaimed" ]
+    },
+    "DailyArenaBottomClaimed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "DailyArenaBottomReady", "DailyArenaBottomUnmet", "DailyArenaEmptyBottomText" ]
+            }
+        },
+        "next": [ "DailyArenaMain" ]
+    },
+    "DailyArenaBottomReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 456, 55, 25 ],
+                "expected": "条件已[满溝]足"
+            }
+        },
+        "next": [ "DailyArenaStartBattle" ]
+    },
+    "DailyArenaBottomUnmet": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 456, 55, 25 ],
+                "expected": "条件未满足"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 306, 468 ],
+                "end": [ 306, 468 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "anchor": {
+            "DailyArenaLowered": "DailyArenaBottomLowered"
+        },
+        "next": [ "DailyArenaBottomLowerButton" ]
+    },
+    "DailyArenaBottomLowerButton": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 456, 55, 25 ],
+                "expected": "^降低"
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 291, 465, 28, 8 ]
+            }
+        },
+        "max_hit": 6,
+        "next": [ "DailyArenaLowerDialog" ]
+    },
+    "DailyArenaBottomLowered": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 456, 55, 25 ],
+                "expected": "条件已[满溝]足"
+            }
+        },
+        "next": [ "DailyArenaMain" ]
+    },
+    // 有无损次数时显示「余 N 次无损降低」；用完后不显示 0 次，改为「减半」收益提示。
+    // 只在正数且「确定」按钮已出现时确认；减半提示只能取消，不能消耗奖励降低难度。
+    "DailyArenaLowerDialog": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 552, 359, 240, 29 ],
+                "expected": "无损降低|减半"
+            }
+        },
+        "next": [ "DailyArenaLowerFree", "DailyArenaLowerCheckEmpty" ]
+    },
+    // 2026-10-25 17:45 发布包 debug：确定后鼠标落在忍者上，技能说明遮住战令。
+    // 入口及关闭弹窗后先复用 MouseMoveReset 移到左侧空白，再识别后续画面；不增加恢复分支。
+    "DailyArenaLowerFree": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 603, 370, 135, 20 ],
+                                "expected": "[余馀]\\s*[1-9]\\s*次无损降低"
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 590, 398, 50, 22 ],
+                                "expected": "确定"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 599, 404, 22, 8 ]
+            }
+        },
+        "max_hit": 3,
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [
+            "[JumpBack][Anchor]MouseMoveResetAnchor",
+            "[Anchor]DailyArenaLowered"
+        ]
+    },
+    "DailyArenaLowerCheckEmpty": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "DailyArenaLowerEmpty" ]
+    },
+    "DailyArenaLowerEmpty": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 552, 359, 240, 29 ],
+                                "expected": "减半"
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 704, 398, 50, 22 ],
+                                "expected": "取消"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 718, 404, 22, 8 ]
+            }
+        },
+        "max_hit": 3,
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaLowerReturned" ]
+    },
+    // 无损用完后先确认弹窗已关闭，再检查上下两张已满足任务；有任意一张仍可战斗。
+    // 此分支不再检查未满足任务，避免立即重新打开同一个减半提示。
+    "DailyArenaLowerReturned": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyArenaOrdersText", "DailyArenaMainBright" ]
+            }
+        },
+        "next": [ "DailyArenaTopReady", "DailyArenaCheckBottomReadyAfterLowerEmpty" ]
+    },
+    "DailyArenaCheckBottomReadyAfterLowerEmpty": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "DailyArenaBottomReady", "DailyArenaCheckLowerCancelled" ]
+    },
+    "DailyArenaCheckLowerCancelled": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "DailyArenaLowerCancelled" ]
+    },
+    "DailyArenaLowerCancelled": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        // 免费次数耗尽时，必须正向读到两张卡都是「条件未满足」或「已无可挑战任务」。
+        // 不能把已满足 OCR 漏识别当成没有已满足任务；领奖按钮也不能被跳过。
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "DailyArenaOrdersText",
+                    "DailyArenaMainBright",
+                    { "sub_name": "DailyArenaBlockedTop", "recognition": { "type": "Or", "param": { "any_of": [ "DailyArenaTopUnmet", "DailyArenaEmptyTopText" ] } } },
+                    { "sub_name": "DailyArenaBlockedBottom", "recognition": { "type": "Or", "param": { "any_of": [ "DailyArenaBottomUnmet", "DailyArenaEmptyBottomText" ] } } }
+                ]
+            }
+        },
+        "next": [ "DailyArenaExit" ]
+    },
+    // 三种正常结束条件共用退出；竞技场主界面可证明叉号已就绪，点击框位于图标内部。
+    "DailyArenaExit": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "DailyArenaMain" ] }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": [ 1137, 92, 8, 8 ] }
+        },
+        "next": [ "DailyArenaExited" ]
+    },
+    "DailyArenaExited": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "LoginScreenClear" ] }
+        }
+    },
+    "DailyArenaStartBattle": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "DailyArenaMainBright",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 414, 550, 120, 47 ],
+                                "expected": "段.*[战践]斗"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 442, 567, 65, 15 ]
+            }
+        },
+        "timeout": 120000,
+        "max_hit": 100,
+        "next": [ "ArenaSceneLoaded", "WaitBattleEnd" ]
+    },
+    // 结算确定后移开鼠标，等待主界面 1 秒；超时进入 on_error，重新 OCR 确定仍在才补点。
+    "DailyArenaResultPopup": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 620, 460, 190, 55 ],
+                "expected": "确[定认]"
+            }
+        },
+        "action": "Click",
+        "timeout": 1000,
+        "max_hit": 20,
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaMain" ],
+        "on_error": [ "DailyArenaResultPopup" ]
+    }
+}

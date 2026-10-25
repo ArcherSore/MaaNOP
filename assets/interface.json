@@ -137,6 +137,36 @@
             "option": [ "SurvivalLevel" ]
         },
         {
+            "name": "DailyArena",
+            "label": "竞技场",
+            "group": [ "Routine" ],
+            "entry": "DailyArena",
+            "description": "自动战斗并领取竞技场日常任务奖励\n\n战令用完、任务为空，或无损次数用完且没有已满足的任务时停止。\n\n请从游戏主界面或竞技场主界面开始。",
+            "option": [ "DailyArenaBattleMode" ],
+            "pipeline_override": {
+                "ArenaSceneLoaded": { "pre_delay": 0, "post_delay": 0 },
+                "ArenaAutoOn": { "pre_delay": 0, "post_delay": 0 },
+                "ArenaBattleKeepWaiting": { "pre_delay": 0, "post_delay": 0 },
+                "WaitBattleEnd": {
+                    "recognition": {
+                        "type": "OCR",
+                        "param": {
+                            "roi": [ 620, 430, 100, 35 ],
+                            "expected": "确认"
+                        }
+                    },
+                    "action": {
+                        "type": "Click",
+                        "param": {
+                            "target": [ 658, 445, 24, 8 ]
+                        }
+                    },
+                    "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+                    "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaResultPopup", "DailyArenaMain" ]
+                }
+            }
+        },
+        {
             "name": "TeamDungeon",
             "label": "组队副本",
             "group": [ "Routine" ],
@@ -461,6 +491,48 @@
                     "pipeline_override": {
                         "ClaimInfiniteIllusionEntry": {
                             "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "DailyArenaBattleMode": {
+            "type": "select",
+            "label": "战斗模式",
+            "default_case": "Casual",
+            "cases": [
+                {
+                    "name": "Ranked",
+                    "label": "段位战斗"
+                },
+                {
+                    "name": "Casual",
+                    "label": "休闲战斗",
+                    "pipeline_override": {
+                        "DailyArenaStartBattle": {
+                            "recognition": {
+                                "type": "And",
+                                "param": {
+                                    "all_of": [
+                                        "DailyArenaMainBright",
+                                        {
+                                            "recognition": {
+                                                "type": "OCR",
+                                                "param": {
+                                                    "roi": [ 550, 548, 130, 50 ],
+                                                    "expected": "休闲战斗"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "action": {
+                                "type": "Click",
+                                "param": {
+                                    "target": [ 580, 567, 65, 15 ]
+                                }
+                            }
                         }
                     }
                 }
