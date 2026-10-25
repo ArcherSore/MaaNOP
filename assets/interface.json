@@ -64,7 +64,7 @@
         },
         {
             "name": "AccountLeveling",
-            "label": "注册并练级（微端）",
+            "label": "注册并练级",
             "group": [ "AltAccount" ],
             "entry": "AccountLeveling",
             "description": "依次在所选服务器注册角色并练到 **16 级**，请勿提前注册。\n\n某服登录失败时停止整个任务。",
