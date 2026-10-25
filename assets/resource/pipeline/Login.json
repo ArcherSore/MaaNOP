@@ -103,7 +103,19 @@
                 "target": [ 665, 559, 33, 6 ] // 重新选区button
             }
         },
-        "next": [ "ReChooseServer", "ChooseRecentServer", "DeterminePage" ]
+        "next": [ "ServerListReady" ]
+    },
+    "ServerListReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 434, 280, 459, 43 ],
+                "expected": "[0-9]+\\s*区"
+            }
+        },
+        "next": [ "ChooseRecentServer", "DeterminePage" ]
     },
     // 首次运行和切服统一刷新，再判断 QQ 登录态；列表完成时不刷新。
     "GetNextServer": {
