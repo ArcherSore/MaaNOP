@@ -143,8 +143,6 @@
         },
         "next": [ "BossBattleWait" ]
     },
-
-    // 结果确认按钮，需同时识别胜利标识，且等待按钮出现后再点击。
     "BossBattleWonFlag": {
         "recognition": {
             "type": "TemplateMatch",
@@ -157,10 +155,11 @@
     },
     "BossResultButton": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "abundance/ResultConfirm.png",
-                "roi": [ 620, 434, 105, 35 ]
+                "expected": [ "^确认$" ],
+                "roi": [ 625, 438, 90, 28 ],
+                "threshold": 0.6
             }
         }
     },
@@ -195,11 +194,11 @@
                     "BossScoreTitle",
                     {
                         "recognition": {
-                            "type": "TemplateMatch",
+                            "type": "OCR",
                             "param": {
-                                "template": "powerfulBoss/RewardConfirm.png",
-                                "roi": [ 600, 459, 125, 40 ],
-                                "threshold": 0.8
+                                "expected": [ "^确定$" ],
+                                "roi": [ 615, 465, 95, 30 ],
+                                "threshold": 0.6
                             }
                         }
                     }
