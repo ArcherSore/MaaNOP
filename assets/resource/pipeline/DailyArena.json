@@ -162,17 +162,37 @@
         "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
         "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaTopClaimed" ]
     },
-    // 领取只点击一次，立即移开鼠标，再等待该卡刷新为已满足、未满足或空任务。
-    // 引用节点仅借用识别，不执行其中的点击或悬浮。未刷新则自然超时失败，不补点领取。
+    // 上下领取均须先看到「完成任务」，再等提示消失并重新检查主界面；不按原卡位状态判断成功。
+    "DailyArenaClaimNotice": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 555, 225, 230, 100 ],
+                "expected": "完成任务"
+            }
+        }
+    },
     "DailyArenaTopClaimed": {
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
-            "type": "Or",
+            "type": "And",
             "param": {
-                "any_of": [ "DailyArenaTopReady", "DailyArenaTopUnmet", "DailyArenaEmptyTopText" ]
+                "all_of": [ "DailyArenaClaimNotice" ]
             }
         },
+        "next": [ "DailyArenaClaimNoticeGone" ]
+    },
+    "DailyArenaClaimNoticeGone": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyArenaClaimNotice" ]
+            }
+        },
+        "inverse": true,
         "next": [ "DailyArenaMain" ]
     },
     // 720 高度实机下方绿字出现过「条件已溝足」；仅容错满/溝，仍严格区分已和未。
@@ -263,12 +283,12 @@
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
-            "type": "Or",
+            "type": "And",
             "param": {
-                "any_of": [ "DailyArenaBottomReady", "DailyArenaBottomUnmet", "DailyArenaEmptyBottomText" ]
+                "all_of": [ "DailyArenaClaimNotice" ]
             }
         },
-        "next": [ "DailyArenaMain" ]
+        "next": [ "DailyArenaClaimNoticeGone" ]
     },
     "DailyArenaBottomReady": {
         "pre_delay": 0,
