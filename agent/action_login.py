@@ -19,6 +19,19 @@ from constants import (
 )
 
 
+@AgentServer.custom_action("RefreshLoginPage")
+class RefreshLoginPage(CustomAction):
+    """刷新前清除选服点击计数，让同一任务的每次刷新各有 3 次机会。"""
+
+    def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
+        if not context.clear_hit_count("ReChooseServer"):
+            return False
+        clicked = click_center(context, argv.box)
+        if context.tasker.stopping:
+            return False
+        return clicked
+
+
 @AgentServer.custom_action("ScrollToTargetServer")
 class ScrollToTargetServer(CustomAction):
     def run(

@@ -84,12 +84,14 @@
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "PreciseClick"
+                "custom_action": "RefreshLoginPage"
             }
         },
         "next": "WebLogin"
     },
     "ReChooseServer": {
+        "max_hit": 3,
+        "timeout": 5000,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -103,7 +105,8 @@
                 "target": [ 665, 559, 33, 6 ] // 重新选区button
             }
         },
-        "next": [ "ServerListReady" ]
+        "next": [ "ServerListReady" ],
+        "on_error": [ "ReChooseServer" ]
     },
     "ServerListReady": {
         "pre_delay": 0,
