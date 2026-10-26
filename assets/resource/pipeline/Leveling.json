@@ -437,9 +437,8 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "leveling/buttons/GroupsIcon.png",
-                "roi": [ 905, 64, 66, 62 ],
-                "threshold": 0.9
+                "template": [ "leveling/buttons/GroupsIcon.png", "leveling/buttons/GroupsIconHover.png" ],
+                "roi": [ 905, 64, 66, 62 ]
             }
         }
     },
@@ -1164,7 +1163,6 @@
                 ]
             }
         },
-        "max_hit": 3,
         "action": {
             "type": "Click",
             "param": {
@@ -3984,20 +3982,76 @@
         },
         "next": [ "CatchEnemyRabbit1" ]
     },
-    "CatchEnemyRabbit1": {
-        "timeout": 5000,
+    "RabbitCaptureCount0": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "OCR",
             "param": {
-                "template": "leveling/enemies/Rabbit1.png",
-                "roi": [ 638, 167, 65, 63 ]
+                "roi": [ 1200, 270, 110, 20 ],
+                "expected": [ "^[^0-9]*0\\s*/\\s*5[^0-9]*$" ]
+            }
+        }
+    },
+    "RabbitCaptureCount1": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1200, 270, 110, 20 ],
+                "expected": [ "^[^0-9]*1\\s*/\\s*5[^0-9]*$" ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "MoveToRabbitContestPositionAgain" ]
+    },
+    "RabbitCaptureCount2": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1200, 270, 110, 20 ],
+                "expected": [ "^[^0-9]*2\\s*/\\s*5[^0-9]*$" ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "CatchEnemyRabbit3" ]
+    },
+    "RabbitCaptureCount3": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1200, 270, 110, 20 ],
+                "expected": [ "^[^0-9]*3\\s*/\\s*5[^0-9]*$" ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "CatchEnemyRabbit4" ]
+    },
+    "RabbitCaptureCount4": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1200, 270, 110, 20 ],
+                "expected": [ "^[^0-9]*4\\s*/\\s*5[^0-9]*$" ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "CatchEnemyRabbit5" ]
+    },
+    "CatchEnemyRabbit1": {
+        "timeout": 8000,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    { "recognition": "TemplateMatch", "template": "leveling/enemies/Rabbit1.png", "roi": [ 638, 167, 65, 63 ] },
+                    "RabbitCaptureCount0"
+                ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 674, 214 ] }
         },
-        "post_delay": 3000,
-        "next": [ "MoveToRabbitContestPositionAgain" ]
+        "on_error": [ "CatchEnemyRabbit1" ],
+        "next": [ "RabbitCaptureCount1" ]
     },
     "MoveToRabbitContestPositionAgain": {
         "timeout": 5000,
@@ -4014,66 +4068,79 @@
                 "target": [ 1272, 176 ] // specific position of RabbitContest
             }
         },
-        "post_delay": 1000,
+        "post_delay": 1200,
         "next": [ "CatchEnemyRabbit2" ]
     },
     "CatchEnemyRabbit2": {
-        "timeout": 5000,
+        "timeout": 8000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "leveling/enemies/Rabbit2.png",
-                "roi": [ 528, 554, 78, 76 ]
+                "all_of": [
+                    { "recognition": "TemplateMatch", "template": "leveling/enemies/Rabbit2.png", "roi": [ 528, 554, 78, 76 ] },
+                    "RabbitCaptureCount1"
+                ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 570, 598 ] }
         },
-        "post_delay": 3000,
-        "next": [ "CatchEnemyRabbit3" ]
+        "on_error": [ "CatchEnemyRabbit2" ],
+        "next": [ "RabbitCaptureCount2" ]
     },
     "CatchEnemyRabbit3": {
-        "timeout": 5000,
+        "timeout": 8000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "leveling/enemies/Rabbit3.png",
-                "roi": [ 771, 431, 85, 70 ]
+                "all_of": [
+                    { "recognition": "TemplateMatch", "template": "leveling/enemies/Rabbit3.png", "roi": [ 771, 431, 85, 70 ] },
+                    "RabbitCaptureCount2"
+                ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 817, 472 ] }
         },
-        "post_delay": 3000,
-        "next": [ "CatchEnemyRabbit4" ]
+        "on_error": [ "CatchEnemyRabbit3" ],
+        "next": [ "RabbitCaptureCount3" ]
     },
     "CatchEnemyRabbit4": {
-        "timeout": 5000,
+        "timeout": 8000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "leveling/enemies/Rabbit4.png",
-                "roi": [ 447, 438, 70, 66 ]
+                "all_of": [
+                    { "recognition": "TemplateMatch", "template": "leveling/enemies/Rabbit4.png", "roi": [ 447, 438, 70, 66 ] },
+                    "RabbitCaptureCount3"
+                ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 483, 474 ] }
         },
-        "post_delay": 3500,
-        "next": [ "CatchEnemyRabbit5" ]
+        "on_error": [ "CatchEnemyRabbit4" ],
+        "next": [ "RabbitCaptureCount4" ]
     },
     "CatchEnemyRabbit5": {
+        "timeout": 15000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "leveling/enemies/Rabbit5.png",
-                "roi": [ 790, 454, 57, 60 ]
+                "all_of": [
+                    { "recognition": "TemplateMatch", "template": "leveling/enemies/Rabbit5.png", "roi": [ 790, 454, 57, 60 ] },
+                    "RabbitCaptureCount4"
+                ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": { "target": [ 821, 484 ] }
         },
-        "timeout": 9000,
+        "on_error": [ "CatchEnemyRabbit5" ],
         "next": [ "ConfirmCopyResults_捉兔大赛" ]
     },
     "ConfirmCopyResults_捉兔大赛": {

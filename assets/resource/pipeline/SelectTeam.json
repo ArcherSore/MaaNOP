@@ -50,7 +50,6 @@
         "timeout": 6000,
         "next": [ "SelectTeamClose" ]
     },
-    // 金色确认目标阵容已选中，然后关闭一次。
     "SelectTeamClose": {
         "recognition": {
             "type": "ColorMatch",
@@ -68,8 +67,15 @@
                 "target": [ 1114, 87, 14, 14 ]
             }
         },
-        "timeout": 5000,
-        "next": [ "SelectTeamDone" ]
+        "max_hit": 5,
+        "timeout": 1000,
+        "next": [ "SelectTeamDone" ],
+        "on_error": [ "SelectTeamCloseRecovery" ]
+    },
+    "SelectTeamCloseRecovery": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "SelectTeamDone", "SelectTeamClose" ]
     },
     "SelectTeamDone": {
         "recognition": {
