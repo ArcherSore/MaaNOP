@@ -46,7 +46,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target_offset": [ -70, 0, 0, 0 ]
+                "target_offset": [ -70, 5, 0, -10 ]
             }
         },
         "on_error": [ "ClickOnTyping" ],
@@ -2089,8 +2089,7 @@
         "next": [ "[JumpBack]ServerBusy", "MoveToKakashi" ]
     },
     /* ---------------------------------------- copy 卡卡西的试炼 start ---------------------------------------- */
-    "MoveToKakashi": {
-        "timeout": 5000,
+    "KakashiCopyTitle": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -2098,11 +2097,34 @@
                 "roi": [ 1200, 82, 116, 15 ],
                 "only_rec": true
             }
+        }
+    },
+    "MoveToKakashi": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "KakashiCopyTitle",
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "leveling/enemies/KakashiBody.png",
+                                "roi": [ 350, 180, 830, 440 ],
+                                "threshold": 0.8,
+                                "order_by": "Score"
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
         },
         "action": {
-            "type": "Click",
+            "type": "Custom",
             "param": {
-                "target": [ 717, 294 ]
+                "custom_action": "PreciseClick"
             }
         },
         "on_error": [ "MoveToKakashi" ],
