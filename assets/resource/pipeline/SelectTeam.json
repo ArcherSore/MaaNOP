@@ -30,6 +30,7 @@
         "next": [ "SelectTeamClose", "SelectTeamClick" ]
     },
     // 蓝色为可选；标签变金有延迟，连点会进入改名。
+    // 等待 3 秒未变金时，回到界面判断：先检查是否已选中，再对仍蓝的目标补点一次。
     "SelectTeamClick": {
         "recognition": {
             "type": "ColorMatch",
@@ -47,8 +48,10 @@
                 "target": [ 360, 215, 30, 11 ]
             }
         },
-        "timeout": 6000,
-        "next": [ "SelectTeamClose" ]
+        "max_hit": 2,
+        "timeout": 3000,
+        "next": [ "SelectTeamClose" ],
+        "on_error": [ "SelectTeamWindow" ]
     },
     "SelectTeamClose": {
         "recognition": {
