@@ -121,7 +121,7 @@
         },
         "timeout": 13000,
         "on_error": [ "EnterGame" ],
-        "next": [ "CompleteMainTask_踏上忍者之路", "ClickOnMainTask_踏上忍者之路" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_踏上忍者之路", "ClickOnMainTask_踏上忍者之路" ]
     },
     /* ---------------------------------------- main task 踏上忍者之路 start ---------------------------------------- */
     "ClickOnMainTask_踏上忍者之路": {
@@ -137,7 +137,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_踏上忍者之路" ],
-        "next": [ "CompleteMainTask_踏上忍者之路" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_踏上忍者之路" ]
     },
     "CompleteMainTask_踏上忍者之路": {
         "timeout": 5000,
@@ -150,7 +150,7 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_踏上忍者之路" ],
-        "next": [ "EquipGearFirst", "[JumpBack]CloseBottomRightPopups" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearFirst", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearFirst": {
         "timeout": 5000,
@@ -169,7 +169,7 @@
             "param": { "target": [ 1238, 599, 30, 12 ] }
         },
         "on_error": [ "EquipGearFirst" ],
-        "next": [ "AcceptMainTask_新忍者登记" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_新忍者登记" ]
     },
     "AcceptMainTask_新忍者登记": {
         "timeout": 5000,
@@ -181,7 +181,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_新忍者登记" ],
-        "next": [ "ConfirmMainCharLevel2" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel2" ]
     },
     "ConfirmMainCharLevel2": {
         "timeout": 5000,
@@ -202,7 +202,7 @@
             "Node.Recognition.Succeeded": "Level 2"
         },
         "on_error": [ "ConfirmMainCharLevel2" ],
-        "next": [ "HidePlayers" ]
+        "next": [ "[JumpBack]ServerBusy", "HidePlayers" ]
     },
     // 升级遮罩下入口模板仍可得 1.000，但点击被吞；须先排除遮挡。
     "HidePlayersIcon": {
@@ -230,7 +230,7 @@
             "type": "Click"
         },
         "on_error": [ "HidePlayers" ],
-        "next": [ "ClickOnMainTask_新忍者登记" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTask_新忍者登记" ]
     },
     "ClickOnMainTask_新忍者登记": {
         "timeout": 5000,
@@ -245,7 +245,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_新忍者登记" ],
-        "next": [ "ConfirmRunning_新忍者登记" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_新忍者登记" ]
     },
     "ConfirmRunning_新忍者登记": {
         "recognition": {
@@ -256,7 +256,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "SkipDialogue_新忍者登记", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_新忍者登记", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "SkipDialogue_新忍者登记": {
         "timeout": 5000,
@@ -268,7 +268,7 @@
             "type": "Click"
         },
         "on_error": [ "SkipDialogue_新忍者登记" ],
-        "next": [ "CompleteMainTask_新忍者登记", "ClickOnMainTaskAgain_新忍者登记" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_新忍者登记", "ClickOnMainTaskAgain_新忍者登记" ]
     },
     "ClickOnMainTaskAgain_新忍者登记": {
         "timeout": 5000,
@@ -283,7 +283,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_新忍者登记" ],
-        "next": [ "CompleteMainTask_新忍者登记" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_新忍者登记" ]
     },
     "CompleteMainTask_新忍者登记": {
         "timeout": 5000,
@@ -296,7 +296,7 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_新忍者登记" ],
-        "next": [ "ConfirmMainCharLevel3" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel3" ]
     },
     "ConfirmMainCharLevel3": {
         "timeout": 5000,
@@ -317,7 +317,7 @@
             "Node.Recognition.Succeeded": "Level 3"
         },
         "on_error": [ "ConfirmMainCharLevel3" ],
-        "next": [ "ConfirmUnlockCharacterSystem" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmUnlockCharacterSystem" ]
     },
     "ConfirmUnlockCharacterSystem": {
         "timeout": 5000,
@@ -333,7 +333,7 @@
         },
         "post_delay": 2000,
         "on_error": [ "ConfirmUnlockCharacterSystem" ],
-        "next": [ "ClickOnCharacterSystem" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnCharacterSystem" ]
     },
     // 底栏入口在对话框/升级遮罩下仍可匹配，但点击被吞，须先排除遮挡。
     "CharacterSystemIcon": {
@@ -381,7 +381,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCharacterSystem" ],
-        "next": [ "ClickOnRecruitment" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnRecruitment" ]
     },
     "ClickOnRecruitment": {
         "timeout": 5000,
@@ -400,7 +400,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnRecruitment" ],
-        "next": [ "ConfirmRecruitment" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRecruitment" ]
     },
     "ConfirmRecruitment": {
         "timeout": 5000,
@@ -415,7 +415,7 @@
             "type": "Click"
         },
         "on_error": [ "ConfirmRecruitment" ],
-        "next": [ "ConfirmCharacterObtained" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmCharacterObtained" ]
     },
     "ConfirmCharacterObtained": {
         "timeout": 5000,
@@ -430,7 +430,7 @@
             "type": "Click"
         },
         "on_error": [ "ConfirmCharacterObtained" ],
-        "next": [ "ClickOnGroups" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnGroups" ]
     },
     // 「获得角色」遮罩下入口仍可匹配，但点击被吞，须先排除遮挡。
     "GroupsIconFlag": {
@@ -461,7 +461,7 @@
             }
         },
         "on_error": [ "ClickOnGroups" ],
-        "next": [ "DeployNaruto" ]
+        "next": [ "[JumpBack]ServerBusy", "DeployNaruto" ]
     },
     "DeployNaruto": {
         "timeout": 5000,
@@ -482,7 +482,7 @@
         },
         // 拖拽可能丢失，以「上阵」标签确认成功。
         "on_error": [ "DeployNaruto" ],
-        "next": [ "NarutoDeployed" ]
+        "next": [ "[JumpBack]ServerBusy", "NarutoDeployed" ]
     },
     "NarutoDeployed": {
         "recognition": {
@@ -493,7 +493,7 @@
                 "threshold": 0.9
             }
         },
-        "next": [ "ExitCharacterSystem" ]
+        "next": [ "[JumpBack]ServerBusy", "ExitCharacterSystem" ]
     },
     "ExitCharacterSystem": {
         "timeout": 5000,
@@ -512,7 +512,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "ExitCharacterSystem" ],
-        "next": [ "AcceptMainTask_木叶丸的行踪", "ClickOnMainTask_木叶丸的行踪" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_木叶丸的行踪", "ClickOnMainTask_木叶丸的行踪" ]
     },
     "ClickOnMainTask_木叶丸的行踪": {
         "timeout": 5000,
@@ -527,7 +527,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_木叶丸的行踪" ],
-        "next": [ "AcceptMainTask_木叶丸的行踪" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_木叶丸的行踪" ]
     },
     "AcceptMainTask_木叶丸的行踪": {
         "timeout": 5000,
@@ -540,7 +540,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_木叶丸的行踪" ],
-        "next": [ "ClickOnCopy_木叶丸三人组" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnCopy_木叶丸三人组" ]
     },
     "ClickOnCopy_木叶丸三人组": {
         "timeout": 5000,
@@ -556,7 +556,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_木叶丸三人组" ],
-        "next": [ "EnterCopy_木叶丸三人组" ]
+        "next": [ "[JumpBack]ServerBusy", "EnterCopy_木叶丸三人组" ]
     },
     "EnterCopy_木叶丸三人组": {
         "timeout": 5000,
@@ -575,7 +575,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_木叶丸三人组" ],
-        "next": [ "SkipDialogue_木叶丸三人组" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_木叶丸三人组" ]
     },
     "SkipDialogue_木叶丸三人组": {
         "recognition": {
@@ -586,7 +586,7 @@
             "type": "Click"
         },
         "timeout": 11000,
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "MoveTo木叶丸三人组" ]
     },
     "MoveTo木叶丸三人组": {
@@ -605,7 +605,7 @@
         },
         "timeout": 11000,
         "on_error": [ "MoveTo木叶丸三人组" ],
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_木叶丸三人组" ]
     },
     "ConfirmCopyResults_木叶丸三人组": {
@@ -624,7 +624,7 @@
         },
         "on_error": [ "ConfirmCopyResults_木叶丸三人组" ],
         "timeout": 7000,
-        "next": [ "ConfirmMainCharLevel4" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel4" ]
     },
     "ConfirmMainCharLevel4": {
         "timeout": 5000,
@@ -645,7 +645,7 @@
             "Node.Recognition.Succeeded": "Level 4"
         },
         "on_error": [ "ConfirmMainCharLevel4" ],
-        "next": [ "ConfirmNarutoLevel4" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoLevel4" ]
     },
     "ConfirmNarutoLevel4": {
         "timeout": 5000,
@@ -663,7 +663,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel4" ],
-        "next": [ "ClickOnMainTaskAgain_木叶丸的行踪" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTaskAgain_木叶丸的行踪" ]
     },
     "ClickOnMainTaskAgain_木叶丸的行踪": {
         "timeout": 5000,
@@ -678,7 +678,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_木叶丸的行踪" ],
-        "next": [ "ConfirmRunning_木叶丸的行踪" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_木叶丸的行踪" ]
     },
     "ConfirmRunning_木叶丸的行踪": {
         "recognition": {
@@ -689,7 +689,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "CompleteMainTask_木叶丸的行踪", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_木叶丸的行踪", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_木叶丸的行踪": {
         "timeout": 5000,
@@ -702,7 +702,7 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_木叶丸的行踪" ],
-        "next": [ "EquipGearSecond", "[JumpBack]CloseBottomRightPopups" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearSecond", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearSecond": {
         "timeout": 5000,
@@ -721,7 +721,7 @@
             "param": { "target": [ 1238, 599, 30, 12 ] }
         },
         "on_error": [ "EquipGearSecond" ],
-        "next": [ "AcceptMainTask_向伊鲁卡报告" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_向伊鲁卡报告" ]
     },
     "AcceptMainTask_向伊鲁卡报告": {
         "timeout": 5000,
@@ -733,7 +733,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_向伊鲁卡报告" ],
-        "next": [ "ClickOnMainTask_向伊鲁卡报告" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTask_向伊鲁卡报告" ]
     },
     "ClickOnMainTask_向伊鲁卡报告": {
         "timeout": 5000,
@@ -748,7 +748,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_向伊鲁卡报告" ],
-        "next": [ "ConfirmRunning_向伊鲁卡报告" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_向伊鲁卡报告" ]
     },
     "ConfirmRunning_向伊鲁卡报告": {
         "recognition": {
@@ -759,7 +759,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "CompleteMainTask_向伊鲁卡报告", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_向伊鲁卡报告", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_向伊鲁卡报告": {
         "timeout": 5000,
@@ -772,7 +772,7 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_向伊鲁卡报告" ],
-        "next": [ "ConfirmMainCharLevel5" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel5" ]
     },
     "ConfirmMainCharLevel5": {
         "timeout": 5000,
@@ -793,7 +793,7 @@
             "Node.Recognition.Succeeded": "Level 5"
         },
         "on_error": [ "ConfirmMainCharLevel5" ],
-        "next": [ "[JumpBack]CloseNewSystemPopups",
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseNewSystemPopups",
             "EquipGearThird", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearThird": {
@@ -813,7 +813,7 @@
             "param": { "target": [ 1238, 599, 30, 12 ] }
         },
         "on_error": [ "EquipGearThird" ],
-        "next": [ "AcceptMainTask_初遇佐助", "ClickOnMainTask_初遇佐助" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_初遇佐助", "ClickOnMainTask_初遇佐助" ]
     },
     "ClickOnMainTask_初遇佐助": {
         "timeout": 5000,
@@ -828,7 +828,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_初遇佐助" ],
-        "next": [ "AcceptMainTask_初遇佐助" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_初遇佐助" ]
     },
     "AcceptMainTask_初遇佐助": {
         "timeout": 5000,
@@ -841,7 +841,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_初遇佐助" ],
-        "next": [ "ClickOnCopy_宇智波佐助" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnCopy_宇智波佐助" ]
     },
     "ClickOnCopy_宇智波佐助": {
         "timeout": 5000,
@@ -857,7 +857,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_宇智波佐助" ],
-        "next": [ "EnterCopy_宇智波佐助" ]
+        "next": [ "[JumpBack]ServerBusy", "EnterCopy_宇智波佐助" ]
     },
     "EnterCopy_宇智波佐助": {
         "timeout": 5000,
@@ -876,7 +876,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_宇智波佐助" ],
-        "next": [ "SkipDialogue_宇智波佐助" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_宇智波佐助" ]
     },
     "SkipDialogue_宇智波佐助": {
         "recognition": {
@@ -887,7 +887,7 @@
             "type": "Click"
         },
         "timeout": 7000,
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_宇智波佐助", "EnterCopy_宇智波佐助" ]
     },
     "ConfirmCopyResults_宇智波佐助": {
@@ -906,7 +906,7 @@
         },
         "on_error": [ "ConfirmCopyResults_宇智波佐助" ],
         "timeout": 9000,
-        "next": [ "ConfirmMainCharLevel6" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel6" ]
     },
     "ConfirmMainCharLevel6": {
         "timeout": 5000,
@@ -927,7 +927,7 @@
             "Node.Recognition.Succeeded": "Level 6"
         },
         "on_error": [ "ConfirmMainCharLevel6" ],
-        "next": [ "ConfirmNarutoLevel6" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoLevel6" ]
     },
     "ConfirmNarutoLevel6": {
         "timeout": 5000,
@@ -945,7 +945,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel6" ],
-        "next": [ "ClickOnMainTaskAgain_初遇佐助" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTaskAgain_初遇佐助" ]
     },
     "ClickOnMainTaskAgain_初遇佐助": {
         "timeout": 5000,
@@ -960,7 +960,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_初遇佐助" ],
-        "next": [ "ConfirmRunning_初遇佐助" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_初遇佐助" ]
     },
     "ConfirmRunning_初遇佐助": {
         "timeout": 30000,
@@ -971,7 +971,7 @@
                 "roi": [ 617, 84, 62, 66 ]
             }
         },
-        "next": [ "CompleteMainTask_初遇佐助", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_初遇佐助", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_初遇佐助": {
         "timeout": 5000,
@@ -984,7 +984,7 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_初遇佐助" ],
-        "next": [ "ClickOnCharacterSystemAgain" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnCharacterSystemAgain" ]
     },
     "ClickOnCharacterSystemAgain": {
         "timeout": 5000,
@@ -1003,7 +1003,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCharacterSystemAgain" ],
-        "next": [ "ClickOnRecruitmentAgain" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnRecruitmentAgain" ]
     },
     "ClickOnRecruitmentAgain": {
         "timeout": 5000,
@@ -1022,7 +1022,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnRecruitmentAgain" ],
-        "next": [ "ConfirmRecruitmentAgain" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRecruitmentAgain" ]
     },
     "ConfirmRecruitmentAgain": {
         "timeout": 5000,
@@ -1037,7 +1037,7 @@
             "type": "Click"
         },
         "on_error": [ "ConfirmRecruitmentAgain" ],
-        "next": [ "ConfirmCharacterObtainedAgain" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmCharacterObtainedAgain" ]
     },
     "ConfirmCharacterObtainedAgain": {
         "timeout": 5000,
@@ -1052,7 +1052,7 @@
             "type": "Click"
         },
         "on_error": [ "ConfirmCharacterObtainedAgain" ],
-        "next": [ "ClickOnGroupsAgain" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnGroupsAgain" ]
     },
     "ClickOnGroupsAgain": {
         "timeout": 5000,
@@ -1073,7 +1073,7 @@
             }
         },
         "on_error": [ "ClickOnGroupsAgain" ],
-        "next": [ "DeploySasuke" ]
+        "next": [ "[JumpBack]ServerBusy", "DeploySasuke" ]
     },
     "DeploySasuke": {
         "timeout": 5000,
@@ -1093,7 +1093,7 @@
             }
         },
         "on_error": [ "DeploySasuke" ],
-        "next": [ "SasukeDeployed" ]
+        "next": [ "[JumpBack]ServerBusy", "SasukeDeployed" ]
     },
     "SasukeDeployed": {
         "recognition": {
@@ -1104,7 +1104,7 @@
                 "threshold": 0.9
             }
         },
-        "next": [ "ClickOnProgression" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnProgression" ]
     },
     "ClickOnProgression": {
         "timeout": 5000,
@@ -1119,7 +1119,7 @@
             "type": "Click"
         },
         "on_error": [ "ClickOnProgression" ],
-        "next": [ "ClickOnSasuke" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnSasuke" ]
     },
     "ClickOnSasuke": {
         "timeout": 5000,
@@ -1137,7 +1137,7 @@
             }
         },
         "on_error": [ "ClickOnSasuke" ],
-        "next": [ "FeedSasukeOnce" ]
+        "next": [ "[JumpBack]ServerBusy", "FeedSasukeOnce" ]
     },
     // 检测引导黄框上沿，避开文字和箭头动画干扰。
     "FeedSasukeOnce": {
@@ -1171,11 +1171,11 @@
         },
         // 关闭引导表示喂养已完成；重试须确认喂养引导仍在，避免重复消耗。
         "on_error": [ "ResumeSasukeFeeding" ],
-        "next": [ "ExitCharacterSystemAgain" ]
+        "next": [ "[JumpBack]ServerBusy", "ExitCharacterSystemAgain" ]
     },
     "ResumeSasukeFeeding": {
         "timeout": 3000,
-        "next": [ "ExitCharacterSystemAgain", "FeedSasukeOnce" ]
+        "next": [ "[JumpBack]ServerBusy", "ExitCharacterSystemAgain", "FeedSasukeOnce" ]
     },
     "ExitCharacterSystemAgain": {
         "timeout": 5000,
@@ -1208,7 +1208,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "ExitCharacterSystemAgain" ],
-        "next": [ "AcceptMainTask_开始修炼", "ClickOnMainTask_开始修炼" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_开始修炼", "ClickOnMainTask_开始修炼" ]
     },
     /* ---------------------------------------- main task 开始修炼 ---------------------------------------- */
     "ClickOnMainTask_开始修炼": {
@@ -1224,7 +1224,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_开始修炼" ],
-        "next": [ "AcceptMainTask_开始修炼" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_开始修炼" ]
     },
     "AcceptMainTask_开始修炼": {
         "timeout": 5000,
@@ -1236,7 +1236,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_开始修炼" ],
-        "next": [ "ClickOnMainTaskAgain_开始修炼" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTaskAgain_开始修炼" ]
     },
     "ClickOnMainTaskAgain_开始修炼": {
         "timeout": 5000,
@@ -1251,7 +1251,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_开始修炼" ],
-        "next": [ "ConfirmRunning_开始修炼" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_开始修炼" ]
     },
     "ConfirmRunning_开始修炼": {
         "recognition": {
@@ -1262,7 +1262,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "CompleteMainTask_开始修炼", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_开始修炼", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_开始修炼": {
         "timeout": 5000,
@@ -1275,7 +1275,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "CompleteMainTask_开始修炼" ],
-        "next": [ "EquipGearAfter开始修炼", "[JumpBack]CloseBottomRightPopups" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter开始修炼", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter开始修炼": {
         "recognition": {
@@ -1286,7 +1286,7 @@
             "type": "Click",
             "param": { "target": [ 1238, 599, 30, 12 ] }
         },
-        "next": [ "EquipGearAfter开始修炼", "[JumpBack]CloseBottomRightPopups", "AcceptMainTask_击退来袭狼群" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter开始修炼", "[JumpBack]CloseBottomRightPopups", "AcceptMainTask_击退来袭狼群" ]
     },
     /* ---------------------------------------- main task 击退来袭狼群 start ---------------------------------------- */
     "AcceptMainTask_击退来袭狼群": {
@@ -1300,7 +1300,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_击退来袭狼群" ],
-        "next": [ "[JumpBack]SkipDialogue", "ClickOnCopy_击退来袭狼群" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "ClickOnCopy_击退来袭狼群" ]
     },
     "ClickOnCopy_击退来袭狼群": {
         "timeout": 5000,
@@ -1316,7 +1316,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_击退来袭狼群" ],
-        "next": [ "[JumpBack]SkipDialogue", "EnterCopy_击退来袭狼群" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "EnterCopy_击退来袭狼群" ]
     },
     "EnterCopy_击退来袭狼群": {
         "timeout": 5000,
@@ -1335,7 +1335,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_击退来袭狼群" ],
-        "next": [ "MoveToWolvesNoOne" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToWolvesNoOne" ]
     },
     /* ---------------------------------------- copy 狼群退治 start ---------------------------------------- */
     "MoveToWolvesNoOne": {
@@ -1354,7 +1354,7 @@
         },
         "timeout": 9000,
         "on_error": [ "MoveToWolvesNoOne" ],
-        "next": [ "StartBattle_WolvesNoOne" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_WolvesNoOne" ]
     },
     "StartBattle_WolvesNoOne": {
         "timeout": 5000,
@@ -1369,7 +1369,7 @@
             "type": "Click"
         },
         "on_error": [ "StartBattle_WolvesNoOne" ],
-        "next": [ "[JumpBack]ManualBattle", "MoveToWolvesNoTwo" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]ManualBattle", "MoveToWolvesNoTwo" ]
     },
     "MoveToWolvesNoTwo": {
         "recognition": {
@@ -1387,7 +1387,7 @@
         },
         "timeout": 9000,
         "on_error": [ "MoveToWolvesNoTwo" ],
-        "next": [ "StartBattle_WolvesNoTwo" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_WolvesNoTwo" ]
     },
     "StartBattle_WolvesNoTwo": {
         "timeout": 5000,
@@ -1402,7 +1402,7 @@
             "type": "Click"
         },
         "on_error": [ "StartBattle_WolvesNoTwo" ],
-        "next": [ "[JumpBack]ManualBattle", "MoveToWolvesNoThree" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]ManualBattle", "MoveToWolvesNoThree" ]
     },
     "MoveToWolvesNoThree": {
         "recognition": {
@@ -1420,7 +1420,7 @@
         },
         "timeout": 11000,
         "on_error": [ "MoveToWolvesNoThree" ],
-        "next": [ "StartBattle_WolvesNoThree" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_WolvesNoThree" ]
     },
     "StartBattle_WolvesNoThree": {
         "recognition": {
@@ -1435,7 +1435,7 @@
         },
         "timeout": 11000,
         "on_error": [ "StartBattle_WolvesNoThree" ],
-        "next": [ "[JumpBack]ManualBattle", "ConfirmCopyResults_狼群退治" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]ManualBattle", "ConfirmCopyResults_狼群退治" ]
     },
     "ConfirmCopyResults_狼群退治": {
         "recognition": {
@@ -1453,7 +1453,7 @@
         },
         "on_error": [ "ConfirmCopyResults_狼群退治" ],
         "timeout": 9000,
-        "next": [ "ConfirmMainCharLevel7" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel7" ]
     },
     /* ---------------------------------------- copy 狼群退治 finish ---------------------------------------- */
     "ConfirmMainCharLevel7": {
@@ -1475,7 +1475,7 @@
             "Node.Recognition.Succeeded": "Level 7"
         },
         "on_error": [ "ConfirmMainCharLevel7" ],
-        "next": [ "ConfirmSasukeLevel7", "ConfirmNarutoLevel7" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel7", "ConfirmNarutoLevel7" ]
     },
     "ConfirmSasukeLevel7": {
         "timeout": 5000,
@@ -1493,7 +1493,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeLevel7" ],
-        "next": [ "ConfirmNarutoAfterSasukeLevel7" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoAfterSasukeLevel7" ]
     },
     "ConfirmNarutoAfterSasukeLevel7": {
         "timeout": 5000,
@@ -1511,7 +1511,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoAfterSasukeLevel7" ],
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ClickOnMainCharSystem" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseNewSystemPopups", "ClickOnMainCharSystem" ]
     },
     "ConfirmNarutoLevel7": {
         "timeout": 5000,
@@ -1529,7 +1529,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel7" ],
-        "next": [ "ConfirmSasukeAfterNarutoLevel7" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeAfterNarutoLevel7" ]
     },
     "ConfirmSasukeAfterNarutoLevel7": {
         "timeout": 5000,
@@ -1547,7 +1547,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeAfterNarutoLevel7" ],
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ClickOnMainCharSystem" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseNewSystemPopups", "ClickOnMainCharSystem" ]
     },
     "ClickOnMainCharSystem": {
         "timeout": 5000,
@@ -1566,7 +1566,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnMainCharSystem" ],
-        "next": [ "ClickOnTalent" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnTalent" ]
     },
     "ClickOnTalent": {
         "timeout": 5000,
@@ -1585,7 +1585,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnTalent" ],
-        "next": [ "ClickOnComboSkill3" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnComboSkill3" ]
     },
     "ClickOnComboSkill3": {
         "timeout": 5000,
@@ -1601,7 +1601,7 @@
             "type": "Click"
         },
         "on_error": [ "ClickOnComboSkill3" ],
-        "next": [ "ComboSkillEquipped" ]
+        "next": [ "[JumpBack]ServerBusy", "ComboSkillEquipped" ]
     },
     // 连招装备成功后技能栏新增图标；以此确认点击生效后再退出。
     "ComboSkillEquipped": {
@@ -1613,7 +1613,7 @@
                 "roi": [ 700, 524, 70, 50 ]
             }
         },
-        "next": [ "ExitTalent" ]
+        "next": [ "[JumpBack]ServerBusy", "ExitTalent" ]
     },
     "ExitTalent": {
         "timeout": 5000,
@@ -1624,7 +1624,7 @@
             }
         },
         "post_delay": 1000,
-        "next": [ "ExitMainCharSystem" ]
+        "next": [ "[JumpBack]ServerBusy", "ExitMainCharSystem" ]
     },
     "ExitMainCharSystem": {
         "timeout": 5000,
@@ -1635,7 +1635,7 @@
             }
         },
         "post_delay": 1000,
-        "next": [ "ClickOnMainTask_击退来袭狼群" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTask_击退来袭狼群" ]
     },
     "ClickOnMainTask_击退来袭狼群": {
         "timeout": 5000,
@@ -1650,7 +1650,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_击退来袭狼群" ],
-        "next": [ "ConfirmRunning_击退来袭狼群" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_击退来袭狼群" ]
     },
     "ConfirmRunning_击退来袭狼群": {
         "recognition": {
@@ -1661,7 +1661,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "CompleteMainTask_击退来袭狼群", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_击退来袭狼群", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_击退来袭狼群": {
         "timeout": 5000,
@@ -1674,7 +1674,7 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_击退来袭狼群" ],
-        "next": [ "EquipGearAfter击退来袭狼群", "[JumpBack]CloseBottomRightPopups" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter击退来袭狼群", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter击退来袭狼群": {
         "recognition": {
@@ -1685,7 +1685,7 @@
             "type": "Click",
             "param": { "target": [ 1238, 599, 30, 12 ] }
         },
-        "next": [ "EquipGearAfter击退来袭狼群", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_联系阿斯玛" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter击退来袭狼群", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_联系阿斯玛" ]
     },
     /* ---------------------------------------- main task 联系阿斯玛 start ---------------------------------------- */
     "ClickOnMainTask_联系阿斯玛": {
@@ -1701,7 +1701,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_联系阿斯玛" ],
-        "next": [ "ConfirmRunning_联系阿斯玛" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_联系阿斯玛" ]
     },
     "ConfirmRunning_联系阿斯玛": {
         "recognition": {
@@ -1712,7 +1712,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "CompleteMainTask_联系阿斯玛", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_联系阿斯玛", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "CompleteMainTask_联系阿斯玛": {
         "timeout": 5000,
@@ -1725,7 +1725,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "CompleteMainTask_联系阿斯玛" ],
-        "next": [ "AcceptMainTask_合战演练" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_合战演练" ]
     },
     /* ---------------------------------------- main task 合战演练 start ---------------------------------------- */
     "AcceptMainTask_合战演练": {
@@ -1739,7 +1739,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_合战演练" ],
-        "next": [ "ClickOnCopy_合战演练", "CompleteMainTask_联系阿斯玛" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnCopy_合战演练", "CompleteMainTask_联系阿斯玛" ]
     },
     "ClickOnCopy_合战演练": {
         "timeout": 5000,
@@ -1755,7 +1755,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_合战演练" ],
-        "next": [ "EnterCopy_猪鹿蝶组合" ]
+        "next": [ "[JumpBack]ServerBusy", "EnterCopy_猪鹿蝶组合" ]
     },
     /* ---------------------------------------- copy 猪鹿蝶组合 start ---------------------------------------- */
     "EnterCopy_猪鹿蝶组合": {
@@ -1775,7 +1775,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_猪鹿蝶组合" ],
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle", "MoveToInoShika" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle", "MoveToInoShika" ]
     },
     "MoveToInoShika": {
         "recognition": {
@@ -1793,7 +1793,7 @@
         },
         "timeout": 9000,
         "on_error": [ "MoveToInoShika" ],
-        "next": [ "SkipDialogue_猪鹿蝶组合" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_猪鹿蝶组合" ]
     },
     "SkipDialogue_猪鹿蝶组合": {
         "timeout": 5000,
@@ -1804,7 +1804,7 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "MoveToInoShikaCho" ]
     },
     "MoveToInoShikaCho": {
@@ -1823,7 +1823,7 @@
         },
         "timeout": 9000,
         "on_error": [ "MoveToInoShikaCho" ],
-        "next": [ "SkipDialogueAgain_猪鹿蝶组合" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogueAgain_猪鹿蝶组合" ]
     },
     "SkipDialogueAgain_猪鹿蝶组合": {
         "recognition": {
@@ -1834,7 +1834,7 @@
             "type": "Click"
         },
         "timeout": 7000,
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_猪鹿蝶组合" ]
     },
     "ConfirmCopyResults_猪鹿蝶组合": {
@@ -1853,7 +1853,7 @@
         },
         "on_error": [ "ConfirmCopyResults_猪鹿蝶组合" ],
         "timeout": 8000,
-        "next": [ "ConfirmMainCharLevel8" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel8" ]
     },
     /* ---------------------------------------- copy 猪鹿蝶组合 finish ---------------------------------------- */
     "ConfirmMainCharLevel8": {
@@ -1876,7 +1876,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ConfirmMainCharLevel8" ],
-        "next": [ "ConfirmNarutoLevel8", "ConfirmSasukeLevel8" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoLevel8", "ConfirmSasukeLevel8" ]
     },
     "ConfirmNarutoLevel8": {
         "timeout": 5000,
@@ -1894,7 +1894,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel8" ],
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmSasukeLevel8", "CompleteMainTask_合战演练" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseNewSystemPopups", "ConfirmSasukeLevel8", "CompleteMainTask_合战演练" ]
     },
     "ConfirmSasukeLevel8": {
         "timeout": 5000,
@@ -1912,7 +1912,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeLevel8" ],
-        "next": [ "[JumpBack]CloseNewSystemPopups", "ConfirmNarutoLevel8", "CompleteMainTask_合战演练" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseNewSystemPopups", "ConfirmNarutoLevel8", "CompleteMainTask_合战演练" ]
     },
     "CompleteMainTask_合战演练": {
         "timeout": 5000,
@@ -1925,7 +1925,7 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_合战演练" ],
-        "next": [ "EquipGearAfter合战演练", "[JumpBack]CloseBottomRightPopups" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter合战演练", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter合战演练": {
         "recognition": {
@@ -1936,7 +1936,7 @@
             "type": "Click",
             "param": { "target": [ 1238, 599, 30, 12 ] }
         },
-        "next": [ "EquipGearAfter合战演练", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_前往生存试炼场" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter合战演练", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_前往生存试炼场" ]
     },
     /* ----------------------------------- main task 前往生存试炼场 start ----------------------------------- */
     "ClickOnMainTask_前往生存试炼场": {
@@ -1952,7 +1952,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_前往生存试炼场" ],
-        "next": [ "ConfirmRunning_前往生存试炼场" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_前往生存试炼场" ]
     },
     "ConfirmRunning_前往生存试炼场": {
         "recognition": {
@@ -1963,7 +1963,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "ClickDialogue_前往生存试炼场", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickDialogue_前往生存试炼场", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "ClickDialogue_前往生存试炼场": {
         "timeout": 5000,
@@ -1975,7 +1975,7 @@
             "type": "Click"
         },
         "on_error": [ "ClickDialogue_前往生存试炼场" ],
-        "next": [ "CompleteMainTask_前往生存试炼场", "ClickOnMainTaskAgain_前往生存试炼场" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_前往生存试炼场", "ClickOnMainTaskAgain_前往生存试炼场" ]
     },
     "ClickOnMainTaskAgain_前往生存试炼场": {
         "timeout": 5000,
@@ -1990,7 +1990,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_前往生存试炼场" ],
-        "next": [ "CompleteMainTask_前往生存试炼场" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_前往生存试炼场" ]
     },
     "CompleteMainTask_前往生存试炼场": {
         "timeout": 5000,
@@ -2003,7 +2003,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "CompleteMainTask_前往生存试炼场" ],
-        "next": [ "AcceptMainTask_生存试炼" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_生存试炼" ]
     },
     /* ---------------------------------------- main task 生存试炼 start ---------------------------------------- */
     "AcceptMainTask_生存试炼": {
@@ -2016,7 +2016,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_生存试炼" ],
-        "next": [ "ConfirmMainCharLevel9" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel9" ]
     },
     "ConfirmMainCharLevel9": {
         "timeout": 5000,
@@ -2038,7 +2038,7 @@
             "Node.Recognition.Succeeded": "Level 9"
         },
         "on_error": [ "ConfirmMainCharLevel9" ],
-        "next": [ "ClickOnCopy_生存试炼" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnCopy_生存试炼" ]
     },
     "ClickOnCopy_生存试炼": {
         "timeout": 5000,
@@ -2054,7 +2054,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_生存试炼" ],
-        "next": [ "EnterCopy_卡卡西的试炼" ]
+        "next": [ "[JumpBack]ServerBusy", "EnterCopy_卡卡西的试炼" ]
     },
     "EnterCopy_卡卡西的试炼": {
         "timeout": 5000,
@@ -2073,7 +2073,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_卡卡西的试炼" ],
-        "next": [ "SkipDialogue_卡卡西入场" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_卡卡西入场" ]
     },
     "SkipDialogue_卡卡西入场": {
         "timeout": 5000,
@@ -2086,7 +2086,7 @@
         },
         "post_delay": 700,
         "on_error": [ "SkipDialogue_卡卡西入场" ],
-        "next": [ "MoveToKakashi" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToKakashi" ]
     },
     /* ---------------------------------------- copy 卡卡西的试炼 start ---------------------------------------- */
     "MoveToKakashi": {
@@ -2106,7 +2106,7 @@
             }
         },
         "on_error": [ "MoveToKakashi" ],
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "MoveToKakashiPrePosition" ]
     },
     "MoveToKakashiPrePosition": {
@@ -2126,7 +2126,7 @@
         },
         "post_delay": 3500,
         "on_error": [ "MoveToKakashiPrePosition" ],
-        "next": [ "MoveToKakashiFinal" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToKakashiFinal" ]
     },
     "MoveToKakashiFinal": {
         "recognition": {
@@ -2141,7 +2141,7 @@
         },
         "timeout": 11000,
         "on_error": [ "MoveToKakashiFinal" ],
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_卡卡西的试炼" ]
     },
     "ConfirmCopyResults_卡卡西的试炼": {
@@ -2160,7 +2160,7 @@
             }
         },
         "on_error": [ "ConfirmCopyResults_卡卡西的试炼" ],
-        "next": [ "ConfirmSasukeLevel9", "ConfirmNarutoLevel9" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel9", "ConfirmNarutoLevel9" ]
     },
     /* ---------------------------------------- copy 卡卡西的试炼 finish ---------------------------------------- */
     "ConfirmSasukeLevel9": {
@@ -2179,7 +2179,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeLevel9" ],
-        "next": [ "ConfirmNarutoLevel9", "CompleteMainTask_生存试炼" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoLevel9", "CompleteMainTask_生存试炼" ]
     },
     "ConfirmNarutoLevel9": {
         "timeout": 5000,
@@ -2197,7 +2197,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel9" ],
-        "next": [ "ConfirmSasukeLevel9", "CompleteMainTask_生存试炼" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel9", "CompleteMainTask_生存试炼" ]
     },
     "CompleteMainTask_生存试炼": {
         "timeout": 5000,
@@ -2210,7 +2210,7 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_生存试炼" ],
-        "next": [ "ConfirmMainCharLevel10" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel10" ]
     },
     /* ---------------------------------------- main task 生存试炼 finish ---------------------------------------- */
     "ConfirmMainCharLevel10": {
@@ -2232,7 +2232,7 @@
             "Node.Recognition.Succeeded": "Level 10"
         },
         "on_error": [ "ConfirmMainCharLevel10" ],
-        "next": [ "CompleteSideTask_满战绩通关第1章副本" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteSideTask_满战绩通关第1章副本" ]
     },
     "CompleteSideTask_满战绩通关第1章副本": {
         "timeout": 5000,
@@ -2245,7 +2245,7 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteSideTask_满战绩通关第1章副本" ],
-        "next": [ "CompleteSideTask_等级达到10级" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteSideTask_等级达到10级" ]
     },
     "CompleteSideTask_等级达到10级": {
         "timeout": 5000,
@@ -2258,7 +2258,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "CompleteSideTask_等级达到10级" ],
-        "next": [ "ExitSideTask_通过第一章剧情副本" ]
+        "next": [ "[JumpBack]ServerBusy", "ExitSideTask_通过第一章剧情副本" ]
     },
     "ExitSideTask_通过第一章剧情副本": {
         "timeout": 5000,
@@ -2277,7 +2277,7 @@
             }
         },
         "on_error": [ "ExitSideTask_通过第一章剧情副本" ],
-        "next": [ "ClickOnMainTask_护送达兹纳" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTask_护送达兹纳" ]
     },
     /* ---------------------------------------- main task 护送达兹纳 start ---------------------------------------- */
     "ClickOnMainTask_护送达兹纳": {
@@ -2293,7 +2293,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_护送达兹纳" ],
-        "next": [ "ConfirmRunning_护送达兹纳" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_护送达兹纳" ]
     },
     "ConfirmRunning_护送达兹纳": {
         "recognition": {
@@ -2304,7 +2304,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "SkipDialogue_护送达兹纳", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_护送达兹纳", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "SkipDialogue_护送达兹纳": {
         "timeout": 5000,
@@ -2316,7 +2316,7 @@
             "type": "Click"
         },
         "on_error": [ "SkipDialogue_护送达兹纳" ],
-        "next": [ "AcceptMainTask_护送达兹纳", "ClickOnMainTaskAgain_护送达兹纳" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_护送达兹纳", "ClickOnMainTaskAgain_护送达兹纳" ]
     },
     "ClickOnMainTaskAgain_护送达兹纳": {
         "timeout": 5000,
@@ -2331,7 +2331,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_护送达兹纳" ],
-        "next": [ "AcceptMainTask_护送达兹纳" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_护送达兹纳" ]
     },
     "AcceptMainTask_护送达兹纳": {
         "timeout": 5000,
@@ -2344,7 +2344,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_护送达兹纳" ],
-        "next": [ "ClickOnCopy_护送达兹纳" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnCopy_护送达兹纳" ]
     },
     "ClickOnCopy_护送达兹纳": {
         "timeout": 5000,
@@ -2360,7 +2360,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_护送达兹纳" ],
-        "next": [ "EnterCopy_前往波之国" ]
+        "next": [ "[JumpBack]ServerBusy", "EnterCopy_前往波之国" ]
     },
     "EnterCopy_前往波之国": {
         "timeout": 5000,
@@ -2379,7 +2379,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_前往波之国" ],
-        "next": [ "[JumpBack]SkipDialogue", "MoveToLandOfWavesEnemies1" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "MoveToLandOfWavesEnemies1" ]
     },
     /* ---------------------------------------- copy 前往波之国 start ---------------------------------------- */
     "MoveToLandOfWavesEnemies1": {
@@ -2398,7 +2398,7 @@
         },
         "timeout": 19000,
         "on_error": [ "MoveToLandOfWavesEnemies1" ],
-        "next": [ "StartBattle_LandOfWavesEnemies1" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_LandOfWavesEnemies1" ]
     },
     "StartBattle_LandOfWavesEnemies1": {
         "timeout": 5000,
@@ -2413,7 +2413,7 @@
             "type": "Click"
         },
         "on_error": [ "StartBattle_LandOfWavesEnemies1" ],
-        "next": [ "[JumpBack]ManualBattle", "MoveToLandOfWavesEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]ManualBattle", "MoveToLandOfWavesEnemies2" ]
     },
     "MoveToLandOfWavesEnemies2": {
         "recognition": {
@@ -2431,7 +2431,7 @@
         },
         "timeout": 17000,
         "on_error": [ "MoveToLandOfWavesEnemies2" ],
-        "next": [ "StartBattle_LandOfWavesEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_LandOfWavesEnemies2" ]
     },
     "StartBattle_LandOfWavesEnemies2": {
         "timeout": 5000,
@@ -2446,7 +2446,7 @@
             "type": "Click"
         },
         "on_error": [ "StartBattle_LandOfWavesEnemies2" ],
-        "next": [ "[JumpBack]ManualBattle", "MoveToLandOfWavesFinishPosition" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]ManualBattle", "MoveToLandOfWavesFinishPosition" ]
     },
     "MoveToLandOfWavesFinishPosition": {
         "recognition": {
@@ -2464,7 +2464,7 @@
         },
         "timeout": 11000,
         "on_error": [ "MoveToLandOfWavesFinishPosition" ],
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_前往波之国" ]
     },
     "ConfirmCopyResults_前往波之国": {
@@ -2483,7 +2483,7 @@
             }
         },
         "on_error": [ "ConfirmCopyResults_前往波之国" ],
-        "next": [ "ConfirmSasukeLevel10", "ConfirmNarutoLevel10" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel10", "ConfirmNarutoLevel10" ]
     },
     /* ---------------------------------------- copy 前往波之国 finish ---------------------------------------- */
     "ConfirmSasukeLevel10": {
@@ -2502,7 +2502,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeLevel10" ],
-        "next": [ "ConfirmNarutoAfterSasukeLevel10" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoAfterSasukeLevel10" ]
     },
     "ConfirmNarutoAfterSasukeLevel10": {
         "timeout": 5000,
@@ -2520,7 +2520,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoAfterSasukeLevel10" ],
-        "next": [ "CompleteMainTask_护送达兹纳", "ClickOnMainTaskOnceAgain_护送达兹纳" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_护送达兹纳", "ClickOnMainTaskOnceAgain_护送达兹纳" ]
     },
     "ConfirmNarutoLevel10": {
         "timeout": 5000,
@@ -2538,7 +2538,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel10" ],
-        "next": [ "ConfirmSasukeAfterNarutoLevel10" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeAfterNarutoLevel10" ]
     },
     "ConfirmSasukeAfterNarutoLevel10": {
         "timeout": 5000,
@@ -2556,7 +2556,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeAfterNarutoLevel10" ],
-        "next": [ "ClickOnMainTaskOnceAgain_护送达兹纳" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTaskOnceAgain_护送达兹纳" ]
     },
     "ClickOnMainTaskOnceAgain_护送达兹纳": {
         "timeout": 5000,
@@ -2571,7 +2571,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskOnceAgain_护送达兹纳" ],
-        "next": [ "CompleteMainTask_护送达兹纳" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_护送达兹纳" ]
     },
     "CompleteMainTask_护送达兹纳": {
         "timeout": 5000,
@@ -2584,7 +2584,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "CompleteMainTask_护送达兹纳" ],
-        "next": [ "AcceptMainTask_谨慎前行" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_谨慎前行" ]
     },
     /* ---------------------------------------- main task 谨慎前行 start ---------------------------------------- */
     "AcceptMainTask_谨慎前行": {
@@ -2597,7 +2597,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_谨慎前行" ],
-        "next": [ "ConfirmMainCharLevel11" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel11" ]
     },
     "ConfirmMainCharLevel11": {
         "timeout": 5000,
@@ -2619,7 +2619,7 @@
             "Node.Recognition.Succeeded": "Level 11"
         },
         "on_error": [ "ConfirmMainCharLevel11" ],
-        "next": [ "EquipGearAfter护送达兹纳", "[JumpBack]CloseBottomRightPopups" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter护送达兹纳", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter护送达兹纳": {
         "recognition": {
@@ -2630,7 +2630,7 @@
             "type": "Click",
             "param": { "target": [ 1238, 599, 30, 12 ] }
         },
-        "next": [ "EquipGearAfter护送达兹纳", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_谨慎前行" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter护送达兹纳", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_谨慎前行" ]
     },
     "ClickOnCopy_谨慎前行": {
         "timeout": 5000,
@@ -2646,7 +2646,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_谨慎前行" ],
-        "next": [ "EnterCopy_海边侦察" ]
+        "next": [ "[JumpBack]ServerBusy", "EnterCopy_海边侦察" ]
     },
     "EnterCopy_海边侦察": {
         "timeout": 5000,
@@ -2665,7 +2665,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_海边侦察" ],
-        "next": [ "MoveToSeasideEnemies1" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToSeasideEnemies1" ]
     },
     /* ---------------------------------------- copy 海边侦察 start ---------------------------------------- */
     "MoveToSeasideEnemies1": {
@@ -2684,7 +2684,7 @@
         },
         "timeout": 11000,
         "on_error": [ "MoveToSeasideEnemies1" ],
-        "next": [ "StartBattle_SeasideEnemies1" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_SeasideEnemies1" ]
     },
     "StartBattle_SeasideEnemies1": {
         "timeout": 5000,
@@ -2699,7 +2699,7 @@
             "type": "Click"
         },
         "on_error": [ "StartBattle_SeasideEnemies1" ],
-        "next": [ "[JumpBack]ManualBattle", "MoveToSeasideEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]ManualBattle", "MoveToSeasideEnemies2" ]
     },
     "MoveToSeasideEnemies2": {
         "recognition": {
@@ -2717,7 +2717,7 @@
         },
         "timeout": 11000,
         "on_error": [ "MoveToSeasideEnemies2" ],
-        "next": [ "StartBattle_SeasideEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_SeasideEnemies2" ]
     },
     "StartBattle_SeasideEnemies2": {
         "timeout": 5000,
@@ -2732,7 +2732,7 @@
             "type": "Click"
         },
         "on_error": [ "StartBattle_SeasideEnemies2" ],
-        "next": [ "[JumpBack]ManualBattle", "MoveToSeasideEnemies3" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]ManualBattle", "MoveToSeasideEnemies3" ]
     },
     "MoveToSeasideEnemies3": {
         "timeout": 7000,
@@ -2750,7 +2750,7 @@
             }
         },
         "on_error": [ "MoveToSeasideEnemies3" ],
-        "next": [ "SkipDialogue_海边侦察" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_海边侦察" ]
     },
     "SkipDialogue_海边侦察": {
         "timeout": 5000,
@@ -2762,7 +2762,7 @@
             "type": "Click"
         },
         "on_error": [ "SkipDialogue_海边侦察" ],
-        "next": [ "MoveToSeasideEnemies3Again" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToSeasideEnemies3Again" ]
     },
     "MoveToSeasideEnemies3Again": {
         "recognition": {
@@ -2780,7 +2780,7 @@
         },
         "timeout": 11000,
         "on_error": [ "MoveToSeasideEnemies3Again" ],
-        "next": [ "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle", "ConfirmCopyResults_海边侦察" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle", "ConfirmCopyResults_海边侦察" ]
     },
     "ConfirmCopyResults_海边侦察": {
         "timeout": 5000,
@@ -2798,7 +2798,7 @@
             }
         },
         "on_error": [ "ConfirmCopyResults_海边侦察" ],
-        "next": [ "ConfirmSasukeLevel11", "ConfirmNarutoLevel11" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel11", "ConfirmNarutoLevel11" ]
     },
     /* ---------------------------------------- copy 海边侦察 finish ---------------------------------------- */
     "ConfirmSasukeLevel11": {
@@ -2817,7 +2817,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeLevel11" ],
-        "next": [ "ConfirmNarutoAfterSasukeLevel11" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoAfterSasukeLevel11" ]
     },
     "ConfirmNarutoAfterSasukeLevel11": {
         "timeout": 5000,
@@ -2835,7 +2835,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoAfterSasukeLevel11" ],
-        "next": [ "ClickOnMainTaskAgain_谨慎前行" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTaskAgain_谨慎前行" ]
     },
     "ConfirmNarutoLevel11": {
         "timeout": 5000,
@@ -2853,7 +2853,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel11" ],
-        "next": [ "ConfirmSasukeAfterNarutoLevel11" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeAfterNarutoLevel11" ]
     },
     "ConfirmSasukeAfterNarutoLevel11": {
         "timeout": 5000,
@@ -2871,7 +2871,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeAfterNarutoLevel11" ],
-        "next": [ "ClickOnMainTaskAgain_谨慎前行" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTaskAgain_谨慎前行" ]
     },
     "ClickOnMainTaskAgain_谨慎前行": {
         "timeout": 5000,
@@ -2886,7 +2886,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_谨慎前行" ],
-        "next": [ "ConfirmRunning_谨慎前行" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_谨慎前行" ]
     },
     "ConfirmRunning_谨慎前行": {
         "recognition": {
@@ -2897,7 +2897,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "SkipDialogue_谨慎前行", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_谨慎前行", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "SkipDialogue_谨慎前行": {
         "timeout": 5000,
@@ -2909,7 +2909,7 @@
             "type": "Click"
         },
         "on_error": [ "SkipDialogue_谨慎前行" ],
-        "next": [ "CompleteMainTask_谨慎前行", "ClickOnMainTaskOnceAgain_谨慎前行" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_谨慎前行", "ClickOnMainTaskOnceAgain_谨慎前行" ]
     },
     "ClickOnMainTaskOnceAgain_谨慎前行": {
         "timeout": 5000,
@@ -2924,7 +2924,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskOnceAgain_谨慎前行" ],
-        "next": [ "CompleteMainTask_谨慎前行" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_谨慎前行" ]
     },
     "CompleteMainTask_谨慎前行": {
         "timeout": 5000,
@@ -2937,7 +2937,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "CompleteMainTask_谨慎前行" ],
-        "next": [ "AcceptMainTask_鬼人再不斩" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_鬼人再不斩" ]
     },
     /* ---------------------------------------- main task 鬼人再不斩 start ---------------------------------------- */
     "AcceptMainTask_鬼人再不斩": {
@@ -2950,7 +2950,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_鬼人再不斩" ],
-        "next": [ "ConfirmMainCharLevel12" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel12" ]
     },
     "ConfirmMainCharLevel12": {
         "timeout": 5000,
@@ -2971,7 +2971,7 @@
             "Node.Recognition.Succeeded": "Level 12"
         },
         "on_error": [ "ConfirmMainCharLevel12" ],
-        "next": [ "SkipDialogue_MainTask鬼人再不斩" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_MainTask鬼人再不斩" ]
     },
     "SkipDialogue_MainTask鬼人再不斩": {
         "timeout": 5000,
@@ -2984,7 +2984,7 @@
             "type": "Click"
         },
         "on_error": [ "SkipDialogue_MainTask鬼人再不斩" ],
-        "next": [ "EquipGearAfter谨慎前行", "[JumpBack]CloseBottomRightPopups" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter谨慎前行", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter谨慎前行": {
         "recognition": {
@@ -2995,7 +2995,7 @@
             "type": "Click",
             "param": { "target": [ 1238, 599, 30, 12 ] }
         },
-        "next": [ "EquipGearAfter谨慎前行", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_鬼人再不斩" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter谨慎前行", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_鬼人再不斩" ]
     },
     "ClickOnCopy_鬼人再不斩": {
         "timeout": 5000,
@@ -3011,7 +3011,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_鬼人再不斩" ],
-        "next": [ "EnterCopy_鬼人再不斩" ]
+        "next": [ "[JumpBack]ServerBusy", "EnterCopy_鬼人再不斩" ]
     },
     "EnterCopy_鬼人再不斩": {
         "timeout": 5000,
@@ -3030,7 +3030,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_鬼人再不斩" ],
-        "next": [ "[JumpBack]SkipDialogue", "MoveToZabuzaSpecificPosition" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "MoveToZabuzaSpecificPosition" ]
     },
     /* ---------------------------------------- copy 鬼人再不斩 start ---------------------------------------- */
     "MoveToZabuzaSpecificPosition": {
@@ -3049,7 +3049,7 @@
         },
         "timeout": 5000,
         "on_error": [ "MoveToZabuzaSpecificPosition" ],
-        "next": [ "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "[JumpBack]HandleStartBattleButton", "[JumpBack]ManualBattle",
             "ConfirmCopyResults_鬼人再不斩" ]
     },
     "ConfirmCopyResults_鬼人再不斩": {
@@ -3068,7 +3068,7 @@
             }
         },
         "on_error": [ "ConfirmCopyResults_鬼人再不斩" ],
-        "next": [ "ConfirmSasukeLevel12", "ConfirmNarutoLevel12" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel12", "ConfirmNarutoLevel12" ]
     },
     /* ---------------------------------------- copy 鬼人再不斩 finish ---------------------------------------- */
     "ConfirmSasukeLevel12": {
@@ -3087,7 +3087,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeLevel12" ],
-        "next": [ "ConfirmNarutoLevel12", "SkipDialogue_鬼人再不斩" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoLevel12", "SkipDialogue_鬼人再不斩" ]
     },
 
     "ConfirmNarutoLevel12": {
@@ -3106,7 +3106,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel12" ],
-        "next": [ "ConfirmSasukeLevel12", "SkipDialogue_鬼人再不斩" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel12", "SkipDialogue_鬼人再不斩" ]
     },
     "SkipDialogue_鬼人再不斩": {
         "timeout": 5000,
@@ -3119,7 +3119,7 @@
             "type": "Click"
         },
         "on_error": [ "SkipDialogue_鬼人再不斩" ],
-        "next": [ "[JumpBack]SkipDialogue", "ClickOnMainTaskAgain_鬼人再不斩" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]SkipDialogue", "ClickOnMainTaskAgain_鬼人再不斩" ]
     },
     "ClickOnMainTaskAgain_鬼人再不斩": {
         "timeout": 5000,
@@ -3134,7 +3134,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_鬼人再不斩" ],
-        "next": [ "CompleteMainTask_鬼人再不斩" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_鬼人再不斩" ]
     },
     "CompleteMainTask_鬼人再不斩": {
         "timeout": 5000,
@@ -3147,7 +3147,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "CompleteMainTask_鬼人再不斩" ],
-        "next": [ "AcceptMainTask_保护大桥" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_保护大桥" ]
     },
     /* ---------------------------------------- main task 保护大桥 start ---------------------------------------- */
     "AcceptMainTask_保护大桥": {
@@ -3160,7 +3160,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_保护大桥" ],
-        "next": [ "ConfirmMainCharLevel13" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel13" ]
     },
     "ConfirmMainCharLevel13": {
         "timeout": 5000,
@@ -3182,7 +3182,7 @@
             "Node.Recognition.Succeeded": "Level 13"
         },
         "on_error": [ "ConfirmMainCharLevel13" ],
-        "next": [ "EquipGearAfter鬼人再不斩", "[JumpBack]CloseBottomRightPopups" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter鬼人再不斩", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter鬼人再不斩": {
         "recognition": {
@@ -3193,7 +3193,7 @@
             "type": "Click",
             "param": { "target": [ 1238, 599, 30, 12 ] }
         },
-        "next": [ "EquipGearAfter鬼人再不斩", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_保护大桥" ]
+        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter鬼人再不斩", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_保护大桥" ]
     },
     "ClickOnCopy_保护大桥": {
         "timeout": 5000,
@@ -3209,7 +3209,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_保护大桥" ],
-        "next": [ "EnterCopy_保护大桥" ]
+        "next": [ "[JumpBack]ServerBusy", "EnterCopy_保护大桥" ]
     },
     "EnterCopy_保护大桥": {
         "timeout": 5000,
@@ -3228,7 +3228,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_保护大桥" ],
-        "next": [ "MoveToBridgeEnemies1" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToBridgeEnemies1" ]
     },
     /* ---------------------------------------- copy 保护大桥 start ---------------------------------------- */
     "MoveToBridgeEnemies1": {
@@ -3247,7 +3247,7 @@
         },
         "timeout": 7000,
         "on_error": [ "MoveToBridgeEnemies1" ],
-        "next": [ "StartBattle_BridgeEnemies1" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_BridgeEnemies1" ]
     },
     "StartBattle_BridgeEnemies1": {
         "recognition": {
@@ -3262,7 +3262,7 @@
         },
         "timeout": 120000,
         "on_error": [ "StartBattle_BridgeEnemies1" ],
-        "next": [ "SetupAutoBattleFirstTime", "MoveToBridgeEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "SetupAutoBattleFirstTime", "MoveToBridgeEnemies2" ]
     },
     "SetupAutoBattleFirstTime": {
         "timeout": 5000,
@@ -3273,7 +3273,7 @@
                 "roi": [ 629, 39, 129, 113 ]
             }
         },
-        "next": [ "AutoOnFirstTime", "AutoOffFirstTime" ]
+        "next": [ "[JumpBack]ServerBusy", "AutoOnFirstTime", "AutoOffFirstTime" ]
     },
     "AutoOnFirstTime": {
         "recognition": {
@@ -3284,7 +3284,7 @@
             }
         },
         "timeout": 15000,
-        "next": [ "SpeedOnFirstTime", "SpeedOffFirstTime" ]
+        "next": [ "[JumpBack]ServerBusy", "SpeedOnFirstTime", "SpeedOffFirstTime" ]
     },
     "AutoOffFirstTime": {
         "timeout": 5000,
@@ -3300,7 +3300,7 @@
         },
         "post_delay": 200,
         "on_error": [ "AutoOffFirstTime" ],
-        "next": [ "AutoOnFirstTime" ]
+        "next": [ "[JumpBack]ServerBusy", "AutoOnFirstTime" ]
     },
     "SpeedOnFirstTime": {
         "recognition": {
@@ -3311,7 +3311,7 @@
             }
         },
         "timeout": 120000,
-        "next": [ "MoveToBridgeEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToBridgeEnemies2" ]
     },
     "SpeedOffFirstTime": {
         "recognition": {
@@ -3329,7 +3329,7 @@
         "anchor": {
             "MouseMoveResetAnchor": "MouseMoveReset"
         },
-        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "SpeedOnFirstTime", "SpeedOffFirstTime" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack][Anchor]MouseMoveResetAnchor", "SpeedOnFirstTime", "SpeedOffFirstTime" ]
     },
     "MoveToBridgeEnemies2": {
         "recognition": {
@@ -3347,7 +3347,7 @@
         },
         "timeout": 6000,
         "on_error": [ "MoveToBridgeEnemies2" ],
-        "next": [ "StartBattle_BridgeEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_BridgeEnemies2" ]
     },
     "StartBattle_BridgeEnemies2": {
         "recognition": {
@@ -3362,7 +3362,7 @@
         },
         "timeout": 120000,
         "on_error": [ "StartBattle_BridgeEnemies2" ],
-        "next": [ "MoveToBridgeEnemies3" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToBridgeEnemies3" ]
     },
     "MoveToBridgeEnemies3": {
         "recognition": {
@@ -3380,7 +3380,7 @@
         },
         "timeout": 120000,
         "on_error": [ "MoveToBridgeEnemies3" ],
-        "next": [ "[JumpBack]HandleStartBattleButton", "ConfirmCopyResults_保护大桥" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]HandleStartBattleButton", "ConfirmCopyResults_保护大桥" ]
     },
     "ConfirmCopyResults_保护大桥": {
         "timeout": 5000,
@@ -3398,7 +3398,7 @@
             }
         },
         "on_error": [ "ConfirmCopyResults_保护大桥" ],
-        "next": [ "ConfirmSasukeLevel13", "ConfirmNarutoLevel13" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel13", "ConfirmNarutoLevel13" ]
     },
     /* ---------------------------------------- copy 保护大桥 finish ---------------------------------------- */
     "ConfirmSasukeLevel13": {
@@ -3417,7 +3417,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeLevel13" ],
-        "next": [ "ConfirmNarutoAfterSasukeLevel13" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoAfterSasukeLevel13" ]
     },
     "ConfirmNarutoAfterSasukeLevel13": {
         "timeout": 5000,
@@ -3435,7 +3435,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoAfterSasukeLevel13" ],
-        "next": [ "ClickOnMainTask_保护大桥" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTask_保护大桥" ]
     },
     "ConfirmNarutoLevel13": {
         "timeout": 5000,
@@ -3453,7 +3453,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel13" ],
-        "next": [ "ConfirmSasukeAfterNarutoLevel13" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeAfterNarutoLevel13" ]
     },
     "ConfirmSasukeAfterNarutoLevel13": {
         "timeout": 5000,
@@ -3471,7 +3471,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeAfterNarutoLevel13" ],
-        "next": [ "ClickOnMainTask_保护大桥" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTask_保护大桥" ]
     },
     "ClickOnMainTask_保护大桥": {
         "timeout": 5000,
@@ -3486,7 +3486,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_保护大桥" ],
-        "next": [ "ConfirmRunning_保护大桥" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_保护大桥" ]
     },
     "ConfirmRunning_保护大桥": {
         "recognition": {
@@ -3497,7 +3497,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "SkipDialogue_保护大桥", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkServerBusy", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_保护大桥", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
     },
     "SkipDialogue_保护大桥": {
         "timeout": 5000,
@@ -3509,7 +3509,7 @@
             "type": "Click"
         },
         "on_error": [ "SkipDialogue_保护大桥" ],
-        "next": [ "ClickOnMainTaskAgain_保护大桥" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTaskAgain_保护大桥" ]
     },
     "ClickOnMainTaskAgain_保护大桥": {
         "timeout": 5000,
@@ -3524,7 +3524,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_保护大桥" ],
-        "next": [ "CompleteMainTask_保护大桥" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_保护大桥" ]
     },
     "CompleteMainTask_保护大桥": {
         "timeout": 5000,
@@ -3537,7 +3537,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "CompleteMainTask_保护大桥" ],
-        "next": [ "AcceptMainTask_独自修行" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_独自修行" ]
     },
     /* ---------------------------------------- main task 独自修行 start ---------------------------------------- */
     "AcceptMainTask_独自修行": {
@@ -3550,7 +3550,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_独自修行" ],
-        "next": [ "ConfirmMainCharLevel15" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel15" ]
     },
     "ConfirmMainCharLevel15": {
         "timeout": 5000,
@@ -3571,7 +3571,7 @@
             "Node.Recognition.Succeeded": "Level 15"
         },
         "on_error": [ "ConfirmMainCharLevel15" ],
-        "next": [ "CompleteSideTask_等级达到15级" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteSideTask_等级达到15级" ]
     },
     "CompleteSideTask_等级达到15级": {
         "timeout": 5000,
@@ -3584,7 +3584,7 @@
         },
         "post_delay": 1000,
         "on_error": [ "CompleteSideTask_等级达到15级" ],
-        "next": [ "ClickOnCopy_独自修行" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnCopy_独自修行" ]
     },
     "ClickOnCopy_独自修行": {
         "timeout": 5000,
@@ -3600,7 +3600,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_独自修行" ],
-        "next": [ "EnterCopy_独自修行" ]
+        "next": [ "[JumpBack]ServerBusy", "EnterCopy_独自修行" ]
     },
     "EnterCopy_独自修行": {
         "timeout": 5000,
@@ -3619,7 +3619,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_独自修行" ],
-        "next": [ "MoveToSoloTrainingEnemies1" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToSoloTrainingEnemies1" ]
     },
     /* ---------------------------------------- copy 独自修行 start ---------------------------------------- */
     "MoveToSoloTrainingEnemies1": {
@@ -3638,7 +3638,7 @@
         },
         "timeout": 7000,
         "on_error": [ "MoveToSoloTrainingEnemies1" ],
-        "next": [ "StartBattle_SoloTrainingEnemies1" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_SoloTrainingEnemies1" ]
     },
     "StartBattle_SoloTrainingEnemies1": {
         "recognition": {
@@ -3653,7 +3653,7 @@
         },
         "timeout": 120000,
         "on_error": [ "StartBattle_SoloTrainingEnemies1" ],
-        "next": [ "MoveToSoloTrainingEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToSoloTrainingEnemies2" ]
     },
     "MoveToSoloTrainingEnemies2": {
         "recognition": {
@@ -3671,7 +3671,7 @@
         },
         "timeout": 7000,
         "on_error": [ "MoveToSoloTrainingEnemies2" ],
-        "next": [ "StartBattle_SoloTrainingEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_SoloTrainingEnemies2" ]
     },
     "StartBattle_SoloTrainingEnemies2": {
         "recognition": {
@@ -3686,7 +3686,7 @@
         },
         "timeout": 120000,
         "on_error": [ "StartBattle_SoloTrainingEnemies2" ],
-        "next": [ "MoveToSoloTrainingEnemies3" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToSoloTrainingEnemies3" ]
     },
     "MoveToSoloTrainingEnemies3": {
         "recognition": {
@@ -3704,7 +3704,7 @@
         },
         "timeout": 120000,
         "on_error": [ "MoveToSoloTrainingEnemies3" ],
-        "next": [ "[JumpBack]HandleStartBattleButton", "ConfirmCopyResults_独自修行" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]HandleStartBattleButton", "ConfirmCopyResults_独自修行" ]
     },
     "ConfirmCopyResults_独自修行": {
         "timeout": 5000,
@@ -3722,7 +3722,7 @@
             }
         },
         "on_error": [ "ConfirmCopyResults_独自修行" ],
-        "next": [ "ConfirmSasukeLevel15", "ConfirmNarutoLevel15" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel15", "ConfirmNarutoLevel15" ]
     },
     /* ---------------------------------------- copy 独自修行 finish ---------------------------------------- */
     "ConfirmSasukeLevel15": {
@@ -3741,7 +3741,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeLevel15" ],
-        "next": [ "ConfirmNarutoLevel15", "CompleteMainTask_独自修行" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoLevel15", "CompleteMainTask_独自修行" ]
     },
     "ConfirmNarutoLevel15": {
         "timeout": 5000,
@@ -3759,7 +3759,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel15" ],
-        "next": [ "ConfirmSasukeLevel15", "CompleteMainTask_独自修行" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel15", "CompleteMainTask_独自修行" ]
     },
     "CompleteMainTask_独自修行": {
         "timeout": 5000,
@@ -3772,7 +3772,7 @@
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_独自修行" ],
-        "next": [ "ClickOnMainTask_捉兔大赛" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTask_捉兔大赛" ]
     },
     /* ---------------------------------------- main task 捉兔大赛 start ---------------------------------------- */
     "ClickOnMainTask_捉兔大赛": {
@@ -3788,7 +3788,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_捉兔大赛" ],
-        "next": [ "SkipDialogue_捉兔大赛" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_捉兔大赛" ]
     },
     "SkipDialogue_捉兔大赛": {
         "timeout": 5000,
@@ -3800,7 +3800,7 @@
             "type": "Click"
         },
         "on_error": [ "SkipDialogue_捉兔大赛" ],
-        "next": [ "ClickOnMainTaskAgain_捉兔大赛" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnMainTaskAgain_捉兔大赛" ]
     },
     "ClickOnMainTaskAgain_捉兔大赛": {
         "timeout": 5000,
@@ -3815,7 +3815,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_捉兔大赛" ],
-        "next": [ "AcceptMainTask_捉兔大赛" ]
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_捉兔大赛" ]
     },
     "AcceptMainTask_捉兔大赛": {
         "timeout": 5000,
@@ -3828,7 +3828,7 @@
             "type": "Click"
         },
         "on_error": [ "AcceptMainTask_捉兔大赛" ],
-        "next": [ "ClickOnCopy_捉兔大赛" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnCopy_捉兔大赛" ]
     },
     "ClickOnCopy_捉兔大赛": {
         "timeout": 5000,
@@ -3844,7 +3844,7 @@
         },
         "post_delay": 700,
         "on_error": [ "ClickOnCopy_捉兔大赛" ],
-        "next": [ "EnterCopy_捉兔大赛" ]
+        "next": [ "[JumpBack]ServerBusy", "EnterCopy_捉兔大赛" ]
     },
     "EnterCopy_捉兔大赛": {
         "timeout": 5000,
@@ -3863,7 +3863,7 @@
         },
         "post_delay": 700,
         "on_error": [ "EnterCopy_捉兔大赛" ],
-        "next": [ "MoveToRabbitContestEnemies1" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToRabbitContestEnemies1" ]
     },
     /* ---------------------------------------- copy 捉兔大赛 start ---------------------------------------- */
     "MoveToRabbitContestEnemies1": {
@@ -3882,7 +3882,7 @@
             }
         },
         "on_error": [ "MoveToRabbitContestEnemies1" ],
-        "next": [ "StartBattle_RabbitContestEnemies1" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_RabbitContestEnemies1" ]
     },
     "StartBattle_RabbitContestEnemies1": {
         "recognition": {
@@ -3897,7 +3897,7 @@
         },
         "timeout": 120000,
         "on_error": [ "StartBattle_RabbitContestEnemies1" ],
-        "next": [ "MoveToRabbitContestEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToRabbitContestEnemies2" ]
     },
     "MoveToRabbitContestEnemies2": {
         "recognition": {
@@ -3915,7 +3915,7 @@
         },
         "timeout": 5000,
         "on_error": [ "MoveToRabbitContestEnemies2" ],
-        "next": [ "StartBattle_RabbitContestEnemies2" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_RabbitContestEnemies2" ]
     },
     "StartBattle_RabbitContestEnemies2": {
         "recognition": {
@@ -3930,7 +3930,7 @@
         },
         "timeout": 120000,
         "on_error": [ "StartBattle_RabbitContestEnemies2" ],
-        "next": [ "MoveToRabbitContestEnemies3" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToRabbitContestEnemies3" ]
     },
     "MoveToRabbitContestEnemies3": {
         "timeout": 5000,
@@ -3948,7 +3948,7 @@
             }
         },
         "on_error": [ "MoveToRabbitContestEnemies3" ],
-        "next": [ "StartBattle_RabbitContestEnemies3" ]
+        "next": [ "[JumpBack]ServerBusy", "StartBattle_RabbitContestEnemies3" ]
     },
     "StartBattle_RabbitContestEnemies3": {
         "recognition": {
@@ -3963,7 +3963,7 @@
         },
         "timeout": 120000,
         "on_error": [ "StartBattle_RabbitContestEnemies3" ],
-        "next": [ "MoveToRabbitContestPosition" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToRabbitContestPosition" ]
     },
     "MoveToRabbitContestPosition": {
         "timeout": 5000,
@@ -3980,7 +3980,7 @@
                 "target": [ 1272, 176 ] // specific position of RabbitContest
             }
         },
-        "next": [ "CatchEnemyRabbit1" ]
+        "next": [ "[JumpBack]ServerBusy", "CatchEnemyRabbit1" ]
     },
     "RabbitCaptureCount0": {
         "recognition": {
@@ -4000,7 +4000,7 @@
             }
         },
         "timeout": 8000,
-        "next": [ "MoveToRabbitContestPositionAgain" ]
+        "next": [ "[JumpBack]ServerBusy", "MoveToRabbitContestPositionAgain" ]
     },
     "RabbitCaptureCount2": {
         "recognition": {
@@ -4011,7 +4011,7 @@
             }
         },
         "timeout": 8000,
-        "next": [ "CatchEnemyRabbit3" ]
+        "next": [ "[JumpBack]ServerBusy", "CatchEnemyRabbit3" ]
     },
     "RabbitCaptureCount3": {
         "recognition": {
@@ -4022,7 +4022,7 @@
             }
         },
         "timeout": 8000,
-        "next": [ "CatchEnemyRabbit4" ]
+        "next": [ "[JumpBack]ServerBusy", "CatchEnemyRabbit4" ]
     },
     "RabbitCaptureCount4": {
         "recognition": {
@@ -4033,7 +4033,7 @@
             }
         },
         "timeout": 8000,
-        "next": [ "CatchEnemyRabbit5" ]
+        "next": [ "[JumpBack]ServerBusy", "CatchEnemyRabbit5" ]
     },
     "CatchEnemyRabbit1": {
         "timeout": 8000,
@@ -4051,7 +4051,7 @@
             "param": { "target": [ 674, 214 ] }
         },
         "on_error": [ "CatchEnemyRabbit1" ],
-        "next": [ "RabbitCaptureCount1" ]
+        "next": [ "[JumpBack]ServerBusy", "RabbitCaptureCount1" ]
     },
     "MoveToRabbitContestPositionAgain": {
         "timeout": 5000,
@@ -4069,7 +4069,7 @@
             }
         },
         "post_delay": 1200,
-        "next": [ "CatchEnemyRabbit2" ]
+        "next": [ "[JumpBack]ServerBusy", "CatchEnemyRabbit2" ]
     },
     "CatchEnemyRabbit2": {
         "timeout": 8000,
@@ -4087,7 +4087,7 @@
             "param": { "target": [ 570, 598 ] }
         },
         "on_error": [ "CatchEnemyRabbit2" ],
-        "next": [ "RabbitCaptureCount2" ]
+        "next": [ "[JumpBack]ServerBusy", "RabbitCaptureCount2" ]
     },
     "CatchEnemyRabbit3": {
         "timeout": 8000,
@@ -4105,7 +4105,7 @@
             "param": { "target": [ 817, 472 ] }
         },
         "on_error": [ "CatchEnemyRabbit3" ],
-        "next": [ "RabbitCaptureCount3" ]
+        "next": [ "[JumpBack]ServerBusy", "RabbitCaptureCount3" ]
     },
     "CatchEnemyRabbit4": {
         "timeout": 8000,
@@ -4123,7 +4123,7 @@
             "param": { "target": [ 483, 474 ] }
         },
         "on_error": [ "CatchEnemyRabbit4" ],
-        "next": [ "RabbitCaptureCount4" ]
+        "next": [ "[JumpBack]ServerBusy", "RabbitCaptureCount4" ]
     },
     "CatchEnemyRabbit5": {
         "timeout": 15000,
@@ -4141,7 +4141,7 @@
             "param": { "target": [ 821, 484 ] }
         },
         "on_error": [ "CatchEnemyRabbit5" ],
-        "next": [ "ConfirmCopyResults_捉兔大赛" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmCopyResults_捉兔大赛" ]
     },
     "ConfirmCopyResults_捉兔大赛": {
         "recognition": {
@@ -4159,7 +4159,7 @@
         },
         "on_error": [ "ConfirmCopyResults_捉兔大赛" ],
         "timeout": 5000,
-        "next": [ "ConfirmMainCharLevel16" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmMainCharLevel16" ]
     },
     /* ---------------------------------------- copy 捉兔大赛 finish ---------------------------------------- */
     "ConfirmMainCharLevel16": {
@@ -4181,7 +4181,7 @@
             "Node.Recognition.Succeeded": "Level 16"
         },
         "on_error": [ "ConfirmMainCharLevel16" ],
-        "next": [ "ConfirmSasukeLevel16", "ConfirmNarutoLevel16" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeLevel16", "ConfirmNarutoLevel16" ]
     },
     "ConfirmSasukeLevel16": {
         "timeout": 5000,
@@ -4199,7 +4199,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeLevel16" ],
-        "next": [ "ConfirmNarutoAfterSasukeLevel16" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmNarutoAfterSasukeLevel16" ]
     },
     "ConfirmNarutoAfterSasukeLevel16": {
         "timeout": 5000,
@@ -4217,7 +4217,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoAfterSasukeLevel16" ],
-        "next": [ "[JumpBack]CloseNewSystemPopups", "SkipDialogueAgain_捉兔大赛" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseNewSystemPopups", "SkipDialogueAgain_捉兔大赛" ]
     },
     "ConfirmNarutoLevel16": {
         "timeout": 5000,
@@ -4235,7 +4235,7 @@
             }
         },
         "on_error": [ "ConfirmNarutoLevel16" ],
-        "next": [ "ConfirmSasukeAfterNarutoLevel16" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmSasukeAfterNarutoLevel16" ]
     },
     "ConfirmSasukeAfterNarutoLevel16": {
         "timeout": 5000,
@@ -4253,7 +4253,7 @@
             }
         },
         "on_error": [ "ConfirmSasukeAfterNarutoLevel16" ],
-        "next": [ "[JumpBack]CloseNewSystemPopups", "SkipDialogueAgain_捉兔大赛" ]
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseNewSystemPopups", "SkipDialogueAgain_捉兔大赛" ]
     },
     "SkipDialogueAgain_捉兔大赛": {
         "timeout": 5000,
@@ -4265,7 +4265,7 @@
             "type": "Click"
         },
         "on_error": [ "SkipDialogueAgain_捉兔大赛" ],
-        "next": [ "ClickOnCompensation" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickOnCompensation" ]
     },
     "ClickOnCompensation": {
         "timeout": 5000,
@@ -4280,7 +4280,7 @@
             "type": "Click"
         },
         "on_error": [ "ClickOnCompensation" ],
-        "next": [ "ClaimCompensation" ]
+        "next": [ "[JumpBack]ServerBusy", "ClaimCompensation" ]
     },
     "ClaimCompensation": {
         "timeout": 5000,
@@ -4295,7 +4295,7 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "CloseCompensation" ]
+        "next": [ "[JumpBack]ServerBusy", "CloseCompensation" ]
     },
     "CloseCompensation": {
         "timeout": 5000,
@@ -4313,7 +4313,7 @@
                 "key": 27
             }
         },
-        "next": [ "CompensationClosed" ]
+        "next": [ "[JumpBack]ServerBusy", "CompensationClosed" ]
     },
     "CompensationClosed": {
         "recognition": {
@@ -4325,7 +4325,7 @@
             }
         },
         "inverse": true,
-        "next": [ "BatchServerDone" ]
+        "next": [ "[JumpBack]ServerBusy", "BatchServerDone" ]
     },
     /* ---------------------------------------- quest dialog and HUD recognition (shared) ---------------------------------------- */
     // 小字模板缩放后偏移 1~2 像素，跨设备得分 0.95→0.47（38 帧全漏）；OCR 两台设备均为 1.0。
@@ -4418,7 +4418,7 @@
         }
     },
     /* ---------------------------------------- walk progress (shared) ---------------------------------------- */
-    // 网络慢时寻路途中会久无变化，固定 timeout 会误判卡死；命中这些进度画面即续等，timeout 只计静默时长。
+    // 寻路途中命中进度画面即续等，timeout 只计静默时长。
     "WalkAutoPathing": {
         "recognition": {
             "type": "TemplateMatch",
@@ -4428,8 +4428,9 @@
             }
         }
     },
-    // 等待服务器响应的转圈，背景多变，故用 green_mask 只比对旋涡；宁可漏帧也不误判。
-    "WalkServerBusy": {
+    // 圈圈持续命中即可一直等待。
+    // 背景多变，green_mask 只比对旋涡；保留原 12 帧模板及阈值。
+    "ServerBusy": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
