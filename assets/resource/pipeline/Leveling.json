@@ -256,7 +256,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_新忍者登记", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_新忍者登记", "[JumpBack]WalkAutoPathing" ]
     },
     "SkipDialogue_新忍者登记": {
         "timeout": 5000,
@@ -689,7 +689,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_木叶丸的行踪", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_木叶丸的行踪", "[JumpBack]WalkAutoPathing" ]
     },
     "CompleteMainTask_木叶丸的行踪": {
         "timeout": 5000,
@@ -759,7 +759,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_向伊鲁卡报告", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_向伊鲁卡报告", "[JumpBack]WalkAutoPathing" ]
     },
     "CompleteMainTask_向伊鲁卡报告": {
         "timeout": 5000,
@@ -971,7 +971,7 @@
                 "roi": [ 617, 84, 62, 66 ]
             }
         },
-        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_初遇佐助", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_初遇佐助", "[JumpBack]WalkAutoPathing" ]
     },
     "CompleteMainTask_初遇佐助": {
         "timeout": 5000,
@@ -1262,7 +1262,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_开始修炼", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_开始修炼", "[JumpBack]WalkAutoPathing" ]
     },
     "CompleteMainTask_开始修炼": {
         "timeout": 5000,
@@ -1661,7 +1661,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_击退来袭狼群", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_击退来袭狼群", "[JumpBack]WalkAutoPathing" ]
     },
     "CompleteMainTask_击退来袭狼群": {
         "timeout": 5000,
@@ -1712,7 +1712,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_联系阿斯玛", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "CompleteMainTask_联系阿斯玛", "[JumpBack]WalkAutoPathing" ]
     },
     "CompleteMainTask_联系阿斯玛": {
         "timeout": 5000,
@@ -1963,7 +1963,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "[JumpBack]ServerBusy", "ClickDialogue_前往生存试炼场", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "ClickDialogue_前往生存试炼场", "[JumpBack]WalkAutoPathing" ]
     },
     "ClickDialogue_前往生存试炼场": {
         "timeout": 5000,
@@ -2304,7 +2304,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_护送达兹纳", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_护送达兹纳", "[JumpBack]WalkAutoPathing" ]
     },
     "SkipDialogue_护送达兹纳": {
         "timeout": 5000,
@@ -2897,7 +2897,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_谨慎前行", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_谨慎前行", "[JumpBack]WalkAutoPathing" ]
     },
     "SkipDialogue_谨慎前行": {
         "timeout": 5000,
@@ -3497,7 +3497,7 @@
             }
         },
         "timeout": 30000,
-        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_保护大桥", "[JumpBack]WalkAutoPathing", "[JumpBack]WalkLoading" ]
+        "next": [ "[JumpBack]ServerBusy", "SkipDialogue_保护大桥", "[JumpBack]WalkAutoPathing" ]
     },
     "SkipDialogue_保护大桥": {
         "timeout": 5000,
@@ -4428,9 +4428,46 @@
             }
         }
     },
-    // 圈圈持续命中即可一直等待。
-    // 背景多变，green_mask 只比对旋涡；保留原 12 帧模板及阈值。
+    // 任一加载状态持续命中即续等；消失后回到调用方 next，不重复调用方动作。
     "ServerBusy": {
+        "recognition": {
+            "type": "Or",
+            "param": { "any_of": [ "ServerBlackLoading", "ServerBusySpinner", "ServerLoading" ] }
+        }
+    },
+    // 真实黑屏仍有战斗边框；中央像素至少约 98% 接近黑色，排除正常剧情黑底字幕。
+    "ServerBlackLoading": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 300, 120, 740, 340 ],
+                                "lower": [ 0, 0, 0 ],
+                                "upper": [ 12, 12, 12 ],
+                                "count": 246500
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "leveling/flags/BattleLoadingFrame.png",
+                                "roi": [ 200, 75, 65, 65 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    // 背景多变，green_mask 只比对旋涡；保留原 12 帧模板及阈值。
+    "ServerBusySpinner": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -4446,7 +4483,17 @@
             }
         }
     },
-    // ROI 须避开 QuestDialogComplete 的 OCR ROI，否则不能同列。
+    // MatchWithout 单独执行原 LOADING OCR，避免与同列“开战”等重叠 ROI 参加批量 OCR。
+    "ServerLoading": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": { "match": "WalkLoading", "without": "ServerBlackLoading" }
+            }
+        }
+    },
+    // 保留原 LOADING 参数及节点名，LoginMapVisible 等其他流程仍引用它。
     "WalkLoading": {
         "recognition": {
             "type": "OCR",
