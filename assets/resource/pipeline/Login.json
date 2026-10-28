@@ -319,11 +319,14 @@
     "FindDownArrow": {
         "pre_delay": 0,
         "post_delay": 0,
+        // QQ 大厅高级模式为实心三角，基础模式为 V 形；保留两种渲染的模板。
+        // 基础模板来源：debug/on_error/2026.10.28-08.49.16.926_ScrollToTarget.png，裁剪 [890, 510, 11, 10]。
+        // 实图回放：高级 0.9407、基础 1.0，地图/战斗/奖励等非目标画面最高 0.696，阈值保持 0.8。
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "roi": [ 867, 436, 98, 107 ],
-                "template": "common/login/DownArrow.png",
+                "template": [ "common/login/DownArrow.png", "common/login/DownArrowBasic.png" ],
                 "threshold": 0.8
             }
         }
