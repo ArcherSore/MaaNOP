@@ -2,6 +2,9 @@
     "DailyArena": {
         "pre_delay": 0,
         "post_delay": 0,
+        "focus": {
+            "Node.Action.Succeeded": "开始「竞技场」任务"
+        },
         "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
         "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaMain", "DailyArenaOpen" ]
     },
@@ -507,6 +510,9 @@
     "DailyArenaExited": {
         "pre_delay": 0,
         "post_delay": 0,
+        "focus": {
+            "Node.Action.Succeeded": "「竞技场」任务结束"
+        },
         "recognition": {
             "type": "And",
             "param": { "all_of": [ "LoginScreenClear" ] }
