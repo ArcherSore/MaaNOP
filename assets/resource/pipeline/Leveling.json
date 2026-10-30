@@ -4505,23 +4505,48 @@
             }
         }
     },
-    // MatchWithout 单独执行原 LOADING OCR，避免与同列“开战”等重叠 ROI 参加批量 OCR。
+    // MatchWithout 单独执行 LOADING 识别，避免与同列“开战”等重叠 ROI 参加批量 OCR。
     "ServerLoading": {
         "recognition": {
             "type": "Custom",
             "param": {
                 "custom_recognition": "MatchWithout",
-                "custom_recognition_param": { "match": "WalkLoading", "without": "ServerBlackLoading" }
+                "custom_recognition_param": {
+                    "match": "WalkLoading",
+                    "without": "ServerBlackLoading"
+                }
             }
         }
     },
-    // 保留原 LOADING 参数及节点名，LoginMapVisible 等其他流程仍引用它。
     "WalkLoading": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "SceneLoadingText", "BlackLoadingText" ]
+            }
+        }
+    },
+    // 场景内 LOADING 在 x≈550、y≈390；only_rec 避免背景使检测框漏掉 G。
+    // 来源：2026-10-28 用户诊断包的 21.53.08.360_ColorMatch 图，文字区域未被标注覆盖。
+    "SceneLoadingText": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 430, 370, 300, 38 ],
-                "expected": [ "LOADING" ]
+                "roi": [ 525, 382, 110, 24 ],
+                "expected": [ "LOADING" ],
+                "only_rec": true
+            }
+        }
+    },
+    // 黑底加载的 LOADING 在 x≈475、y≈400，比场景内靠左，使用另一小 ROI。
+    // 来源：debug/leveling-qq/frames/failed-MoveToKakashi.png 等真实加载截图。
+    "BlackLoadingText": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 438, 389, 110, 23 ],
+                "expected": [ "LOADING" ],
+                "only_rec": true
             }
         }
     },

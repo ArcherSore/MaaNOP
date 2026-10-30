@@ -2,6 +2,9 @@
     "DailyArena": {
         "pre_delay": 0,
         "post_delay": 0,
+        "focus": {
+            "Node.Action.Succeeded": "开始「竞技场」任务"
+        },
         "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
         "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaMain", "DailyArenaOpen" ]
     },
@@ -160,15 +163,15 @@
         },
         "max_hit": 12,
         "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
-        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaTopClaimed" ]
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaTopClaimed", "DailyArenaTasksEmpty" ]
     },
-    // 上下领取均须先看到「完成任务」，再等提示消失并重新检查主界面；不按原卡位状态判断成功。
+    // 领奖动画可能漏识别、任务卡可能重排，因此兼容提示漏字，并允许以无遮挡的双卡清空状态确认完成。
     "DailyArenaClaimNotice": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [ 555, 225, 230, 100 ],
-                "expected": "完成任务"
+                "expected": "完(?:成)?任务"
             }
         }
     },
@@ -277,7 +280,7 @@
         },
         "max_hit": 12,
         "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
-        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaBottomClaimed" ]
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaBottomClaimed", "DailyArenaTasksEmpty" ]
     },
     "DailyArenaBottomClaimed": {
         "pre_delay": 0,
@@ -507,6 +510,9 @@
     "DailyArenaExited": {
         "pre_delay": 0,
         "post_delay": 0,
+        "focus": {
+            "Node.Action.Succeeded": "「竞技场」任务结束"
+        },
         "recognition": {
             "type": "And",
             "param": { "all_of": [ "LoginScreenClear" ] }
@@ -523,7 +529,8 @@
                             "type": "OCR",
                             "param": {
                                 "roi": [ 414, 550, 120, 47 ],
-                                "expected": "段.*[战践]斗"
+                                "expected": "段位",
+                                "replace": [ [ "/", "" ] ]
                             }
                         }
                     }

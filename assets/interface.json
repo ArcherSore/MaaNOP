@@ -520,7 +520,7 @@
                                                 "type": "OCR",
                                                 "param": {
                                                     "roi": [ 550, 548, 130, 50 ],
-                                                    "expected": "休闲战斗"
+                                                    "expected": "休闲"
                                                 }
                                             }
                                         }
