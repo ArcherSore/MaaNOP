@@ -1,0 +1,363 @@
+{
+    "MonthlyReward": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 375, 278, 105, 50 ],
+                "expected": [ "^每日福利$" ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "MonthlyTabSelected", "MonthlyClickTab" ]
+    },
+    // 页签 OCR 仅执行一次，再用颜色分流，避免 next 中两个 OCR 的 ROI 重叠。
+    "MonthlyTabSelected": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "MonthlyReward",
+                "roi_offset": [ 5, 2, -10, -4 ],
+                "method": 40,
+                "lower": [ 15, 0, 170 ],
+                "upper": [ 45, 125, 255 ],
+                "count": 500
+            }
+        },
+        "timeout": 15000,
+        "next": [ "MonthlyContentReady" ]
+    },
+    "MonthlyClickTab": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "MonthlyReward",
+                "roi_offset": [ 5, 2, -10, -4 ],
+                "method": 40,
+                "lower": [ 80, 30, 40 ],
+                "upper": [ 120, 220, 220 ],
+                "count": 500
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": "MonthlyReward",
+                "target_offset": [ 6, 4, -12, -8 ]
+            }
+        },
+        "timeout": 15000,
+        "next": [ "MonthlyContentReady" ]
+    },
+    "MonthlyContentReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "sub_name": "tab",
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 375, 278, 105, 50 ],
+                                "expected": [ "^每日福利$" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "tab",
+                                "roi_offset": [ 5, 2, -10, -4 ],
+                                "method": 40,
+                                "lower": [ 15, 0, 170 ],
+                                "upper": [ 45, 125, 255 ],
+                                "count": 500
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 520, 398, 90, 35 ],
+                                "only_rec": true,
+                                "expected": [ "^福利内容$" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 655, 398, 90, 35 ],
+                                "only_rec": true,
+                                "expected": [ "^福利内容$" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 530, 501, 66, 28 ],
+                                "only_rec": true,
+                                "expected": [ "^(购买|领取|已领取)$" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 665, 501, 66, 28 ],
+                                "only_rec": true,
+                                "expected": [ "^(充值|领取|已领取)$" ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "MonthInactive", "MonthActive" ]
+    },
+    // 两列单独核对，不能用另一列的状态证明本列领取成功。
+    // 下一列表中「未激活」OCR 在按钮，「已激活」OCR 在剩余天数，ROI 不重叠。
+    "MonthInactive": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 530, 501, 66, 28 ],
+                                "only_rec": true,
+                                "expected": [ "^购买$" ]
+                            }
+                        }
+                    },
+                    "MonthOrange"
+                ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "BigMonthInactive", "BigMonthActive" ]
+    },
+    // 页签 OCR 仍需定位文字框供点击和底色检测使用，保留文字检测。
+    "MonthActive": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 530, 336, 70, 30 ],
+                "only_rec": true,
+                "expected": [ "^剩余.*天$" ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "MonthOrange", "MonthGray" ]
+    },
+    "MonthOrange": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 537, 507, 50, 15 ],
+                "method": 40,
+                "lower": [ 3, 190, 150 ],
+                "upper": [ 30, 255, 255 ],
+                "count": 200
+            }
+        },
+        "timeout": 4000,
+        "next": [ "MonthClaim" ]
+    },
+    "MonthGray": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 537, 507, 50, 15 ],
+                "method": 40,
+                "lower": [ 0, 0, 40 ],
+                "upper": [ 179, 55, 220 ],
+                "count": 450
+            }
+        },
+        "timeout": 4000,
+        "next": [ "MonthTaken" ]
+    },
+    "MonthClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "MonthActive",
+                    "MonthOrange",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 530, 501, 66, 28 ],
+                                "only_rec": true,
+                                "expected": [ "^领取$" ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 544, 510, 36, 10 ]
+            }
+        },
+        "max_hit": 1,
+        "timeout": 4000,
+        "focus": {
+            "Node.NextList.Succeeded": "领取「小月卡」"
+        },
+        "next": [ "MonthTaken" ]
+    },
+    "MonthTaken": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "MonthActive",
+                    "MonthGray",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 530, 501, 66, 28 ],
+                                "only_rec": true,
+                                "expected": [ "^已领取$" ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "BigMonthInactive", "BigMonthActive" ]
+    },
+    "BigMonthInactive": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 665, 501, 66, 28 ],
+                                "only_rec": true,
+                                "expected": [ "^充值$" ]
+                            }
+                        }
+                    },
+                    "BigMonthOrange"
+                ]
+            }
+        },
+        "next": [ "OnlineClose" ]
+    },
+    "BigMonthActive": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 660, 336, 70, 30 ],
+                "only_rec": true,
+                "expected": [ "^剩余.*天$" ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "BigMonthOrange", "BigMonthGray" ]
+    },
+    "BigMonthOrange": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 672, 507, 50, 15 ],
+                "method": 40,
+                "lower": [ 3, 190, 150 ],
+                "upper": [ 30, 255, 255 ],
+                "count": 200
+            }
+        },
+        "timeout": 4000,
+        "next": [ "BigMonthClaim" ]
+    },
+    "BigMonthGray": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 672, 507, 50, 15 ],
+                "method": 40,
+                "lower": [ 0, 0, 40 ],
+                "upper": [ 179, 55, 220 ],
+                "count": 450
+            }
+        },
+        "timeout": 4000,
+        "next": [ "BigMonthTaken" ]
+    },
+    "BigMonthClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BigMonthActive",
+                    "BigMonthOrange",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 665, 501, 66, 28 ],
+                                "only_rec": true,
+                                "expected": [ "^领取$" ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 679, 510, 36, 10 ]
+            }
+        },
+        "max_hit": 1,
+        "timeout": 4000,
+        "focus": {
+            "Node.NextList.Succeeded": "领取「大月卡」"
+        },
+        "next": [ "BigMonthTaken" ]
+    },
+    // 大月卡已领沿用月卡的「灰色+已领取」正向条件；尚无其独立领取后截图。
+    "BigMonthTaken": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BigMonthActive",
+                    "BigMonthGray",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 665, 501, 66, 28 ],
+                                "only_rec": true,
+                                "expected": [ "^已领取$" ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "next": [ "OnlineClose" ]
+    }
+}
