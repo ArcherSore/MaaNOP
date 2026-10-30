@@ -46,7 +46,7 @@
             "timeout": 5000
         },
         "timeout": 8000,
-        "next": [ "FindWeekendTab", "ScrollHotspotTabs", "WeekendTabsBottom" ]
+        "next": [ "FindWeekendTab", "ScrollHotspotTabs", "WeekendTabsBottom", "WeekendTabsSinglePage" ]
     },
     "FindWeekendTab": {
         "recognition": {
@@ -77,9 +77,9 @@
             "timeout": 5000
         },
         "timeout": 5000,
-        "next": [ "FindWeekendTab", "ScrollHotspotTabs", "WeekendTabsBottom" ]
+        "next": [ "FindWeekendTab", "ScrollHotspotTabs", "WeekendTabsBottom", "WeekendTabsSinglePage" ]
     },
-    // 2026-10-26 debug 12:59:21.665：灰箭头模板取自 [421,533,22,19]；灰态最低 0.846、可点击态最高 0.695，阈值 0.8。
+    // 灰箭头模板取自 [421,533,22,19]；灰态最低 0.846、可点击态最高 0.695，阈值 0.8。
     "WeekendTabsBottom": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -89,6 +89,20 @@
                 "template": "weekend/ScrollDownDisabled.png",
                 "roi": [ 415, 528, 40, 32 ],
                 "threshold": 0.8
+            }
+        },
+        "next": [ "WeekendTabMissing" ]
+    },
+    // 活动不足一页时不显示翻页箭头，需识别单页底边确认列表已完整显示。
+    "WeekendTabsSinglePage": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "weekend/TabsSinglePageFooter.png",
+                "roi": [ 337, 504, 138, 36 ],
+                "threshold": 0.85
             }
         },
         "next": [ "WeekendTabMissing" ]
@@ -143,7 +157,7 @@
         },
         "next": [ "[Anchor]WeekendNext" ]
     },
-    // 标签未命中且灰箭头确认到底后才允许跳过。
+    // 确认列表已遍历后，才允许跳过缺席活动。
     "WeekendTabMissing": {
         "pre_delay": 0,
         "post_delay": 0,
