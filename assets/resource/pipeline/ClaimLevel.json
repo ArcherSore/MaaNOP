@@ -126,21 +126,24 @@
     },
     "ExitClaimLevel": {
         "action": {
-            "type": "ClickKey",
+            "type": "Custom",
             "param": {
-                "key": 27
+                "custom_action": "CloseAllPopupsWithEsc",
+                "custom_action_param": {
+                    "check_node": "AtClaimLevel"
+                }
             }
         },
+        "timeout": 5000,
         "next": "ClaimLevelClosed"
     },
     "ClaimLevelClosed": {
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "AtClaimLevel" ]
+                "all_of": [ "LoginScreenClear" ]
             }
         },
-        "inverse": true,
         "next": [ "BatchServerDone" ]
     }
 }

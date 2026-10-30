@@ -55,29 +55,42 @@ ESC_KEY = 27
 FOCUS_BOX = (680, 400, 1, 1)
 
 
-def _focus_and_escape(context: Context) -> None:
-    click_center(context, FOCUS_BOX)
-    time.sleep(0.2)
-    context.run_action_direct(JActionType.ClickKey, JClickKey(key=[ESC_KEY]))
-
-
 @AgentServer.custom_action("CloseAllPopupsWithEsc")
 class CloseAllPopupsWithEsc(CustomAction):
-    """Press ESC repeatedly to close every stacked popup, then clear a return-gift popup left behind."""
+    """按 5 次 ESC；只对 check_node 指定的残留窗口补焦点和 ESC。"""
 
     def run(
         self,
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
+        check_node = json.loads(argv.custom_action_param)["check_node"]
         for _ in range(5):
-            context.run_action_direct(JActionType.ClickKey, JClickKey(key=[ESC_KEY]))
+            if context.tasker.stopping:
+                return False
+            escaped = context.run_action_direct(JActionType.ClickKey, JClickKey(key=[ESC_KEY]))
+            if context.tasker.stopping or not escaped or not escaped.success:
+                return False
             time.sleep(0.2)
+            if context.tasker.stopping:
+                return False
 
         image = context.tasker.controller.post_screencap().wait().get()
-        remain_popup = context.run_recognition("CheckRemainPopup", image)
-        if remain_popup and remain_popup.hit:
-            _focus_and_escape(context)
+        if context.tasker.stopping or image is None:
+            return False
+        remain_popup = context.run_recognition(check_node, image)
+        if context.tasker.stopping or not remain_popup:
+            return False
+        if remain_popup.hit:
+            focused = click_center(context, FOCUS_BOX)
+            if context.tasker.stopping or not focused:
+                return False
+            time.sleep(0.2)
+            if context.tasker.stopping:
+                return False
+            escaped = context.run_action_direct(JActionType.ClickKey, JClickKey(key=[ESC_KEY]))
+            if context.tasker.stopping or not escaped or not escaped.success:
+                return False
 
         return True
 

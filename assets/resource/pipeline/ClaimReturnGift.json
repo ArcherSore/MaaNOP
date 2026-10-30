@@ -122,7 +122,10 @@
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "CloseAllPopupsWithEsc"
+                "custom_action": "CloseAllPopupsWithEsc",
+                "custom_action_param": {
+                    "check_node": "CheckRemainPopup"
+                }
             }
         },
         "timeout": 5000,
@@ -155,7 +158,10 @@
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "CloseAllPopupsWithEsc"
+                "custom_action": "CloseAllPopupsWithEsc",
+                "custom_action_param": {
+                    "check_node": "CheckRemainPopup"
+                }
             }
         },
         "timeout": 5000,
