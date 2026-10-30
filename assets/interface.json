@@ -198,10 +198,10 @@
         },
         {
             "name": "OnlineReward",
-            "label": "在线领奖",
+            "label": "福利大厅",
             "group": [ "Routine" ],
             "entry": "OnlineReward",
-            "description": "领取**福利大厅**中当前可领的在线礼包，不等待倒计时。\n\n要领完当天全部礼包，请在达到相应在线时长后再次运行。"
+            "description": "领取当前可领的**在线礼包**，以及已激活的**大小月卡**。"
         },
         {
             "name": "NinjutsuTraining",

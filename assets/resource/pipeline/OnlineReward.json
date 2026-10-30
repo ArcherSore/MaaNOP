@@ -1,8 +1,8 @@
-// 仅领取当前可领礼包，不等待倒计时。
+// 福利大厅：先领取当前可领的在线礼包（不等待倒计时），再处理每日福利中的月卡。
 {
     "OnlineReward": {
         "focus": {
-            "Node.PipelineNode.Failed": "在线领奖失败：主界面找不到「福利大厅」"
+            "Node.PipelineNode.Failed": "主界面找不到「福利大厅」"
         },
         "timeout": 5000,
         "next": [ "OnlineHallOpened", "OnlineOpenHall" ]
@@ -19,9 +19,6 @@
         },
         "action": {
             "type": "Click"
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "在线领奖失败：「福利大厅」没有打开"
         },
         "timeout": 10000,
         "next": [ "OnlineHallOpened" ]
@@ -58,9 +55,6 @@
         "action": {
             "type": "Click"
         },
-        "focus": {
-            "Node.PipelineNode.Failed": "在线领奖失败：切换不到在线礼包页签"
-        },
         "timeout": 5000,
         "next": [ "OnlineTabSelected" ]
     },
@@ -72,9 +66,6 @@
                 "roi": [ 375, 252, 100, 35 ],
                 "threshold": 0.9
             }
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "在线领奖失败：在线礼包界面状态异常"
         },
         "timeout": 15000,
         "next": [ "OnlineGiftReady" ]
@@ -125,8 +116,7 @@
             "type": "Click"
         },
         "focus": {
-            "Node.Action.Succeeded": "领取在线礼包",
-            "Node.PipelineNode.Failed": "在线领奖失败：点了领取但按钮没有变成已领取"
+            "Node.Action.Succeeded": "领取在线礼包"
         },
         "max_hit": 6, // 共 3 个礼包，max_hit 为安全上限。
         "timeout": 4000,
@@ -146,9 +136,6 @@
             }
         },
         "inverse": true,
-        "focus": {
-            "Node.PipelineNode.Failed": "在线领奖失败：在线礼包界面状态异常"
-        },
         "next": [ "OnlineClaim", "OnlineNoClaim" ]
     },
     // 页面空白过渡期也没有橙色按钮，需先确认礼包页已绘制。
@@ -161,9 +148,6 @@
                 "threshold": 0.9
             }
         },
-        "focus": {
-            "Node.PipelineNode.Failed": "在线领奖失败：在线礼包界面状态异常"
-        },
         "next": [ "OnlineClaim", "OnlineNoClaim" ]
     },
     "OnlineNoClaim": {
@@ -175,9 +159,6 @@
         },
         "inverse": true,
         "post_delay": 1000,
-        "focus": {
-            "Node.PipelineNode.Failed": "在线领奖失败：在线礼包界面状态异常"
-        },
         "next": [ "OnlineClaim", "OnlineNoClaimConfirmed" ]
     },
     "OnlineNoClaimConfirmed": {
@@ -188,10 +169,7 @@
             }
         },
         "inverse": true,
-        "focus": {
-            "Node.Recognition.Succeeded": "没有更多可领取的在线礼包"
-        },
-        "next": [ "OnlineClose" ]
+        "next": [ "MonthlyReward" ]
     },
     "OnlineClose": {
         "action": {
@@ -199,9 +177,6 @@
             "param": {
                 "key": 27
             }
-        },
-        "focus": {
-            "Node.PipelineNode.Failed": "在线领奖失败：福利大厅关不上"
         },
         "timeout": 5000,
         "next": [ "OnlineHallClosed" ]
@@ -213,9 +188,6 @@
                 "all_of": [ "OnlineHallTitle" ]
             }
         },
-        "inverse": true,
-        "focus": {
-            "Node.Recognition.Succeeded": "在线领奖结束"
-        }
+        "inverse": true
     }
 }
