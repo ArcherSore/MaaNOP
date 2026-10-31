@@ -301,8 +301,8 @@ def run_smoke_test(install: Path) -> None:
 import sys
 from pathlib import Path
 
-# Add agent directory to sys.path
-agent_dir = (Path(__file__).resolve().parent / "agent").resolve()
+# The smoke script lives in a temporary directory; cwd is the packaged install.
+agent_dir = (Path.cwd() / "agent").resolve()
 if str(agent_dir) not in sys.path:
     sys.path.insert(0, str(agent_dir))
 
@@ -315,16 +315,10 @@ from maa.agent.agent_server import AgentServer
 print(f"[SmokeTest] AgentServer imported successfully: {AgentServer}")
 
 # 3. Import all MaaNOP Agent modules
-import action_common
-import action_login
-import action_shopping
-import action_training
-import common
-import constants
-import reco_login
-import reco_shopping
-import reco_training
 import main
+from common import utils
+from login import constants, server_session
+from alt_accounts.shopping_festival import constants as shopping_constants
 print("[SmokeTest] All MaaNOP Agent modules imported successfully.")
 
 # 4. Test Tasker.set_log_dir

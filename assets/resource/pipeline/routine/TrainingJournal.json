@@ -1,0 +1,185 @@
+// 仅领取「任务」页签的奖励。
+{
+    "TrainingJournal": {
+        "focus": {
+            "Node.PipelineNode.Failed": "修行录领取失败：主界面右侧找不到忍者修行录"
+        },
+        "timeout": 5000,
+        "next": [ "JournalOpened", "JournalOpenPanel" ]
+    },
+    "JournalOpenPanel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/training_journal/PanelTitle.png",
+                "roi": [ 1195, 233, 140, 35 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "修行录领取失败：修行录界面没有打开"
+        },
+        "timeout": 10000,
+        "next": [ "JournalOpened" ]
+    },
+    // 「本周经验上限」是修行录窗口的独有标识。
+    "JournalOpened": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/training_journal/WindowLabel.png",
+                "roi": [ 340, 194, 90, 32 ],
+                "threshold": 0.85
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "修行录领取失败：修行录界面状态异常"
+        },
+        "timeout": 8000,
+        "next": [ "JournalTaskTabSelected", "JournalClickTaskTab" ]
+    },
+    "JournalClickTaskTab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/training_journal/TaskTabUnselected.png",
+                "roi": [ 845, 162, 60, 35 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "修行录领取失败：修行录界面状态异常"
+        },
+        "timeout": 5000,
+        "next": [ "JournalTaskTabSelected" ]
+    },
+    "JournalTaskTabSelected": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/training_journal/TaskTabSelected.png",
+                "roi": [ 840, 157, 70, 38 ],
+                "threshold": 0.9
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "修行录领取失败：修行录界面状态异常"
+        },
+        "timeout": 15000,
+        "next": [ "JournalClaim", "JournalNoClaim" ]
+    },
+    // 领取后下一条会移到鼠标下，需兼容悬停外观。
+    // 橙色像素实测：可领取约 280，灰色按钮 0，底色最多 27。
+    "JournalClaimButton": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "sub_name": "button",
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": [ "routine/training_journal/ClaimButton.png", "routine/training_journal/ClaimButtonHover.png" ],
+                                "roi": [ 825, 229, 95, 240 ],
+                                "threshold": 0.7
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "button",
+                                "roi_offset": [ 4, 3, -8, -6 ],
+                                "method": 40,
+                                "lower": [ 3, 190, 150 ],
+                                "upper": [ 30, 255, 255 ],
+                                "count": 150
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    // 可领取任务始终排在最前；领取后原位可能立即出现下一档，不能以按钮变灰判断成功。
+    "JournalClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "JournalTaskTabSelected", "JournalClaimButton" ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "领取修行录任务奖励",
+            "Node.PipelineNode.Failed": "修行录领取失败：修行录界面状态异常"
+        },
+        // 安全上限依据：每周经验上限 6500，每条 150~200。
+        "max_hit": 80,
+        "post_delay": 1500, // 领取动画和飘字约 1.5 秒，期间画面不静止。
+        "next": [ "JournalClaim", "JournalNoClaim" ]
+    },
+    "JournalNoClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "JournalClaimButton" ]
+            }
+        },
+        "inverse": true,
+        "post_delay": 1000,
+        "focus": {
+            "Node.PipelineNode.Failed": "修行录领取失败：修行录界面状态异常"
+        },
+        "next": [ "JournalClaim", "JournalNoClaimConfirmed" ]
+    },
+    "JournalNoClaimConfirmed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "JournalClaimButton" ]
+            }
+        },
+        "inverse": true,
+        "focus": {
+            "Node.Recognition.Succeeded": "没有更多可领取的修行录任务奖励"
+        },
+        "next": [ "JournalClose" ]
+    },
+    "JournalClose": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "focus": {
+            "Node.PipelineNode.Failed": "修行录领取失败：修行录界面关不上"
+        },
+        "timeout": 5000,
+        "next": [ "JournalClosed" ]
+    },
+    "JournalClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "JournalOpened" ]
+            }
+        },
+        "inverse": true,
+        "focus": {
+            "Node.Recognition.Succeeded": "修行录领取结束"
+        }
+    }
+}

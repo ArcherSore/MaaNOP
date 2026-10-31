@@ -1,0 +1,269 @@
+// 沿用游戏记住的上次难度，不自动选择难度。
+{
+    "PowerfulBoss": {
+        "next": [ "BossSetTeam" ]
+    },
+    "BossSetTeam": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SelectTeam",
+                "custom_action_param": 1
+            }
+        },
+        "next": [ "BossGotoWindow" ]
+    },
+    "BossGotoWindow": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": "routine/powerful_boss/BossEntry.png"
+                }
+            }
+        },
+        "action": "Click",
+        "timeout": 10000,
+        "next": [ "BossAttemptsNone", "BossEnterBattle" ]
+    },
+    // 「本周可用普通奖励次数」是强者降临窗口独有标识。
+    "BossWindowFooter": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/powerful_boss/WindowFooter.png",
+                "roi": [ 500, 557, 150, 40 ],
+                "threshold": 0.9
+            }
+        }
+    },
+    "BossAttemptsLeft": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 632, 567, 28, 22 ],
+                "expected": [ "[1-9]" ]
+            }
+        }
+    },
+    "BossAttemptsNone": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BossWindowFooter",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 632, 567, 28, 22 ],
+                                "expected": [ "0" ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 942, 228, 18, 18 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "BossWindowClosed" ]
+    },
+    "BossEnterBattle": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BossAttemptsLeft",
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "routine/powerful_boss/EnterBattle.png",
+                                "roi": [ 490, 434, 150, 55 ],
+                                "threshold": 0.9
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "focus": {
+            "Node.Recognition.Succeeded": "开始一次「强者降临」"
+        },
+        "next": [ "BossBattleStart" ]
+    },
+    "BossBattleStart": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "CommonBattleStartButton" ]
+            }
+        },
+        "anchor": {
+            "CommonBattleStartTarget": "BossBattleStart",
+            "CommonBattleOutcome": "BossBattleOutcome",
+            "CommonBattleContinue": "BossBattleWait"
+        },
+        "next": [ "CommonBattleClickStart" ]
+    },
+    "BossWindowClosed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossWindowFooter" ]
+            }
+        },
+        "inverse": true,
+        "focus": {
+            "Node.Recognition.Succeeded": "「强者降临」本周普通奖励次数已用完"
+        }
+    },
+
+    "BossBattleWait": {
+        "timeout": 600000,
+        "next": [ "BossBattleWon" ]
+    },
+    // 设置托管 / 加速时若已结束，先确认结果，再交回上面的等待节点处理。
+    "BossBattleOutcome": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossBattleWon" ]
+            }
+        },
+        "next": [ "BossBattleWait" ]
+    },
+    "BossBattleWonFlag": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/powerful_boss/BattleWon.png",
+                "roi": [ 540, 239, 260, 230 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "BossResultButton": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [ "^确认$" ],
+                "roi": [ 625, 438, 90, 28 ],
+                "threshold": 0.6
+            }
+        }
+    },
+    "BossBattleWon": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BossBattleWonFlag", "BossResultButton" ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "timeout": 15000,
+        "next": [ "BossRewardConfirm" ]
+    },
+    // 最高难度领奖后还有评分弹窗，须确认后才能重新打开入口。
+    "BossScoreTitle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/powerful_boss/ScoreTitle.png",
+                "roi": [ 540, 169, 260, 100 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "BossScoreConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BossScoreTitle",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "expected": [ "^确定$" ],
+                                "roi": [ 615, 465, 95, 30 ],
+                                "threshold": 0.6
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 640, 475, 50, 10 ]
+            }
+        },
+        "next": [ "BossMapReady" ]
+    },
+    "BossRewardTitle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/powerful_boss/RewardTitle.png",
+                "roi": [ 540, 249, 250, 90 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    // 普通领奖为「确定」，评分领奖为「查看分数」；后者只匹配较稳定的「分数」，并用奖励标题限定界面。
+    "BossRewardConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BossRewardTitle",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "expected": [ "^确定$", "分数$" ],
+                                "roi": [ 600, 434, 125, 45 ],
+                                "threshold": 0.6
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 640, 450, 50, 12 ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "BossScoreConfirm", "BossMapReady" ]
+    },
+
+    // 顶部入口在遮罩下仍可识别；用未压暗的体力标识确认弹窗已关闭。
+    "BossMapReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyMapClear" ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "BossGotoWindow" ]
+    }
+}

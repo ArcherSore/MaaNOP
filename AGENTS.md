@@ -5,6 +5,9 @@
 ## 修改范围与证据
 
 - 默认使用 `assets/resource/pipeline/` 中的 Pipeline JSON，模板位于 `assets/resource/image/`，GUI 任务和选项位于 `assets/interface.json`。只有流水线无法表达的跨节点状态、动态计算和历史结果分支才在 `agent/` 中添加 Python。
+- Pipeline、图片和 Agent 按业务归入 `common/`、`login/`、`alt_accounts/`、`routine/`、`arena/`、`events/`，目录名统一小写 snake_case。同一功能的动作、识别和参数放在一起；只在实际需要时建立目录。
+- 批量小号的练级、领取和购物节归 `alt_accounts/`；福利大厅与月卡归 `routine/welfare/`；周末活动与拼图归 `events/weekend/`。跨任务复用的导航、弹窗、战斗和阵容组件归 `common/`，共享模板只保留一份。
+- 保留 `agent/main.py` 和 `agent/pretask_launch.py` 启动路径；新增注册模块须在 `main.py` 中显式导入。图片路径相对 `assets/resource/image/`；移动资源时同步检查 Pipeline、自定义参数、Python 和 `interface.json` 的引用。
 - 节点、任务入口和自定义注册名称是接口。重命名前搜索 `agent/`、流水线和 `interface.json` 中的引用，包括任务模式映射和 `pipeline_override`。
 - 修改保持局部化，尤其是经过运行调优的 `Leveling.json`；新增节点或 Python 实现前，先检查现有流水线和公共组件能否复用。
 - 新增或修改协议字段时，按 `agent/requirements.txt` 锁定的 maafw 版本核对名称、类型和语义；不要直接套用最新版文档或其他项目的协议。
@@ -17,8 +20,8 @@
 - 小字和带文字的按钮优先考虑 OCR，或 OCR 识别标识后点击固定位置；此类小模板跨设备渲染差异较大，容易低于阈值。图标等稳定图像可使用模板，最终以截图验证结果选择。
 - 用标识识别配合固定位置点击时，验证标识与点击目标的出现时序：只有标识能证明目标已出现且可点击时才能直接点击；目标晚于标识出现时，须继续等待目标就绪，不能仅凭先出现的标题等标识点击。
 - 不要将 ROI 重叠的 OCR 节点放在同一个 `next` 列表中，会导致结果损坏。
-- `And.all_of` 引用节点名只借用识别参数，忽略其 `inverse`；在 `And` 之外不能用 `"recognition": "OtherNode"`。表达“A 且非 B”可串联识别并对 B 设置 `inverse`；必须同帧判断时使用 `agent/reco_common.py` 中的 `MatchWithout`。
-- Click 在目标框内随机落点，点击框须严格位于可点击区域内部；以模板匹配框作为目标时也要满足此条件。精确中心点击使用 `PreciseClick` 或 Python 的 `click_center`。
+- `And.all_of` 引用节点名只借用识别参数，忽略其 `inverse`；在 `And` 之外不能用 `"recognition": "OtherNode"`。表达“A 且非 B”可串联识别并对 B 设置 `inverse`；必须同帧判断时使用 `agent/common/reco_common.py` 中的 `MatchWithout`。
+- Click 在目标框内随机落点，点击框须严格位于可点击区域内部；以模板匹配框作为目标时也要满足此条件。精确中心点击使用 `PreciseClick` 或 `agent/common/utils.py` 的 `click_center`。
 
 ## 流程与失败语义
 
@@ -28,7 +31,7 @@
 - `next` 覆盖预期画面，包括中途恢复、对话框、加载和正常完成。无 `recognition` 的节点总会命中，应放在需要优先判断的状态之后。等待的 `timeout` 写在持有该 `next` 的节点上。
 - **框架语义：** A 的 `next` 识别超时进入 A 的 `on_error`；命中 B 但 B 动作失败，进入 B 的 `on_error`。错误分支成功执行后会继续正常流程；若最终正常结束，任务报告 Succeeded，先前错误不会自动使最终结果失败。参见 [Pipeline 协议](https://maafw.com/docs/3.1-PipelineProtocol.html)；最终结果逻辑已对照 v5.12.3 的 `PipelineTask::run`。
 - **项目约束：** 正常完成和“无事可做”通过 `next` 识别；`on_error` 仅用于恢复、清理或明确需要的持续等待。禁止把“未识别到预期画面”当作“无事可做”，直接转入成功终止节点或下一任务；重试前仍须识别当前状态。若清理后目标仍未达成，应以失败结束。
-- 没有 `on_error` 时，超时或动作失败会自然结束为 Failed，无需另加报告节点。已识别到无法达成目标的状态时，使用 `agent/action_common.py` 的 `FalseAction` 主动失败；不要用永不匹配的节点强制超时。
+- 没有 `on_error` 时，超时或动作失败会自然结束为 Failed，无需另加报告节点。已识别到无法达成目标的状态时，使用 `agent/common/action_common.py` 的 `FalseAction` 主动失败；不要用永不匹配的节点强制超时。
 - 有消耗或不可逆操作须以前一步已验证的状态为前提，并设置 `max_hit` 安全上限；不能依靠上限结束正常循环。
 
 ## 用户消息

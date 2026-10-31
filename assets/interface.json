@@ -575,7 +575,7 @@
                         "SurvivalTabSelected": {
                             "recognition": {
                                 "param": {
-                                    "template": "survival/TabNormalSelected.png"
+                                    "template": "routine/survival_drill/TabNormalSelected.png"
                                 }
                             }
                         },
@@ -599,7 +599,7 @@
                         "SurvivalTabSelected": {
                             "recognition": {
                                 "param": {
-                                    "template": "survival/TabExtremeSelected.png"
+                                    "template": "routine/survival_drill/TabExtremeSelected.png"
                                 }
                             }
                         },
@@ -769,7 +769,7 @@
                         "TeamDungeonCard": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/dungeon/BridgeBattle.png"
+                                    "template": "routine/team_dungeon/dungeon/BridgeBattle.png"
                                 }
                             }
                         }
@@ -782,7 +782,7 @@
                         "TeamDungeonCard": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/dungeon/ChaseGaara.png"
+                                    "template": "routine/team_dungeon/dungeon/ChaseGaara.png"
                                 }
                             }
                         }
@@ -795,7 +795,7 @@
                         "TeamDungeonCard": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/dungeon/SoundFive.png"
+                                    "template": "routine/team_dungeon/dungeon/SoundFive.png"
                                 }
                             }
                         }
@@ -808,7 +808,7 @@
                         "TeamDungeonCard": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/dungeon/JoninTrial.png"
+                                    "template": "routine/team_dungeon/dungeon/JoninTrial.png"
                                 }
                             }
                         }
@@ -821,7 +821,7 @@
                         "TeamDungeonCard": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/dungeon/AkatsukiDescent.png"
+                                    "template": "routine/team_dungeon/dungeon/AkatsukiDescent.png"
                                 }
                             }
                         }
@@ -834,7 +834,7 @@
                         "TeamDungeonCard": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/dungeon/SnakeBirth.png"
+                                    "template": "routine/team_dungeon/dungeon/SnakeBirth.png"
                                 }
                             }
                         }
@@ -847,7 +847,7 @@
                         "TeamDungeonCard": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/dungeon/PainRebirth.png"
+                                    "template": "routine/team_dungeon/dungeon/PainRebirth.png"
                                 }
                             }
                         },
@@ -863,7 +863,7 @@
                         "TeamDungeonCard": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/dungeon/BrothersFarewell.png"
+                                    "template": "routine/team_dungeon/dungeon/BrothersFarewell.png"
                                 }
                             }
                         },
@@ -879,7 +879,7 @@
                         "TeamDungeonCard": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/dungeon/FiveKageSummit.png"
+                                    "template": "routine/team_dungeon/dungeon/FiveKageSummit.png"
                                 }
                             }
                         },
@@ -902,7 +902,7 @@
                         "TeamDungeonDiffTarget": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/difficulty/Easy.png"
+                                    "template": "routine/team_dungeon/difficulty/Easy.png"
                                 }
                             }
                         }
@@ -915,7 +915,7 @@
                         "TeamDungeonDiffTarget": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/difficulty/Normal.png"
+                                    "template": "routine/team_dungeon/difficulty/Normal.png"
                                 }
                             }
                         }
@@ -928,7 +928,7 @@
                         "TeamDungeonDiffTarget": {
                             "recognition": {
                                 "param": {
-                                    "template": "teamDungeon/difficulty/Hard.png"
+                                    "template": "routine/team_dungeon/difficulty/Hard.png"
                                 }
                             }
                         }

@@ -1,0 +1,38 @@
+{
+    "CloseBottomRightPopups": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 1290, 480, 50, 65 ],
+                                "method": 40,
+                                "lower": [ 0, 0, 120 ],
+                                "upper": [ 179, 255, 255 ],
+                                "count": 40,
+                                "connected": false
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": [ "alt_accounts/leveling/buttons/Close.png", "alt_accounts/leveling/buttons/CloseHover.png" ],
+                                "roi": [ 1290, 480, 50, 65 ],
+                                "order_by": "Score"
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
+    }
+}

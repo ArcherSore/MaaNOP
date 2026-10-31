@@ -1,0 +1,278 @@
+{
+    "ClaimInfiniteIllusionEntry": {
+        "timeout": 5000,
+        "next": [ "ClickOnInfiniteIllusion" ],
+        "on_error": [ "SkipInfiniteIllusion" ]
+    },
+    "SkipInfiniteIllusion": {
+        "focus": {
+            "Node.Recognition.Succeeded": "无限幻象未解锁（52级解锁）"
+        },
+        "next": [ "ClaimMailEntry", "ClaimLevelEntry", "BatchServerDone" ]
+    },
+    "ClickOnInfiniteIllusion": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": "alt_accounts/infinite_illusion/InfiniteIllusion.png"
+                }
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "开始领取无限幻象"
+        },
+        "next": [ "InfiniteIllusionSweep1" ],
+        "on_error": [ "ClickOnInfiniteIllusion" ]
+    },
+    "InfiniteIllusionSweep1": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/Flag.png",
+                "roi": [ 441, 66, 62, 64 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 969, 607, 51, 19 ]
+            }
+        },
+        "next": [ "InfiniteIllusionConfirm1", "[JumpBack]HandleConfirmPopup" ],
+        "on_error": [ "InfiniteIllusionSweep1" ]
+    },
+    "InfiniteIllusionConfirm1": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/CloseButton.png",
+                "roi": [ 833, 250, 68, 67 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "成功扫荡力之试炼"
+        },
+        "next": [ "InfiniteIllusionSwitchTo2" ],
+        "on_error": [ "InfiniteIllusionConfirm1" ]
+    },
+    "InfiniteIllusionSwitchTo2": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/Tab2.png",
+                "roi": [ 440, 73, 135, 118 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "InfiniteIllusionSweep2" ],
+        "on_error": [ "InfiniteIllusionSwitchTo2" ]
+    },
+    "InfiniteIllusionSweep2": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/Flag.png",
+                "roi": [ 502, 67, 64, 63 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 969, 607, 51, 19 ]
+            }
+        },
+        "next": [ "InfiniteIllusionConfirm2" ],
+        "on_error": [ "InfiniteIllusionSweep2" ]
+    },
+    "InfiniteIllusionConfirm2": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/CloseButton.png",
+                "roi": [ 833, 250, 68, 67 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "成功扫荡心之试炼"
+        },
+        "next": [ "InfiniteIllusionSwitchTo3" ],
+        "on_error": [ "InfiniteIllusionConfirm2" ]
+    },
+    "InfiniteIllusionSwitchTo3": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/Tab3.png",
+                "roi": [ 504, 72, 133, 136 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "InfiniteIllusionSweep3" ],
+        "on_error": [ "InfiniteIllusionSwitchTo3" ]
+    },
+    "InfiniteIllusionSweep3": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/Flag.png",
+                "roi": [ 566, 65, 63, 63 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 969, 607, 51, 19 ]
+            }
+        },
+        "next": [ "InfiniteIllusionConfirm3" ],
+        "on_error": [ "InfiniteIllusionSweep3" ]
+    },
+    "InfiniteIllusionConfirm3": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/CloseButton.png",
+                "roi": [ 833, 250, 68, 67 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "成功扫荡意之试炼"
+        },
+        "next": [ "ExitInfiniteIllusion" ],
+        "on_error": [ "InfiniteIllusionConfirm3" ]
+    },
+    "ExitInfiniteIllusion": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/CloseButton.png",
+                "roi": [ 1107, 56, 69, 67 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [ "ClaimMailEntry", "ClaimLevelEntry", "BatchServerDone" ]
+    },
+    "HandleConfirmPopup": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "IllusionLowRewardWarning", "IllusionWarningConfirmText" ]
+            }
+        },
+        // 已勾选时直接确认，不再次点击小框将其取消。
+        "next": [ "IllusionWarningChecked", "IllusionWarningUnchecked" ]
+    },
+    "IllusionWarningChecked": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                // 未勾选绿色0，已勾选42；加载空壳为0。
+                "roi": [ 570, 426, 15, 15 ],
+                "method": 40,
+                "lower": [ 35, 120, 100 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 20
+            }
+        },
+        "next": "CloseConfirmPopup"
+    },
+    "IllusionWarningUnchecked": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                // 未选框内部暗色55，已选9。这里只分流，点击前仍重验正文。
+                "roi": [ 572, 430, 7, 8 ],
+                "method": 4,
+                "lower": [ 10, 10, 10 ],
+                "upper": [ 60, 60, 60 ],
+                "count": 40
+            }
+        },
+        "next": "CheckIllusionWarning"
+    },
+    "CheckIllusionWarning": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "IllusionLowRewardWarning", "IllusionWarningConfirmText", "IllusionWarningUnchecked" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 574, 431, 5, 5 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "CloseConfirmPopup" ]
+    },
+    "CloseConfirmPopup": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "IllusionLowRewardWarning",
+                    "IllusionWarningConfirmText",
+                    "IllusionWarningChecked"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
+    },
+    "IllusionLowRewardWarning": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "您的战力已有大幅度提升",
+                "roi": [ 557, 352, 225, 37 ]
+            }
+        }
+    },
+    "IllusionWarningConfirmText": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "^确定$",
+                "roi": [ 574, 393, 74, 23 ]
+            }
+        }
+    }
+}

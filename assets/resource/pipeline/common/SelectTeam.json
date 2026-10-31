@@ -1,0 +1,94 @@
+// 通过 SelectTeam 动作调用，传入阵容编号（1～8）；选中后关闭忍者界面。
+{
+    "SelectTeam": {
+        "timeout": 10000,
+        "next": [ "SelectTeamWindow", "SelectTeamOpen" ]
+    },
+    "SelectTeamOpen": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindBottomEntry",
+                "custom_recognition_param": {
+                    "template": "common/entry/NinjaEntry.png"
+                }
+            }
+        },
+        "action": "Click",
+        "timeout": 10000,
+        "next": [ "SelectTeamWindow" ]
+    },
+    "SelectTeamWindow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/team/TeamTitle.png",
+                "roi": [ 236, 201, 100, 34 ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "SelectTeamClose", "SelectTeamClick" ]
+    },
+    // 蓝色为可选；标签变金有延迟，连点会进入改名。
+    // 等待 3 秒未变金时，回到界面判断：先检查是否已选中，再对仍蓝的目标补点一次。
+    "SelectTeamClick": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 358, 214, 34, 12 ],
+                "method": 40,
+                "lower": [ 90, 100, 60 ],
+                "upper": [ 110, 255, 255 ],
+                "count": 120
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 360, 215, 30, 11 ]
+            }
+        },
+        "max_hit": 2,
+        "timeout": 3000,
+        "next": [ "SelectTeamClose" ],
+        "on_error": [ "SelectTeamWindow" ]
+    },
+    "SelectTeamClose": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 358, 214, 34, 12 ],
+                "method": 40,
+                "lower": [ 8, 100, 60 ],
+                "upper": [ 25, 255, 255 ],
+                "count": 120
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1114, 87, 14, 14 ]
+            }
+        },
+        "max_hit": 5,
+        "timeout": 1000,
+        "next": [ "SelectTeamDone" ],
+        "on_error": [ "SelectTeamCloseRecovery" ]
+    },
+    "SelectTeamCloseRecovery": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "SelectTeamDone", "SelectTeamClose" ]
+    },
+    "SelectTeamDone": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/map/StaminaLabel.png",
+                "roi": [ 32, 42, 66, 61 ],
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    }
+}

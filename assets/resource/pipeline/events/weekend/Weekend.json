@@ -1,0 +1,197 @@
+// 周末活动：从限时热点逐项进入，确认回到主界面后结束当前步骤。
+{
+    "WeekendActivities": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "WeekendStepPuzzle" ]
+    },
+    // WeekendActivity 为活动行，WeekendActivityAbsent 为该活动缺席的同帧识别，WeekendNext 为收尾后进入的步骤。
+    "WeekendStepPuzzle": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": {
+            "WeekendActivity": "PuzzleRow",
+            "WeekendActivityAbsent": "PuzzleAbsent",
+            "WeekendNext": "WeekendFinished"
+        },
+        "next": [ "WeekendHub" ]
+    },
+    "WeekendFinished": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "focus": {
+            "Node.Action.Succeeded": "周末活动全部处理完"
+        }
+    },
+    "WeekendHub": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "OpenWeekendHotspot" ]
+    },
+    "OpenWeekendHotspot": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/hotspot/Hotspot.png",
+                "roi": [ 295, 9, 116, 117 ]
+            }
+        },
+        "action": "Click",
+        "pre_delay": 0,
+        // 打开和翻页后先等侧栏稳定，再识别标签或箭头。
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 352, 241, 109, 268 ],
+            "threshold": 0.98,
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "timeout": 8000,
+        "next": [ "FindWeekendTab", "ScrollHotspotTabs", "WeekendTabsBottom", "WeekendTabsSinglePage" ]
+    },
+    "FindWeekendTab": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 352, 241, 109, 268 ],
+                "expected": [ "周末活动" ]
+            }
+        },
+        "action": "Click",
+        "next": [ "WeekendHubPage" ]
+    },
+    "ScrollHotspotTabs": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "events/weekend/ScrollDown.png",
+                "roi": [ 415, 528, 40, 32 ],
+                "threshold": 0.9
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 352, 241, 109, 268 ],
+            "threshold": 0.98,
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "timeout": 5000,
+        "next": [ "FindWeekendTab", "ScrollHotspotTabs", "WeekendTabsBottom", "WeekendTabsSinglePage" ]
+    },
+    // 灰箭头模板取自 [421,533,22,19]；灰态最低 0.846、可点击态最高 0.695，阈值 0.8。
+    "WeekendTabsBottom": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "events/weekend/ScrollDownDisabled.png",
+                "roi": [ 415, 528, 40, 32 ],
+                "threshold": 0.8
+            }
+        },
+        "next": [ "WeekendTabMissing" ]
+    },
+    // 活动不足一页时不显示翻页箭头，需识别单页底边确认列表已完整显示。
+    "WeekendTabsSinglePage": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "events/weekend/TabsSinglePageFooter.png",
+                "roi": [ 337, 504, 138, 36 ],
+                "threshold": 0.85
+            }
+        },
+        "next": [ "WeekendTabMissing" ]
+    },
+    "WeekendHubPage": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "events/weekend/HubTitle.png",
+                "roi": [ 640, 193, 180, 60 ]
+            }
+        },
+        "timeout": 6000,
+        "next": [ "[Anchor]WeekendActivity", "[Anchor]WeekendActivityAbsent" ]
+    },
+    "WeekendActivityListReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "WeekendHubPage",
+                    {
+                        "type": "OCR",
+                        "param": { "roi": [ 835, 284, 85, 26 ], "expected": [ "奖励次数" ] }
+                    },
+                    {
+                        "type": "OCR",
+                        "param": { "roi": [ 835, 360, 85, 26 ], "expected": [ "奖励次数" ] }
+                    },
+                    {
+                        "type": "OCR",
+                        "param": { "roi": [ 835, 436, 85, 26 ], "expected": [ "奖励次数" ] }
+                    }
+                ]
+            }
+        }
+    },
+
+    // 拼图可能连同热点一起关闭；两条路径均须确认无遮挡主界面。
+    "WeekendActivityDone": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "CloseWeekendWindow", "WeekendWindowClosed" ]
+    },
+    // QQ 大厅实图：充值页红叉 x=910（2026-10-26 debug）、周末福利页 x=937；ROI 兼容两者，点击框向内缩。
+    "CloseWeekendWindow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "events/weekend/CloseX.png",
+                "roi": [ 900, 195, 65, 48 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [ 4, 4, -8, -8 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "WeekendWindowClosed" ]
+    },
+    // 复用亮度敏感的体力标识，排除窗口遮罩。
+    "WeekendWindowClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginMapVisible" ]
+            }
+        },
+        "next": [ "[Anchor]WeekendNext" ]
+    },
+    // 确认列表已遍历后，才允许跳过缺席活动。
+    "WeekendTabMissing": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": {
+            "WeekendNext": "WeekendFinished"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "限时热点里没有「周末活动」"
+        },
+        "next": [ "WeekendActivityDone" ]
+    }
+}

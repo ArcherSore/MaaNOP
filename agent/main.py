@@ -3,21 +3,12 @@ import sys
 from maa.agent.agent_server import AgentServer
 from maa.tasker import Tasker
 
-import action_common
-import action_entry
-import action_login
-import action_mid_autumn
-import action_ninjutsu_training
-import action_puzzle
-import action_shopping
-import action_survival
-import action_training
-import web_login
-import reco_auto_management
-import reco_common
-import reco_login
-import reco_shopping
-import reco_training
+from common import action_common, action_entry, reco_common
+from login import action_login, reco_login, web_login
+from alt_accounts.shopping_festival import action_shopping, reco_shopping
+from routine import action_survival, action_training, reco_auto_management, reco_training
+from events import action_mid_autumn, action_ninjutsu_training
+from events.weekend import action_puzzle
 
 
 def main():

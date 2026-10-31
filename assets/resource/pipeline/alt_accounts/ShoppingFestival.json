@@ -1,0 +1,296 @@
+{
+    "ShoppingFestivalEntry": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "EnterHotspotActivity",
+                "custom_action_param": {
+                    "expected": [ "木叶购物节" ]
+                }
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "开始木叶购物节任务"
+        },
+        "next": "WaitShoppingFestivalPanel"
+    },
+    "WaitShoppingFestivalPanel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/Purchase.png",
+                "roi": [ 741, 408, 174, 93 ]
+            }
+        },
+        "next": "FindShoppingFestivalTarget"
+    },
+    "FindShoppingFestivalTarget": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindShoppingFestivalTarget"
+            }
+        },
+        "next": "ClickOnShoppingText"
+    },
+    "ClickOnShoppingText": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "LocateShoppingFestivalText"
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "repeat": 2,
+        "repeat_delay": 80,
+        "next": "PasteShoppingQuantity"
+    },
+    "PasteShoppingQuantity": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PasteShoppingQuantity"
+            }
+        },
+        "next": "ClickOnShoppingPurchase"
+    },
+    "ClickOnShoppingPurchase": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "LocateShoppingFestivalPurchase"
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "ClickOnShoppingConfirm"
+    },
+    "ClickOnShoppingConfirm": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/Confirm.png",
+                "roi": [ 534, 370, 155, 121 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": [ "ClickOnShoppingInsufficientBalance", "ClickOnShoppingLottery" ]
+    },
+    "ClickOnShoppingInsufficientBalance": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/InsufficientBalance.png",
+                "roi": [ 693, 393, 73, 62 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "剩余点券 < 1500"
+        },
+        "next": "FocusShoppingFestivalBeforeExit"
+    },
+    "ClickOnShoppingLottery": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/Confirm.png",
+                "roi": [ 534, 370, 155, 121 ]
+            }
+        },
+        "inverse": true,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 958, 353, 30, 27 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "已完成木叶购物节购买"
+        },
+        "next": [ "ClickOnShoppingScratch", "ClickOnShoppingLottery" ]
+    },
+    "ClickOnShoppingScratch": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/Scratch.png",
+                "roi": [ 635, 417, 203, 132 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "ClickOnShoppingReward"
+    },
+    "ClickOnShoppingReward": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/Reward.png",
+                "roi": [ 908, 365, 133, 133 ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "next": "ClickOnShoppingFriendInput"
+    },
+    "ClickOnShoppingFriendInput": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 568, 548 ]
+            }
+        },
+        "next": "PasteShoppingFriendName"
+    },
+    "PasteShoppingFriendName": {
+        "action": {
+            "type": "InputText",
+            "param": {
+                "input_text": "{shopping_friend_name}"
+            }
+        },
+        "next": "ClickOnShoppingFriendName"
+    },
+    "ClickOnShoppingFriendName": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 571, 565 ]
+            }
+        },
+        "next": "ProcessShoppingFestivalGifts"
+    },
+    "ProcessShoppingFestivalGifts": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "ProcessShoppingFestivalGifts"
+            }
+        },
+        "next": "FocusShoppingFestivalBeforeExit"
+    },
+    "ShoppingFestivalPriceOCR": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 0, 0, 0, 0 ],
+                "expected": [ "^\\d{2,4}$" ], // 加载画面会误读出单个数字。
+                "threshold": 0.7 // 实测价格 ≥0.98，加载噪声 ≤0.56。
+            }
+        }
+    },
+    "ShoppingFestivalTextTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/Text.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "ShoppingFestivalPurchaseTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/Purchase.png",
+                "roi": [ 0, 0, 0, 0 ]
+            }
+        }
+    },
+    "ShoppingFestivalGiftCountOCR": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 0, 0, 0, 0 ],
+                "expected": [ "1", "2", "3" ],
+                "order_by": "Expected",
+                "index": 0,
+                "only_rec": true,
+                "threshold": 0.3
+            }
+        }
+    },
+    "ShoppingFestivalGiftSelectTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/SelectButton.png",
+                "roi": [ 663, 449, 113, 112 ]
+            }
+        }
+    },
+    "ShoppingFestivalMinusTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/Minus.png",
+                "roi": [ 712, 514, 66, 66 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "ShoppingFestivalPlusTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/Plus.png",
+                "roi": [ 755, 515, 65, 64 ]
+            }
+        }
+    },
+    "ShoppingFestivalSendTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/shopping_festival/Send.png",
+                "roi": [ 779, 515, 90, 64 ]
+            }
+        }
+    },
+    "FocusShoppingFestivalBeforeExit": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 680, 400 ] // 空白处点击使窗口获得键盘焦点。
+            }
+        },
+        "next": "ExitShoppingFestival"
+    },
+    "ExitShoppingFestival": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 27
+            }
+        },
+        "next": [ "BatchServerDone" ]
+    }
+}

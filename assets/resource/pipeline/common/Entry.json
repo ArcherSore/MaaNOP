@@ -1,0 +1,49 @@
+{
+    "HotspotEntry": {
+        "next": [ "OpenHotspot" ]
+    },
+    "OpenHotspot": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/hotspot/Hotspot.png",
+                "roi": [ 295, 51, 116, 117 ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [ "ClickHotspotEntry" ]
+    },
+    "ClickHotspotEntry": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 350, 275, 120, 280 ],
+                "expected": [ "(?!)" ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
+    },
+    "TopEntryTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ ],
+                "roi": [ 391, 40, 800, 114 ]
+            }
+        }
+    },
+    "BottomEntryTemplate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ ],
+                "roi": [ 900, 648, 440, 72 ],
+                "threshold": 0.85
+            }
+        }
+    }
+}

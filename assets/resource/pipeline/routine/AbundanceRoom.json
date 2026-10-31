@@ -1,0 +1,166 @@
+{
+    "AbundanceRoom": {
+        "next": [ "AbundanceSetTeam" ]
+    },
+    "AbundanceSetTeam": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SelectTeam",
+                "custom_action_param": 1
+            }
+        },
+        "next": [ "AbundanceGotoRoom" ]
+    },
+
+    "AbundanceGotoRoom": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": "routine/abundance_room/AbundanceEntry.png"
+                }
+            }
+        },
+        "action": "Click",
+        "next": [ "AbundancePopup" ]
+    },
+    "AbundancePopup": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/abundance_room/PopupTitle.png",
+                "roi": [ 600, 177, 128, 26 ]
+            }
+        },
+        "next": [ "AbundanceNoChance", "AbundanceSimple", "AbundanceLeftArrow" ]
+    },
+    "AbundanceTimesLeft": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/abundance_room/TimesLeftLabel.png",
+                "roi": [ 775, 234, 140, 22 ]
+            }
+        }
+    },
+    "AbundanceNoChance": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/abundance_room/NoChanceLabel.png",
+                "roi": [ 775, 241, 140, 30 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 949, 195, 12, 12 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "丰饶之间本日挑战次数已用完"
+        }
+    },
+    // 每次打开都重置到「困难/极限/极限」页，简单难度在前一页。
+    "AbundanceSimpleLabel": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/abundance_room/SimpleLabel.png",
+                "roi": [ 400, 264, 200, 40 ],
+                "threshold": 0.85
+            }
+        }
+    },
+    "AbundanceLeftArrow": {
+        "max_hit": 6,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "AbundanceTimesLeft" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 399, 303, 10, 14 ]
+            }
+        },
+        "post_delay": 500,
+        "next": [ "AbundanceSimple", "AbundanceLeftArrow" ]
+    },
+    // 悬停时关卡图有火焰动画，改用「简单」文字识别；点击区域避开「查看掉落」和「扫荡」。
+    "AbundanceSimple": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "AbundanceSimpleLabel", "AbundanceTimesLeft" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 440, 309, 70, 24 ]
+            }
+        },
+        "next": [ "AbundanceBattleStart" ]
+    },
+
+    "AbundanceBattleStart": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "CommonBattleStartButton" ]
+            }
+        },
+        "anchor": {
+            "CommonBattleStartTarget": "AbundanceBattleStart",
+            "CommonBattleOutcome": "AbundanceBattleOutcome",
+            "CommonBattleContinue": "AbundanceBattleWait"
+        },
+        "next": [ "CommonBattleClickStart" ]
+    },
+    // 删除迁移遗留的 30 秒探测循环；与组队 / 强者相同，最多等 10 分钟结算。
+    "AbundanceBattleWait": {
+        "timeout": 600000,
+        "next": [ "AbundanceResultConfirm" ]
+    },
+    // 设置阶段已出现结果时，仍由上面的正常结算分支继续。
+    "AbundanceBattleOutcome": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "AbundanceResultConfirm" ]
+            }
+        },
+        "next": [ "AbundanceBattleWait" ]
+    },
+    "AbundanceResultConfirm": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/abundance_room/ResultConfirm.png",
+                "roi": [ 620, 434, 105, 35 ]
+            }
+        },
+        "action": "Click",
+        "next": [ "AbundanceSettle" ]
+    },
+    // 「返回游戏」按钮带动态倒计时，模板仅截取文字。
+    "AbundanceSettle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/abundance_room/SettleBack.png",
+                "roi": [ 600, 434, 140, 32 ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 500,
+        "next": [ "AbundanceGotoRoom" ]
+    }
+}
