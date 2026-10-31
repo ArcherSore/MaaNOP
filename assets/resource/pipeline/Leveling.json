@@ -4454,10 +4454,35 @@
     "ServerBusy": {
         "recognition": {
             "type": "Or",
-            "param": { "any_of": [ "ServerBlackLoading", "ServerBusySpinner", "ServerLoading" ] }
+            "param": { "any_of": [ "ServerPureBlackLoading", "ServerBlackLoading", "ServerBusySpinner", "ServerLoading" ] }
         }
     },
-    // 真实黑屏仍有战斗边框；中央像素至少约 98% 接近黑色，排除正常剧情黑底字幕。
+    // 无边框、无进度条的全黑过渡
+    // 黑底剧情同样可能超过该比例，须同帧排除“跳过”；不能把字幕画面当作加载持续等待。
+    "ServerPureBlackLoading": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "ServerPureBlackField",
+                    "without": "SkipDialogueButton"
+                }
+            }
+        }
+    },
+    "ServerPureBlackField": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 20, 60, 1300, 620 ],
+                "lower": [ 0, 0, 0 ],
+                "upper": [ 12, 12, 12 ],
+                "count": 800000
+            }
+        }
+    },
+    // 带战斗边框的黑屏：中央像素至少约 98% 接近黑色，排除正常剧情黑底字幕。
     "ServerBlackLoading": {
         "recognition": {
             "type": "And",
