@@ -16,6 +16,20 @@
         },
         "next": [ "PuzzleGo", "PuzzleRowDone" ]
     },
+    // 与完整活动列表同帧排除拼图，避免加载中、切页中或识别超时被当成「本周无拼图」。
+    // 复用 MatchWithout 单独执行 OCR，不与同列的 PuzzleRow 重叠 ROI 批量识别。
+    "PuzzleAbsent": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": { "match": "WeekendActivityListReady", "without": "PuzzleRow" }
+            }
+        },
+        "next": [ "WeekendActivityDone" ]
+    },
     // roi_offset 的宽高是在标题框的宽高上加：这里取标题框右移 315、下移 44，宽 +20、高 +4，正好盖住按钮
     "PuzzleGo": {
         "recognition": {

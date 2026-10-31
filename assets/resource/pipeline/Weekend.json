@@ -5,12 +5,13 @@
         "post_delay": 0,
         "next": [ "WeekendStepPuzzle" ]
     },
-    // WeekendActivity 为活动行，WeekendNext 为收尾后进入的步骤。
+    // WeekendActivity 为活动行，WeekendActivityAbsent 为该活动缺席的同帧识别，WeekendNext 为收尾后进入的步骤。
     "WeekendStepPuzzle": {
         "pre_delay": 0,
         "post_delay": 0,
         "anchor": {
             "WeekendActivity": "PuzzleRow",
+            "WeekendActivityAbsent": "PuzzleAbsent",
             "WeekendNext": "WeekendFinished"
         },
         "next": [ "WeekendHub" ]
@@ -118,7 +119,31 @@
             }
         },
         "timeout": 6000,
-        "next": [ "[Anchor]WeekendActivity" ]
+        "next": [ "[Anchor]WeekendActivity", "[Anchor]WeekendActivityAbsent" ]
+    },
+    "WeekendActivityListReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "WeekendHubPage",
+                    {
+                        "type": "OCR",
+                        "param": { "roi": [ 835, 284, 85, 26 ], "expected": [ "奖励次数" ] }
+                    },
+                    {
+                        "type": "OCR",
+                        "param": { "roi": [ 835, 360, 85, 26 ], "expected": [ "奖励次数" ] }
+                    },
+                    {
+                        "type": "OCR",
+                        "param": { "roi": [ 835, 436, 85, 26 ], "expected": [ "奖励次数" ] }
+                    }
+                ]
+            }
+        }
     },
 
     // 拼图可能连同热点一起关闭；两条路径均须确认无遮挡主界面。
