@@ -9,8 +9,6 @@
     },
     // 使用 attach 的扁平键合并收件人和各选项，避免嵌套对象相互覆盖。
     "TaskMerchantConfigure": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "action": {
@@ -49,8 +47,6 @@
         "next": [ "TaskMerchantProcessCard", "TaskMerchantEmptyList", "TaskMerchantSceneReady" ]
     },
     "TaskMerchantSceneReady": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "recognition": {
@@ -64,8 +60,6 @@
     },
     "TaskMerchantSelectTab": {
         "recognition": "DirectHit",
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "action": {
@@ -93,8 +87,6 @@
         }
     },
     "TaskMerchantEmptyList": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "recognition": {
@@ -141,8 +133,6 @@
         }
     },
     "TaskMerchantProcessCard": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "recognition": {
@@ -160,8 +150,6 @@
         "next": [ ]
     },
     "TaskMerchantGiftFocus": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "recognition": {
@@ -181,8 +169,6 @@
         "next": [ "TaskMerchantGiftPaste" ]
     },
     "TaskMerchantGiftPaste": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "action": {
@@ -194,8 +180,6 @@
         "next": [ "TaskMerchantFirstFriend" ]
     },
     "TaskMerchantFirstFriend": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "recognition": {
@@ -236,8 +220,6 @@
         "next": [ "TaskMerchantGiftSend" ]
     },
     "TaskMerchantGiftSend": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "recognition": {
@@ -327,8 +309,6 @@
         "next": [ "TaskMerchantDeleteX" ]
     },
     "TaskMerchantDeleteX": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "recognition": {
@@ -349,8 +329,6 @@
         "next": [ "TaskMerchantDeleteConfirm" ]
     },
     "TaskMerchantDeleteConfirm": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "recognition": {
