@@ -71,6 +71,8 @@ The PSF License is GPL-compatible. The embeddable archive carries its own `LICEN
 
 ## Development-only tooling (not distributed in releases)
 
+The development skill under `skills/maanop-explore/` incorporates guidance adapted from [Everything Maa](https://github.com/KhazixW2/Everything-Maa), licensed under MIT. Its original copyright and permission notice are preserved in [`licenses/Everything-Maa-MIT.txt`](./licenses/Everything-Maa-MIT.txt). MaaNOP-specific adaptations follow the repository license.
+
 The following are used only for development / CI and are **not** shipped in release packages; their notices are not required to accompany the release. They are listed for completeness:
 
 - `@nekosu/maa-tools` (npm, resource checker) and its transitive npm dependencies — permissive licenses (MIT / ISC / Apache-2.0 / BlueOak-1.0.0 / BSD-2-Clause / CC0-1.0), recorded in `package-lock.json`.
