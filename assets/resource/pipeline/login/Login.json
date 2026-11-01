@@ -106,7 +106,7 @@
             }
         },
         "next": [ "ServerListReady" ],
-        "on_error": [ "ReChooseServer" ]
+        "on_error": [ "ServerListReady", "ReChooseServer" ]
     },
     "ServerListReady": {
         "pre_delay": 0,
