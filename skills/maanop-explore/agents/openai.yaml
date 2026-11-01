@@ -1,0 +1,4 @@
+interface:
+  display_name: "MaaNOP 探索与验证"
+  short_description: "用 MaaMCP 观察真实状态，逐段实现 Pipeline，并依据验证证据定点排错"
+  default_prompt: "使用 $maanop-explore 探索这个功能的页面、入口和状态，再逐段实现并验证 Pipeline，记录证据和未覆盖情况。"
