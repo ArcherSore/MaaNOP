@@ -6,7 +6,7 @@
             "Node.Action.Succeeded": "开始「竞技场」任务"
         },
         "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
-        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaMain", "DailyArenaOpen" ]
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "[JumpBack]CloseArenaPopup", "DailyArenaMain", "DailyArenaOpen" ]
     },
     "DailyArenaOpen": {
         "recognition": {
@@ -19,7 +19,7 @@
             }
         },
         "action": "Click",
-        "next": [ "DailyArenaMain" ]
+        "next": [ "[JumpBack]CloseArenaPopup", "DailyArenaMain" ]
     },
     "DailyArenaMain": {
         "pre_delay": 0,
@@ -448,7 +448,6 @@
                 "target": [ 718, 404, 22, 8 ]
             }
         },
-        "max_hit": 3,
         "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
         "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaLowerReturned" ]
     },
