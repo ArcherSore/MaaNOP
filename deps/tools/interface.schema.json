@@ -303,12 +303,14 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "max_count": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "description": "NarutoAutoGUI：最多可选项数。"
                         }
                     },
-                    "required": [
-                        "type",
-                        "cases"
-                    ],
+                    "required": [ "type", "cases" ],
                     "additionalProperties": false
                 },
                 {

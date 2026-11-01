@@ -1,0 +1,342 @@
+// 内层丝带须在外层+(4,4)处匹配；由外层位置恢复卷轴参考框用于地区定位。
+{
+    "TaskMerchantBeginRefill": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "TaskMerchantPrepareNavigation",
+                "custom_action_param": {
+                    "profiles": {
+                        "木叶村东": {
+                            "parking": [ 1308, 128 ],
+                            "point": [ 780, 203 ],
+                            "position": [ 236, 65 ],
+                            "freeze_roi": [ 735, 178, 90, 80 ],
+                            "source": "20261031/木叶村东",
+                            "coordinate_variants": []
+                        },
+                        "枯木之森": {
+                            "parking": [ 1234, 130 ],
+                            "point": [ 364, 292 ],
+                            "position": [ 74, 86 ],
+                            "freeze_roi": [ 319, 267, 90, 80 ],
+                            "source": "20261031/枯木之森",
+                            "coordinate_variants": []
+                        },
+                        "短册街": {
+                            "parking": [ 1289, 154 ],
+                            "point": [ 442, 289 ],
+                            "position": [ 231, 148 ],
+                            "freeze_roi": [ 397, 264, 90, 80 ],
+                            "source": "20261031/短册街",
+                            "coordinate_variants": []
+                        },
+                        "木叶村北": {
+                            "parking": [ 1281, 209 ],
+                            "point": [ 419, 345 ],
+                            "position": [ 173, 273 ],
+                            "freeze_roi": [ 394, 329, 55, 55 ],
+                            "source": "20261101/session-konoha-north-recheck/location.json",
+                            "coordinate_variants": [
+                                {
+                                    "position": [ 173, 270 ],
+                                    "point": [ 419, 368 ]
+                                },
+                                {
+                                    "position": [ 173, 273 ],
+                                    "point": [ 419, 345 ]
+                                }
+                            ],
+                            "parking_roi": [ 1205, 81, 130, 19 ],
+                            "parking_only_rec": true
+                        },
+                        "川之国峡谷": {
+                            "parking": [ 1280, 134 ],
+                            "point": [ 864, 207 ],
+                            "position": [ 163, 86 ],
+                            "freeze_roi": [ 815, 170, 120, 95 ],
+                            "source": "20261031/川之国峡谷",
+                            "coordinate_variants": []
+                        },
+                        "热沙荒野": {
+                            "parking": [ 1310, 132 ],
+                            "point": [ 1136, 211 ],
+                            "position": [ 239, 73 ],
+                            "freeze_roi": [ 1090, 160, 90, 100 ],
+                            "source": "20261031/热沙荒野",
+                            "coordinate_variants": []
+                        },
+                        "草波海岸": {
+                            "parking": [ 1275, 168 ],
+                            "point": [ 470, 276 ],
+                            "position": [ 192, 186 ],
+                            "freeze_roi": [ 421, 255, 90, 80 ],
+                            "source": "20261031/草波海岸",
+                            "coordinate_variants": []
+                        },
+                        "云隐村": {
+                            "parking": [ 1241, 126 ],
+                            "point": [ 538, 235 ],
+                            "position": [ 54, 67 ],
+                            "freeze_roi": [ 490, 205, 100, 80 ],
+                            "source": "20261031/云隐村",
+                            "coordinate_variants": []
+                        },
+                        "妙木山后山": {
+                            "parking": [ 1274, 137 ],
+                            "point": [ 445, 307 ],
+                            "position": [ 189, 102 ],
+                            "freeze_roi": [ 415, 285, 70, 100 ],
+                            "source": "20261101/session-myoboku/location.json",
+                            "coordinate_variants": []
+                        },
+                        "木叶森林": {
+                            "parking": [ 1300, 202 ],
+                            "point": [ 1004, 218 ],
+                            "position": [ 220, 233 ],
+                            "freeze_roi": [ 970, 200, 80, 70 ],
+                            "source": "20261101/session-konoha-forest/location.json",
+                            "coordinate_variants": []
+                        },
+                        "火之寺": {
+                            "parking": [ 1214, 122 ],
+                            "point": [ 411, 178 ],
+                            "position": [ 27, 61 ],
+                            "freeze_roi": [ 385, 155, 60, 100 ],
+                            "source": "20261101/session-fire-temple/location.json",
+                            "coordinate_variants": [],
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "parking_roi": [ 1250, 81, 60, 18 ],
+                            "parking_only_rec": true,
+                            "coordinate_pattern": "(^|[^0-9])27[^0-9]+61([^0-9]|$)"
+                        }
+                    },
+                    "world": {
+                        "木叶村": [ 500, 521 ],
+                        "木叶森林": [ 560, 594 ],
+                        "云隐村": [ 1045, 267 ],
+                        "草波海岸": [ 795, 584 ],
+                        "热沙荒野": [ 310, 584 ],
+                        "川之国峡谷": [ 350, 535 ],
+                        "短册街": [ 534, 442 ],
+                        "火之寺": [ 639, 378 ]
+                    },
+                    "submap": {
+                        "木叶村东": [ 805, 371 ],
+                        "木叶村北": [ 719, 364 ],
+                        "妙木山后山": [ 554, 292 ]
+                    }
+                }
+            }
+        },
+        "next": [ "TaskMerchantEnterSelected" ],
+        "timeout": 120000,
+        "rate_limit": 100
+    },
+    "TaskMerchantOpenWorldMap": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1255, 67, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TaskMerchantWorldMapReady" ],
+        "timeout": 10000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantWorldMapReady": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "TaskMerchantMapReady"
+            }
+        },
+        "next": []
+    },
+    "TaskMerchantOpenKonohaMap": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 500, 521, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TaskMerchantKonohaMapReady" ],
+        "timeout": 10000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantKonohaMapReady": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 788, 335, 38, 72 ],
+                "expected": [ "^木叶村东$" ],
+                "only_rec": false
+            }
+        },
+        "next": []
+    },
+    "TaskMerchantCurrentScene": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1205, 81, 130, 19 ],
+                "expected": [ ".+" ],
+                "only_rec": true
+            }
+        }
+    },
+    "TaskMerchantEnterSelected": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1134, 86, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TaskMerchantSelectedScene" ],
+        "timeout": 120000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantSelectedScene": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1205, 81, 130, 19 ],
+                "expected": [ "云隐村" ],
+                "only_rec": true
+            }
+        },
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 10000,
+        "rate_limit": 100
+    },
+    "TaskMerchantPark": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1241, 126, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "post_delay": 0,
+        "max_hit": 200,
+        "next": [ "TaskMerchantParked" ],
+        "timeout": 30000,
+        "rate_limit": 100
+    },
+    "TaskMerchantParked": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1205, 81, 130, 19 ],
+                "expected": [ "54[^0-9]+67" ],
+                "only_rec": true
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 490, 205, 100, 80 ],
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "next": [ "TaskMerchantSelectFixedPoint" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantSelectFixedPoint": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "TaskMerchantSelectFixedPoint"
+            }
+        },
+        "next": [ "TaskMerchantOldReceiptGone" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantOldReceiptGone": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 550, 319, 240, 42 ],
+                "expected": [ "最多只能领取10个任务|恭喜你.*获得了[1-5]张任务卡" ],
+                "only_rec": false
+            }
+        },
+        "inverse": true,
+        "next": [ "TaskMerchantClickFixedName" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantClickFixedName": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 538, 235, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "post_delay": 0,
+        "max_hit": 200,
+        "next": [ "TaskMerchantClaimReceipt" ],
+        "timeout": 15000,
+        "rate_limit": 100,
+        "on_error": [ "TaskMerchantOpenPanel" ]
+    },
+    "TaskMerchantClaimReceipt": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 550, 319, 240, 42 ],
+                "expected": [ "最多只能领取10个任务|恭喜你.*获得了[1-5]张任务卡" ],
+                "only_rec": false
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "TaskMerchantRouteClaimReceipt"
+            }
+        },
+        "next": [ "TaskMerchantAfterReceipt" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantAfterReceipt": {
+        "next": [ "TaskMerchantOpenPanel" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantScrollOuter": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [ 190, 70, 960, 615 ],
+                "template": "alt_accounts/task_merchant/scroll_world_outer.png",
+                "threshold": 0.55,
+                "method": 5,
+                "order_by": "Score"
+            }
+        }
+    },
+    "TaskMerchantScrollInner": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [ 190, 70, 960, 615 ],
+                "template": "alt_accounts/task_merchant/scroll_world_inner.png",
+                "threshold": 0.73,
+                "method": 5,
+                "order_by": "Score"
+            }
+        }
+    }
+}
