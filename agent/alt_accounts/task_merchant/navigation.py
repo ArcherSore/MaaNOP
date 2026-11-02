@@ -32,6 +32,26 @@ def _region(box, landmarks):
     return name if distance <= 65 else None
 
 
+def _parking_overrides(name, profile):
+    variants = profile.get("coordinate_variants") or [{"position": profile["position"], "point": profile["point"]}]
+    pattern = "|".join(str(v["position"][0])+r"[^0-9]+"+str(v["position"][1]) for v in variants)
+    receipt_roi = profile.get("receipt_roi", [400,260,550,200] if name == "妙木山后山" else [550,319,240,42])
+    parking_action = {"type":"LongPress","param":{"target":[*profile["parking"],1,1],"duration":100}}
+    return {
+        "TaskMerchantOldReceiptGone": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}}},
+        "TaskMerchantClaimReceipt": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}},
+            "action":{"type":"Custom","param":{"custom_action":"TaskMerchantRouteClaimReceipt"}}},
+        "TaskMerchantCloudFirstPark": {"action":parking_action},
+        "TaskMerchantPark": {"action":parking_action},
+        "TaskMerchantParked": {"recognition":{"type":"OCR","param":{"roi":profile.get("parking_roi", [1254,81,49,17] if name == "妙木山后山" else [1205,81,130,19]),
+            "expected":[profile.get("coordinate_pattern", pattern)],"only_rec":profile.get("parking_only_rec", name == "妙木山后山")}},
+            "post_wait_freezes":{"time":300,"target":profile["freeze_roi"],"rate_limit":100,"timeout":5000}},
+        "TaskMerchantSelectFixedPoint": {"action":{"type":"Custom","param":{"custom_action":"TaskMerchantSelectFixedPoint",
+            "custom_action_param":{"variants":variants,"point":profile["point"]}}}},
+        "TaskMerchantClickFixedName": {"action":{"type":"LongPress","param":{"target":[*profile["point"],1,1],"duration":100}}},
+    }
+
+
 @AgentServer.custom_recognition("TaskMerchantMapReady")
 class TaskMerchantMapReady(CustomRecognition):
     def analyze(self, context, argv):
@@ -93,10 +113,6 @@ class TaskMerchantPrepareNavigation(CustomAction):
         position = profile.get("position")
         if not position:
             return False
-        variants = profile.get("coordinate_variants") or [{"position": position, "point": profile["point"]}]
-        coordinate_pattern = "|".join(str(v["position"][0])+r"[^0-9]+"+str(v["position"][1]) for v in variants)
-        coordinate_pattern = profile.get("coordinate_pattern", coordinate_pattern)
-        receipt_roi = profile.get("receipt_roi", [400,260,550,200] if name == "妙木山后山" else [550,319,240,42])
         landmark = [1134,86] if name == current else (config["submap"] if in_submap else config["world"])[name]
         scene = {"recognition": {"type": "OCR", "param": {"roi":profile.get("scene_roi", [1205,81,130,19]),
                  "expected":[profile.get("scene_pattern", {"川之国峡谷":"川之国", "热沙荒野":"热沙", "妙木山后山":"[妙炒]木山后山", "云隐村":"云[隐险]村"}.get(name,re.escape(name)))],"only_rec":profile.get("scene_only_rec", True)}}}
@@ -110,22 +126,35 @@ class TaskMerchantPrepareNavigation(CustomAction):
         if name == "沙忍村北" and current != name:
             scene["recognition"]["param"]["expected"] = ["[砂沙][忍绍]村南"]
             scene["next"] = ["TaskMerchantSandApproach"]
-        parking_action = {"type":"LongPress","param":{"target":[*profile["parking"],1,1],"duration":100}}
+        if profile.get("locations"):
+            scene["next"] = ["TaskMerchantLocateMerchant"]
         return context.override_pipeline({
-            "TaskMerchantOldReceiptGone": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}}},
-            "TaskMerchantClaimReceipt": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}},
-                "action":{"type":"Custom","param":{"custom_action":"TaskMerchantRouteClaimReceipt"}}},
+            **_parking_overrides(name, profile),
             "TaskMerchantEnterSelected": {"action":{"type":"LongPress","param":{"target":[*landmark,1,1],"duration":100}}},
             "TaskMerchantSelectedScene": scene,
-            "TaskMerchantCloudFirstPark": {"action":parking_action},
-            "TaskMerchantPark": {"action":parking_action},
-            "TaskMerchantParked": {"recognition":{"type":"OCR","param":{"roi":profile.get("parking_roi", [1254,81,49,17] if name == "妙木山后山" else [1205,81,130,19]),
-                "expected":[coordinate_pattern],"only_rec":profile.get("parking_only_rec", name == "妙木山后山")}},
-                "post_wait_freezes":{"time":300,"target":profile["freeze_roi"],"rate_limit":100,"timeout":5000}},
-            "TaskMerchantSelectFixedPoint": {"action":{"type":"Custom","param":{"custom_action":"TaskMerchantSelectFixedPoint",
-                "custom_action_param":{"variants":variants,"point":profile["point"]}}}},
-            "TaskMerchantClickFixedName": {"action":{"type":"LongPress","param":{"target":[*profile["point"],1,1],"duration":100}}},
+            "TaskMerchantLocateMerchant": {"action":{"type":"Custom","param":{"custom_action":"TaskMerchantLocateMerchant",
+                "custom_action_param":{"name":name,"profile":profile}}}},
         })
+
+
+@AgentServer.custom_action("TaskMerchantLocateMerchant")
+class TaskMerchantLocateMerchant(CustomAction):
+    def run(self, context, argv):
+        params = json.loads(argv.custom_action_param)
+        frame = context.tasker.controller.post_screencap().wait().get()
+        if context.tasker.stopping or frame is None:
+            return False
+        matches = []
+        for location in params["profile"]["locations"]:
+            result = context.run_recognition(location["recognition"], frame)
+            if context.tasker.stopping:
+                return False
+            if result and result.hit:
+                matches.append(location)
+        if len(matches) != 1:
+            return False
+        profile = {**params["profile"], **matches[0]}
+        return context.override_pipeline(_parking_overrides(params["name"], profile))
 
 
 @AgentServer.custom_action("TaskMerchantSelectFixedPoint")
