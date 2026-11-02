@@ -36,7 +36,8 @@
             "arena_participation_1": false,
             "arena_participation_2": false,
             "arena_participation_3": false,
-            "arena_participation_6": false
+            "arena_participation_6": false,
+            "quiz_participation_1": false
         }
     },
     "TaskMerchantOpenPanel": {
@@ -392,7 +393,6 @@
                 "duration": 100
             }
         },
-        "max_hit": 1000,
         "next": [ "TaskMerchantDeleteDialogGone" ],
         "on_error": [ "TaskMerchantDeleteDialogGone", "TaskMerchantDeleteConfirm" ]
     },

@@ -103,7 +103,7 @@
             "group": [ "AltAccount" ],
             "entry": "TaskMerchantStart",
             "description": "默认赠送直接完成任务。其他类别每类最多选择一个上限；不选或超出上限的任务会删除，每张消耗5000铜币。对方任务已满时正常结束。",
-            "option": [ "TaskMerchantRecipient", "TaskMerchantSurvival", "TaskMerchantRanked", "TaskMerchantWanted", "TaskMerchantEscort", "TaskMerchantArenaParticipation" ]
+            "option": [ "TaskMerchantRecipient", "TaskMerchantSurvival", "TaskMerchantRanked", "TaskMerchantWanted", "TaskMerchantEscort", "TaskMerchantArenaParticipation", "TaskMerchantQuizParticipation" ]
         },
         {
             "name": "ShoppingFestivalTask",
@@ -1162,6 +1162,25 @@
                         "TaskMerchantConfigure": {
                             "attach": {
                                 "arena_participation_6": true
+                            }
+                        }
+                    }
+                }
+            ],
+            "max_count": 1
+        },
+        "TaskMerchantQuizParticipation": {
+            "type": "checkbox",
+            "label": "忍者测验参与",
+            "default_case": [ "CompleteOnce" ],
+            "cases": [
+                {
+                    "name": "CompleteOnce",
+                    "label": "完成1次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "quiz_participation_1": true
                             }
                         }
                     }

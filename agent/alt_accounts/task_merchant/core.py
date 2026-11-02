@@ -15,6 +15,7 @@ OPTIONS = {
     "wanted": (1, 3, 5),
     "escort": (1, 3),
     "arena_participation": (1, 2, 3, 6),
+    "quiz_participation": (1,),
 }
 
 
