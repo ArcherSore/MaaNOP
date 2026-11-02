@@ -12,7 +12,6 @@
                             "point": [ 780, 203 ],
                             "position": [ 236, 65 ],
                             "freeze_roi": [ 735, 178, 90, 80 ],
-                            "source": "20261031/木叶村东",
                             "coordinate_variants": [ ]
                         },
                         "枯木之森": {
@@ -20,7 +19,6 @@
                             "point": [ 364, 292 ],
                             "position": [ 74, 86 ],
                             "freeze_roi": [ 319, 267, 90, 80 ],
-                            "source": "20261031/枯木之森",
                             "coordinate_variants": [ ]
                         },
                         "短册街": {
@@ -28,7 +26,6 @@
                             "point": [ 1105, 361 ],
                             "position": [ 317, 57 ],
                             "freeze_roi": [ 1070, 345, 80, 140 ],
-                            "source": "20261102/session-tanzaku-pipeline/location.json (720 live parking and fixed interaction)",
                             "scene_only_rec": false,
                             "coordinate_variants": [ ]
                         },
@@ -37,7 +34,6 @@
                             "point": [ 419, 345 ],
                             "position": [ 173, 273 ],
                             "freeze_roi": [ 394, 329, 55, 55 ],
-                            "source": "20261101/session-konoha-north-recheck/location.json",
                             "coordinate_variants": [
                                 {
                                     "position": [ 173, 270 ],
@@ -56,7 +52,6 @@
                             "point": [ 864, 207 ],
                             "position": [ 163, 86 ],
                             "freeze_roi": [ 815, 170, 120, 95 ],
-                            "source": "20261031/川之国峡谷",
                             "coordinate_variants": [ ]
                         },
                         "热沙荒野": {
@@ -64,7 +59,6 @@
                             "point": [ 1136, 211 ],
                             "position": [ 239, 73 ],
                             "freeze_roi": [ 1090, 160, 90, 100 ],
-                            "source": "20261031/热沙荒野",
                             "coordinate_variants": [ ]
                         },
                         "草波海岸": {
@@ -72,7 +66,6 @@
                             "point": [ 470, 276 ],
                             "position": [ 192, 186 ],
                             "freeze_roi": [ 421, 255, 90, 80 ],
-                            "source": "20261031/草波海岸",
                             "coordinate_variants": [ ]
                         },
                         "云隐村": {
@@ -80,7 +73,6 @@
                             "point": [ 538, 235 ],
                             "position": [ 54, 67 ],
                             "freeze_roi": [ 490, 205, 100, 80 ],
-                            "source": "20261031/云隐村",
                             "coordinate_variants": [ ],
                             "entry_position": [ 30, 315 ]
                         },
@@ -89,7 +81,6 @@
                             "point": [ 445, 307 ],
                             "position": [ 189, 102 ],
                             "freeze_roi": [ 415, 285, 70, 100 ],
-                            "source": "20261101/session-myoboku/location.json",
                             "coordinate_variants": [ ],
                             "near": {
                                 "point": [ 595, 298 ],
@@ -106,7 +97,6 @@
                             "point": [ 1004, 218 ],
                             "position": [ 220, 233 ],
                             "freeze_roi": [ 970, 200, 80, 70 ],
-                            "source": "20261101/session-konoha-forest/location.json",
                             "coordinate_variants": [ ]
                         },
                         "火之寺": {
@@ -114,7 +104,6 @@
                             "point": [ 411, 178 ],
                             "position": [ 27, 61 ],
                             "freeze_roi": [ 385, 155, 60, 100 ],
-                            "source": "20261101/session-fire-temple/location.json",
                             "coordinate_variants": [ ],
                             "receipt_roi": [ 400, 260, 550, 200 ],
                             "parking_roi": [ 1250, 81, 60, 18 ],
@@ -126,7 +115,6 @@
                             "point": [ 710, 179 ],
                             "position": [ 98, 173 ],
                             "freeze_roi": [ 684, 163, 55, 115 ],
-                            "source": "20261101/session-wind-country-desert/location.json",
                             "coordinate_variants": [ ],
                             "scene_pattern": "^风之国沙漠[（(]",
                             "parking_roi": [ 1205, 81, 130, 19 ],
@@ -139,7 +127,6 @@
                             "point": [ 597, 181 ],
                             "position": [ 204, 152 ],
                             "freeze_roi": [ 572, 160, 60, 115 ],
-                            "source": "20261101/session-land-of-waves/location.json",
                             "coordinate_variants": [ ],
                             "scene_pattern": "^波之国[（(]",
                             "parking_roi": [ 1205, 81, 130, 19 ],
@@ -152,7 +139,6 @@
                             "point": [ 696, 534 ],
                             "position": [ 171, 172 ],
                             "freeze_roi": [ 672, 518, 55, 100 ],
-                            "source": "20261101/session-land-of-iron-gate/location.json",
                             "coordinate_variants": [ ],
                             "scene_pattern": "^铁之国城门[（(]",
                             "parking_roi": [ 1253, 81, 80, 19 ],
@@ -167,7 +153,6 @@
                             "freeze_roi": [ 815, 270, 230, 160 ],
                             "scene_pattern": "[木本]叶.*训练场",
                             "receipt_roi": [ 550, 315, 250, 65 ],
-                            "source": "20261101/session-konoha-training/location.json (updated 2026-11-02; interior point)",
                             "coordinate_variants": [ ]
                         },
                         "云雷峡": {
@@ -179,7 +164,6 @@
                             "parking_roi": [ 1219, 79, 83, 18 ],
                             "parking_only_rec": true,
                             "receipt_roi": [ 550, 307, 253, 77 ],
-                            "source": "20261102/session-cloud-thunder/location.json (1080 live; 720 scaled real-frame replay)",
                             "coordinate_variants": [ ]
                         }
                     },

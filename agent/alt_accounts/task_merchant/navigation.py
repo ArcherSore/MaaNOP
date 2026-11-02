@@ -24,7 +24,7 @@ def _scroll(context, image):
 
 
 def _region(box, landmarks):
-    # Scroll is immediately above its region landmark; source 1101 real map captures.
+    # Scroll is immediately above its region landmark.
     x, y, w, h = box
     distances = [(math.hypot(x+w/2-p[0], y+h/2+28-p[1]), name)
                  for name, p in landmarks.items()]
