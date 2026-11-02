@@ -94,7 +94,7 @@ class TaskMerchantPrepareNavigation(CustomAction):
         receipt_roi = profile.get("receipt_roi", [400,260,550,200] if name == "妙木山后山" else [550,319,240,42])
         landmark = [1134,86] if name == current else (config["submap"] if in_submap else config["world"])[name]
         scene = {"recognition": {"type": "OCR", "param": {"roi":[1205,81,130,19],
-                 "expected":[profile.get("scene_pattern", {"川之国峡谷":"川之国", "热沙荒野":"热沙", "妙木山后山":"[妙炒]木山后山", "云隐村":"云[隐险]村"}.get(name,re.escape(name)))],"only_rec":True}}}
+                 "expected":[profile.get("scene_pattern", {"川之国峡谷":"川之国", "热沙荒野":"热沙", "妙木山后山":"[妙炒]木山后山", "云隐村":"云[隐险]村"}.get(name,re.escape(name)))],"only_rec":profile.get("scene_only_rec", True)}}}
         entry_position = profile.get("entry_position")
         at_entry = entry_position and re.search(
             r"(?<![0-9])" + str(entry_position[0]) + r"[^0-9]+" + str(entry_position[1]) + r"(?![0-9])", text)

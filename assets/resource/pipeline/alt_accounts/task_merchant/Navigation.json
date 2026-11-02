@@ -24,11 +24,12 @@
                             "coordinate_variants": [ ]
                         },
                         "短册街": {
-                            "parking": [ 1289, 154 ],
-                            "point": [ 442, 289 ],
-                            "position": [ 231, 148 ],
-                            "freeze_roi": [ 397, 264, 90, 80 ],
-                            "source": "20261031/短册街",
+                            "parking": [ 1320, 120 ],
+                            "point": [ 1105, 361 ],
+                            "position": [ 317, 57 ],
+                            "freeze_roi": [ 1070, 345, 80, 140 ],
+                            "source": "20261102/session-tanzaku-pipeline/location.json (720 live parking and fixed interaction)",
+                            "scene_only_rec": false,
                             "coordinate_variants": [ ]
                         },
                         "木叶村北": {
