@@ -107,6 +107,9 @@ class TaskMerchantPrepareNavigation(CustomAction):
         if name == "终末谷上方" and current != name:
             scene["recognition"]["param"]["expected"] = ["终[末未木]谷下方"]
             scene["next"] = ["TaskMerchantValleyApproach"]
+        if name == "沙忍村北" and current != name:
+            scene["recognition"]["param"]["expected"] = ["[砂沙][忍绍]村南"]
+            scene["next"] = ["TaskMerchantSandApproach"]
         parking_action = {"type":"LongPress","param":{"target":[*profile["parking"],1,1],"duration":100}}
         return context.override_pipeline({
             "TaskMerchantOldReceiptGone": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}}},

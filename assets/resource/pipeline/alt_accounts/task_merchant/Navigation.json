@@ -76,6 +76,17 @@
                             "coordinate_variants": [ ],
                             "entry_position": [ 30, 315 ]
                         },
+                        "沙忍村北": {
+                            "parking": [ 1249, 215 ],
+                            "point": [ 729, 415 ],
+                            "position": [ 105, 262 ],
+                            "freeze_roi": [ 700, 395, 85, 150 ],
+                            "scene_pattern": "[砂沙][忍绍]村北",
+                            "scene_only_rec": false,
+                            "parking_only_rec": false,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ]
+                        },
                         "雨忍村内": {
                             "parking": [ 1242, 137 ],
                             "point": [ 733, 294 ],
@@ -204,7 +215,8 @@
                         "云雷峡": [ 1091, 328 ],
                         "终末谷上方": [ 515, 389 ],
                         "鸦之森": [ 428, 389 ],
-                        "雨忍村内": [ 310, 454 ]
+                        "雨忍村内": [ 310, 454 ],
+                        "沙忍村北": [ 225, 650 ]
                     },
                     "submap": {
                         "木叶村东": [ 805, 371 ],
@@ -309,6 +321,33 @@
         },
         "next": [ "TaskMerchantPark" ],
         "timeout": 10000,
+        "rate_limit": 100
+    },
+    "TaskMerchantSandApproach": {
+        "action": { "type": "LongPress", "param": { "target": [ 1218, 121, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantSandAtExit" ],
+        "timeout": 60000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantSandAtExit": {
+        "recognition": { "type": "OCR", "param": { "roi": [ 1205, 81, 130, 19 ], "expected": [ "34[^0-9]+48" ], "only_rec": false } },
+        "post_wait_freezes": { "time": 300, "target": [ 0, 260, 130, 110 ], "rate_limit": 100, "timeout": 5000 },
+        "next": [ "TaskMerchantSandCrossExit" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantSandCrossExit": {
+        "action": { "type": "LongPress", "param": { "target": [ 32, 296, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantSandNorthReady" ],
+        "timeout": 15000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantSandNorthReady": {
+        "recognition": { "type": "OCR", "param": { "roi": [ 1205, 81, 130, 19 ], "expected": [ "[砂沙][忍绍]村北" ], "only_rec": false } },
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 5000,
         "rate_limit": 100
     },
     "TaskMerchantValleyApproach": {
