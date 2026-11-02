@@ -241,8 +241,6 @@
         "next": [ "TaskMerchantRecipientFull", "TaskMerchantGiftCompleted" ]
     },
     "TaskMerchantRecipientFull": {
-        "pre_delay": 0,
-        "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
         "enabled": true,
@@ -252,7 +250,15 @@
                 "roi": [ 585, 295, 190, 68 ],
                 "expected": [ "对方任务已经满了" ]
             }
-        }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 947, 220, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "LoginMapVisible" ]
     },
     "TaskMerchantGiftInputReset": {
         "pre_delay": 0,
@@ -328,6 +334,41 @@
             "type": "LongPress",
             "param": {
                 "target": [ 916, 273, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "max_hit": 1000,
+        "next": [ "TaskMerchantDeleteSucceeded", "TaskMerchantDeletePrompt" ]
+    },
+    "TaskMerchantDeletePrompt": {
+        "rate_limit": 100,
+        "timeout": 1500,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 585, 410, 90, 20 ],
+                "expected": [ "本次登录不再提示" ],
+                "only_rec": true
+            }
+        },
+        "next": [ "TaskMerchantDeleteRemember", "TaskMerchantDeleteConfirm" ]
+    },
+    "TaskMerchantDeleteRemember": {
+        "rate_limit": 100,
+        "timeout": 1500,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [ 570, 410, 25, 24 ],
+                "template": "alt_accounts/task_merchant/delete_no_prompt_unchecked.png",
+                "threshold": 0.6,
+                "method": 5
+            }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 580, 420, 1, 1 ],
                 "duration": 100
             }
         },
