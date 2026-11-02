@@ -88,7 +88,16 @@
                             "position": [ 189, 102 ],
                             "freeze_roi": [ 415, 285, 70, 100 ],
                             "source": "20261101/session-myoboku/location.json",
-                            "coordinate_variants": []
+                            "coordinate_variants": [],
+                            "near": {
+                                "point": [ 595, 298 ],
+                                "recognition": {
+                                    "roi": [ 1205, 81, 130, 19 ],
+                                    "expected": [ "妙木山后山.*167[^0-9]+103" ],
+                                    "only_rec": false
+                                },
+                                "freeze_roi": [ 565, 285, 65, 35 ]
+                            }
                         },
                         "木叶森林": {
                             "parking": [ 1300, 202 ],
@@ -109,6 +118,45 @@
                             "parking_roi": [ 1250, 81, 60, 18 ],
                             "parking_only_rec": true,
                             "coordinate_pattern": "(^|[^0-9])27[^0-9]+61([^0-9]|$)"
+                        },
+                        "风之国沙漠": {
+                            "parking": [ 1246, 176 ],
+                            "point": [ 710, 179 ],
+                            "position": [ 98, 173 ],
+                            "freeze_roi": [ 684, 163, 55, 115 ],
+                            "source": "20261101/session-wind-country-desert/location.json",
+                            "coordinate_variants": [],
+                            "scene_pattern": "^风之国沙漠[（(]",
+                            "parking_roi": [ 1205, 81, 130, 19 ],
+                            "parking_only_rec": true,
+                            "coordinate_pattern": "^风之国沙漠[（(]98[^0-9]+173[)）]",
+                            "receipt_roi": [ 400, 260, 550, 200 ]
+                        },
+                        "波之国": {
+                            "parking": [ 1288, 161 ],
+                            "point": [ 597, 181 ],
+                            "position": [ 204, 152 ],
+                            "freeze_roi": [ 572, 160, 60, 115 ],
+                            "source": "20261101/session-land-of-waves/location.json",
+                            "coordinate_variants": [],
+                            "scene_pattern": "^波之国[（(]",
+                            "parking_roi": [ 1205, 81, 130, 19 ],
+                            "parking_only_rec": true,
+                            "coordinate_pattern": "^波之国[（(]204[^0-9]+152[)）]",
+                            "receipt_roi": [ 400, 260, 550, 200 ]
+                        },
+                        "铁之国城门": {
+                            "parking": [ 1296, 193 ],
+                            "point": [ 696, 534 ],
+                            "position": [ 171, 172 ],
+                            "freeze_roi": [ 672, 518, 55, 100 ],
+                            "source": "20261101/session-land-of-iron-gate/location.json",
+                            "coordinate_variants": [],
+                            "scene_pattern": "^铁之国城门[（(]",
+                            "parking_roi": [ 1253, 81, 80, 19 ],
+                            "parking_only_rec": true,
+                            "coordinate_pattern": "(^|[^0-9])171[^0-9]+172([^0-9]|$)",
+                            "receipt_roi": [ 400, 260, 550, 200 ]
                         }
                     },
                     "world": {
@@ -119,7 +167,10 @@
                         "热沙荒野": [ 310, 584 ],
                         "川之国峡谷": [ 350, 535 ],
                         "短册街": [ 534, 442 ],
-                        "火之寺": [ 639, 378 ]
+                        "火之寺": [ 639, 378 ],
+                        "风之国沙漠": [ 243, 527 ],
+                        "波之国": [ 881, 520 ],
+                        "铁之国城门": [ 694, 134 ]
                     },
                     "submap": {
                         "木叶村东": [ 805, 371 ],
@@ -170,11 +221,12 @@
     },
     "TaskMerchantKonohaMapReady": {
         "recognition": {
-            "type": "OCR",
+            "type": "Custom",
             "param": {
-                "roi": [ 788, 335, 38, 72 ],
-                "expected": [ "^木叶村东$" ],
-                "only_rec": false
+                "custom_recognition": "TaskMerchantMapReady",
+                "custom_recognition_param": {
+                    "map": "submap"
+                }
             }
         },
         "next": []
