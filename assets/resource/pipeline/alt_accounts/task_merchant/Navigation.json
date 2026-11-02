@@ -81,10 +81,12 @@
                             ]
                         },
                         "云隐村": {
-                            "parking": [ 1241, 126 ],
-                            "point": [ 538, 235 ],
-                            "position": [ 54, 67 ],
-                            "freeze_roi": [ 490, 205, 100, 80 ],
+                            "parking": [ 460, 376 ],
+                            "entry_parking": [ 1241, 126 ],
+                            "point": [ 538, 238 ],
+                            "position": [ 64, 65 ],
+                            "freeze_roi": [ 513, 228, 48, 20 ],
+                            "receipt_roi": [ 400, 260, 550, 200 ],
                             "coordinate_variants": [ ],
                             "entry_position": [ 30, 315 ]
                         },
@@ -495,7 +497,7 @@
             "rate_limit": 100,
             "timeout": 5000
         },
-        "next": [ "TaskMerchantPark" ],
+        "next": [ "TaskMerchantCloudTransitPark" ],
         "timeout": 5000,
         "rate_limit": 100
     },
@@ -604,5 +606,36 @@
                 "order_by": "Score"
             }
         }
+    },
+    "TaskMerchantCloudTransitPark": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1241, 126, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantCloudNearApproachReady" ],
+        "timeout": 30000,
+        "rate_limit": 100
+    },
+    "TaskMerchantCloudNearApproachReady": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1205, 81, 130, 19 ],
+                "expected": [ "90[^0-9]+60" ],
+                "only_rec": false
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 1205, 81, 130, 19 ],
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 5000,
+        "rate_limit": 100
     }
 }
