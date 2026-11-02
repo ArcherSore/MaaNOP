@@ -13,7 +13,7 @@
                             "position": [ 236, 65 ],
                             "freeze_roi": [ 735, 178, 90, 80 ],
                             "source": "20261031/木叶村东",
-                            "coordinate_variants": []
+                            "coordinate_variants": [ ]
                         },
                         "枯木之森": {
                             "parking": [ 1234, 130 ],
@@ -21,7 +21,7 @@
                             "position": [ 74, 86 ],
                             "freeze_roi": [ 319, 267, 90, 80 ],
                             "source": "20261031/枯木之森",
-                            "coordinate_variants": []
+                            "coordinate_variants": [ ]
                         },
                         "短册街": {
                             "parking": [ 1289, 154 ],
@@ -29,7 +29,7 @@
                             "position": [ 231, 148 ],
                             "freeze_roi": [ 397, 264, 90, 80 ],
                             "source": "20261031/短册街",
-                            "coordinate_variants": []
+                            "coordinate_variants": [ ]
                         },
                         "木叶村北": {
                             "parking": [ 1281, 209 ],
@@ -56,7 +56,7 @@
                             "position": [ 163, 86 ],
                             "freeze_roi": [ 815, 170, 120, 95 ],
                             "source": "20261031/川之国峡谷",
-                            "coordinate_variants": []
+                            "coordinate_variants": [ ]
                         },
                         "热沙荒野": {
                             "parking": [ 1310, 132 ],
@@ -64,7 +64,7 @@
                             "position": [ 239, 73 ],
                             "freeze_roi": [ 1090, 160, 90, 100 ],
                             "source": "20261031/热沙荒野",
-                            "coordinate_variants": []
+                            "coordinate_variants": [ ]
                         },
                         "草波海岸": {
                             "parking": [ 1275, 168 ],
@@ -72,7 +72,7 @@
                             "position": [ 192, 186 ],
                             "freeze_roi": [ 421, 255, 90, 80 ],
                             "source": "20261031/草波海岸",
-                            "coordinate_variants": []
+                            "coordinate_variants": [ ]
                         },
                         "云隐村": {
                             "parking": [ 1241, 126 ],
@@ -80,7 +80,8 @@
                             "position": [ 54, 67 ],
                             "freeze_roi": [ 490, 205, 100, 80 ],
                             "source": "20261031/云隐村",
-                            "coordinate_variants": []
+                            "coordinate_variants": [ ],
+                            "entry_position": [ 30, 315 ]
                         },
                         "妙木山后山": {
                             "parking": [ 1274, 137 ],
@@ -88,7 +89,7 @@
                             "position": [ 189, 102 ],
                             "freeze_roi": [ 415, 285, 70, 100 ],
                             "source": "20261101/session-myoboku/location.json",
-                            "coordinate_variants": [],
+                            "coordinate_variants": [ ],
                             "near": {
                                 "point": [ 595, 298 ],
                                 "recognition": {
@@ -105,7 +106,7 @@
                             "position": [ 220, 233 ],
                             "freeze_roi": [ 970, 200, 80, 70 ],
                             "source": "20261101/session-konoha-forest/location.json",
-                            "coordinate_variants": []
+                            "coordinate_variants": [ ]
                         },
                         "火之寺": {
                             "parking": [ 1214, 122 ],
@@ -113,7 +114,7 @@
                             "position": [ 27, 61 ],
                             "freeze_roi": [ 385, 155, 60, 100 ],
                             "source": "20261101/session-fire-temple/location.json",
-                            "coordinate_variants": [],
+                            "coordinate_variants": [ ],
                             "receipt_roi": [ 400, 260, 550, 200 ],
                             "parking_roi": [ 1250, 81, 60, 18 ],
                             "parking_only_rec": true,
@@ -125,7 +126,7 @@
                             "position": [ 98, 173 ],
                             "freeze_roi": [ 684, 163, 55, 115 ],
                             "source": "20261101/session-wind-country-desert/location.json",
-                            "coordinate_variants": [],
+                            "coordinate_variants": [ ],
                             "scene_pattern": "^风之国沙漠[（(]",
                             "parking_roi": [ 1205, 81, 130, 19 ],
                             "parking_only_rec": true,
@@ -138,7 +139,7 @@
                             "position": [ 204, 152 ],
                             "freeze_roi": [ 572, 160, 60, 115 ],
                             "source": "20261101/session-land-of-waves/location.json",
-                            "coordinate_variants": [],
+                            "coordinate_variants": [ ],
                             "scene_pattern": "^波之国[（(]",
                             "parking_roi": [ 1205, 81, 130, 19 ],
                             "parking_only_rec": true,
@@ -151,12 +152,34 @@
                             "position": [ 171, 172 ],
                             "freeze_roi": [ 672, 518, 55, 100 ],
                             "source": "20261101/session-land-of-iron-gate/location.json",
-                            "coordinate_variants": [],
+                            "coordinate_variants": [ ],
                             "scene_pattern": "^铁之国城门[（(]",
                             "parking_roi": [ 1253, 81, 80, 19 ],
                             "parking_only_rec": true,
                             "coordinate_pattern": "(^|[^0-9])171[^0-9]+172([^0-9]|$)",
                             "receipt_roi": [ 400, 260, 550, 200 ]
+                        },
+                        "木叶训练场": {
+                            "parking": [ 1305, 134 ],
+                            "point": [ 864, 301 ],
+                            "position": [ 154, 52 ],
+                            "freeze_roi": [ 815, 270, 230, 160 ],
+                            "scene_pattern": "[木本]叶.*训练场",
+                            "receipt_roi": [ 550, 315, 250, 65 ],
+                            "source": "20261101/session-konoha-training/location.json (updated 2026-11-02; interior point)",
+                            "coordinate_variants": [ ]
+                        },
+                        "云雷峡": {
+                            "parking": [ 1243, 200 ],
+                            "point": [ 327, 229 ],
+                            "position": [ 57, 190 ],
+                            "freeze_roi": [ 283, 210, 233, 227 ],
+                            "scene_pattern": "云[雷重]",
+                            "parking_roi": [ 1219, 79, 83, 18 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 550, 307, 253, 77 ],
+                            "source": "20261102/session-cloud-thunder/location.json (1080 live; 720 scaled real-frame replay)",
+                            "coordinate_variants": [ ]
                         }
                     },
                     "world": {
@@ -170,7 +193,9 @@
                         "火之寺": [ 639, 378 ],
                         "风之国沙漠": [ 243, 527 ],
                         "波之国": [ 881, 520 ],
-                        "铁之国城门": [ 694, 134 ]
+                        "铁之国城门": [ 694, 134 ],
+                        "木叶训练场": [ 660, 581 ],
+                        "云雷峡": [ 1091, 328 ]
                     },
                     "submap": {
                         "木叶村东": [ 805, 371 ],
@@ -204,7 +229,7 @@
                 "custom_recognition": "TaskMerchantMapReady"
             }
         },
-        "next": []
+        "next": [ ]
     },
     "TaskMerchantOpenKonohaMap": {
         "action": {
@@ -229,7 +254,7 @@
                 }
             }
         },
-        "next": []
+        "next": [ ]
     },
     "TaskMerchantCurrentScene": {
         "recognition": {
@@ -278,6 +303,38 @@
         "max_hit": 200,
         "next": [ "TaskMerchantParked" ],
         "timeout": 30000,
+        "rate_limit": 100
+    },
+    "TaskMerchantCloudFirstPark": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1241, 126, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantCloudEntryCheckpoint" ],
+        "timeout": 30000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantCloudEntryCheckpoint": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1205, 81, 130, 19 ],
+                "expected": [ "云[隐险]村[^0-9]*104[^0-9]+193[^0-9]*$" ],
+                "only_rec": true
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 1205, 81, 130, 19 ],
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 5000,
         "rate_limit": 100
     },
     "TaskMerchantParked": {
