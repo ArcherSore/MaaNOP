@@ -245,8 +245,14 @@
         "post_delay": 0,
         "rate_limit": 100,
         "timeout": 8000,
-        "enabled": false,
-        "next": [ ]
+        "enabled": true,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 585, 295, 190, 68 ],
+                "expected": [ "对方任务已经满了" ]
+            }
+        }
     },
     "TaskMerchantGiftInputReset": {
         "pre_delay": 0,
@@ -269,7 +275,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 560, 310, 350, 100 ],
+                "roi": [ 560, 363, 350, 47 ],
                 "expected": [ "你还没有任务卡" ]
             }
         }
@@ -330,7 +336,7 @@
     },
     "TaskMerchantDeleteConfirm": {
         "rate_limit": 100,
-        "timeout": 8000,
+        "timeout": 1500,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -346,7 +352,8 @@
             }
         },
         "max_hit": 1000,
-        "next": [ "TaskMerchantDeleteDialogGone" ]
+        "next": [ "TaskMerchantDeleteDialogGone" ],
+        "on_error": [ "TaskMerchantDeleteDialogGone", "TaskMerchantDeleteConfirm" ]
     },
     "TaskMerchantDeleteDialogGone": {
         "pre_delay": 0,

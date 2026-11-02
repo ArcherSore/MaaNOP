@@ -207,7 +207,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 1205, 81, 130, 19 ],
-                "expected": [ "云隐村" ],
+                "expected": [ "云[隐险]村" ],
                 "only_rec": true
             }
         },

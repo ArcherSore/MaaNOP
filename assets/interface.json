@@ -102,7 +102,7 @@
             "label": "任务商人",
             "group": [ "AltAccount" ],
             "entry": "TaskMerchantStart",
-            "description": "默认赠送直接完成任务。其他类别每类最多选择一个上限；不选或超出上限的任务会删除，每张消耗5000铜币。大号收满提示尚待实图验证。",
+            "description": "默认赠送直接完成任务。其他类别每类最多选择一个上限；不选或超出上限的任务会删除，每张消耗5000铜币。对方任务已满时正常结束。",
             "option": [ "TaskMerchantRecipient", "TaskMerchantSurvival", "TaskMerchantRanked", "TaskMerchantWanted", "TaskMerchantEscort", "TaskMerchantArenaParticipation" ]
         },
         {

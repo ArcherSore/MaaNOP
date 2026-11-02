@@ -51,7 +51,8 @@ class TaskMerchantPrepareNavigation(CustomAction):
         header = context.run_recognition("TaskMerchantCurrentScene", frame)
         if context.tasker.stopping:
             return False
-        text = header.best_result.text if header and header.hit else ""
+        # 2026-11-01 23:53 debug：云隐村到达图稳定误读为“云险村”。
+        text = (header.best_result.text if header and header.hit else "").replace("云险村", "云隐村")
         current = next((name for name in config["profiles"] if name in text), None)
         if current is None:
             current = next((name for prefix, name in (("川之国", "川之国峡谷"), ("热沙", "热沙荒野"), ("木山后山", "妙木山后山")) if prefix in text), None)
@@ -90,7 +91,7 @@ class TaskMerchantPrepareNavigation(CustomAction):
         receipt_roi = profile.get("receipt_roi", [400,260,550,200] if name == "妙木山后山" else [550,319,240,42])
         landmark = [1134,86] if name == current else (config["submap"] if in_submap else config["world"])[name]
         scene = {"recognition": {"type": "OCR", "param": {"roi":[1205,81,130,19],
-                 "expected":[{"川之国峡谷":"川之国", "热沙荒野":"热沙", "妙木山后山":"[妙炒]木山后山"}.get(name,re.escape(name))],"only_rec":True}}}
+                 "expected":[{"川之国峡谷":"川之国", "热沙荒野":"热沙", "妙木山后山":"[妙炒]木山后山", "云隐村":"云[隐险]村"}.get(name,re.escape(name))],"only_rec":True}}}
         return context.override_pipeline({
             "TaskMerchantOldReceiptGone": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}}},
             "TaskMerchantClaimReceipt": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}}},
