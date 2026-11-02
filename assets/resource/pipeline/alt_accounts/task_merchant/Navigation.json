@@ -155,6 +155,16 @@
                             "receipt_roi": [ 550, 315, 250, 65 ],
                             "coordinate_variants": [ ]
                         },
+                        "终末谷上方": {
+                            "parking": [ 1250, 136 ],
+                            "point": [ 510, 492 ],
+                            "position": [ 105, 83 ],
+                            "freeze_roi": [ 470, 465, 95, 140 ],
+                            "scene_pattern": "终[末未]谷?上方",
+                            "scene_only_rec": false,
+                            "parking_only_rec": true,
+                            "coordinate_variants": [ ]
+                        },
                         "云雷峡": {
                             "parking": [ 1243, 200 ],
                             "point": [ 327, 229 ],
@@ -180,7 +190,8 @@
                         "波之国": [ 881, 520 ],
                         "铁之国城门": [ 694, 134 ],
                         "木叶训练场": [ 660, 581 ],
-                        "云雷峡": [ 1091, 328 ]
+                        "云雷峡": [ 1091, 328 ],
+                        "终末谷上方": [ 515, 389 ]
                     },
                     "submap": {
                         "木叶村东": [ 805, 371 ],
@@ -275,6 +286,33 @@
         },
         "next": [ "TaskMerchantPark" ],
         "timeout": 10000,
+        "rate_limit": 100
+    },
+    "TaskMerchantValleyApproach": {
+        "action": { "type": "LongPress", "param": { "target": [ 1219, 115, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantValleyAtExit" ],
+        "timeout": 30000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantValleyAtExit": {
+        "recognition": { "type": "OCR", "param": { "roi": [ 1205, 81, 130, 19 ], "expected": [ "38[^0-9]+37" ], "only_rec": true } },
+        "post_wait_freezes": { "time": 300, "target": [ 150, 170, 180, 160 ], "rate_limit": 100, "timeout": 5000 },
+        "next": [ "TaskMerchantValleyCrossExit" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantValleyCrossExit": {
+        "action": { "type": "LongPress", "param": { "target": [ 191, 160, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantValleyUpperReady" ],
+        "timeout": 10000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantValleyUpperReady": {
+        "recognition": { "type": "OCR", "param": { "roi": [ 1205, 81, 130, 19 ], "expected": [ "终[末未]谷上方" ], "only_rec": false } },
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 5000,
         "rate_limit": 100
     },
     "TaskMerchantPark": {

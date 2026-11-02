@@ -57,7 +57,6 @@ class TaskMerchantPrepareNavigation(CustomAction):
         header = context.run_recognition("TaskMerchantCurrentScene", frame)
         if context.tasker.stopping:
             return False
-        # 2026-11-01 23:53 debug：云隐村到达图稳定误读为“云险村”。
         text = (header.best_result.text if header and header.hit else "").replace("云险村", "云隐村")
         current = next((name for name, profile in config["profiles"].items()
                         if re.search(profile.get("scene_pattern", re.escape(name)), text)), None)
@@ -99,6 +98,9 @@ class TaskMerchantPrepareNavigation(CustomAction):
         at_entry = entry_position and re.search(
             r"(?<![0-9])" + str(entry_position[0]) + r"[^0-9]+" + str(entry_position[1]) + r"(?![0-9])", text)
         scene["next"] = ["TaskMerchantCloudFirstPark" if entry_position and (name != current or at_entry) else "TaskMerchantPark"]
+        if name == "终末谷上方" and current != name:
+            scene["recognition"]["param"]["expected"] = ["终[末未木]谷下方"]
+            scene["next"] = ["TaskMerchantValleyApproach"]
         parking_action = {"type":"LongPress","param":{"target":[*profile["parking"],1,1],"duration":100}}
         return context.override_pipeline({
             "TaskMerchantOldReceiptGone": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}}},
