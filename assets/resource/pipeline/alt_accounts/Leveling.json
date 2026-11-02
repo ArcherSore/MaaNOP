@@ -245,7 +245,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_新忍者登记" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_新忍者登记" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_新忍者登记", "SkipDialogue_新忍者登记" ]
     },
     "ConfirmRunning_新忍者登记": {
         "recognition": {
@@ -678,7 +678,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_木叶丸的行踪" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_木叶丸的行踪" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_木叶丸的行踪", "CompleteMainTask_木叶丸的行踪" ]
     },
     "ConfirmRunning_木叶丸的行踪": {
         "recognition": {
@@ -748,7 +748,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_向伊鲁卡报告" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_向伊鲁卡报告" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_向伊鲁卡报告", "CompleteMainTask_向伊鲁卡报告" ]
     },
     "ConfirmRunning_向伊鲁卡报告": {
         "recognition": {
@@ -960,7 +960,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_初遇佐助" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_初遇佐助" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_初遇佐助", "CompleteMainTask_初遇佐助" ]
     },
     "ConfirmRunning_初遇佐助": {
         "timeout": 30000,
@@ -1251,7 +1251,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_开始修炼" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_开始修炼" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_开始修炼", "CompleteMainTask_开始修炼" ]
     },
     "ConfirmRunning_开始修炼": {
         "recognition": {
@@ -1650,7 +1650,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_击退来袭狼群" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_击退来袭狼群" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_击退来袭狼群", "CompleteMainTask_击退来袭狼群" ]
     },
     "ConfirmRunning_击退来袭狼群": {
         "recognition": {
@@ -1701,7 +1701,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_联系阿斯玛" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_联系阿斯玛" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_联系阿斯玛", "CompleteMainTask_联系阿斯玛" ]
     },
     "ConfirmRunning_联系阿斯玛": {
         "recognition": {
@@ -1952,7 +1952,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_前往生存试炼场" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_前往生存试炼场" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_前往生存试炼场", "ClickDialogue_前往生存试炼场" ]
     },
     "ConfirmRunning_前往生存试炼场": {
         "recognition": {
@@ -2315,7 +2315,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_护送达兹纳" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_护送达兹纳" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_护送达兹纳", "SkipDialogue_护送达兹纳" ]
     },
     "ConfirmRunning_护送达兹纳": {
         "recognition": {
@@ -2908,7 +2908,7 @@
             }
         },
         "on_error": [ "ClickOnMainTaskAgain_谨慎前行" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_谨慎前行" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_谨慎前行", "SkipDialogue_谨慎前行" ]
     },
     "ConfirmRunning_谨慎前行": {
         "recognition": {
@@ -3508,7 +3508,7 @@
             }
         },
         "on_error": [ "ClickOnMainTask_保护大桥" ],
-        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_保护大桥" ]
+        "next": [ "[JumpBack]ServerBusy", "ConfirmRunning_保护大桥", "SkipDialogue_保护大桥" ]
     },
     "ConfirmRunning_保护大桥": {
         "recognition": {
