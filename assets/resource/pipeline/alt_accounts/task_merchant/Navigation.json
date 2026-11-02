@@ -77,20 +77,11 @@
                             "entry_position": [ 30, 315 ]
                         },
                         "妙木山后山": {
-                            "parking": [ 1274, 137 ],
-                            "point": [ 445, 307 ],
-                            "position": [ 189, 102 ],
-                            "freeze_roi": [ 415, 285, 70, 100 ],
-                            "coordinate_variants": [ ],
-                            "near": {
-                                "point": [ 595, 298 ],
-                                "recognition": {
-                                    "roi": [ 1205, 81, 130, 19 ],
-                                    "expected": [ "妙木山后山.*167[^0-9]+103" ],
-                                    "only_rec": false
-                                },
-                                "freeze_roi": [ 565, 285, 65, 35 ]
-                            }
+                            "parking": [ 1267, 137 ],
+                            "point": [ 574, 307 ],
+                            "position": [ 170, 102 ],
+                            "freeze_roi": [ 540, 285, 80, 100 ],
+                            "coordinate_variants": [ ]
                         },
                         "木叶森林": {
                             "parking": [ 1300, 202 ],
@@ -155,6 +146,16 @@
                             "receipt_roi": [ 550, 315, 250, 65 ],
                             "coordinate_variants": [ ]
                         },
+                        "鸦之森": {
+                            "parking": [ 1298, 145 ],
+                            "point": [ 1025, 329 ],
+                            "position": [ 192, 103 ],
+                            "freeze_roi": [ 985, 310, 85, 130 ],
+                            "scene_roi": [ 1220, 80, 80, 19 ],
+                            "scene_pattern": "[鸦聘]之森",
+                            "parking_only_rec": true,
+                            "coordinate_variants": [ ]
+                        },
                         "终末谷上方": {
                             "parking": [ 1250, 136 ],
                             "point": [ 510, 492 ],
@@ -191,7 +192,8 @@
                         "铁之国城门": [ 694, 134 ],
                         "木叶训练场": [ 660, 581 ],
                         "云雷峡": [ 1091, 328 ],
-                        "终末谷上方": [ 515, 389 ]
+                        "终末谷上方": [ 515, 389 ],
+                        "鸦之森": [ 428, 389 ]
                     },
                     "submap": {
                         "木叶村东": [ 805, 371 ],
@@ -258,6 +260,16 @@
             "param": {
                 "roi": [ 1205, 81, 130, 19 ],
                 "expected": [ ".+" ],
+                "only_rec": true
+            }
+        }
+    },
+    "TaskMerchantCrowScene": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1220, 80, 80, 19 ],
+                "expected": [ "[鸦聘]之森" ],
                 "only_rec": true
             }
         }

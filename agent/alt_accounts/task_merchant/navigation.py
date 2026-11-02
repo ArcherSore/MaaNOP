@@ -62,6 +62,12 @@ class TaskMerchantPrepareNavigation(CustomAction):
                         if re.search(profile.get("scene_pattern", re.escape(name)), text)), None)
         if current is None:
             current = next((name for prefix, name in (("川之国", "川之国峡谷"), ("热沙", "热沙荒野"), ("木山后山", "妙木山后山")) if prefix in text), None)
+        if current is None and "鸦之森" in config["profiles"]:
+            crow = context.run_recognition("TaskMerchantCrowScene", frame)
+            if context.tasker.stopping:
+                return False
+            if crow and crow.hit:
+                current = "鸦之森"
         opened = context.run_task("TaskMerchantOpenWorldMap")
         if context.tasker.stopping:
             return False
@@ -92,7 +98,7 @@ class TaskMerchantPrepareNavigation(CustomAction):
         coordinate_pattern = profile.get("coordinate_pattern", coordinate_pattern)
         receipt_roi = profile.get("receipt_roi", [400,260,550,200] if name == "妙木山后山" else [550,319,240,42])
         landmark = [1134,86] if name == current else (config["submap"] if in_submap else config["world"])[name]
-        scene = {"recognition": {"type": "OCR", "param": {"roi":[1205,81,130,19],
+        scene = {"recognition": {"type": "OCR", "param": {"roi":profile.get("scene_roi", [1205,81,130,19]),
                  "expected":[profile.get("scene_pattern", {"川之国峡谷":"川之国", "热沙荒野":"热沙", "妙木山后山":"[妙炒]木山后山", "云隐村":"云[隐险]村"}.get(name,re.escape(name)))],"only_rec":profile.get("scene_only_rec", True)}}}
         entry_position = profile.get("entry_position")
         at_entry = entry_position and re.search(
@@ -105,8 +111,7 @@ class TaskMerchantPrepareNavigation(CustomAction):
         return context.override_pipeline({
             "TaskMerchantOldReceiptGone": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}}},
             "TaskMerchantClaimReceipt": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}},
-                "action":{"type":"Custom","param":{"custom_action":"TaskMerchantRouteClaimReceipt",
-                    "custom_action_param":{"near":profile.get("near")}}}},
+                "action":{"type":"Custom","param":{"custom_action":"TaskMerchantRouteClaimReceipt"}}},
             "TaskMerchantEnterSelected": {"action":{"type":"LongPress","param":{"target":[*landmark,1,1],"duration":100}}},
             "TaskMerchantSelectedScene": scene,
             "TaskMerchantCloudFirstPark": {"action":parking_action},
@@ -145,15 +150,4 @@ class TaskMerchantRouteClaimReceipt(CustomAction):
         text = argv.reco_detail.best_result.text
         destination = "TaskMerchantOpenPanel" if "10" in text and "任务" in text and "最多" in text else "TaskMerchantPark"
         overrides = {"TaskMerchantAfterReceipt":{"next":[destination]}}
-        near = (json.loads(argv.custom_action_param or "{}") or {}).get("near")
-        if destination == "TaskMerchantPark" and near:
-            # 1101 session-myoboku/second-twice-success-run.json：远点领取5张后近点再领5张。
-            overrides.update({
-                "TaskMerchantAfterReceipt":{"next":["TaskMerchantParked"]},
-                "TaskMerchantParked":{"recognition":{"type":"OCR","param":near["recognition"]},
-                    "post_wait_freezes":{"time":300,"target":near["freeze_roi"],"rate_limit":100,"timeout":5000}},
-                "TaskMerchantSelectFixedPoint":{"action":{"type":"Custom","param":{
-                    "custom_action":"TaskMerchantSelectFixedPoint",
-                    "custom_action_param":{"variants":[],"point":near["point"]}}}},
-            })
         return context.override_pipeline(overrides)
