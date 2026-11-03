@@ -219,15 +219,28 @@
                             "coordinate_variants": [ ]
                         },
                         "火之寺": {
-                            "parking": [ 1214, 122 ],
-                            "point": [ 411, 178 ],
-                            "position": [ 27, 61 ],
-                            "freeze_roi": [ 385, 155, 60, 100 ],
+                            "parking": [ 1231, 117 ],
+                            "point": [ 412, 261 ],
+                            "position": [ 72, 48 ],
+                            "freeze_roi": [ 386, 251, 52, 20 ],
                             "coordinate_variants": [ ],
                             "receipt_roi": [ 400, 260, 550, 200 ],
-                            "parking_roi": [ 1250, 81, 60, 18 ],
+                            "parking_roi": [ 1205, 81, 130, 19 ],
                             "parking_only_rec": true,
-                            "coordinate_pattern": "(^|[^0-9])27[^0-9]+61([^0-9]|$)"
+                            "coordinate_pattern": "(^|[^0-9])72[^0-9]+48([^0-9]|$)",
+                            "locations": [
+                                { "recognition": "TaskMerchantTempleOriginalDot" },
+                                {
+                                    "recognition": "TaskMerchantTempleMiddleDot",
+                                    "parking": [ 1239, 149 ],
+                                    "point": [ 572, 285 ],
+                                    "position": [ 95, 133 ],
+                                    "freeze_roi": [ 546, 275, 52, 20 ],
+                                    "parking_roi": [ 1205, 81, 130, 19 ],
+                                    "parking_only_rec": true,
+                                    "coordinate_pattern": "(^|[^0-9])95[^0-9]+133([^0-9]|$)"
+                                }
+                            ]
                         },
                         "风之国沙漠": {
                             "parking": [ 1246, 176 ],
@@ -521,6 +534,18 @@
         "recognition": { "type": "ColorMatch", "param": {
                 "roi": [ 1254, 100, 12, 12 ], "method": 40,
                 "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantTempleOriginalDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1221, 111, 11, 10 ], "method": 40,
+                "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantTempleMiddleDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1229, 143, 11, 10 ], "method": 40,
+                "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 3
             } }
     },
     "TaskMerchantDeathForestEntranceDot": {
