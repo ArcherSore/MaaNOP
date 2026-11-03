@@ -15,22 +15,15 @@
                             "coordinate_variants": [ ]
                         },
                         "枯木之森": {
-                            "parking": [ 1234, 130 ],
-                            "point": [ 364, 292 ],
-                            "position": [ 74, 86 ],
-                            "freeze_roi": [ 319, 267, 90, 80 ],
+                            "parking": [ 1321, 115 ],
+                            "point": [ 996, 303 ],
+                            "position": [ 320, 42 ],
+                            "freeze_roi": [ 970, 293, 52, 20 ],
+                            "parking_only_rec": false,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
                             "coordinate_variants": [ ],
                             "locations": [
-                                { "recognition": "TaskMerchantDeadwoodOriginalDot" },
-                                {
-                                    "recognition": "TaskMerchantDeadwoodUpperRightDot",
-                                    "parking": [ 1321, 115 ],
-                                    "point": [ 996, 303 ],
-                                    "position": [ 320, 42 ],
-                                    "freeze_roi": [ 970, 293, 52, 20 ],
-                                    "parking_only_rec": false,
-                                    "receipt_roi": [ 400, 260, 550, 200 ]
-                                }
+                                { "recognition": "TaskMerchantDeadwoodUpperRightDot" }
                             ]
                         },
                         "短册街": {
@@ -74,22 +67,15 @@
                             "coordinate_variants": [ ]
                         },
                         "草波海岸": {
-                            "parking": [ 1275, 168 ],
-                            "point": [ 470, 276 ],
-                            "position": [ 192, 186 ],
-                            "freeze_roi": [ 421, 255, 90, 80 ],
+                            "parking": [ 1266, 105 ],
+                            "point": [ 552, 72 ],
+                            "position": [ 170, 15 ],
+                            "freeze_roi": [ 530, 62, 48, 20 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
                             "coordinate_variants": [ ],
                             "locations": [
-                                { "recognition": "TaskMerchantCoastOriginalDot" },
-                                {
-                                    "recognition": "TaskMerchantCoastUpperDot",
-                                    "parking": [ 1266, 105 ],
-                                    "point": [ 552, 72 ],
-                                    "position": [ 170, 15 ],
-                                    "freeze_roi": [ 530, 62, 48, 20 ],
-                                    "parking_only_rec": true,
-                                    "receipt_roi": [ 400, 260, 550, 200 ]
-                                }
+                                { "recognition": "TaskMerchantCoastUpperDot" }
                             ]
                         },
                         "云隐村": {
@@ -510,12 +496,6 @@
                 "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
             } }
     },
-    "TaskMerchantCoastOriginalDot": {
-        "recognition": { "type": "ColorMatch", "param": {
-                "roi": [ 1259, 161, 11, 12 ], "method": 40,
-                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
-            } }
-    },
     "TaskMerchantCoastUpperDot": {
         "recognition": { "type": "ColorMatch", "param": {
                 "roi": [ 1254, 100, 12, 12 ], "method": 40,
@@ -567,12 +547,6 @@
     "TaskMerchantWavesUpperLeftDot": {
         "recognition": { "type": "ColorMatch", "param": {
                 "roi": [ 1219, 115, 10, 9 ], "method": 40,
-                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
-            } }
-    },
-    "TaskMerchantDeadwoodOriginalDot": {
-        "recognition": { "type": "ColorMatch", "param": {
-                "roi": [ 1217, 127, 10, 10 ], "method": 40,
                 "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
             } }
     },
