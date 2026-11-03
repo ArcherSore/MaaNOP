@@ -41,7 +41,7 @@ def _parking_overrides(name, profile):
         "TaskMerchantOldReceiptGone": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}}},
         "TaskMerchantClaimReceipt": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}},
             "action":{"type":"Custom","param":{"custom_action":"TaskMerchantRouteClaimReceipt"}}},
-        "TaskMerchantCloudFirstPark": {"action":{"type":"LongPress","param":{"target":[*profile.get("entry_parking", profile["parking"]),1,1],"duration":100}}},
+        "TaskMerchantCloudFirstPark": {"action": parking_action},
         "TaskMerchantPark": {"action":parking_action, "next":["TaskMerchantParked"]},
         "TaskMerchantParked": {"recognition":{"type":"OCR","param":{"roi":profile.get("parking_roi", [1254,81,49,17] if name == "妙木山后山" else [1205,81,130,19]),
             "expected":[profile.get("coordinate_pattern", pattern)],"only_rec":profile.get("parking_only_rec", name == "妙木山后山")}},
@@ -50,6 +50,13 @@ def _parking_overrides(name, profile):
             "custom_action_param":{"variants":variants,"point":profile["point"]}}}},
         "TaskMerchantClickFixedName": {"action":{"type":"LongPress","param":{"target":[*profile["point"],1,1],"duration":100}}},
     }
+    if name == "云隐村" and profile.get("cloud_roof_route"):
+        overrides["TaskMerchantPark"] = {
+            "action": {"type": "Custom", "param": {"custom_action": "TaskMerchantCloudRoute"}},
+            "next": ["TaskMerchantSelectFixedPoint"],
+        }
+        overrides["TaskMerchantCloudNearApproachReady"] = {"action": parking_action}
+        overrides["TaskMerchantCloudTransitPark"] = {"action": parking_action}
     retry_positions = profile.get("parking_retry_positions", [])
     if retry_positions:
         parked = overrides["TaskMerchantParked"]
@@ -130,10 +137,7 @@ class TaskMerchantPrepareNavigation(CustomAction):
         landmark = [1134,86] if name == current or (name == "终末谷上方" and current == "终末谷下方") or (name == "沙忍村北" and current == "沙忍村南") else (config["submap"] if in_submap else config["world"])[name]
         scene = {"recognition": {"type": "OCR", "param": {"roi":profile.get("scene_roi", [1205,81,130,19]),
                  "expected":[profile.get("scene_pattern", {"川之国峡谷":"川之国", "热沙荒野":"热沙", "妙木山后山":"[妙炒]木山后山", "云隐村":"云[隐险]村"}.get(name,re.escape(name)))],"only_rec":profile.get("scene_only_rec", True)}}}
-        entry_position = profile.get("entry_position")
-        at_entry = entry_position and re.search(
-            r"(?<![0-9])" + str(entry_position[0]) + r"[^0-9]+" + str(entry_position[1]) + r"(?![0-9])", text)
-        scene["next"] = ["TaskMerchantCloudFirstPark" if entry_position and (name != current or at_entry) else "TaskMerchantPark"]
+        scene["next"] = ["TaskMerchantPark"]
         if name == "终末谷上方" and current != name:
             scene["recognition"]["param"]["expected"] = ["终[末未木]谷下方"]
             scene["next"] = ["TaskMerchantSelectValleyLocation"]
@@ -148,8 +152,7 @@ class TaskMerchantPrepareNavigation(CustomAction):
             "TaskMerchantEnterSelected": {"action":{"type":"LongPress","param":{"target":[*landmark,1,1],"duration":100}}},
             "TaskMerchantSelectedScene": scene,
             "TaskMerchantLocateMerchant": {"action":{"type":"Custom","param":{"custom_action":"TaskMerchantLocateMerchant",
-                "custom_action_param":{"name":name,"profile":profile,
-                    "from_entry":bool(entry_position and (name != current or at_entry))}}}},
+                "custom_action_param":{"name":name,"profile":profile}}}},
         })
 
 
@@ -221,8 +224,38 @@ class TaskMerchantLocateMerchant(CustomAction):
         profile = {**params["profile"], **matches[0]}
         return context.override_pipeline({
             **_parking_overrides(params["name"], profile),
-            "TaskMerchantLocateMerchant": {"next":["TaskMerchantCloudFirstPark" if profile.get("entry_position") and params.get("from_entry") else "TaskMerchantPark"]},
+            "TaskMerchantLocateMerchant": {"next":["TaskMerchantPark"]},
         })
+
+
+@AgentServer.custom_action("TaskMerchantCloudRoute")
+class TaskMerchantCloudRoute(CustomAction):
+    def run(self, context, argv):
+        frame = context.tasker.controller.post_screencap().wait().get()
+        if context.tasker.stopping or frame is None:
+            return False
+        checkpoint = context.run_recognition("TaskMerchantCloudStopped", frame)
+        if context.tasker.stopping:
+            return False
+        entry = "TaskMerchantCloudWaitStopped" if checkpoint and checkpoint.hit else "TaskMerchantCloudFirstPark"
+        # 坐标命中即可处理，不要求停下；两个中途点均可跳过。
+        for _ in range(6):
+            waited = context.run_task(entry)
+            if context.tasker.stopping:
+                return False
+            reached = next((n for n in waited.nodes if n.name == "TaskMerchantCloudStopped"), None) if waited else None
+            if reached is None:
+                return False
+            text = reached.recognition.best_result.text
+            if re.search(r"(?<![0-9])70[^0-9]+52(?![0-9])", text):
+                return True
+            if re.search(r"(?<![0-9])104[^0-9]+193(?![0-9])", text):
+                entry = "TaskMerchantCloudTransitPark"
+            elif re.search(r"(?<![0-9])90[^0-9]+60(?![0-9])", text):
+                entry = "TaskMerchantCloudNearApproachReady"
+            else:
+                return False
+        return False
 
 
 @AgentServer.custom_action("TaskMerchantSelectFixedPoint")

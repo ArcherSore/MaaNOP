@@ -129,18 +129,26 @@
                             "receipt_roi": [ 400, 260, 550, 200 ],
                             "coordinate_variants": [ ],
                             "locations": [
-                                { "recognition": "TaskMerchantCoastUpperDot" }
+                                { "recognition": "TaskMerchantCoastUpperDot" },
+                                {
+                                    "recognition": "TaskMerchantCoastLowerDot",
+                                    "parking": [ 1260, 171 ],
+                                    "point": [ 756, 241 ],
+                                    "position": [ 151, 194 ],
+                                    "freeze_roi": [ 730, 231, 52, 20 ],
+                                    "parking_only_rec": true
+                                }
                             ]
                         },
                         "云隐村": {
-                            "parking": [ 460, 376 ],
-                            "entry_parking": [ 1241, 126 ],
-                            "point": [ 538, 238 ],
-                            "position": [ 64, 65 ],
-                            "freeze_roi": [ 513, 228, 48, 20 ],
+                            "parking": [ 1247, 120 ],
+                            "point": [ 536, 330 ],
+                            "position": [ 70, 52 ],
+                            "freeze_roi": [ 510, 320, 52, 20 ],
+                            "parking_only_rec": true,
                             "receipt_roi": [ 400, 260, 550, 200 ],
                             "coordinate_variants": [ ],
-                            "entry_position": [ 30, 315 ],
+                            "cloud_roof_route": true,
                             "locations": [
                                 { "recognition": "TaskMerchantCloudUpperDot" },
                                 {
@@ -149,7 +157,7 @@
                                     "point": [ 823, 304 ],
                                     "position": [ 189, 217 ],
                                     "freeze_roi": [ 797, 294, 52, 20 ],
-                                    "entry_position": null,
+                                    "cloud_roof_route": false,
                                     "parking_only_rec": true,
                                     "coordinate_pattern": "云[隐险]村[^0-9]*189[^0-9]+217[^0-9]*$"
                                 }
@@ -320,15 +328,15 @@
                             ]
                         },
                         "波之国": {
-                            "parking": [ 1288, 161 ],
-                            "point": [ 597, 181 ],
-                            "position": [ 204, 152 ],
-                            "freeze_roi": [ 572, 160, 60, 115 ],
+                            "parking": [ 1289, 155 ],
+                            "point": [ 598, 293 ],
+                            "position": [ 204, 136 ],
+                            "freeze_roi": [ 572, 289, 52, 20 ],
                             "coordinate_variants": [ ],
                             "scene_pattern": "^波之国[（(]",
                             "parking_roi": [ 1205, 81, 130, 19 ],
                             "parking_only_rec": true,
-                            "coordinate_pattern": "^波之国[（(]204[^0-9]+152[)）]",
+                            "coordinate_pattern": "^波之国[（(]204[^0-9]+136[)）]",
                             "receipt_roi": [ 400, 260, 550, 200 ],
                             "locations": [
                                 { "recognition": "TaskMerchantWavesOriginalDot" },
@@ -455,7 +463,19 @@
                             "parking_roi": [ 1219, 79, 83, 18 ],
                             "parking_only_rec": true,
                             "receipt_roi": [ 550, 307, 253, 77 ],
-                            "coordinate_variants": [ ]
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantCloudThunderOriginalDot" },
+                                {
+                                    "recognition": "TaskMerchantCloudThunderUpperDot",
+                                    "parking": [ 1285, 130 ],
+                                    "point": [ 781, 307 ],
+                                    "position": [ 137, 57 ],
+                                    "freeze_roi": [ 755, 303, 52, 20 ],
+                                    "coordinate_pattern": "(?<![0-9])137[^0-9]+57(?![0-9])",
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
+                                }
+                            ]
                         },
                         "五封结界": {
                             "parking": [ 1313, 110 ],
@@ -619,6 +639,18 @@
         "recognition": { "type": "ColorMatch", "param": {
                 "roi": [ 1319, 132, 11, 10 ], "method": 40,
                 "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 5
+            } }
+    },
+    "TaskMerchantCloudThunderOriginalDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1233, 190, 11, 11 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantCloudThunderUpperDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1277, 126, 11, 11 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
             } }
     },
     "TaskMerchantTrainingUpperDot": {
@@ -793,6 +825,12 @@
             }
         }
     },
+    "TaskMerchantCoastLowerDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1258, 162, 11, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
     "TaskMerchantCrowScene": {
         "recognition": {
             "type": "OCR",
@@ -912,33 +950,29 @@
         "action": {
             "type": "LongPress",
             "param": {
-                "target": [ 1241, 126, 1, 1 ],
+                "target": [ 1247, 120, 1, 1 ],
                 "duration": 100
             }
         },
-        "next": [ "TaskMerchantCloudEntryCheckpoint" ],
+        "next": [ "TaskMerchantCloudStopped" ],
         "timeout": 30000,
         "rate_limit": 100,
         "max_hit": 200
     },
-    "TaskMerchantCloudEntryCheckpoint": {
+    "TaskMerchantCloudWaitStopped": {
+        "next": [ "TaskMerchantCloudStopped" ],
+        "timeout": 30000,
+        "rate_limit": 100
+    },
+    "TaskMerchantCloudStopped": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [ 1205, 81, 130, 19 ],
-                "expected": [ "云[隐险]村[^0-9]*104[^0-9]+193[^0-9]*$" ],
+                "expected": [ "云[隐险]村[^0-9]*(104[^0-9]+193|90[^0-9]+60|70[^0-9]+52)[^0-9]*$" ],
                 "only_rec": true
             }
-        },
-        "post_wait_freezes": {
-            "time": 300,
-            "target": [ 1205, 81, 130, 19 ],
-            "rate_limit": 100,
-            "timeout": 5000
-        },
-        "next": [ "TaskMerchantCloudTransitPark" ],
-        "timeout": 5000,
-        "rate_limit": 100
+        }
     },
     "TaskMerchantParked": {
         "recognition": {
@@ -1050,31 +1084,20 @@
         "action": {
             "type": "LongPress",
             "param": {
-                "target": [ 1241, 126, 1, 1 ],
+                "target": [ 1247, 120, 1, 1 ],
                 "duration": 100
             }
         },
-        "next": [ "TaskMerchantCloudNearApproachReady" ],
+        "next": [ "TaskMerchantCloudStopped" ],
         "timeout": 30000,
         "rate_limit": 100
     },
     "TaskMerchantCloudNearApproachReady": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 1205, 81, 130, 19 ],
-                "expected": [ "90[^0-9]+60" ],
-                "only_rec": false
-            }
-        },
-        "post_wait_freezes": {
-            "time": 300,
-            "target": [ 1205, 81, 130, 19 ],
-            "rate_limit": 100,
-            "timeout": 5000
-        },
-        "next": [ "TaskMerchantPark" ],
-        "timeout": 5000,
+        "action": { "type": "LongPress", "param": {
+                "target": [ 1247, 120, 1, 1 ], "duration": 100
+            } },
+        "next": [ "TaskMerchantCloudStopped" ],
+        "timeout": 30000,
         "rate_limit": 100
     }
 }
