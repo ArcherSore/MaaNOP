@@ -113,7 +113,7 @@ class TaskMerchantPrepareNavigation(CustomAction):
         position = profile.get("position")
         if not position:
             return False
-        landmark = [1134,86] if name == current or (name == "终末谷上方" and current == "终末谷下方") else (config["submap"] if in_submap else config["world"])[name]
+        landmark = [1134,86] if name == current or (name == "终末谷上方" and current == "终末谷下方") or (name == "沙忍村北" and current == "沙忍村南") else (config["submap"] if in_submap else config["world"])[name]
         scene = {"recognition": {"type": "OCR", "param": {"roi":profile.get("scene_roi", [1205,81,130,19]),
                  "expected":[profile.get("scene_pattern", {"川之国峡谷":"川之国", "热沙荒野":"热沙", "妙木山后山":"[妙炒]木山后山", "云隐村":"云[隐险]村"}.get(name,re.escape(name)))],"only_rec":profile.get("scene_only_rec", True)}}}
         entry_position = profile.get("entry_position")
@@ -126,7 +126,7 @@ class TaskMerchantPrepareNavigation(CustomAction):
             scene["post_wait_freezes"] = {"time":300,"target":[1205,100,130,125],"rate_limit":100,"timeout":5000}
         if name == "沙忍村北" and current != name:
             scene["recognition"]["param"]["expected"] = ["[砂沙][忍绍]村南"]
-            scene["next"] = ["TaskMerchantSandApproach"]
+            scene["next"] = ["TaskMerchantSelectSandLocation"]
         if profile.get("locations"):
             scene["next"] = ["TaskMerchantLocateMerchant"]
         return context.override_pipeline({
@@ -160,6 +160,30 @@ class TaskMerchantSelectValleyLocation(CustomAction):
         return context.override_pipeline({
             **_parking_overrides(name, profile),
             "TaskMerchantValleyDispatch": {"next":["TaskMerchantPark" if matches else "TaskMerchantValleyApproach"]},
+        })
+
+
+@AgentServer.custom_action("TaskMerchantSelectSandLocation")
+class TaskMerchantSelectSandLocation(CustomAction):
+    def run(self, context, argv):
+        frame = context.tasker.controller.post_screencap().wait().get()
+        if context.tasker.stopping or frame is None:
+            return False
+        south = context.get_node_data("TaskMerchantBeginRefill")["action"]["param"]["custom_action_param"]["profiles"]["沙忍村南"]
+        matches = []
+        for location in south["locations"]:
+            result = context.run_recognition(location["recognition"], frame)
+            if context.tasker.stopping or result is None:
+                return False
+            if result.hit:
+                matches.append(location)
+        if len(matches) > 1:
+            return False
+        if not matches:
+            return context.override_pipeline({"TaskMerchantSandDispatch": {"next": ["TaskMerchantSandApproach"]}})
+        return context.override_pipeline({
+            **_parking_overrides("沙忍村南", {**south, **matches[0]}),
+            "TaskMerchantSandDispatch": {"next": ["TaskMerchantPark"]},
         })
 
 

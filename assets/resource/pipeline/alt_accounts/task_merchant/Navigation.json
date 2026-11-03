@@ -113,6 +113,27 @@
                             "receipt_roi": [ 400, 260, 550, 200 ],
                             "coordinate_variants": [ ]
                         },
+                        "沙忍村南": {
+                            "parking": [ 1294, 117 ],
+                            "point": [ 579, 232 ],
+                            "position": [ 204, 40 ],
+                            "freeze_roi": [ 553, 222, 52, 20 ],
+                            "scene_pattern": "[砂沙][忍绍]村南",
+                            "scene_only_rec": false,
+                            "parking_only_rec": false,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantSandSouthDot" },
+                                {
+                                    "recognition": "TaskMerchantSandSouthSecondDot",
+                                    "parking": [ 1231, 186 ],
+                                    "point": [ 462, 346 ],
+                                    "position": [ 63, 197 ],
+                                    "freeze_roi": [ 436, 335, 52, 20 ]
+                                }
+                            ]
+                        },
                         "雨忍村内": {
                             "parking": [ 1242, 137 ],
                             "point": [ 733, 294 ],
@@ -121,7 +142,17 @@
                             "scene_only_rec": false,
                             "parking_only_rec": false,
                             "receipt_roi": [ 400, 260, 550, 200 ],
-                            "coordinate_variants": [ ]
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantRainFirstDot" },
+                                {
+                                    "recognition": "TaskMerchantRainSecondDot",
+                                    "parking": [ 1286, 110 ],
+                                    "point": [ 734, 142 ],
+                                    "position": [ 188, 25 ],
+                                    "freeze_roi": [ 708, 132, 52, 20 ]
+                                }
+                            ]
                         },
                         "妙木山后山": {
                             "parking": [ 1267, 137 ],
@@ -317,6 +348,17 @@
                             "parking_only_rec": true,
                             "receipt_roi": [ 550, 307, 253, 77 ],
                             "coordinate_variants": [ ]
+                        },
+                        "五封结界": {
+                            "parking": [ 1313, 110 ],
+                            "point": [ 1053, 114 ],
+                            "position": [ 273, 27 ],
+                            "freeze_roi": [ 1027, 104, 52, 20 ],
+                            "scene_pattern": "五封.?界",
+                            "scene_only_rec": false,
+                            "parking_only_rec": false,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ]
                         }
                     },
                     "world": {
@@ -341,7 +383,8 @@
                         "鸦之森": [ 428, 408 ],
                         "枯木之森": [ 595, 420 ],
                         "雨忍村内": [ 310, 454 ],
-                        "沙忍村北": [ 225, 650 ]
+                        "沙忍村北": [ 225, 650 ],
+                        "五封结界": [ 390, 623 ]
                     },
                     "submap": {
                         "木叶村东": [ 805, 371 ],
@@ -479,6 +522,39 @@
                 "roi": [ 1301, 118, 9, 9 ], "method": 40,
                 "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
             } }
+    },
+    "TaskMerchantRainFirstDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1246, 133, 8, 8 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 12
+            } }
+    },
+    "TaskMerchantRainSecondDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1284, 105, 11, 11 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 12
+            } }
+    },
+    "TaskMerchantSandSouthDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1283, 112, 9, 9 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 10
+            } }
+    },
+    "TaskMerchantSandSouthSecondDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1226, 183, 11, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 10
+            } }
+    },
+    "TaskMerchantSelectSandLocation": {
+        "action": { "type": "Custom", "param": { "custom_action": "TaskMerchantSelectSandLocation" } },
+        "next": [ "TaskMerchantSandDispatch" ],
+        "timeout": 5000
+    },
+    "TaskMerchantSandDispatch": {
+        "next": [ "TaskMerchantSandApproach" ],
+        "timeout": 30000
     },
     "TaskMerchantSelectValleyLocation": {
         "action": { "type": "Custom", "param": { "custom_action": "TaskMerchantSelectValleyLocation" } },
