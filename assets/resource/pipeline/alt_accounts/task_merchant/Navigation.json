@@ -106,7 +106,19 @@
                             "point": [ 1136, 211 ],
                             "position": [ 239, 73 ],
                             "freeze_roi": [ 1090, 160, 90, 100 ],
-                            "coordinate_variants": [ ]
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantHotSandOriginalDot" },
+                                {
+                                    "recognition": "TaskMerchantHotSandLowerLeftDot",
+                                    "parking": [ 1238, 219 ],
+                                    "point": [ 510, 471 ],
+                                    "position": [ 79, 272 ],
+                                    "freeze_roi": [ 484, 461, 52, 20 ],
+                                    "parking_only_rec": true,
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
+                                }
+                            ]
                         },
                         "草波海岸": {
                             "parking": [ 1266, 105 ],
@@ -285,15 +297,15 @@
                             ]
                         },
                         "风之国沙漠": {
-                            "parking": [ 1246, 176 ],
-                            "point": [ 710, 179 ],
-                            "position": [ 98, 173 ],
-                            "freeze_roi": [ 684, 163, 55, 115 ],
+                            "parking": [ 1247, 165 ],
+                            "point": [ 710, 336 ],
+                            "position": [ 98, 150 ],
+                            "freeze_roi": [ 684, 326, 52, 20 ],
                             "coordinate_variants": [ ],
                             "scene_pattern": "[风凤]之国沙",
                             "parking_roi": [ 1205, 81, 130, 19 ],
                             "parking_only_rec": true,
-                            "coordinate_pattern": "^风之国沙漠[（(]98[^0-9]+173[)）]",
+                            "coordinate_pattern": "^风之国沙漠[（(]98[^0-9]+150[)）]",
                             "receipt_roi": [ 400, 260, 550, 200 ],
                             "locations": [
                                 { "recognition": "TaskMerchantDesertOriginalDot" },
@@ -454,7 +466,18 @@
                             "scene_only_rec": false,
                             "parking_only_rec": false,
                             "receipt_roi": [ 400, 260, 550, 200 ],
-                            "coordinate_variants": [ ]
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantFiveSealOriginalDot" },
+                                {
+                                    "recognition": "TaskMerchantFiveSealSecondDot",
+                                    "parking": [ 1229, 135 ],
+                                    "point": [ 369, 321 ],
+                                    "position": [ 62, 91 ],
+                                    "freeze_roi": [ 343, 311, 52, 20 ],
+                                    "parking_only_rec": true
+                                }
+                            ]
                         }
                     },
                     "world": {
@@ -549,6 +572,30 @@
         "next": [ "TaskMerchantPark" ],
         "timeout": 60000,
         "rate_limit": 100
+    },
+    "TaskMerchantHotSandOriginalDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1319, 120, 10, 10 ], "method": 40,
+                "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 5
+            } }
+    },
+    "TaskMerchantHotSandLowerLeftDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1230, 217, 10, 10 ], "method": 40,
+                "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 5
+            } }
+    },
+    "TaskMerchantFiveSealOriginalDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": { "roi": [ 1314, 104, 10, 10 ], "method": 40, "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 3 }
+        }
+    },
+    "TaskMerchantFiveSealSecondDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": { "roi": [ 1219, 131, 11, 11 ], "method": 40, "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 3 }
+        }
     },
     "TaskMerchantCanyonFirstDot": {
         "recognition": { "type": "ColorMatch", "param": {
