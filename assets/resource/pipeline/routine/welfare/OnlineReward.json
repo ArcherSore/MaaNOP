@@ -1,6 +1,8 @@
 // 福利大厅：先领取当前可领的在线礼包（不等待倒计时），再处理每日福利中的月卡。
 {
     "OnlineReward": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "focus": {
             "Node.PipelineNode.Failed": "主界面找不到「福利大厅」"
         },
@@ -34,6 +36,8 @@
         }
     },
     "OnlineHallOpened": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -59,6 +63,8 @@
         "next": [ "OnlineTabSelected" ]
     },
     "OnlineTabSelected": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -123,7 +129,10 @@
         "next": [ "OnlineClaimTaken" ]
     },
     // 核对 OnlineClaim 上次命中的按钮位置，避免用其他礼包按钮判断领取结果。
+    // 纯识别节点不继承前后各 200ms 的默认延迟，仍按原状态条件推进。
     "OnlineClaimTaken": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -140,6 +149,8 @@
     },
     // 页面空白过渡期也没有橙色按钮，需先确认礼包页已绘制。
     "OnlineGiftReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -151,6 +162,7 @@
         "next": [ "OnlineClaim", "OnlineNoClaim" ]
     },
     "OnlineNoClaim": {
+        "pre_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -162,6 +174,8 @@
         "next": [ "OnlineClaim", "OnlineNoClaimConfirmed" ]
     },
     "OnlineNoClaimConfirmed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -182,6 +196,8 @@
         "next": [ "OnlineHallClosed" ]
     },
     "OnlineHallClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
