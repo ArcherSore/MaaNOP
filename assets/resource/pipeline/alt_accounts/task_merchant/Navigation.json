@@ -1,0 +1,895 @@
+// 内层丝带须在外层+(4,4)处匹配；由外层位置恢复卷轴参考框用于地区定位。
+{
+    "TaskMerchantBeginRefill": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "TaskMerchantPrepareNavigation",
+                "custom_action_param": {
+                    "profiles": {
+                        "木叶村东": {
+                            "parking": [ 1308, 128 ],
+                            "point": [ 780, 203 ],
+                            "position": [ 236, 65 ],
+                            "freeze_roi": [ 735, 178, 90, 80 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "枯木之森": {
+                            "parking": [ 1321, 115 ],
+                            "point": [ 996, 303 ],
+                            "position": [ 320, 42 ],
+                            "freeze_roi": [ 970, 293, 52, 20 ],
+                            "parking_only_rec": false,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantDeadwoodUpperRightDot" }
+                            ]
+                        },
+                        "短册街": {
+                            "parking": [ 1320, 120 ],
+                            "point": [ 1105, 361 ],
+                            "position": [ 317, 57 ],
+                            "freeze_roi": [ 1070, 345, 80, 140 ],
+                            "scene_only_rec": false,
+                            "coordinate_variants": [ ]
+                        },
+                        "木叶村北": {
+                            "parking": [ 1281, 209 ],
+                            "point": [ 419, 345 ],
+                            "position": [ 173, 273 ],
+                            "freeze_roi": [ 394, 329, 55, 55 ],
+                            "coordinate_variants": [
+                                {
+                                    "position": [ 173, 270 ],
+                                    "point": [ 419, 368 ]
+                                },
+                                {
+                                    "position": [ 173, 273 ],
+                                    "point": [ 419, 345 ]
+                                }
+                            ],
+                            "parking_roi": [ 1205, 81, 130, 19 ],
+                            "parking_only_rec": true
+                        },
+                        "川之国峡谷": {
+                            "parking": [ 1280, 134 ],
+                            "point": [ 864, 207 ],
+                            "position": [ 163, 86 ],
+                            "freeze_roi": [ 815, 170, 120, 95 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "热沙荒野": {
+                            "parking": [ 1310, 132 ],
+                            "point": [ 1136, 211 ],
+                            "position": [ 239, 73 ],
+                            "freeze_roi": [ 1090, 160, 90, 100 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "草波海岸": {
+                            "parking": [ 1266, 105 ],
+                            "point": [ 552, 72 ],
+                            "position": [ 170, 15 ],
+                            "freeze_roi": [ 530, 62, 48, 20 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantCoastUpperDot" }
+                            ]
+                        },
+                        "云隐村": {
+                            "parking": [ 460, 376 ],
+                            "entry_parking": [ 1241, 126 ],
+                            "point": [ 538, 238 ],
+                            "position": [ 64, 65 ],
+                            "freeze_roi": [ 513, 228, 48, 20 ],
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "entry_position": [ 30, 315 ],
+                            "locations": [
+                                { "recognition": "TaskMerchantCloudUpperDot" },
+                                {
+                                    "recognition": "TaskMerchantCloudLowerDot",
+                                    "parking": [ 1294, 186 ],
+                                    "point": [ 823, 304 ],
+                                    "position": [ 189, 217 ],
+                                    "freeze_roi": [ 797, 294, 52, 20 ],
+                                    "entry_position": null,
+                                    "parking_only_rec": true,
+                                    "coordinate_pattern": "云[隐险]村[^0-9]*189[^0-9]+217[^0-9]*$"
+                                }
+                            ]
+                        },
+                        "沙忍村北": {
+                            "parking": [ 1249, 215 ],
+                            "point": [ 729, 415 ],
+                            "position": [ 105, 262 ],
+                            "freeze_roi": [ 700, 395, 85, 150 ],
+                            "scene_pattern": "[砂沙][忍绍]村北",
+                            "scene_only_rec": false,
+                            "parking_only_rec": false,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "沙忍村南": {
+                            "parking": [ 1294, 117 ],
+                            "point": [ 579, 232 ],
+                            "position": [ 204, 40 ],
+                            "freeze_roi": [ 553, 222, 52, 20 ],
+                            "scene_pattern": "[砂沙][忍绍]村南",
+                            "scene_only_rec": false,
+                            "parking_only_rec": false,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantSandSouthDot" },
+                                {
+                                    "recognition": "TaskMerchantSandSouthSecondDot",
+                                    "parking": [ 1231, 186 ],
+                                    "point": [ 462, 346 ],
+                                    "position": [ 63, 197 ],
+                                    "freeze_roi": [ 436, 335, 52, 20 ]
+                                }
+                            ]
+                        },
+                        "雨忍村内": {
+                            "parking": [ 1242, 137 ],
+                            "point": [ 733, 294 ],
+                            "position": [ 89, 85 ],
+                            "freeze_roi": [ 695, 270, 80, 115 ],
+                            "scene_only_rec": false,
+                            "parking_only_rec": false,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantRainFirstDot" },
+                                {
+                                    "recognition": "TaskMerchantRainSecondDot",
+                                    "parking": [ 1286, 110 ],
+                                    "point": [ 734, 142 ],
+                                    "position": [ 188, 25 ],
+                                    "freeze_roi": [ 708, 132, 52, 20 ]
+                                }
+                            ]
+                        },
+                        "妙木山后山": {
+                            "parking": [ 1267, 137 ],
+                            "point": [ 574, 307 ],
+                            "position": [ 170, 102 ],
+                            "freeze_roi": [ 540, 285, 80, 100 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "木叶森林": {
+                            "parking": [ 1300, 202 ],
+                            "point": [ 1004, 218 ],
+                            "position": [ 220, 233 ],
+                            "freeze_roi": [ 970, 200, 80, 70 ],
+                            "scene_pattern": "^木叶森林[（(]",
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantForestLowerDot" },
+                                {
+                                    "recognition": "TaskMerchantForestUpperDot",
+                                    "parking": [ 1320, 167 ],
+                                    "point": [ 1093, 355 ],
+                                    "position": [ 265, 153 ],
+                                    "freeze_roi": [ 1067, 345, 52, 20 ],
+                                    "parking_only_rec": true,
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
+                                }
+                            ]
+                        },
+                        "木叶森林深处": {
+                            "parking": [ 1224, 163 ],
+                            "point": [ 160, 356 ],
+                            "position": [ 29, 98 ],
+                            "freeze_roi": [ 135, 346, 52, 20 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "死亡森林深处": {
+                            "parking": [ 1269, 110 ],
+                            "point": [ 623, 154 ],
+                            "position": [ 150, 25 ],
+                            "freeze_roi": [ 598, 144, 52, 20 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "火之寺": {
+                            "parking": [ 1214, 122 ],
+                            "point": [ 411, 178 ],
+                            "position": [ 27, 61 ],
+                            "freeze_roi": [ 385, 155, 60, 100 ],
+                            "coordinate_variants": [ ],
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "parking_roi": [ 1250, 81, 60, 18 ],
+                            "parking_only_rec": true,
+                            "coordinate_pattern": "(^|[^0-9])27[^0-9]+61([^0-9]|$)"
+                        },
+                        "风之国沙漠": {
+                            "parking": [ 1246, 176 ],
+                            "point": [ 710, 179 ],
+                            "position": [ 98, 173 ],
+                            "freeze_roi": [ 684, 163, 55, 115 ],
+                            "coordinate_variants": [ ],
+                            "scene_pattern": "[风凤]之国沙",
+                            "parking_roi": [ 1205, 81, 130, 19 ],
+                            "parking_only_rec": true,
+                            "coordinate_pattern": "^风之国沙漠[（(]98[^0-9]+173[)）]",
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "locations": [
+                                { "recognition": "TaskMerchantDesertOriginalDot" },
+                                {
+                                    "recognition": "TaskMerchantDesertWestDot",
+                                    "parking": [ 1223, 160 ],
+                                    "point": [ 216, 374 ],
+                                    "position": [ 44, 136 ],
+                                    "freeze_roi": [ 185, 350, 85, 150 ],
+                                    "coordinate_pattern": "(^|[^0-9])44[^0-9]+136([^0-9]|$)"
+                                }
+                            ]
+                        },
+                        "波之国": {
+                            "parking": [ 1288, 161 ],
+                            "point": [ 597, 181 ],
+                            "position": [ 204, 152 ],
+                            "freeze_roi": [ 572, 160, 60, 115 ],
+                            "coordinate_variants": [ ],
+                            "scene_pattern": "^波之国[（(]",
+                            "parking_roi": [ 1205, 81, 130, 19 ],
+                            "parking_only_rec": true,
+                            "coordinate_pattern": "^波之国[（(]204[^0-9]+152[)）]",
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "locations": [
+                                { "recognition": "TaskMerchantWavesOriginalDot" },
+                                {
+                                    "recognition": "TaskMerchantWavesUpperLeftDot",
+                                    "parking": [ 1220, 118 ],
+                                    "point": [ 357, 296 ],
+                                    "position": [ 38, 46 ],
+                                    "freeze_roi": [ 331, 286, 52, 20 ],
+                                    "coordinate_pattern": "^波之国[（(]38[^0-9]+46[)）]"
+                                }
+                            ]
+                        },
+                        "铁之国雪原": {
+                            "parking": [ 1221, 132 ],
+                            "point": [ 336, 350 ],
+                            "position": [ 48, 89 ],
+                            "freeze_roi": [ 309, 340, 52, 20 ],
+                            "scene_pattern": "铁之国.?雪原",
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "侍桥": {
+                            "parking": [ 1227, 152 ],
+                            "point": [ 460, 303 ],
+                            "position": [ 53, 118 ],
+                            "freeze_roi": [ 434, 293, 52, 20 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantBridgeOriginalDot" },
+                                {
+                                    "recognition": "TaskMerchantBridgeLowerRightDot",
+                                    "parking": [ 1280, 196 ],
+                                    "point": [ 734, 374 ],
+                                    "position": [ 172, 219 ],
+                                    "freeze_roi": [ 708, 364, 52, 20 ],
+                                    "coordinate_pattern": "侍桥[^0-9]*172[^0-9]+219[^0-9]*$"
+                                }
+                            ]
+                        },
+                        "铁之国城门": {
+                            "parking": [ 1296, 193 ],
+                            "point": [ 696, 534 ],
+                            "position": [ 171, 172 ],
+                            "freeze_roi": [ 672, 518, 55, 100 ],
+                            "coordinate_variants": [ ],
+                            "scene_pattern": "^铁之国城门[（(]",
+                            "parking_roi": [ 1253, 81, 80, 19 ],
+                            "parking_only_rec": true,
+                            "coordinate_pattern": "(^|[^0-9])171[^0-9]+172([^0-9]|$)",
+                            "receipt_roi": [ 400, 260, 550, 200 ]
+                        },
+                        "木叶训练场": {
+                            "parking": [ 1305, 134 ],
+                            "point": [ 864, 301 ],
+                            "position": [ 154, 52 ],
+                            "freeze_roi": [ 815, 270, 230, 160 ],
+                            "scene_pattern": "[木本]叶.*训[练线]场",
+                            "scene_only_rec": false,
+                            "receipt_roi": [ 550, 315, 250, 65 ],
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantTrainingUpperDot" },
+                                {
+                                    "recognition": "TaskMerchantTrainingLowerDot",
+                                    "parking": [ 1306, 198 ],
+                                    "point": [ 994, 343 ],
+                                    "position": [ 154, 148 ],
+                                    "freeze_roi": [ 955, 325, 85, 130 ],
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
+                                }
+                            ]
+                        },
+                        "鸦之森": {
+                            "parking": [ 1298, 145 ],
+                            "point": [ 1025, 329 ],
+                            "position": [ 192, 103 ],
+                            "freeze_roi": [ 985, 310, 85, 130 ],
+                            "scene_roi": [ 1220, 80, 80, 19 ],
+                            "scene_pattern": "[鸦聘]之森",
+                            "parking_only_rec": true,
+                            "coordinate_variants": [ ]
+                        },
+                        "终末谷下方": {
+                            "parking": [ 1230, 170 ],
+                            "point": [ 329, 262 ],
+                            "position": [ 60, 163 ],
+                            "freeze_roi": [ 303, 252, 52, 20 ],
+                            "scene_pattern": "终[末未木]谷下方",
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantValleyLowerDot" },
+                                {
+                                    "recognition": "TaskMerchantValleyLowerSecondDot",
+                                    "parking": [ 1300, 120 ],
+                                    "point": [ 850, 298 ],
+                                    "position": [ 220, 51 ],
+                                    "freeze_roi": [ 825, 288, 52, 20 ],
+                                    "parking_only_rec": false
+                                }
+                            ]
+                        },
+                        "终末谷上方": {
+                            "parking": [ 1250, 136 ],
+                            "point": [ 510, 492 ],
+                            "position": [ 105, 83 ],
+                            "freeze_roi": [ 470, 465, 95, 140 ],
+                            "scene_pattern": "终[末未]谷?上方",
+                            "scene_only_rec": false,
+                            "parking_only_rec": true,
+                            "coordinate_variants": [ ]
+                        },
+                        "云雷峡": {
+                            "parking": [ 1243, 200 ],
+                            "point": [ 327, 229 ],
+                            "position": [ 57, 190 ],
+                            "freeze_roi": [ 283, 210, 233, 227 ],
+                            "scene_pattern": "云[雷重]",
+                            "parking_roi": [ 1219, 79, 83, 18 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 550, 307, 253, 77 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "五封结界": {
+                            "parking": [ 1313, 110 ],
+                            "point": [ 1053, 114 ],
+                            "position": [ 273, 27 ],
+                            "freeze_roi": [ 1027, 104, 52, 20 ],
+                            "scene_pattern": "五封.?界",
+                            "scene_only_rec": false,
+                            "parking_only_rec": false,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ]
+                        }
+                    },
+                    "world": {
+                        "木叶村": [ 500, 521 ],
+                        "木叶森林": [ 560, 594 ],
+                        "木叶森林深处": [ 620, 542 ],
+                        "死亡森林深处": [ 650, 502 ],
+                        "云隐村": [ 1045, 267 ],
+                        "草波海岸": [ 795, 584 ],
+                        "热沙荒野": [ 310, 584 ],
+                        "川之国峡谷": [ 350, 535 ],
+                        "短册街": [ 534, 442 ],
+                        "火之寺": [ 639, 378 ],
+                        "风之国沙漠": [ 243, 527 ],
+                        "波之国": [ 881, 520 ],
+                        "铁之国城门": [ 694, 134 ],
+                        "铁之国雪原": [ 783, 140 ],
+                        "侍桥": [ 700, 194 ],
+                        "木叶训练场": [ 660, 581 ],
+                        "云雷峡": [ 1091, 328 ],
+                        "终末谷上方": [ 515, 389 ],
+                        "鸦之森": [ 428, 408 ],
+                        "枯木之森": [ 595, 420 ],
+                        "雨忍村内": [ 310, 454 ],
+                        "沙忍村北": [ 256, 660 ],
+                        "五封结界": [ 390, 623 ]
+                    },
+                    "submap": {
+                        "木叶村东": [ 805, 371 ],
+                        "木叶村北": [ 719, 364 ],
+                        "妙木山后山": [ 554, 292 ]
+                    }
+                }
+            }
+        },
+        "next": [ "TaskMerchantEnterSelected" ],
+        "timeout": 120000,
+        "rate_limit": 100
+    },
+    "TaskMerchantOpenWorldMap": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1255, 67, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantWorldMapReady" ],
+        "timeout": 10000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantWorldMapReady": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "TaskMerchantMapReady"
+            }
+        },
+        "next": [ ]
+    },
+    "TaskMerchantOpenKonohaMap": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 500, 521, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantKonohaMapReady" ],
+        "timeout": 10000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantKonohaMapReady": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "TaskMerchantMapReady",
+                "custom_recognition_param": {
+                    "map": "submap"
+                }
+            }
+        },
+        "next": [ ]
+    },
+    "TaskMerchantLocateMerchant": {
+        "action": { "type": "Custom", "param": { "custom_action": "TaskMerchantLocateMerchant" } },
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 60000,
+        "rate_limit": 100
+    },
+    "TaskMerchantTrainingUpperDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1286, 129, 12, 12 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantTrainingLowerDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1298, 197, 12, 12 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantDesertOriginalDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1244, 163, 12, 11 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantDesertWestDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1212, 159, 11, 11 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantCoastUpperDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1254, 100, 12, 12 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantForestLowerDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1310, 193, 11, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantForestUpperDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1315, 167, 11, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantBridgeOriginalDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1227, 148, 11, 11 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantBridgeLowerRightDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1278, 194, 11, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantCloudUpperDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1244, 118, 11, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantCloudLowerDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1285, 182, 11, 11 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantWavesOriginalDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1279, 151, 10, 9 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantWavesUpperLeftDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1219, 115, 10, 9 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantDeadwoodUpperRightDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1313, 113, 10, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantValleyLowerDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1220, 165, 8, 8 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantValleyLowerSecondDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1301, 118, 9, 9 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantRainFirstDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1246, 133, 8, 8 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 12
+            } }
+    },
+    "TaskMerchantRainSecondDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1284, 105, 11, 11 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 12
+            } }
+    },
+    "TaskMerchantSandSouthDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1283, 112, 9, 9 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 10
+            } }
+    },
+    "TaskMerchantSandSouthSecondDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1226, 183, 11, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 10
+            } }
+    },
+    "TaskMerchantSelectSandLocation": {
+        "action": { "type": "Custom", "param": { "custom_action": "TaskMerchantSelectSandLocation" } },
+        "next": [ "TaskMerchantSandDispatch" ],
+        "timeout": 5000
+    },
+    "TaskMerchantSandDispatch": {
+        "next": [ "TaskMerchantSandApproach" ],
+        "timeout": 30000
+    },
+    "TaskMerchantSelectValleyLocation": {
+        "action": { "type": "Custom", "param": { "custom_action": "TaskMerchantSelectValleyLocation" } },
+        "next": [ "TaskMerchantValleyDispatch" ],
+        "timeout": 5000
+    },
+    "TaskMerchantValleyDispatch": {
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 30000
+    },
+    "TaskMerchantCurrentScene": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1205, 81, 130, 19 ],
+                "expected": [ ".+" ],
+                "only_rec": true
+            }
+        }
+    },
+    "TaskMerchantCrowScene": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1220, 80, 80, 19 ],
+                "expected": [ "[鸦聘]之森" ],
+                "only_rec": true
+            }
+        }
+    },
+    "TaskMerchantEnterSelected": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1134, 86, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantSelectedScene" ],
+        "timeout": 120000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantSelectedScene": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1205, 81, 130, 19 ],
+                "expected": [ "云[隐险]村" ],
+                "only_rec": true
+            }
+        },
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 10000,
+        "rate_limit": 100
+    },
+    "TaskMerchantSandApproach": {
+        "action": { "type": "LongPress", "param": { "target": [ 1218, 121, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantSandAtExit" ],
+        "timeout": 60000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantSandAtExit": {
+        "recognition": { "type": "OCR", "param": { "roi": [ 1205, 81, 130, 19 ], "expected": [ "34[^0-9]+48" ], "only_rec": false } },
+        "post_wait_freezes": { "time": 300, "target": [ 0, 260, 130, 110 ], "rate_limit": 100, "timeout": 5000 },
+        "next": [ "TaskMerchantSandCrossExit" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantSandCrossExit": {
+        "action": { "type": "LongPress", "param": { "target": [ 32, 296, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantSandNorthReady" ],
+        "timeout": 15000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantSandNorthReady": {
+        "recognition": { "type": "OCR", "param": { "roi": [ 1205, 81, 130, 19 ], "expected": [ "[砂沙][忍绍]村北" ], "only_rec": false } },
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantValleyApproach": {
+        "action": { "type": "LongPress", "param": { "target": [ 1219, 115, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantValleyAtExit" ],
+        "timeout": 30000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantValleyAtExit": {
+        "recognition": { "type": "OCR", "param": { "roi": [ 1205, 81, 130, 19 ], "expected": [ "38[^0-9]+37" ], "only_rec": true } },
+        "post_wait_freezes": { "time": 300, "target": [ 150, 170, 180, 160 ], "rate_limit": 100, "timeout": 5000 },
+        "next": [ "TaskMerchantValleyCrossExit" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantValleyCrossExit": {
+        "action": { "type": "LongPress", "param": { "target": [ 191, 160, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantValleyUpperReady" ],
+        "timeout": 10000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantValleyUpperReady": {
+        "recognition": { "type": "OCR", "param": { "roi": [ 1205, 81, 130, 19 ], "expected": [ "终[末未]谷上方" ], "only_rec": false } },
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantPark": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1241, 126, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "max_hit": 200,
+        "next": [ "TaskMerchantParked" ],
+        "timeout": 30000,
+        "rate_limit": 100
+    },
+    "TaskMerchantCloudFirstPark": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1241, 126, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantCloudEntryCheckpoint" ],
+        "timeout": 30000,
+        "rate_limit": 100,
+        "max_hit": 200
+    },
+    "TaskMerchantCloudEntryCheckpoint": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1205, 81, 130, 19 ],
+                "expected": [ "云[隐险]村[^0-9]*104[^0-9]+193[^0-9]*$" ],
+                "only_rec": true
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 1205, 81, 130, 19 ],
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "next": [ "TaskMerchantCloudTransitPark" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantParked": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1205, 81, 130, 19 ],
+                "expected": [ "54[^0-9]+67" ],
+                "only_rec": true
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 490, 205, 100, 80 ],
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "next": [ "TaskMerchantSelectFixedPoint" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantSelectFixedPoint": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "TaskMerchantSelectFixedPoint"
+            }
+        },
+        "next": [ "TaskMerchantOldReceiptGone" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantOldReceiptGone": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 550, 319, 240, 42 ],
+                "expected": [ "最多只能领取10个任务|恭喜你.*获得了[1-5]张任务卡" ],
+                "only_rec": false
+            }
+        },
+        "inverse": true,
+        "next": [ "TaskMerchantClickFixedName" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantClickFixedName": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 538, 235, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "max_hit": 200,
+        "next": [ "TaskMerchantClaimReceipt" ],
+        "timeout": 15000,
+        "rate_limit": 100,
+        "on_error": [ "TaskMerchantOpenPanel" ]
+    },
+    "TaskMerchantClaimReceipt": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 550, 319, 240, 42 ],
+                "expected": [ "最多只能领取10个任务|恭喜你.*获得了[1-5]张任务卡" ],
+                "only_rec": false
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "TaskMerchantRouteClaimReceipt"
+            }
+        },
+        "next": [ "TaskMerchantAfterReceipt" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantAfterReceipt": {
+        "next": [ "TaskMerchantOpenPanel" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantScrollOuter": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [ 190, 70, 960, 615 ],
+                "template": "alt_accounts/task_merchant/scroll_world_outer.png",
+                "threshold": 0.55,
+                "method": 5,
+                "order_by": "Score"
+            }
+        }
+    },
+    "TaskMerchantScrollInner": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [ 190, 70, 960, 615 ],
+                "template": "alt_accounts/task_merchant/scroll_world_inner.png",
+                "threshold": 0.7,
+                "method": 5,
+                "order_by": "Score"
+            }
+        }
+    },
+    "TaskMerchantCloudTransitPark": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1241, 126, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantCloudNearApproachReady" ],
+        "timeout": 30000,
+        "rate_limit": 100
+    },
+    "TaskMerchantCloudNearApproachReady": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1205, 81, 130, 19 ],
+                "expected": [ "90[^0-9]+60" ],
+                "only_rec": false
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 1205, 81, 130, 19 ],
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    }
+}

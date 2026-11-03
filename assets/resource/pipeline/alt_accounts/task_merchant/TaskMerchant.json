@@ -1,0 +1,501 @@
+// 原生720p正文OCR，不额外放大。
+{
+    "TaskMerchantStart": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "next": [ "TaskMerchantConfigure" ]
+    },
+    // 使用 attach 的扁平键合并收件人和各选项，避免嵌套对象相互覆盖。
+    "TaskMerchantConfigure": {
+        "rate_limit": 100,
+        "timeout": 8000,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "TaskMerchantConfigure"
+            }
+        },
+        "next": [ "TaskMerchantPrepareToolbar" ],
+        "attach": {
+            "recipient": "",
+            "survival_score_70": false,
+            "survival_score_120": false,
+            "survival_score_170": false,
+            "ranked_participation_1": false,
+            "ranked_participation_2": false,
+            "ranked_participation_3": false,
+            "wanted_1": false,
+            "wanted_3": false,
+            "wanted_5": false,
+            "escort_1": false,
+            "escort_3": false,
+            "arena_participation_1": false,
+            "arena_participation_2": false,
+            "arena_participation_3": false,
+            "arena_participation_6": false,
+            "quiz_participation_1": false
+        }
+    },
+    // 顶部栏在整个任务开始时收起，正常结束时展开；已处于目标状态则不点击。
+    // 箭头模板来自2026-11-03实图，互匹配最高0.70，含悬停正例最低0.91。
+    "TaskMerchantPrepareToolbar": {
+        "next": [ "TaskMerchantToolbarPanelOpen", "TaskMerchantToolbarMapReady" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantToolbarPanelOpen": {
+        "recognition": { "type": "And", "param": { "all_of": [ "TaskMerchantFirstRow" ] } },
+        "action": { "type": "LongPress", "param": { "target": [ 947, 220, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantToolbarMapReady" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantToolbarMapReady": {
+        "recognition": { "type": "And", "param": { "all_of": [ "LoginMapVisible" ] } },
+        "next": [ "TaskMerchantEnsureTopToolbarCollapsed" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantEnsureTopToolbarCollapsed": {
+        "next": [ "TaskMerchantTopToolbarCollapsed", "TaskMerchantCollapseTopToolbar" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantCollapseTopToolbar": {
+        "recognition": { "type": "And", "param": { "all_of": [ "TaskMerchantTopToolbarExpanded" ] } },
+        "action": { "type": "LongPress", "param": { "target": [ 1179, 70, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantTopToolbarCollapsed" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantTopToolbarCollapsed": {
+        "recognition": { "type": "TemplateMatch", "param": {
+                "roi": [ 1169, 56, 20, 28 ],
+                "template": "alt_accounts/task_merchant/top_toolbar_collapsed.png",
+                "threshold": 0.85,
+                "method": 5
+            } },
+        "next": [ "TaskMerchantOpenPanel" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantComplete": {
+        "recognition": { "type": "And", "param": { "all_of": [ "LoginMapVisible" ] } },
+        "next": [ "TaskMerchantEnsureTopToolbarExpanded" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantEnsureTopToolbarExpanded": {
+        "next": [ "TaskMerchantTopToolbarExpanded", "TaskMerchantExpandTopToolbar" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantExpandTopToolbar": {
+        "recognition": { "type": "And", "param": { "all_of": [ "TaskMerchantTopToolbarCollapsed" ] } },
+        "action": { "type": "LongPress", "param": { "target": [ 1179, 70, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantTopToolbarExpanded" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantTopToolbarExpanded": {
+        "recognition": { "type": "TemplateMatch", "param": {
+                "roi": [ 1169, 56, 20, 28 ],
+                "template": "alt_accounts/task_merchant/top_toolbar_expanded.png",
+                "threshold": 0.85,
+                "method": 5
+            } }
+    },
+    "TaskMerchantOpenPanel": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "next": [ "TaskMerchantProcessCard", "TaskMerchantEmptyList", "TaskMerchantSceneReady" ]
+    },
+    "TaskMerchantSceneReady": {
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginMapVisible" ]
+            }
+        },
+        "action": "DoNothing",
+        "next": [ "TaskMerchantSelectTab" ]
+    },
+    "TaskMerchantSelectTab": {
+        "recognition": "DirectHit",
+        "rate_limit": 100,
+        "timeout": 8000,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "EnterHotspotActivity",
+                "custom_action_param": {
+                    "expected": [ "任务总动员" ]
+                }
+            }
+        },
+        "next": [ "TaskMerchantProcessCard", "TaskMerchantEmptyList" ]
+    },
+    "TaskMerchantFirstRow": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 708, 265, 121, 18 ],
+                "expected": [ "输入好友.*筛选" ]
+            }
+        }
+    },
+    "TaskMerchantEmptyList": {
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 560, 310, 350, 100 ],
+                "expected": [ "你还没有任务卡" ]
+            }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 947, 220, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantPanelClosed" ]
+    },
+    "TaskMerchantPanelClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginMapVisible" ]
+            }
+        },
+        "next": [ "TaskMerchantBeginRefill" ]
+    },
+    "TaskMerchantBodyOCR": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 574, 283, 256, 14 ],
+                "expected": [ ".+" ],
+                "only_rec": true
+            }
+        }
+    },
+    "TaskMerchantProcessCard": {
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "TaskMerchantClassify"
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "TaskMerchantRouteCard"
+            }
+        },
+        "next": [ ]
+    },
+    "TaskMerchantGiftFocus": {
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 708, 265, 121, 18 ],
+                "expected": [ "输入好友.*筛选" ]
+            }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 768, 273, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantGiftPaste" ]
+    },
+    "TaskMerchantGiftPaste": {
+        "rate_limit": 100,
+        "timeout": 8000,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "TaskMerchantPasteRecipient"
+            }
+        },
+        "next": [ "TaskMerchantFirstFriend" ]
+    },
+    "TaskMerchantFirstFriend": {
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 708, 282, 121, 23 ],
+                "expected": [ "[0-9]+区" ]
+            }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 756, 293, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 708, 265, 121, 18 ],
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "next": [ "TaskMerchantFriendListGone" ]
+    },
+    "TaskMerchantFriendListGone": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 708, 282, 121, 23 ],
+                "expected": [ "[0-9]+区" ]
+            }
+        },
+        "inverse": true,
+        "next": [ "TaskMerchantGiftSend" ]
+    },
+    "TaskMerchantGiftSend": {
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 708, 265, 121, 18 ],
+                "expected": [ "输入好友.*筛选" ]
+            }
+        },
+        "inverse": true,
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 870, 277, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "max_hit": 1000,
+        "next": [ "TaskMerchantRecipientFull", "TaskMerchantGiftCompleted" ]
+    },
+    "TaskMerchantRecipientFull": {
+        "rate_limit": 100,
+        "timeout": 8000,
+        "enabled": true,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 585, 295, 190, 68 ],
+                "expected": [ "对方任务已经满了" ]
+            }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 947, 220, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantComplete" ]
+    },
+    "TaskMerchantGiftInputReset": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 708, 265, 121, 18 ],
+                "expected": [ "输入好友.*筛选" ]
+            }
+        }
+    },
+    "TaskMerchantGiftEmpty": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 560, 363, 350, 47 ],
+                "expected": [ "你还没有任务卡" ]
+            }
+        }
+    },
+    "TaskMerchantGiftCompleted": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "TaskMerchantGiftInputReset", "TaskMerchantGiftEmpty" ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 534, 265, 397, 193 ],
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "next": [ "TaskMerchantOpenPanel" ]
+    },
+    "TaskMerchantOldDeleteToastGone": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 590, 318, 165, 90 ],
+                "expected": [ "删除成功" ]
+            }
+        },
+        "inverse": true,
+        "next": [ "TaskMerchantDeleteX" ]
+    },
+    "TaskMerchantDeleteX": {
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 708, 265, 121, 18 ],
+                "expected": [ "输入好友.*筛选" ]
+            }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 916, 273, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "max_hit": 1000,
+        "next": [ "TaskMerchantDeleteSucceeded", "TaskMerchantDeletePrompt" ]
+    },
+    "TaskMerchantDeletePrompt": {
+        "rate_limit": 100,
+        "timeout": 1500,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 585, 410, 90, 20 ],
+                "expected": [ "本次登录不再提示" ],
+                "only_rec": true
+            }
+        },
+        "next": [ "TaskMerchantDeleteRemember", "TaskMerchantDeleteConfirm" ]
+    },
+    "TaskMerchantDeleteRemember": {
+        "rate_limit": 100,
+        "timeout": 1500,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [ 570, 410, 25, 24 ],
+                "template": "alt_accounts/task_merchant/delete_no_prompt_unchecked.png",
+                "threshold": 0.6,
+                "method": 5
+            }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 580, 420, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "max_hit": 1000,
+        "next": [ "TaskMerchantDeleteConfirm" ]
+    },
+    "TaskMerchantDeleteConfirm": {
+        "rate_limit": 100,
+        "timeout": 1500,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 570, 348, 215, 24 ],
+                "expected": [ "5000铜币" ]
+            }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 610, 390, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantDeleteDialogGone" ],
+        "on_error": [ "TaskMerchantDeleteDialogGone", "TaskMerchantDeleteConfirm" ]
+    },
+    "TaskMerchantDeleteDialogGone": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 570, 348, 215, 24 ],
+                "expected": [ "5000铜币" ]
+            }
+        },
+        "inverse": true,
+        "next": [ "TaskMerchantDeleteSucceeded" ]
+    },
+    "TaskMerchantDeleteSucceeded": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 100,
+        "timeout": 8000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 590, 318, 165, 90 ],
+                "expected": [ "删除成功" ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 534, 265, 397, 193 ],
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "next": [ "TaskMerchantOpenPanel" ]
+    }
+}

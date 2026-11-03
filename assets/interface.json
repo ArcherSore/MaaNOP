@@ -98,6 +98,14 @@
             }
         },
         {
+            "name": "TaskMerchant",
+            "label": "任务商人",
+            "group": [ "AltAccount" ],
+            "entry": "TaskMerchantStart",
+            "description": "默认赠送直接完成任务。其他类别每类最多选择一个上限；不选或超出上限的任务会删除，每张消耗5000铜币。对方任务已满时正常结束。",
+            "option": [ "TaskMerchantRecipient", "TaskMerchantSurvival", "TaskMerchantRanked", "TaskMerchantWanted", "TaskMerchantEscort", "TaskMerchantArenaParticipation", "TaskMerchantQuizParticipation" ]
+        },
+        {
             "name": "ShoppingFestivalTask",
             "label": "购物节送字（微端）",
             "group": [ "AltAccount" ],
@@ -930,6 +938,249 @@
                                 "param": {
                                     "template": "routine/team_dungeon/difficulty/Hard.png"
                                 }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "TaskMerchantRecipient": {
+            "type": "input",
+            "label": "赠送角色",
+            "inputs": [
+                {
+                    "name": "merchant_recipient",
+                    "label": "好友名称",
+                    "default": "",
+                    "pipeline_type": "string",
+                    "pattern_msg": "请填写赠送角色名称"
+                }
+            ],
+            "pipeline_override": {
+                "TaskMerchantConfigure": {
+                    "attach": {
+                        "recipient": "{merchant_recipient}"
+                    }
+                }
+            }
+        },
+        "TaskMerchantSurvival": {
+            "type": "checkbox",
+            "label": "生存演习",
+            "default_case": [ "AtMost170" ],
+            "cases": [
+                {
+                    "name": "AtMost70",
+                    "label": "≤70分",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "survival_score_70": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AtMost120",
+                    "label": "≤120分",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "survival_score_120": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AtMost170",
+                    "label": "≤170分",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "survival_score_170": true
+                            }
+                        }
+                    }
+                }
+            ],
+            "max_count": 1
+        },
+        "TaskMerchantRanked": {
+            "type": "checkbox",
+            "label": "排位战参与",
+            "default_case": [ "AtMost3" ],
+            "cases": [
+                {
+                    "name": "AtMost1",
+                    "label": "≤1次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "ranked_participation_1": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AtMost2",
+                    "label": "≤2次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "ranked_participation_2": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AtMost3",
+                    "label": "≤3次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "ranked_participation_3": true
+                            }
+                        }
+                    }
+                }
+            ],
+            "max_count": 1
+        },
+        "TaskMerchantWanted": {
+            "type": "checkbox",
+            "label": "通缉任务",
+            "default_case": [ "AtMost5" ],
+            "cases": [
+                {
+                    "name": "AtMost1",
+                    "label": "≤1次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "wanted_1": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AtMost3",
+                    "label": "≤3次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "wanted_3": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AtMost5",
+                    "label": "≤5次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "wanted_5": true
+                            }
+                        }
+                    }
+                }
+            ],
+            "max_count": 1
+        },
+        "TaskMerchantEscort": {
+            "type": "checkbox",
+            "label": "押镖",
+            "default_case": [ "AtMost1" ],
+            "cases": [
+                {
+                    "name": "AtMost1",
+                    "label": "≤1次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "escort_1": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AtMost3",
+                    "label": "≤3次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "escort_3": true
+                            }
+                        }
+                    }
+                }
+            ],
+            "max_count": 1
+        },
+        "TaskMerchantArenaParticipation": {
+            "type": "checkbox",
+            "label": "竞技场参与",
+            "default_case": [ "AtMost1" ],
+            "cases": [
+                {
+                    "name": "AtMost1",
+                    "label": "≤1次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "arena_participation_1": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AtMost2",
+                    "label": "≤2次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "arena_participation_2": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AtMost3",
+                    "label": "≤3次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "arena_participation_3": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "AtMost6",
+                    "label": "≤6次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "arena_participation_6": true
+                            }
+                        }
+                    }
+                }
+            ],
+            "max_count": 1
+        },
+        "TaskMerchantQuizParticipation": {
+            "type": "checkbox",
+            "label": "忍者测验参与",
+            "default_case": [ "Once" ],
+            "cases": [
+                {
+                    "name": "Once",
+                    "label": "1次",
+                    "pipeline_override": {
+                        "TaskMerchantConfigure": {
+                            "attach": {
+                                "quiz_participation_1": true
                             }
                         }
                     }

@@ -6,6 +6,7 @@ from maa.tasker import Tasker
 from common import action_common, action_entry, reco_common
 from login import action_login, reco_login, web_login
 from alt_accounts.shopping_festival import action_shopping, reco_shopping
+from alt_accounts.task_merchant import core, navigation
 from routine import action_survival, action_training, reco_auto_management, reco_training
 from events import action_mid_autumn, action_ninjutsu_training
 from events.weekend import action_puzzle
