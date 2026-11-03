@@ -15,7 +15,7 @@ def _scroll(context, image):
         return None
     x, y, w, h = outer.box
     inner = context.run_recognition("TaskMerchantScrollInner", image, {
-        "TaskMerchantScrollInner": {"recognition": {"type": "TemplateMatch", "param": {"roi": [x + 4, y + 4, 7, 26]}}}})
+        "TaskMerchantScrollInner": {"recognition": {"type": "TemplateMatch", "param": {"roi": [x + 3, y + 3, 9, 28]}}}})
     if context.tasker.stopping or not inner or not inner.hit:
         return None
     # Measured on both clear world/submap captures: outer starts at full+(25,4).

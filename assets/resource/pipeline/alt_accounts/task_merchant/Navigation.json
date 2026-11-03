@@ -171,6 +171,25 @@
                             "coordinate_pattern": "^波之国[（(]204[^0-9]+152[)）]",
                             "receipt_roi": [ 400, 260, 550, 200 ]
                         },
+                        "铁之国雪原": {
+                            "parking": [ 1221, 132 ],
+                            "point": [ 336, 350 ],
+                            "position": [ 48, 89 ],
+                            "freeze_roi": [ 309, 340, 52, 20 ],
+                            "scene_pattern": "铁之国.?雪原",
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "侍桥": {
+                            "parking": [ 1227, 152 ],
+                            "point": [ 460, 303 ],
+                            "position": [ 53, 118 ],
+                            "freeze_roi": [ 434, 293, 52, 20 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ]
+                        },
                         "铁之国城门": {
                             "parking": [ 1296, 193 ],
                             "point": [ 696, 534 ],
@@ -248,6 +267,8 @@
                         "风之国沙漠": [ 243, 527 ],
                         "波之国": [ 881, 520 ],
                         "铁之国城门": [ 694, 134 ],
+                        "铁之国雪原": [ 783, 140 ],
+                        "侍桥": [ 700, 194 ],
                         "木叶训练场": [ 660, 581 ],
                         "云雷峡": [ 1091, 328 ],
                         "终末谷上方": [ 515, 389 ],
@@ -601,7 +622,7 @@
             "param": {
                 "roi": [ 190, 70, 960, 615 ],
                 "template": "alt_accounts/task_merchant/scroll_world_inner.png",
-                "threshold": 0.73,
+                "threshold": 0.7,
                 "method": 5,
                 "order_by": "Score"
             }
