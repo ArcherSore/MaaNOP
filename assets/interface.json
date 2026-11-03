@@ -98,14 +98,6 @@
             }
         },
         {
-            "name": "TaskMerchant",
-            "label": "任务商人",
-            "group": [ "AltAccount" ],
-            "entry": "TaskMerchantStart",
-            "description": "默认赠送直接完成任务。其他类别每类最多选择一个上限；不选或超出上限的任务会删除，每张消耗5000铜币。对方任务已满时正常结束。",
-            "option": [ "TaskMerchantRecipient", "TaskMerchantSurvival", "TaskMerchantRanked", "TaskMerchantWanted", "TaskMerchantEscort", "TaskMerchantArenaParticipation", "TaskMerchantQuizParticipation" ]
-        },
-        {
             "name": "ShoppingFestivalTask",
             "label": "购物节送字（微端）",
             "group": [ "AltAccount" ],
@@ -210,6 +202,14 @@
             "group": [ "Routine" ],
             "entry": "OnlineReward",
             "description": "领取当前可领的**在线礼包**，以及已激活的**大小月卡**。"
+        },
+        {
+            "name": "TaskMerchant",
+            "label": "任务商人",
+            "group": [ "LimitedEvent" ],
+            "entry": "TaskMerchantStart",
+            "description": "将所选类别及范围内的任务赠送给指定大号，大号任务收满后停止。\n\n**受精力所限，目前仅收集了 40 多个任务商人地点，尚未覆盖全部地点。**\n\n默认赠送【直接完成任务】。其他类别每类最多选择一个上限；不选或超出上限的任务会删除，每张消耗 5000 铜币。",
+            "option": [ "TaskMerchantRecipient", "TaskMerchantSurvival", "TaskMerchantRanked", "TaskMerchantWanted", "TaskMerchantEscort", "TaskMerchantArenaParticipation", "TaskMerchantQuizParticipation" ]
         },
         {
             "name": "NinjutsuTraining",
