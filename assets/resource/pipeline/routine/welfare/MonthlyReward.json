@@ -112,7 +112,7 @@
                             "param": {
                                 "roi": [ 665, 501, 66, 28 ],
                                 "only_rec": true,
-                                "expected": [ "^(充值|领取|已领取)$" ]
+                                "expected": [ "^(充值|购买|领取|已领取)$" ]
                             }
                         }
                     }
@@ -243,6 +243,7 @@
         "timeout": 8000,
         "next": [ "BigMonthInactive", "BigMonthActive" ]
     },
+    // 未激活按钮兼容「充值」「购买」；「购买」证据：debug/on_error/2026.11.03-18.11.30.684_MonthlyClickTab.png。
     "BigMonthInactive": {
         "recognition": {
             "type": "And",
@@ -254,7 +255,7 @@
                             "param": {
                                 "roi": [ 665, 501, 66, 28 ],
                                 "only_rec": true,
-                                "expected": [ "^充值$" ]
+                                "expected": [ "^(充值|购买)$" ]
                             }
                         }
                     },
