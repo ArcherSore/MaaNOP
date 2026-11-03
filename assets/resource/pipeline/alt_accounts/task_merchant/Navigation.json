@@ -243,7 +243,18 @@
                             "parking_roi": [ 1205, 81, 130, 19 ],
                             "parking_only_rec": true,
                             "coordinate_pattern": "^波之国[（(]204[^0-9]+152[)）]",
-                            "receipt_roi": [ 400, 260, 550, 200 ]
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "locations": [
+                                { "recognition": "TaskMerchantWavesOriginalDot" },
+                                {
+                                    "recognition": "TaskMerchantWavesUpperLeftDot",
+                                    "parking": [ 1220, 118 ],
+                                    "point": [ 357, 296 ],
+                                    "position": [ 38, 46 ],
+                                    "freeze_roi": [ 331, 286, 52, 20 ],
+                                    "coordinate_pattern": "^波之国[（(]38[^0-9]+46[)）]"
+                                }
+                            ]
                         },
                         "铁之国雪原": {
                             "parking": [ 1221, 132 ],
@@ -496,6 +507,18 @@
     "TaskMerchantForestUpperDot": {
         "recognition": { "type": "ColorMatch", "param": {
                 "roi": [ 1315, 167, 11, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantWavesOriginalDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1279, 151, 10, 9 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantWavesUpperLeftDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1219, 115, 10, 9 ], "method": 40,
                 "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
             } }
     },

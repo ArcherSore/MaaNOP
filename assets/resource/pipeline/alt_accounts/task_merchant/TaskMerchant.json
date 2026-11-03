@@ -17,9 +17,7 @@
                 "custom_action": "TaskMerchantConfigure"
             }
         },
-        "next": [
-            "TaskMerchantOpenPanel"
-        ],
+        "next": [ "TaskMerchantPrepareToolbar" ],
         "attach": {
             "recipient": "",
             "survival_score_70": false,
@@ -39,6 +37,75 @@
             "arena_participation_6": false,
             "quiz_participation_1": false
         }
+    },
+    // 顶部栏在整个任务开始时收起，正常结束时展开；已处于目标状态则不点击。
+    // 箭头模板来自2026-11-03实图，互匹配最高0.70，含悬停正例最低0.91。
+    "TaskMerchantPrepareToolbar": {
+        "next": [ "TaskMerchantToolbarPanelOpen", "TaskMerchantToolbarMapReady" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantToolbarPanelOpen": {
+        "recognition": { "type": "And", "param": { "all_of": [ "TaskMerchantFirstRow" ] } },
+        "action": { "type": "LongPress", "param": { "target": [ 947, 220, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantToolbarMapReady" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantToolbarMapReady": {
+        "recognition": { "type": "And", "param": { "all_of": [ "LoginMapVisible" ] } },
+        "next": [ "TaskMerchantEnsureTopToolbarCollapsed" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantEnsureTopToolbarCollapsed": {
+        "next": [ "TaskMerchantTopToolbarCollapsed", "TaskMerchantCollapseTopToolbar" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantCollapseTopToolbar": {
+        "recognition": { "type": "And", "param": { "all_of": [ "TaskMerchantTopToolbarExpanded" ] } },
+        "action": { "type": "LongPress", "param": { "target": [ 1179, 70, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantTopToolbarCollapsed" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantTopToolbarCollapsed": {
+        "recognition": { "type": "TemplateMatch", "param": {
+                "roi": [ 1169, 56, 20, 28 ],
+                "template": "alt_accounts/task_merchant/top_toolbar_collapsed.png",
+                "threshold": 0.85,
+                "method": 5
+            } },
+        "next": [ "TaskMerchantOpenPanel" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantComplete": {
+        "recognition": { "type": "And", "param": { "all_of": [ "LoginMapVisible" ] } },
+        "next": [ "TaskMerchantEnsureTopToolbarExpanded" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantEnsureTopToolbarExpanded": {
+        "next": [ "TaskMerchantTopToolbarExpanded", "TaskMerchantExpandTopToolbar" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantExpandTopToolbar": {
+        "recognition": { "type": "And", "param": { "all_of": [ "TaskMerchantTopToolbarCollapsed" ] } },
+        "action": { "type": "LongPress", "param": { "target": [ 1179, 70, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantTopToolbarExpanded" ],
+        "timeout": 5000,
+        "rate_limit": 100
+    },
+    "TaskMerchantTopToolbarExpanded": {
+        "recognition": { "type": "TemplateMatch", "param": {
+                "roi": [ 1169, 56, 20, 28 ],
+                "template": "alt_accounts/task_merchant/top_toolbar_expanded.png",
+                "threshold": 0.85,
+                "method": 5
+            } }
     },
     "TaskMerchantOpenPanel": {
         "pre_delay": 0,
@@ -259,7 +326,7 @@
                 "duration": 100
             }
         },
-        "next": [ "LoginMapVisible" ]
+        "next": [ "TaskMerchantComplete" ]
     },
     "TaskMerchantGiftInputReset": {
         "pre_delay": 0,
