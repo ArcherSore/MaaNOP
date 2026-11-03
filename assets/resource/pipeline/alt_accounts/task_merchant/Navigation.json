@@ -72,12 +72,34 @@
                             "parking_roi": [ 1205, 81, 130, 19 ],
                             "parking_only_rec": true
                         },
+                        "火之国森林": {
+                            "parking": [ 1255, 143 ],
+                            "point": [ 604, 322 ],
+                            "position": [ 118, 99 ],
+                            "freeze_roi": [ 578, 312, 52, 20 ],
+                            "parking_only_rec": true,
+                            "coordinate_pattern": "(?<![0-9])118[^0-9]*99(?![0-9])",
+                            "receipt_roi": [ 350, 260, 650, 210 ],
+                            "coordinate_variants": [ ]
+                        },
                         "川之国峡谷": {
                             "parking": [ 1280, 134 ],
                             "point": [ 864, 207 ],
                             "position": [ 163, 86 ],
                             "freeze_roi": [ 815, 170, 120, 95 ],
-                            "coordinate_variants": [ ]
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantCanyonFirstDot" },
+                                {
+                                    "recognition": "TaskMerchantCanyonSecondDot",
+                                    "parking": [ 1239, 189 ],
+                                    "point": [ 517, 281 ],
+                                    "position": [ 61, 223 ],
+                                    "freeze_roi": [ 491, 274, 52, 20 ],
+                                    "parking_only_rec": true,
+                                    "receipt_roi": [ 300, 260, 650, 210 ]
+                                }
+                            ]
                         },
                         "热沙荒野": {
                             "parking": [ 1310, 132 ],
@@ -445,6 +467,7 @@
                         "草波海岸": [ 795, 584 ],
                         "热沙荒野": [ 310, 584 ],
                         "川之国峡谷": [ 350, 535 ],
+                        "火之国森林": [ 462, 598 ],
                         "短册街": [ 534, 442 ],
                         "火之寺": [ 639, 378 ],
                         "风之国沙漠": [ 243, 527 ],
@@ -526,6 +549,18 @@
         "next": [ "TaskMerchantPark" ],
         "timeout": 60000,
         "rate_limit": 100
+    },
+    "TaskMerchantCanyonFirstDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1286, 123, 11, 11 ], "method": 40,
+                "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantCanyonSecondDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1240, 184, 10, 10 ], "method": 40,
+                "lower": [ 50, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 3
+            } }
     },
     "TaskMerchantOrochimaruDot": {
         "recognition": { "type": "ColorMatch", "param": {
