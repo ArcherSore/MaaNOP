@@ -37,7 +37,7 @@ def _parking_overrides(name, profile):
     pattern = "|".join(str(v["position"][0])+r"[^0-9]+"+str(v["position"][1]) for v in variants)
     receipt_roi = profile.get("receipt_roi", [400,260,550,200] if name == "妙木山后山" else [550,319,240,42])
     parking_action = {"type":"LongPress","param":{"target":[*profile["parking"],1,1],"duration":100}}
-    return {
+    overrides = {
         "TaskMerchantOldReceiptGone": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}}},
         "TaskMerchantClaimReceipt": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}},
             "action":{"type":"Custom","param":{"custom_action":"TaskMerchantRouteClaimReceipt"}}},
@@ -50,6 +50,20 @@ def _parking_overrides(name, profile):
             "custom_action_param":{"variants":variants,"point":profile["point"]}}}},
         "TaskMerchantClickFixedName": {"action":{"type":"LongPress","param":{"target":[*profile["point"],1,1],"duration":100}}},
     }
+    retry_positions = profile.get("parking_retry_positions", [])
+    if retry_positions:
+        parked = overrides["TaskMerchantParked"]
+        overrides["TaskMerchantRetryPark"] = {"action": parking_action}
+        overrides["TaskMerchantRetryParked"] = {
+            "recognition": {"type": "OCR", "param": dict(parked["recognition"]["param"])},
+            "post_wait_freezes": parked["post_wait_freezes"],
+        }
+        parked["recognition"]["param"]["expected"] = [
+            *parked["recognition"]["param"]["expected"],
+            *(r"(?<![0-9])" + str(x) + r"[^0-9]+" + str(y) + r"(?![0-9])" for x, y in retry_positions),
+        ]
+        overrides["TaskMerchantSelectFixedPoint"]["action"]["param"]["custom_action_param"]["retry_positions"] = retry_positions
+    return overrides
 
 
 @AgentServer.custom_recognition("TaskMerchantMapReady")
@@ -216,6 +230,21 @@ class TaskMerchantSelectFixedPoint(CustomAction):
     def run(self, context, argv):
         params = json.loads(argv.custom_action_param)
         point = params["point"]
+        if params.get("retry_positions"):
+            frame = context.tasker.controller.post_screencap().wait().get()
+            if context.tasker.stopping or frame is None:
+                return False
+            parked = context.run_recognition("TaskMerchantParked", frame)
+            if context.tasker.stopping or not parked or not parked.hit:
+                return False
+            text = parked.best_result.text
+            if any(re.search(r"(?<![0-9])" + str(x) + r"[^0-9]+" + str(y) + r"(?![0-9])", text)
+                   for x, y in params["retry_positions"]):
+                retried = context.run_task("TaskMerchantRetryPark")
+                if context.tasker.stopping:
+                    return False
+                if not retried or not any(n.name == "TaskMerchantRetryParked" for n in retried.nodes):
+                    return False
         if len(params["variants"]) > 1:
             node = context.tasker.get_latest_node("TaskMerchantParked")
             if not node or not node.recognition or not node.recognition.hit:

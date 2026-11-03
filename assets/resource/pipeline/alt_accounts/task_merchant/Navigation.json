@@ -14,6 +14,26 @@
                             "freeze_roi": [ 735, 178, 90, 80 ],
                             "coordinate_variants": [ ]
                         },
+                        "大蛇丸基地外围": {
+                            "parking": [ 1268, 126 ],
+                            "point": [ 646, 319 ],
+                            "position": [ 126, 53 ],
+                            "freeze_roi": [ 620, 309, 52, 20 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantOrochimaruDot" },
+                                {
+                                    "recognition": "TaskMerchantOrochimaruSecondDot",
+                                    "parking": [ 1320, 138 ],
+                                    "point": [ 1184, 283 ],
+                                    "position": [ 226, 77 ],
+                                    "parking_retry_positions": [ [ 229, 75 ] ],
+                                    "freeze_roi": [ 1158, 273, 52, 20 ]
+                                }
+                            ]
+                        },
                         "枯木之森": {
                             "parking": [ 1321, 115 ],
                             "point": [ 996, 303 ],
@@ -437,6 +457,7 @@
                         "终末谷上方": [ 515, 389 ],
                         "鸦之森": [ 428, 408 ],
                         "枯木之森": [ 595, 420 ],
+                        "大蛇丸基地外围": [ 426, 337 ],
                         "雨忍村内": [ 310, 454 ],
                         "沙忍村北": [ 256, 660 ],
                         "五封结界": [ 390, 623 ]
@@ -505,6 +526,18 @@
         "next": [ "TaskMerchantPark" ],
         "timeout": 60000,
         "rate_limit": 100
+    },
+    "TaskMerchantOrochimaruDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1258, 123, 11, 10 ], "method": 40,
+                "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 3
+            } }
+    },
+    "TaskMerchantOrochimaruSecondDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1319, 132, 11, 10 ], "method": 40,
+                "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 5
+            } }
     },
     "TaskMerchantTrainingUpperDot": {
         "recognition": { "type": "ColorMatch", "param": {
@@ -780,6 +813,18 @@
         "next": [ "TaskMerchantParked" ],
         "timeout": 30000,
         "rate_limit": 100
+    },
+    "TaskMerchantRetryPark": {
+        "action": { "type": "LongPress", "param": { "target": [ 1320, 138, 1, 1 ], "duration": 100 } },
+        "next": [ "TaskMerchantRetryParked" ],
+        "timeout": 10000,
+        "rate_limit": 100
+    },
+    "TaskMerchantRetryParked": {
+        "recognition": { "type": "OCR", "param": {
+                "roi": [ 1205, 81, 130, 19 ], "expected": [ "(?<![0-9])226[^0-9]+77(?![0-9])" ], "only_rec": true
+            } },
+        "post_wait_freezes": { "time": 300, "target": [ 1158, 273, 52, 20 ], "rate_limit": 100, "timeout": 5000 }
     },
     "TaskMerchantCloudFirstPark": {
         "action": {
