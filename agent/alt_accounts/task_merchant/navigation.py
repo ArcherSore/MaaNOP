@@ -134,7 +134,8 @@ class TaskMerchantPrepareNavigation(CustomAction):
             "TaskMerchantEnterSelected": {"action":{"type":"LongPress","param":{"target":[*landmark,1,1],"duration":100}}},
             "TaskMerchantSelectedScene": scene,
             "TaskMerchantLocateMerchant": {"action":{"type":"Custom","param":{"custom_action":"TaskMerchantLocateMerchant",
-                "custom_action_param":{"name":name,"profile":profile}}}},
+                "custom_action_param":{"name":name,"profile":profile,
+                    "from_entry":bool(entry_position and (name != current or at_entry))}}}},
         })
 
 
@@ -204,7 +205,10 @@ class TaskMerchantLocateMerchant(CustomAction):
         if len(matches) != 1:
             return False
         profile = {**params["profile"], **matches[0]}
-        return context.override_pipeline(_parking_overrides(params["name"], profile))
+        return context.override_pipeline({
+            **_parking_overrides(params["name"], profile),
+            "TaskMerchantLocateMerchant": {"next":["TaskMerchantCloudFirstPark" if profile.get("entry_position") and params.get("from_entry") else "TaskMerchantPark"]},
+        })
 
 
 @AgentServer.custom_action("TaskMerchantSelectFixedPoint")
