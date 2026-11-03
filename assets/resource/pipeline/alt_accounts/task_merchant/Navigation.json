@@ -19,7 +19,19 @@
                             "point": [ 364, 292 ],
                             "position": [ 74, 86 ],
                             "freeze_roi": [ 319, 267, 90, 80 ],
-                            "coordinate_variants": [ ]
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantDeadwoodOriginalDot" },
+                                {
+                                    "recognition": "TaskMerchantDeadwoodUpperRightDot",
+                                    "parking": [ 1321, 115 ],
+                                    "point": [ 996, 303 ],
+                                    "position": [ 320, 42 ],
+                                    "freeze_roi": [ 970, 293, 52, 20 ],
+                                    "parking_only_rec": false,
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
+                                }
+                            ]
                         },
                         "短册街": {
                             "parking": [ 1320, 120 ],
@@ -264,6 +276,27 @@
                             "parking_only_rec": true,
                             "coordinate_variants": [ ]
                         },
+                        "终末谷下方": {
+                            "parking": [ 1230, 170 ],
+                            "point": [ 329, 262 ],
+                            "position": [ 60, 163 ],
+                            "freeze_roi": [ 303, 252, 52, 20 ],
+                            "scene_pattern": "终[末未木]谷下方",
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantValleyLowerDot" },
+                                {
+                                    "recognition": "TaskMerchantValleyLowerSecondDot",
+                                    "parking": [ 1300, 120 ],
+                                    "point": [ 850, 298 ],
+                                    "position": [ 220, 51 ],
+                                    "freeze_roi": [ 825, 288, 52, 20 ],
+                                    "parking_only_rec": false
+                                }
+                            ]
+                        },
                         "终末谷上方": {
                             "parking": [ 1250, 136 ],
                             "point": [ 510, 492 ],
@@ -305,7 +338,8 @@
                         "木叶训练场": [ 660, 581 ],
                         "云雷峡": [ 1091, 328 ],
                         "终末谷上方": [ 515, 389 ],
-                        "鸦之森": [ 428, 389 ],
+                        "鸦之森": [ 428, 408 ],
+                        "枯木之森": [ 595, 420 ],
                         "雨忍村内": [ 310, 454 ],
                         "沙忍村北": [ 225, 650 ]
                     },
@@ -421,6 +455,39 @@
                 "roi": [ 1315, 167, 11, 10 ], "method": 40,
                 "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
             } }
+    },
+    "TaskMerchantDeadwoodOriginalDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1217, 127, 10, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantDeadwoodUpperRightDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1313, 113, 10, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantValleyLowerDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1220, 165, 8, 8 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantValleyLowerSecondDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1301, 118, 9, 9 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantSelectValleyLocation": {
+        "action": { "type": "Custom", "param": { "custom_action": "TaskMerchantSelectValleyLocation" } },
+        "next": [ "TaskMerchantValleyDispatch" ],
+        "timeout": 5000
+    },
+    "TaskMerchantValleyDispatch": {
+        "next": [ "TaskMerchantPark" ],
+        "timeout": 30000
     },
     "TaskMerchantCurrentScene": {
         "recognition": {
