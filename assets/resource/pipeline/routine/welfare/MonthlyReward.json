@@ -122,6 +122,7 @@
         "timeout": 8000,
         "next": [ "MonthInactive", "MonthActive" ]
     },
+    // 小月卡 → 大月卡 → 勋章分别判断；未激活仅跳过本项，不提前关闭福利大厅。
     // 两列单独核对，不能用另一列的状态证明本列领取成功。
     // 下一列表中「未激活」OCR 在按钮，「已激活」OCR 在剩余天数，ROI 不重叠。
     "MonthInactive": {
@@ -263,7 +264,7 @@
                 ]
             }
         },
-        "next": [ "OnlineClose" ]
+        "next": [ "MedalReward" ]
     },
     "BigMonthActive": {
         "recognition": {
@@ -359,6 +360,6 @@
                 ]
             }
         },
-        "next": [ "OnlineClose" ]
+        "next": [ "MedalReward" ]
     }
 }

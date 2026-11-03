@@ -201,7 +201,7 @@
             "label": "福利大厅",
             "group": [ "Routine" ],
             "entry": "OnlineReward",
-            "description": "领取当前可领的**在线礼包**，以及已激活的**大小月卡**。"
+            "description": "领取当前可领的**在线礼包**，分别检查**小月卡、大月卡、勋章礼包**；未激活仅跳过对应项目。勋章礼包领取当前档位可领的每日、每周奖励。"
         },
         {
             "name": "NinjutsuTraining",
