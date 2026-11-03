@@ -1172,11 +1172,11 @@
         "TaskMerchantQuizParticipation": {
             "type": "checkbox",
             "label": "忍者测验参与",
-            "default_case": [ "CompleteOnce" ],
+            "default_case": [ "Once" ],
             "cases": [
                 {
-                    "name": "CompleteOnce",
-                    "label": "完成1次",
+                    "name": "Once",
+                    "label": "1次",
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
@@ -1185,8 +1185,7 @@
                         }
                     }
                 }
-            ],
-            "max_count": 1
+            ]
         },
         "ShoppingFriendName": {
             "type": "input",
