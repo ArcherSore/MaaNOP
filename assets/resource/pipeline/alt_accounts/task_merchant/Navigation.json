@@ -123,6 +123,37 @@
                             "point": [ 1004, 218 ],
                             "position": [ 220, 233 ],
                             "freeze_roi": [ 970, 200, 80, 70 ],
+                            "scene_pattern": "^木叶森林[（(]",
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                { "recognition": "TaskMerchantForestLowerDot" },
+                                {
+                                    "recognition": "TaskMerchantForestUpperDot",
+                                    "parking": [ 1320, 167 ],
+                                    "point": [ 1093, 355 ],
+                                    "position": [ 265, 153 ],
+                                    "freeze_roi": [ 1067, 345, 52, 20 ],
+                                    "parking_only_rec": true,
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
+                                }
+                            ]
+                        },
+                        "木叶森林深处": {
+                            "parking": [ 1224, 163 ],
+                            "point": [ 160, 356 ],
+                            "position": [ 29, 98 ],
+                            "freeze_roi": [ 135, 346, 52, 20 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ]
+                        },
+                        "死亡森林深处": {
+                            "parking": [ 1269, 110 ],
+                            "point": [ 623, 154 ],
+                            "position": [ 150, 25 ],
+                            "freeze_roi": [ 598, 144, 52, 20 ],
+                            "parking_only_rec": true,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
                             "coordinate_variants": [ ]
                         },
                         "火之寺": {
@@ -258,6 +289,8 @@
                     "world": {
                         "木叶村": [ 500, 521 ],
                         "木叶森林": [ 560, 594 ],
+                        "木叶森林深处": [ 620, 542 ],
+                        "死亡森林深处": [ 650, 502 ],
                         "云隐村": [ 1045, 267 ],
                         "草波海岸": [ 795, 584 ],
                         "热沙荒野": [ 310, 584 ],
@@ -374,6 +407,18 @@
     "TaskMerchantCoastUpperDot": {
         "recognition": { "type": "ColorMatch", "param": {
                 "roi": [ 1254, 100, 12, 12 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantForestLowerDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1310, 193, 11, 10 ], "method": 40,
+                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantForestUpperDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1315, 167, 11, 10 ], "method": 40,
                 "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
             } }
     },
