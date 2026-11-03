@@ -177,6 +177,15 @@
                                     "freeze_roi": [ 1067, 345, 52, 20 ],
                                     "parking_only_rec": true,
                                     "receipt_roi": [ 400, 260, 550, 200 ]
+                                },
+                                {
+                                    "recognition": "TaskMerchantForestLeftDot",
+                                    "parking": [ 1230, 151 ],
+                                    "point": [ 351, 253 ],
+                                    "position": [ 60, 115 ],
+                                    "freeze_roi": [ 325, 243, 52, 20 ],
+                                    "parking_only_rec": false,
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
                                 }
                             ]
                         },
@@ -188,6 +197,17 @@
                             "parking_only_rec": true,
                             "receipt_roi": [ 400, 260, 550, 200 ],
                             "coordinate_variants": [ ]
+                        },
+                        "死亡森林": {
+                            "parking": [ 1258, 160 ],
+                            "point": [ 490, 281 ],
+                            "position": [ 62, 69 ],
+                            "freeze_roi": [ 464, 271, 52, 20 ],
+                            "scene_pattern": "^死亡森林[（(]",
+                            "parking_only_rec": false,
+                            "receipt_roi": [ 400, 260, 550, 200 ],
+                            "coordinate_variants": [ ],
+                            "locations": [ { "recognition": "TaskMerchantDeathForestEntranceDot" } ]
                         },
                         "死亡森林深处": {
                             "parking": [ 1269, 110 ],
@@ -386,6 +406,7 @@
                         "木叶村": [ 500, 521 ],
                         "木叶森林": [ 560, 594 ],
                         "木叶森林深处": [ 620, 542 ],
+                        "死亡森林": [ 660, 450 ],
                         "死亡森林深处": [ 650, 502 ],
                         "云隐村": [ 1045, 267 ],
                         "草波海岸": [ 795, 584 ],
@@ -502,6 +523,12 @@
                 "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
             } }
     },
+    "TaskMerchantDeathForestEntranceDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1242, 153, 11, 10 ], "method": 40,
+                "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
     "TaskMerchantForestLowerDot": {
         "recognition": { "type": "ColorMatch", "param": {
                 "roi": [ 1310, 193, 11, 10 ], "method": 40,
@@ -511,7 +538,13 @@
     "TaskMerchantForestUpperDot": {
         "recognition": { "type": "ColorMatch", "param": {
                 "roi": [ 1315, 167, 11, 10 ], "method": 40,
-                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+                "lower": [ 50, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+            } }
+    },
+    "TaskMerchantForestLeftDot": {
+        "recognition": { "type": "ColorMatch", "param": {
+                "roi": [ 1220, 142, 11, 10 ], "method": 40,
+                "lower": [ 55, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
             } }
     },
     "TaskMerchantBridgeOriginalDot": {
