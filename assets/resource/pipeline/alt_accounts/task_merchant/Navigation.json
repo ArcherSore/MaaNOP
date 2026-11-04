@@ -644,8 +644,7 @@
             }
         },
         "next": [ "TaskMerchantEnterSelected" ],
-        "timeout": 120000,
-        "rate_limit": 100
+        "timeout": 120000
     },
     "TaskMerchantOpenWorldMap": {
         "action": {
@@ -721,14 +720,12 @@
     },
     // recognition（目标场景名 OCR）与 next 由 PrepareNavigation 写入。
     "TaskMerchantSelectedScene": {
-        "timeout": 10000,
-        "rate_limit": 100
+        "timeout": 10000
     },
     // action（自定义动作 TaskMerchantLocateMerchant 及目标场景参数）由 PrepareNavigation 写入。
     "TaskMerchantLocateMerchant": {
         "next": [ "TaskMerchantPark" ],
-        "timeout": 60000,
-        "rate_limit": 100
+        "timeout": 60000
     },
     // ---- 沙忍村南北路线 ----
     // next 由 SelectEntryLocation 写入（已在目标 → LocateMerchant；入口有商人 → Park；否则 → approach）。
@@ -756,7 +753,6 @@
         },
         "next": [ "TaskMerchantSandAtExit" ],
         "timeout": 60000,
-        "rate_limit": 100,
         "max_hit": 200
     },
     "TaskMerchantSandAtExit": {
@@ -775,8 +771,7 @@
             "timeout": 5000
         },
         "next": [ "TaskMerchantSandCrossExit" ],
-        "timeout": 5000,
-        "rate_limit": 100
+        "timeout": 5000
     },
     "TaskMerchantSandCrossExit": {
         "action": {
@@ -788,7 +783,6 @@
         },
         "next": [ "TaskMerchantSandNorthReady" ],
         "timeout": 15000,
-        "rate_limit": 100,
         "max_hit": 200
     },
     "TaskMerchantSandNorthReady": {
@@ -801,8 +795,7 @@
             }
         },
         "next": [ "TaskMerchantLocateMerchant" ],
-        "timeout": 5000,
-        "rate_limit": 100
+        "timeout": 5000
     },
     // ---- 终末谷上下路线 ----
     // next 由 SelectEntryLocation 写入（已在目标 → LocateMerchant；入口有商人 → Park；否则 → approach）。
@@ -830,7 +823,6 @@
         },
         "next": [ "TaskMerchantValleyAtExit" ],
         "timeout": 30000,
-        "rate_limit": 100,
         "max_hit": 200
     },
     "TaskMerchantValleyAtExit": {
@@ -849,8 +841,7 @@
             "timeout": 5000
         },
         "next": [ "TaskMerchantValleyCrossExit" ],
-        "timeout": 5000,
-        "rate_limit": 100
+        "timeout": 5000
     },
     "TaskMerchantValleyCrossExit": {
         "action": {
@@ -862,7 +853,6 @@
         },
         "next": [ "TaskMerchantValleyUpperReady" ],
         "timeout": 10000,
-        "rate_limit": 100,
         "max_hit": 200
     },
     "TaskMerchantValleyUpperReady": {
@@ -875,14 +865,12 @@
             }
         },
         "next": [ "TaskMerchantLocateMerchant" ],
-        "timeout": 5000,
-        "rate_limit": 100
+        "timeout": 5000
     },
     // ---- 云隐村顶楼停靠（TaskMerchantCloudRoute 调用）----
     // 寻路可能提前停在不固定的中途点：点一次停靠点，等角色停下读坐标，未到终点就再点。
     // action（点击顶楼停靠点）由 _parking_overrides 写入。
     "TaskMerchantCloudPark": {
-        "rate_limit": 100
     },
     "TaskMerchantCloudCoordinate": {
         "recognition": {
@@ -898,8 +886,7 @@
     // action 与 next 由 _parking_overrides 写入（普通停靠：点停靠点 → Parked；云隐村顶楼：CloudRoute → Parked）。
     "TaskMerchantPark": {
         "max_hit": 200,
-        "timeout": 30000,
-        "rate_limit": 100
+        "timeout": 30000
     },
     // recognition（到达坐标 OCR）与 post_wait_freezes（商人附近静止）由 _parking_overrides 写入。
     "TaskMerchantParked": {
@@ -919,8 +906,7 @@
         },
         "inverse": true,
         "next": [ "TaskMerchantClickFixedName" ],
-        "timeout": 5000,
-        "rate_limit": 100
+        "timeout": 5000
     },
     // action（点击"任务商人"文字中心）由 _parking_overrides 写入。
     "TaskMerchantClickFixedName": {
@@ -945,19 +931,17 @@
             }
         },
         "next": [ "TaskMerchantAfterReceipt" ],
-        "timeout": 5000,
-        "rate_limit": 100
+        "timeout": 5000
     },
     // next 由 RouteClaimReceipt 写入（满 10 张 → OpenPanel；否则 → Park 再领）。
     "TaskMerchantAfterReceipt": {
-        "timeout": 5000,
-        "rate_limit": 100
+        "timeout": 5000
     },
     // ==== 绿点识别 ====
     // 每个节点对应一个商人站位：ROI 是小地图上该站位绿点所在的小格（停靠点旁），HSV 颜色识别。
     // 同一场景内须恰好一处命中；同一任务再次补卡时不再识别（角色标记可能遮住绿点）。
     // 颜色统一：商人绿点 H≥59，角色标记（黄绿三角）H≈45～52，H 下限 55 排除角色标记，S/V≥180 排除底色。
-    // 依据 2026-11-01～04 实机截图：角色离站位 >40 格的 45 帧（覆盖 23 个绿点）全部命中，最少 11 像素，无同场景多处命中。
+    // 角色离站位 >40 格的 45 帧（覆盖 23 个绿点）全部命中，最少 11 像素，无同场景多处命中。
     // ---- 绿点识别：短册街 ----
     "TaskMerchantTanzakuOriginalDot": {
         "recognition": {

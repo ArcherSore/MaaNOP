@@ -34,7 +34,7 @@ def _coordinate_regex(x, y):
 
 
 def _scroll(context, image):
-    # 同一组未缩放的丝带模板在世界地图与子地图实图上均可通过。
+    # 同一组未缩放的丝带模板在世界地图与子地图上均可通过。
     outer = context.run_recognition("TaskMerchantScrollOuter", image)
     if context.tasker.stopping or not outer or not outer.hit:
         return None
@@ -48,13 +48,13 @@ def _scroll(context, image):
 
 
 def _nearest(box, landmarks):
-    # 卷轴紧贴在所属区域地标的正上方；28 为实图测量的偏移。
+    # 卷轴紧贴在所属区域地标的正上方，中心偏移 28。
     x, y, w, h = box
     return min((math.hypot(x+w/2-p[0], y+h/2+28-p[1]), name) for name, p in landmarks.items())
 
 
 def _region(box, landmarks):
-    # 65 为实图测量的容差。
+    # 距最近地标超过 65 视为不属于任何区域。
     distance, name = _nearest(box, landmarks)
     return name if distance <= 65 else None
 
