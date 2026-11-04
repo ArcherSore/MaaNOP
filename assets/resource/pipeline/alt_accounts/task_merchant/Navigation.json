@@ -310,10 +310,10 @@
                             ]
                         },
                         "木叶森林": {
-                            "parking": [ 1300, 202 ],
-                            "point": [ 1004, 218 ],
-                            "position": [ 220, 233 ],
-                            "freeze_roi": [ 970, 200, 80, 70 ],
+                            "parking": [ 1311, 195 ],
+                            "point": [ 1004, 330 ],
+                            "position": [ 246, 217 ],
+                            "freeze_roi": [ 978, 320, 52, 20 ],
                             "scene_pattern": "^木叶森林[（(]",
                             "coordinate_variants": [ ],
                             "locations": [
@@ -351,6 +351,13 @@
                             "locations": [
                                 {
                                     "recognition": "TaskMerchantDeepKonohaDot"
+                                },
+                                {
+                                    "recognition": "TaskMerchantDeepKonohaSecondDot",
+                                    "parking": [ 1289, 121 ],
+                                    "point": [ 752, 163 ],
+                                    "position": [ 128, 33 ],
+                                    "freeze_roi": [ 727, 153, 52, 20 ]
                                 }
                             ]
                         },
@@ -380,6 +387,13 @@
                             "locations": [
                                 {
                                     "recognition": "TaskMerchantDeepForestDot"
+                                },
+                                {
+                                    "recognition": "TaskMerchantDeepForestSecondDot",
+                                    "parking": [ 1327, 136 ],
+                                    "point": [ 1115, 342 ],
+                                    "position": [ 278, 83 ],
+                                    "freeze_roi": [ 1089, 335, 52, 20 ]
                                 }
                             ]
                         },
@@ -507,15 +521,15 @@
                             ]
                         },
                         "铁之国城门": {
-                            "parking": [ 1296, 193 ],
-                            "point": [ 696, 534 ],
-                            "position": [ 171, 172 ],
-                            "freeze_roi": [ 672, 518, 55, 100 ],
+                            "parking": [ 1289, 185 ],
+                            "point": [ 697, 534 ],
+                            "position": [ 155, 157 ],
+                            "freeze_roi": [ 674, 524, 48, 20 ],
                             "coordinate_variants": [ ],
                             "scene_pattern": "^铁之国城门[（(]",
                             "parking_roi": [ 1253, 81, 80, 19 ],
                             "parking_only_rec": true,
-                            "coordinate_pattern": "(^|[^0-9])171[^0-9]+172([^0-9]|$)",
+                            "coordinate_pattern": "(^|[^0-9])155[^0-9]+157([^0-9]|$)",
                             "receipt_roi": [ 400, 260, 550, 200 ],
                             "locations": [
                                 {
@@ -1752,12 +1766,36 @@
             }
         }
     },
+    "TaskMerchantDeepKonohaSecondDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1274, 113, 12, 12 ],
+                "method": 40,
+                "lower": [ 55, 150, 150 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 8
+            }
+        }
+    },
     // ---- 绿点识别：死亡森林深处 ----
     "TaskMerchantDeepForestDot": {
         "recognition": {
             "type": "ColorMatch",
             "param": {
                 "roi": [ 1261, 107, 11, 11 ],
+                "method": 40,
+                "lower": [ 55, 150, 150 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 8
+            }
+        }
+    },
+    "TaskMerchantDeepForestSecondDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1319, 137, 12, 12 ],
                 "method": 40,
                 "lower": [ 55, 150, 150 ],
                 "upper": [ 85, 255, 255 ],
