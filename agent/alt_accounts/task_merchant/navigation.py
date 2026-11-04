@@ -1,15 +1,39 @@
-"""Dynamic map selection; all native recognitions/actions remain in Navigation.json."""
+"""地图选点与停靠的动态覆盖；原生识别与动作均在 Navigation.json 中。
+
+Python 只负责判断并用 override_pipeline 写入节点参数，不直接点击；覆盖在本次任务内持续有效。
+"""
 import json
 import math
 import re
+import time
 
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.custom_recognition import CustomRecognition
 
 
+# 目标场景 -> (入口场景, 入口选点节点)：从别处前往会先到入口场景，须先在入口场景找商人，未找到再绕行。
+DETOURS = {
+    "终末谷上方": ("终末谷下方", "TaskMerchantSelectValleyLocation"),
+    "沙忍村北": ("沙忍村南", "TaskMerchantSelectSandLocation"),
+}
+
+
+def _navigation_config(context):
+    return context.get_node_data("TaskMerchantBeginRefill")["action"]["param"]["custom_action_param"]
+
+
+def _scene_pattern(profiles, scene):
+    return profiles[scene].get("scene_pattern", re.escape(scene))
+
+
+def _coordinate_regex(x, y):
+    # 数字边界防止 70,52 误匹配 170,52 或 70,521。
+    return rf"(?<![0-9]){x}[^0-9]+{y}(?![0-9])"
+
+
 def _scroll(context, image):
-    # Same unscaled ribbon templates pass both world/submap real frames (1101).
+    # 同一组未缩放的丝带模板在世界地图与子地图实图上均可通过。
     outer = context.run_recognition("TaskMerchantScrollOuter", image)
     if context.tasker.stopping or not outer or not outer.hit:
         return None
@@ -18,284 +42,224 @@ def _scroll(context, image):
         "TaskMerchantScrollInner": {"recognition": {"type": "TemplateMatch", "param": {"roi": [x + 3, y + 3, 9, 28]}}}})
     if context.tasker.stopping or not inner or not inner.hit:
         return None
-    # Measured on both clear world/submap captures: outer starts at full+(25,4).
-    # Only the reference box is reconstructed; no full-scroll image is matched.
-    return {"box": [x - 25, y - 4, 38, 42], "ribbon_box": [x, y, w, h]}
+    # 外框位于完整卷轴的 (25,4) 处, 只还原参考框，不匹配完整卷轴图像。
+    return [x - 25, y - 4, 38, 42]
 
 
 def _region(box, landmarks):
-    # Scroll is immediately above its region landmark.
+    # 卷轴紧贴在所属区域地标的正上方；28 与 65 为实图测量的偏移和容差。
     x, y, w, h = box
-    distances = [(math.hypot(x+w/2-p[0], y+h/2+28-p[1]), name)
-                 for name, p in landmarks.items()]
-    distance, name = min(distances)
+    distance, name = min((math.hypot(x+w/2-p[0], y+h/2+28-p[1]), name) for name, p in landmarks.items())
     return name if distance <= 65 else None
 
 
-def _parking_overrides(name, profile):
-    variants = profile.get("coordinate_variants") or [{"position": profile["position"], "point": profile["point"]}]
-    pattern = "|".join(str(v["position"][0])+r"[^0-9]+"+str(v["position"][1]) for v in variants)
-    receipt_roi = profile.get("receipt_roi", [400,260,550,200] if name == "妙木山后山" else [550,319,240,42])
-    parking_action = {"type":"LongPress","param":{"target":[*profile["parking"],1,1],"duration":100}}
+def _map_box(context, entry, ready):
+    opened = context.run_task(entry)
+    node = next((n for n in opened.nodes if n.name == ready), None) if opened else None
+    return node.recognition.box if node else None
+
+
+def _locate(context, profile):
+    """返回绿点可见的位置列表；截图失败或任务停止时返回 None。"""
+    frame = context.tasker.controller.post_screencap().wait().get()
+    if context.tasker.stopping or frame is None:
+        return None
+    # 同一帧判断全部候选，结果才可比较。
+    matches = []
+    for location in profile["locations"]:
+        result = context.run_recognition(location["recognition"], frame)
+        if context.tasker.stopping:
+            return None
+        if result and result.hit:
+            matches.append(location)
+    return matches
+
+
+def _parking_overrides(location, scene):
+    """把一个商人位置写入停靠链：点停靠点 → 确认坐标 → 点商人；并记下本次任务已定位的目标场景。"""
+    parking_action = {"type": "LongPress", "param": {"target": [*location["parking"], 1, 1], "duration": 100}}
+    pattern = location.get("coordinate_pattern", _coordinate_regex(*location["position"]))
+    # 覆盖会保留到任务结束，Park.next 等可能被上一个位置（如顶楼路线）改过的字段每次都要完整写入。
     overrides = {
-        "TaskMerchantOldReceiptGone": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}}},
-        "TaskMerchantClaimReceipt": {"recognition":{"type":"OCR","param":{"roi":receipt_roi}},
-            "action":{"type":"Custom","param":{"custom_action":"TaskMerchantRouteClaimReceipt"}}},
-        "TaskMerchantCloudFirstPark": {"action": parking_action},
-        "TaskMerchantPark": {"action":parking_action, "next":["TaskMerchantParked"]},
-        "TaskMerchantParked": {"recognition":{"type":"OCR","param":{"roi":profile.get("parking_roi", [1254,81,49,17] if name == "妙木山后山" else [1205,81,130,19]),
-            "expected":[profile.get("coordinate_pattern", pattern)],"only_rec":profile.get("parking_only_rec", name == "妙木山后山")}},
-            "post_wait_freezes":{"time":300,"target":profile["freeze_roi"],"rate_limit":100,"timeout":5000}},
-        "TaskMerchantSelectFixedPoint": {"action":{"type":"Custom","param":{"custom_action":"TaskMerchantSelectFixedPoint",
-            "custom_action_param":{"variants":variants,"point":profile["point"]}}}},
-        "TaskMerchantClickFixedName": {"action":{"type":"LongPress","param":{"target":[*profile["point"],1,1],"duration":100}}},
+        # 仅在本次任务内有效；PrepareNavigation 据此跳过同一场景的再次绿点识别。
+        "TaskMerchantBeginRefill": {"attach": {"located": scene}},
+        "TaskMerchantPark": {"action": parking_action, "next": ["TaskMerchantParked"]},
+        "TaskMerchantParked": {"recognition": {"type": "OCR", "param": {
+            "roi": location.get("parking_roi", [1205, 81, 130, 19]),
+            "expected": [pattern],
+            "only_rec": location.get("parking_only_rec", False)}},
+            "post_wait_freezes": {"time": 300, "target": location["freeze_roi"], "rate_limit": 100, "timeout": 5000}},
+        "TaskMerchantClickFixedName": {"action": {"type": "LongPress", "param": {"target": [*location["point"], 1, 1], "duration": 100}}},
     }
-    if name == "云隐村" and profile.get("cloud_roof_route"):
+    if location.get("cloud_roof_route"):
+        # 云隐村顶楼需分段停靠：CloudRoute 走到终点后仍经 Parked 确认坐标并等待商人附近静止。
         overrides["TaskMerchantPark"] = {
-            "action": {"type": "Custom", "param": {"custom_action": "TaskMerchantCloudRoute"}},
-            "next": ["TaskMerchantSelectFixedPoint"],
+            "action": {"type": "Custom", "param": {"custom_action": "TaskMerchantCloudRoute", "custom_action_param": {"target": pattern}}},
+            "next": ["TaskMerchantParked"],
         }
-        overrides["TaskMerchantCloudNearApproachReady"] = {"action": parking_action}
-        overrides["TaskMerchantCloudTransitPark"] = {"action": parking_action}
-    retry_positions = profile.get("parking_retry_positions", [])
-    if retry_positions:
-        parked = overrides["TaskMerchantParked"]
-        overrides["TaskMerchantRetryPark"] = {"action": parking_action}
-        overrides["TaskMerchantRetryParked"] = {
-            "recognition": {"type": "OCR", "param": dict(parked["recognition"]["param"])},
-            "post_wait_freezes": parked["post_wait_freezes"],
-        }
-        parked["recognition"]["param"]["expected"] = [
-            *parked["recognition"]["param"]["expected"],
-            *(r"(?<![0-9])" + str(x) + r"[^0-9]+" + str(y) + r"(?![0-9])" for x, y in retry_positions),
-        ]
-        overrides["TaskMerchantSelectFixedPoint"]["action"]["param"]["custom_action_param"]["retry_positions"] = retry_positions
+        overrides["TaskMerchantCloudPark"] = {"action": parking_action}
     return overrides
 
 
 @AgentServer.custom_recognition("TaskMerchantMapReady")
 class TaskMerchantMapReady(CustomRecognition):
     def analyze(self, context, argv):
-        located = _scroll(context, argv.image)
-        if not located:
+        box = _scroll(context, argv.image)
+        if box is None:
             return None
-        params = json.loads(argv.custom_recognition_param or "{}") or {}
-        if params.get("map"):
-            # 子地图复用丝带；地标约束排除点击未生效时残留的世界地图。
-            config = context.get_node_data("TaskMerchantBeginRefill")["action"]["param"]["custom_action_param"]
-            if _region(located["box"], config[params["map"]]) is None:
-                return None
-        return CustomRecognition.AnalyzeResult(box=tuple(located["box"]), detail=located)
+        params = json.loads(argv.custom_recognition_param)
+        # 子地图复用丝带；地标约束排除点击未生效时残留的世界地图。
+        if "map" in params and _region(box, _navigation_config(context)[params["map"]]) is None:
+            return None
+        return CustomRecognition.AnalyzeResult(box=box, detail={})
 
 
 @AgentServer.custom_action("TaskMerchantPrepareNavigation")
 class TaskMerchantPrepareNavigation(CustomAction):
     def run(self, context, argv):
         config = json.loads(argv.custom_action_param)
-        frame = context.tasker.controller.post_screencap().wait().get()
-        if context.tasker.stopping or frame is None:
+        profiles = config["profiles"]
+        box = _map_box(context, "TaskMerchantOpenWorldMap", "TaskMerchantWorldMapReady")
+        if context.tasker.stopping or box is None:
             return False
-        header = context.run_recognition("TaskMerchantCurrentScene", frame)
-        if context.tasker.stopping:
-            return False
-        text = (header.best_result.text if header and header.hit else "").replace("云险村", "云隐村")
-        current = next((name for name, profile in config["profiles"].items()
-                        if re.search(profile.get("scene_pattern", re.escape(name)), text)), None)
-        if current is None:
-            current = next((name for prefix, name in (("川之国", "川之国峡谷"), ("热沙", "热沙荒野"), ("木山后山", "妙木山后山")) if prefix in text), None)
-        if current is None and "鸦之森" in config["profiles"]:
-            crow = context.run_recognition("TaskMerchantCrowScene", frame)
-            if context.tasker.stopping:
-                return False
-            if crow and crow.hit:
-                current = "鸦之森"
-        opened = context.run_task("TaskMerchantOpenWorldMap")
-        if context.tasker.stopping:
-            return False
-        ready = next((n for n in opened.nodes if n.name == "TaskMerchantWorldMapReady"), None) if opened else None
-        if not ready:
-            return False
-        located = ready.recognition.best_result.detail
-        name = _region(located["box"], config["world"])
-        in_submap = False
+        landmarks = config["world"]
+        name = _region(box, landmarks)
+        # 世界地图上木叶村只是入口，商人实际在子地图的木叶村东 / 木叶村北 / 妙木山后山。
         if name == "木叶村":
-            opened = context.run_task("TaskMerchantOpenKonohaMap")
-            if context.tasker.stopping:
+            box = _map_box(context, "TaskMerchantOpenKonohaMap", "TaskMerchantKonohaMapReady")
+            if context.tasker.stopping or box is None:
                 return False
-            ready = next((n for n in opened.nodes if n.name == "TaskMerchantKonohaMapReady"), None) if opened else None
-            if not ready:
-                return False
-            located = ready.recognition.best_result.detail
-            name = _region(located["box"], config["submap"])
-            in_submap = True
-        profile = config["profiles"].get(name)
-        if not profile:
+            landmarks = config["submap"]
+            name = _region(box, landmarks)
+        profile = profiles.get(name)
+        if profile is None:
             return False
-        position = profile.get("position")
-        if not position:
-            return False
-        landmark = [1134,86] if name == current or (name == "终末谷上方" and current == "终末谷下方") or (name == "沙忍村北" and current == "沙忍村南") else (config["submap"] if in_submap else config["world"])[name]
-        scene = {"recognition": {"type": "OCR", "param": {"roi":profile.get("scene_roi", [1205,81,130,19]),
-                 "expected":[profile.get("scene_pattern", {"川之国峡谷":"川之国", "热沙荒野":"热沙", "妙木山后山":"[妙炒]木山后山", "云隐村":"云[隐险]村"}.get(name,re.escape(name)))],"only_rec":profile.get("scene_only_rec", True)}}}
-        scene["next"] = ["TaskMerchantPark"]
-        if name == "终末谷上方" and current != name:
-            scene["recognition"]["param"]["expected"] = ["终[末未木]谷下方"]
-            scene["next"] = ["TaskMerchantSelectValleyLocation"]
-            scene["post_wait_freezes"] = {"time":300,"target":[1205,100,130,125],"rate_limit":100,"timeout":5000}
-        if name == "沙忍村北" and current != name:
-            scene["recognition"]["param"]["expected"] = ["[砂沙][忍绍]村南"]
-            scene["next"] = ["TaskMerchantSelectSandLocation"]
-        if profile.get("locations") and scene["next"] == ["TaskMerchantPark"]:
-            scene["next"] = ["TaskMerchantLocateMerchant"]
+        # 已在该场景时点地标只会关闭地图、原地不动；不在时自动寻路，因此总是点地标。
+        # 绕行场景点完后可能在目标场景，也可能在入口场景，两者都接受，由 SelectEntryLocation 分辨。
+        detour = DETOURS.get(name)
+        scenes = [name, detour[0]] if detour else [name]
+        # 绿点阈值按未遮挡收紧；本次任务已在该场景定位过时，角色可能正挡住绿点，直接沿用已写入的停靠参数。
+        # 不考虑商人在同一场景内换位置。
+        if context.get_node_data("TaskMerchantBeginRefill")["attach"].get("located") == name:
+            scene_next = "TaskMerchantPark"
+        else:
+            scene_next = detour[1] if detour else "TaskMerchantLocateMerchant"
         return context.override_pipeline({
-            **_parking_overrides(name, profile),
-            "TaskMerchantEnterSelected": {"action":{"type":"LongPress","param":{"target":[*landmark,1,1],"duration":100}}},
-            "TaskMerchantSelectedScene": scene,
-            "TaskMerchantLocateMerchant": {"action":{"type":"Custom","param":{"custom_action":"TaskMerchantLocateMerchant",
-                "custom_action_param":{"name":name,"profile":profile}}}},
+            "TaskMerchantEnterSelected": {"action": {"type": "LongPress", "param": {"target": [*landmarks[name], 1, 1], "duration": 100}}},
+            "TaskMerchantSelectedScene": {
+                "recognition": {"type": "OCR", "param": {
+                    "roi": profile.get("scene_roi", [1205, 81, 130, 19]),
+                    "expected": [_scene_pattern(profiles, scene) for scene in scenes],
+                    "only_rec": profile.get("scene_only_rec", True)}},
+                "next": [scene_next]},
+            "TaskMerchantLocateMerchant": {"action": {"type": "Custom", "param": {"custom_action": "TaskMerchantLocateMerchant",
+                "custom_action_param": {"scene": name}}}},
         })
 
 
-@AgentServer.custom_action("TaskMerchantSelectValleyLocation")
-class TaskMerchantSelectValleyLocation(CustomAction):
+@AgentServer.custom_action("TaskMerchantSelectEntryLocation")
+class TaskMerchantSelectEntryLocation(CustomAction):
+    """已在目标场景则直接找商人；在入口场景则有商人就地停靠，没有则走 approach 绕行到目标场景。"""
     def run(self, context, argv):
-        frame = context.tasker.controller.post_screencap().wait().get()
-        if context.tasker.stopping or frame is None:
-            return False
-        profiles = context.get_node_data("TaskMerchantBeginRefill")["action"]["param"]["custom_action_param"]["profiles"]
-        lower = profiles["终末谷下方"]
-        matches = []
-        for location in lower["locations"]:
-            result = context.run_recognition(location["recognition"], frame)
-            if context.tasker.stopping or result is None:
-                return False
-            if result.hit:
-                matches.append(location)
-        if len(matches) > 1:
-            return False
-        name = "终末谷下方" if matches else "终末谷上方"
-        profile = {**lower, **matches[0]} if matches else profiles[name]
-        return context.override_pipeline({
-            **_parking_overrides(name, profile),
-            "TaskMerchantValleyDispatch": {"next":["TaskMerchantPark" if matches else "TaskMerchantValleyApproach"]},
-        })
-
-
-@AgentServer.custom_action("TaskMerchantSelectSandLocation")
-class TaskMerchantSelectSandLocation(CustomAction):
-    def run(self, context, argv):
-        frame = context.tasker.controller.post_screencap().wait().get()
-        if context.tasker.stopping or frame is None:
-            return False
-        south = context.get_node_data("TaskMerchantBeginRefill")["action"]["param"]["custom_action_param"]["profiles"]["沙忍村南"]
-        matches = []
-        for location in south["locations"]:
-            result = context.run_recognition(location["recognition"], frame)
-            if context.tasker.stopping or result is None:
-                return False
-            if result.hit:
-                matches.append(location)
-        if len(matches) > 1:
+        params = json.loads(argv.custom_action_param)
+        profiles = _navigation_config(context)["profiles"]
+        text = context.tasker.get_latest_node("TaskMerchantSelectedScene").recognition.best_result.text
+        if re.search(_scene_pattern(profiles, params["target"]), text):
+            return context.override_next(argv.node_name, ["TaskMerchantLocateMerchant"])
+        profile = profiles[params["scene"]]
+        matches = _locate(context, profile)
+        # 多处同时命中说明有干扰（如角色标记），不猜。
+        if matches is None or len(matches) > 1:
             return False
         if not matches:
-            return context.override_pipeline({"TaskMerchantSandDispatch": {"next": ["TaskMerchantSandApproach"]}})
-        return context.override_pipeline({
-            **_parking_overrides("沙忍村南", {**south, **matches[0]}),
-            "TaskMerchantSandDispatch": {"next": ["TaskMerchantPark"]},
-        })
+            return context.override_next(argv.node_name, [params["approach"]])
+        return (context.override_pipeline(_parking_overrides(matches[0], params["target"]))
+                and context.override_next(argv.node_name, ["TaskMerchantPark"]))
 
 
 @AgentServer.custom_action("TaskMerchantLocateMerchant")
 class TaskMerchantLocateMerchant(CustomAction):
     def run(self, context, argv):
         params = json.loads(argv.custom_action_param)
-        frame = context.tasker.controller.post_screencap().wait().get()
-        if context.tasker.stopping or frame is None:
+        profile = _navigation_config(context)["profiles"][params["scene"]]
+        matches = _locate(context, profile)
+        # 0 处：商人在未记录的新位置，需补充探索；多处：有干扰。都不猜。
+        if matches is None or len(matches) != 1:
             return False
-        matches = []
-        for location in params["profile"]["locations"]:
-            result = context.run_recognition(location["recognition"], frame)
-            if context.tasker.stopping:
-                return False
-            if result and result.hit:
-                matches.append(location)
-        if len(matches) != 1:
-            return False
-        profile = {**params["profile"], **matches[0]}
-        return context.override_pipeline({
-            **_parking_overrides(params["name"], profile),
-            "TaskMerchantLocateMerchant": {"next":["TaskMerchantPark"]},
-        })
+        return context.override_pipeline(_parking_overrides(matches[0], params["scene"]))
+
+
+# 走路时坐标持续变化：读数连续 0.4 秒不变视为角色已停下；点击后 2 秒坐标未变视为点击未生效。
+# 轮询间隔与流水线 rate_limit 一致，避免截图 + OCR（约 20ms）空转。
+CLOUD_STOP_SECONDS = 0.4
+CLOUD_START_SECONDS = 2
+CLOUD_POLL_SECONDS = 0.1
+
+
+def _cloud_text(context):
+    """读右上角场景名与坐标；未读到返回空串，截图失败或任务停止返回 None。"""
+    frame = context.tasker.controller.post_screencap().wait().get()
+    if context.tasker.stopping or frame is None:
+        return None
+    result = context.run_recognition("TaskMerchantCloudCoordinate", frame)
+    if context.tasker.stopping:
+        return None
+    return result.best_result.text if result and result.hit else ""
+
+
+def _coords(text):
+    # 只比较坐标数字，场景名的 OCR 误字（隐/险）不影响"是否停下"的判断。
+    match = re.search(r"(\d+)[^0-9]+(\d+)[^0-9]*$", text)
+    return match.groups() if match else None
 
 
 @AgentServer.custom_action("TaskMerchantCloudRoute")
 class TaskMerchantCloudRoute(CustomAction):
+    """云隐村顶楼：寻路可能提前停在不固定的中途点，停下后未到终点就再点一次停靠点。
+
+    目前只有这个位置有此问题；其他位置若出现再考虑通用化。
+    """
     def run(self, context, argv):
-        frame = context.tasker.controller.post_screencap().wait().get()
-        if context.tasker.stopping or frame is None:
-            return False
-        checkpoint = context.run_recognition("TaskMerchantCloudStopped", frame)
-        if context.tasker.stopping:
-            return False
-        entry = "TaskMerchantCloudWaitStopped" if checkpoint and checkpoint.hit else "TaskMerchantCloudFirstPark"
-        # 坐标命中即可处理，不要求停下；两个中途点均可跳过。
+        target = json.loads(argv.custom_action_param)["target"]
         for _ in range(6):
-            waited = context.run_task(entry)
-            if context.tasker.stopping:
+            text = _cloud_text(context)
+            if text is None:
                 return False
-            reached = next((n for n in waited.nodes if n.name == "TaskMerchantCloudStopped"), None) if waited else None
-            if reached is None:
-                return False
-            text = reached.recognition.best_result.text
-            if re.search(r"(?<![0-9])70[^0-9]+52(?![0-9])", text):
+            if re.search(target, text):
                 return True
-            if re.search(r"(?<![0-9])104[^0-9]+193(?![0-9])", text):
-                entry = "TaskMerchantCloudTransitPark"
-            elif re.search(r"(?<![0-9])90[^0-9]+60(?![0-9])", text):
-                entry = "TaskMerchantCloudNearApproachReady"
-            else:
+            start = _coords(text)
+            action = context.run_action("TaskMerchantCloudPark")
+            if context.tasker.stopping or not action or not action.success:
                 return False
+            # 等起步：坐标变化前最多等 2 秒，未变化则回到循环开头重新点击。
+            begin = time.monotonic()
+            while (current := _coords(text)) in (None, start) and time.monotonic() - begin < CLOUD_START_SECONDS:
+                time.sleep(CLOUD_POLL_SECONDS)
+                text = _cloud_text(context)
+                if text is None:
+                    return False
+            if current in (None, start):
+                continue
+            # 等停下：坐标连续 0.4 秒不变；30 秒仍未停下则失败。
+            last, since = current, time.monotonic()
+            while time.monotonic() - since < CLOUD_STOP_SECONDS:
+                if time.monotonic() - begin > 30:
+                    return False
+                time.sleep(CLOUD_POLL_SECONDS)
+                text = _cloud_text(context)
+                if text is None:
+                    return False
+                current = _coords(text)
+                if current and current != last:
+                    last, since = current, time.monotonic()
         return False
-
-
-@AgentServer.custom_action("TaskMerchantSelectFixedPoint")
-class TaskMerchantSelectFixedPoint(CustomAction):
-    def run(self, context, argv):
-        params = json.loads(argv.custom_action_param)
-        point = params["point"]
-        if params.get("retry_positions"):
-            frame = context.tasker.controller.post_screencap().wait().get()
-            if context.tasker.stopping or frame is None:
-                return False
-            parked = context.run_recognition("TaskMerchantParked", frame)
-            if context.tasker.stopping or not parked or not parked.hit:
-                return False
-            text = parked.best_result.text
-            if any(re.search(r"(?<![0-9])" + str(x) + r"[^0-9]+" + str(y) + r"(?![0-9])", text)
-                   for x, y in params["retry_positions"]):
-                retried = context.run_task("TaskMerchantRetryPark")
-                if context.tasker.stopping:
-                    return False
-                if not retried or not any(n.name == "TaskMerchantRetryParked" for n in retried.nodes):
-                    return False
-        if len(params["variants"]) > 1:
-            node = context.tasker.get_latest_node("TaskMerchantParked")
-            if not node or not node.recognition or not node.recognition.hit:
-                return False
-            text = node.recognition.best_result.text
-            match = next((v for v in params["variants"] if re.search(
-                str(v["position"][0])+r"[^0-9]+"+str(v["position"][1]), text)), None)
-            if not match:
-                return False
-            point = match["point"]
-        return context.override_pipeline({"TaskMerchantClickFixedName":{
-            "action":{"type":"LongPress","param":{"target":[*point,1,1],"duration":100}}}})
 
 
 @AgentServer.custom_action("TaskMerchantRouteClaimReceipt")
 class TaskMerchantRouteClaimReceipt(CustomAction):
     def run(self, context, argv):
         text = argv.reco_detail.best_result.text
-        destination = "TaskMerchantOpenPanel" if "10" in text and "任务" in text and "最多" in text else "TaskMerchantPark"
-        overrides = {"TaskMerchantAfterReceipt":{"next":[destination]}}
-        return context.override_pipeline(overrides)
+        # ClaimReceipt 只命中"最多只能领取10个任务"或"恭喜你…获得了N张任务卡"两种文字。
+        # 没满时回 Park 重新停靠：点商人后角色会走到商人身边，镜头变化使固定点击点失效。
+        full = "最多" in text
+        return context.override_pipeline({"TaskMerchantAfterReceipt": {"next": ["TaskMerchantOpenPanel" if full else "TaskMerchantPark"]}})
