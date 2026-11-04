@@ -1,8 +1,22 @@
 // 坐标均为 1340×720 截图坐标；[947,220] 为任务卡面板右上角关闭按钮。
 {
+    // 先登录小号（login/TempAccount.json），登录并隐藏玩家后进入 TaskMerchantLoginDone。
     "TaskMerchantStart": {
         "pre_delay": 0,
         "post_delay": 0,
+        "anchor": {
+            "ServerSelected": "LoginPopupAppears",
+            "LoginComplete": "TaskMerchantLoginDone"
+        },
+        "next": [ "TempAccountOpenMulti" ]
+    },
+    "TaskMerchantLoginDone": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": { "custom_action": "ClearServerSession" }
+        },
         "next": [ "TaskMerchantConfigure" ]
     },
     // attach 存各类任务的赠送阈值（要求 ≤ 阈值则赠送，0 为不赠送），由 interface.json 选项逐键覆盖。
@@ -81,7 +95,10 @@
                 "threshold": 0.85,
                 "method": 5
             }
-        }
+        },
+        // 正常结束（顶部栏已展开）后关闭小号标签；失败不会走到这里，保留现场。
+        "timeout": 5000,
+        "next": [ "TempAccountCloseTab" ]
     },
     // 正常结束：回到地图后恢复顶部栏展开。
     "TaskMerchantComplete": {

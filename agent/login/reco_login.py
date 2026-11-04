@@ -5,6 +5,7 @@ from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
 from common.utils import get_latest_detail, recognize_server, send_focus_message
+from login.compare_account import CompareAccount
 from login.constants import SERVER_1000_LIST_ROI, SERVER_TAB_BOXES
 from login.server_session import (
     clear_server_session,
@@ -13,6 +14,9 @@ from login.server_session import (
     parse_server_range_string,
     take_next_server,
 )
+
+# CompareAccount 不依赖 AgentServer（多开对话框的独立进程也用它），所以在这里注册。
+AgentServer.custom_recognition("CompareWebAccount")(CompareAccount)
 
 
 def _get_target_server(context: Context):

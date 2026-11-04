@@ -246,6 +246,7 @@
         }
     },
     // 只有仍处于快捷登录页且识别到右箭头时才允许翻页。
+    // 点一次箭头只滚动一格，原有头像整体左移，只有最右一槽是新露出的，所以翻页后只读最右槽。
     "WebClickNext": {
         "recognition": {
             "type": "And",
@@ -266,6 +267,6 @@
             "timeout": 3000
         },
         "timeout": 3000,
-        "next": [ "WebLoginReady", "WebQuickLogin" ]
+        "next": [ "WebLoginReady", "WebProbe744" ]
     }
 }

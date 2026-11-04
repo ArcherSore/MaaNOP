@@ -1,0 +1,285 @@
+{
+    // 登录小号组件。调用方节点设置锚点 ServerSelected=LoginPopupAppears、LoginComplete=登录后的去向，next 指向 TempAccountOpenMulti（例：TaskMerchantStart），
+    // 并用 pipeline_override 把 GetNextServer 的 next 接到 WebLoginReady（新标签页的登录入口页与 WebLoginReady 画面相同，无需刷新）。
+
+    // 按钮随标签数右移（1 个标签 x=171，每多一个右移 94），OCR 会把标签和按钮合成一个框并把「号」读成「导」，所以用模板。
+    // 模板只取按钮内部（整个按钮 3 个标签时仅 0.704）。得分：1 个标签 1.0、3 个标签 0.919，其他位置最高 0.41（2026-11-04 截图）。
+    "TempAccountOpenMulti": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "login/TempAccountMultiOpen.png",
+                "roi": [ 0, 0, 1100, 32 ],
+                "threshold": 0.8
+            }
+        },
+        // 按钮是平行四边形，边角在按钮外（曾随机点到 (176,7) 没有响应），点击框缩到模板内部。
+        "anchor": { "TempAccountTabButton": "TempAccountOpenMulti" },
+        "action": {
+            "type": "Click",
+            "param": { "target": true, "target_offset": [ 4, 1, -8, -2 ] }
+        },
+        "next": [ "TempAccountDialog" ]
+    },
+    // 对话框是另一个窗口，由 agent 起子进程处理；attach.uin 由 interface 选项覆盖，timeout 是点头像后等新标签出现。
+    "TempAccountDialog": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 60000,
+        "attach": { "uin": "" },
+        "action": {
+            "type": "Custom",
+            "param": { "custom_action": "TempAccountSelect" }
+        },
+        "next": [ "TempAccountTabOpened" ]
+    },
+    // 新标签出现后按钮右移，原位置的按钮消失。必须先确认这一点再等选服页：
+    // 点头像后 50 毫秒内旧标签的画面就命中了 ReChooseServer，新账号还没加载就开始选服（2026-11-04 实测）。
+    "TempAccountTabOpened": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 60000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "login/TempAccountMultiOpen.png",
+                "roi": "[Anchor]TempAccountTabButton",
+                "roi_offset": [ -4, -3, 8, 6 ],
+                "threshold": 0.8
+            }
+        },
+        "inverse": true,
+        "next": [ "TempAccountPageReady" ]
+    },
+    "TempAccountPageReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "ReChooseServer" ] }
+        },
+        "next": [ "SetServerRegion" ]
+    },
+
+    // 关闭小号：关最右的标签（刚开的小号），只在业务正常结束后进入。× 在按钮模板左侧 20 像素，约 8×8，点击框 5×5（2026-11-04 截图）。
+    // 关闭后按钮左移一个标签宽度，所以「按钮离开原位置」即成功。重试必须在原位置匹配：
+    // 点击已生效但画面未刷新时，整行匹配会点到下一个标签（主号）的 ×。
+    "TempAccountCloseTab": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "login/TempAccountMultiOpen.png",
+                "roi": [ 0, 0, 1100, 32 ],
+                "threshold": 0.8
+            }
+        },
+        "anchor": { "TempAccountTabButton": "TempAccountCloseTab" },
+        "action": {
+            "type": "Click",
+            "param": { "target": true, "target_offset": [ -22, 6, -47, -7 ] }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 0, 0, 1100, 32 ],
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "next": [ "TempAccountTabClosed", "TempAccountCloseTabRetry" ]
+    },
+    "TempAccountTabClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "login/TempAccountMultiOpen.png",
+                "roi": "[Anchor]TempAccountTabButton",
+                "roi_offset": [ -4, -3, 8, 6 ],
+                "threshold": 0.8
+            }
+        },
+        "inverse": true
+    },
+    "TempAccountCloseTabRetry": {
+        "max_hit": 3,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "login/TempAccountMultiOpen.png",
+                "roi": "[Anchor]TempAccountTabButton",
+                "roi_offset": [ -4, -3, 8, 6 ],
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": true, "target_offset": [ -22, 6, -47, -7 ] }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 0, 0, 1100, 32 ],
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "next": [ "TempAccountTabClosed", "TempAccountCloseTabRetry" ]
+    },
+
+    // 以下节点只在对话框窗口的控制器上运行，坐标为该窗口 720×978 截图坐标。
+    // 悬停后头像下方的昵称换成 QQ 号；槽 ROI 是号码位置（槽间距 182），点击点用 target_offset 移到头像中心。
+    "TempDialogStart": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "TempDialogReady" ]
+    },
+    "TempDialogReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 140, 615, 440, 60 ],
+                "expected": "点击头像登录"
+            }
+        },
+        "next": [ "TempDialogProbe1" ]
+    },
+    "TempDialogProbe1": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": { "roi": [ 92, 528, 170, 42 ] }
+        },
+        "anchor": {
+            "TempDialogSlot": "TempDialogProbe1",
+            "TempDialogAfter": "TempDialogProbe2"
+        },
+        // 先移到空白处，让悬停重新进入头像。
+        "action": {
+            "type": "TouchMove",
+            "param": { "target": [ 30, 700, 4, 4 ] }
+        },
+        "next": [ "TempDialogHover" ]
+    },
+    "TempDialogProbe2": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": { "roi": [ 274, 528, 170, 42 ] }
+        },
+        "anchor": {
+            "TempDialogSlot": "TempDialogProbe2",
+            "TempDialogAfter": "TempDialogProbe3"
+        },
+        "action": {
+            "type": "TouchMove",
+            "param": { "target": [ 30, 700, 4, 4 ] }
+        },
+        "next": [ "TempDialogHover" ]
+    },
+    "TempDialogProbe3": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": { "roi": [ 456, 528, 170, 42 ] }
+        },
+        "anchor": {
+            "TempDialogSlot": "TempDialogProbe3",
+            "TempDialogAfter": "TempDialogAfterSlots"
+        },
+        "action": {
+            "type": "TouchMove",
+            "param": { "target": [ 30, 700, 4, 4 ] }
+        },
+        "next": [ "TempDialogHover" ]
+    },
+    "TempDialogHover": {
+        "action": {
+            "type": "TouchMove",
+            "param": {
+                "target": "[Anchor]TempDialogSlot",
+                "target_offset": [ 75, -100, -150, -22 ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 200,
+            "target": "[Anchor]TempDialogSlot",
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "next": [ "TempDialogReadNumber" ]
+    },
+    // 槽可能为空：OCR 结果在 Or.sub_results 里，DirectHit 保证空槽也能进入下一槽。
+    "TempDialogReadNumber": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "OCR",
+                        "roi": "[Anchor]TempDialogSlot",
+                        "expected": "^[1-9][0-9]{4,11}$"
+                    },
+                    {
+                        "recognition": "DirectHit",
+                        "roi": "[Anchor]TempDialogSlot"
+                    }
+                ]
+            }
+        },
+        "next": [ "TempDialogAccountMatch", "[Anchor]TempDialogAfter" ]
+    },
+    // uin 由 agent 启动子任务时覆盖；点击后窗口消失，到此结束。
+    "TempDialogAccountMatch": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "CompareWebAccount",
+                "custom_recognition_param": {
+                    "uin": "",
+                    "source": "TempDialogReadNumber",
+                    "threshold": 0.85
+                }
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": "[Anchor]TempDialogSlot",
+                "target_offset": [ 75, -100, -150, -22 ]
+            }
+        }
+    },
+    "TempDialogAfterSlots": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "TempDialogClickNext", "TempDialogNotListed" ]
+    },
+    // 点一次箭头只滚一格，之后只读最右一槽；箭头在列表尽头消失。
+    "TempDialogClickNext": {
+        "max_hit": 50,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "login/TempDialogNext.png",
+                "roi": [ 622, 405, 70, 80 ],
+                "threshold": 0.8
+            }
+        },
+        "action": { "type": "Click" },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 60, 380, 600, 200 ],
+            "rate_limit": 100,
+            "timeout": 3000
+        },
+        "next": [ "TempDialogProbe3" ]
+    },
+    // 无动作的终点；agent 以路径上有它判断「该号不在列表里」。
+    "TempDialogNotListed": {
+        "pre_delay": 0,
+        "post_delay": 0
+    }
+}

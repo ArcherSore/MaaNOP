@@ -1,13 +1,14 @@
-"""Compare an OCR number with the configured QQ; all UI flow lives in Pipeline."""
+"""Compare an OCR number with the configured QQ; all UI flow lives in Pipeline.
+
+不依赖 AgentServer，Agent 和多开对话框的独立进程都用它。
+"""
 import json
 from difflib import SequenceMatcher
 
-from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 
 
-@AgentServer.custom_recognition("CompareWebAccount")
-class CompareWebAccount(CustomRecognition):
+class CompareAccount(CustomRecognition):
     def analyze(self, context, argv):
         param = json.loads(argv.custom_recognition_param)
         number = ""

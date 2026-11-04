@@ -208,8 +208,13 @@
             "label": "任务商人",
             "group": [ "LimitedEvent" ],
             "entry": "TaskMerchantStart",
-            "description": "将所选类别及范围内的任务赠送给指定大号，大号任务收满后停止。\n\n**受精力所限，目前仅收集了 40 多个任务商人地点，尚未覆盖全部地点。**\n\n默认赠送【直接完成任务】。其他类别每类最多选择一个上限；不选或超出上限的任务会删除，每张消耗 5000 铜币。",
-            "option": [ "TaskMerchantRecipient", "TaskMerchantSurvival", "TaskMerchantRanked", "TaskMerchantWanted", "TaskMerchantEscort", "TaskMerchantArenaParticipation", "TaskMerchantQuizParticipation" ]
+            "description": "先在当前游戏窗口点「账号多开」，用所选 QQ 的指定区服新开一个标签页登录小号，再将所选类别及范围内的任务赠送给指定大号，大号任务收满后停止。\n\n**受精力所限，目前仅收集了 50 多个任务商人地点，尚未覆盖全部地点。**\n\n默认赠送【直接完成任务】。其他类别每类最多选择一个上限；不选或超出上限的任务会删除，每张消耗 5000 铜币。",
+            "option": [ "TempAccountUin", "TempAccountRegionType", "TempAccountServer", "TaskMerchantRecipient", "TaskMerchantSurvival", "TaskMerchantRanked", "TaskMerchantWanted", "TaskMerchantEscort", "TaskMerchantArenaParticipation", "TaskMerchantQuizParticipation" ],
+            "pipeline_override": {
+                "GetNextServer": {
+                    "next": [ "WebLoginReady" ]
+                }
+            }
         },
         {
             "name": "NinjutsuTraining",
@@ -294,6 +299,107 @@
                     "pattern_msg": "请输入 5～12 位 QQ 号，或留空手动登录"
                 }
             ]
+        },
+        "TempAccountUin": {
+            "type": "input",
+            "label": "小号 QQ 号",
+            "pipeline_override": {
+                "TempAccountDialog": {
+                    "attach": {
+                        "uin": "{uin}"
+                    }
+                }
+            },
+            "inputs": [
+                {
+                    "name": "uin",
+                    "label": "QQ 号",
+                    "default": "",
+                    "description": "要登录的小号 QQ，须出现在多开窗口的头像列表里。",
+                    "pipeline_type": "string",
+                    "verify": "^[1-9][0-9]{4,11}$",
+                    "pattern_msg": "请输入 5～12 位 QQ 号"
+                }
+            ]
+        },
+        "TempAccountRegionType": {
+            "type": "select",
+            "label": "小号大区类型",
+            "description": "小号所在的服务器大区类型（公测 / 不删档 / 联盟）",
+            "default_case": "Public",
+            "cases": [
+                {
+                    "name": "Public",
+                    "label": "公测",
+                    "pipeline_override": {
+                        "SetServerRegion": {
+                            "recognition": {
+                                "type": "Custom",
+                                "param": {
+                                    "custom_recognition": "SetServerRegion",
+                                    "custom_recognition_param": "public"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "NonWipe",
+                    "label": "不删档",
+                    "pipeline_override": {
+                        "SetServerRegion": {
+                            "recognition": {
+                                "type": "Custom",
+                                "param": {
+                                    "custom_recognition": "SetServerRegion",
+                                    "custom_recognition_param": "non_wipe"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Alliance",
+                    "label": "联盟",
+                    "pipeline_override": {
+                        "SetServerRegion": {
+                            "recognition": {
+                                "type": "Custom",
+                                "param": {
+                                    "custom_recognition": "SetServerRegion",
+                                    "custom_recognition_param": "alliance"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "TempAccountServer": {
+            "type": "input",
+            "label": "小号服务器",
+            "inputs": [
+                {
+                    "name": "server_id",
+                    "label": "服务器编号",
+                    "description": "小号所在的服务器编号，如 1006。",
+                    "default": "1",
+                    "pipeline_type": "string",
+                    "verify": "^[1-9][0-9]*$",
+                    "pattern_msg": "请输入一个正整数服务器编号"
+                }
+            ],
+            "pipeline_override": {
+                "ParseServer": {
+                    "recognition": {
+                        "type": "Custom",
+                        "param": {
+                            "custom_recognition": "ParseServerRange",
+                            "custom_recognition_param": "{server_id}"
+                        }
+                    }
+                }
+            }
         },
         "ServerRegionType": {
             "type": "select",
