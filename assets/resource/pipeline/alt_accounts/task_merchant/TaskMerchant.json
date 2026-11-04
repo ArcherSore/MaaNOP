@@ -9,7 +9,8 @@
     "TaskMerchantConfigure": {
         "pre_delay": 0,
         "post_delay": 0,
-        "next": [ "TaskMerchantPrepareToolbar" ],
+        "timeout": 5000,
+        "next": [ "TaskMerchantToolbarMapReady" ],
         "attach": {
             "survival_score": 0,
             "ranked_participation": 0,
@@ -20,31 +21,6 @@
         }
     },
     // 顶部栏在整个任务开始时收起，正常结束时展开；已处于目标状态则不点击。
-    // 面板开着时先关闭，否则挡住地图判断。
-    "TaskMerchantPrepareToolbar": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "timeout": 5000,
-        "next": [ "TaskMerchantToolbarPanelOpen", "TaskMerchantToolbarMapReady" ]
-    },
-    "TaskMerchantToolbarPanelOpen": {
-        "rate_limit": 100,
-        "timeout": 5000,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "TaskMerchantFirstRow" ]
-            }
-        },
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [ 947, 220, 1, 1 ],
-                "duration": 100
-            }
-        },
-        "next": [ "TaskMerchantToolbarMapReady" ]
-    },
     "TaskMerchantToolbarMapReady": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -92,7 +68,7 @@
                 "method": 5
             }
         },
-        "next": [ "TaskMerchantOpenPanel" ]
+        "next": [ "TaskMerchantSelectTab" ]
     },
     "TaskMerchantTopToolbarExpanded": {
         "pre_delay": 0,
@@ -142,26 +118,14 @@
         },
         "next": [ "TaskMerchantTopToolbarExpanded" ]
     },
-    // 卡片循环入口：有卡 → 分类处理；列表空 → 关闭面板去补卡；面板未打开 → 从活动入口打开。
+    // 面板内的卡片循环入口（处理完一张卡后回到这里）：有卡 → 分类处理；列表空 → 关闭面板去补卡。
     "TaskMerchantOpenPanel": {
         "pre_delay": 0,
         "post_delay": 0,
         "timeout": 8000,
-        "next": [ "TaskMerchantProcessCard", "TaskMerchantEmptyList", "TaskMerchantSceneReady" ]
+        "next": [ "TaskMerchantProcessCard", "TaskMerchantEmptyList" ]
     },
-    "TaskMerchantSceneReady": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "LoginMapVisible" ]
-            }
-        },
-        "action": "DoNothing",
-        "next": [ "TaskMerchantSelectTab" ]
-    },
-    // 从热点活动列表进入「任务总动员」面板。
+    // 从限时热点进入「任务总动员」面板：任务开始收起顶部栏后、补卡领满后都从这里进。
     "TaskMerchantSelectTab": {
         "rate_limit": 100,
         "timeout": 8000,
@@ -176,16 +140,6 @@
             }
         },
         "next": [ "TaskMerchantProcessCard", "TaskMerchantEmptyList" ]
-    },
-    // 面板已打开且有卡：首张卡好友输入框的占位文字。
-    "TaskMerchantFirstRow": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 708, 265, 121, 18 ],
-                "expected": [ "输入好友.*筛选" ]
-            }
-        }
     },
     "TaskMerchantEmptyList": {
         "rate_limit": 100,

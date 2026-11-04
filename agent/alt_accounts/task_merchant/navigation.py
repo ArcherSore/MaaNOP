@@ -291,4 +291,5 @@ class TaskMerchantRouteClaimReceipt(CustomAction):
         # ClaimReceipt 只命中"最多只能领取10个任务"或"恭喜你…获得了N张任务卡"两种文字。
         # 没满时回 Park 重新停靠：点商人后角色会走到商人身边，镜头变化使固定点击点失效。
         full = "最多" in text
-        return context.override_pipeline({"TaskMerchantAfterReceipt": {"next": ["TaskMerchantOpenPanel" if full else "TaskMerchantPark"]}})
+        # 领满后面板是关着的，经限时热点重新打开。
+        return context.override_pipeline({"TaskMerchantAfterReceipt": {"next": ["TaskMerchantSelectTab" if full else "TaskMerchantPark"]}})

@@ -940,7 +940,7 @@
         },
         "next": [ "TaskMerchantAfterReceipt" ]
     },
-    // next 由 RouteClaimReceipt 写入（满 10 张 → OpenPanel；否则 → Park 再领）。
+    // next 由 RouteClaimReceipt 写入（满 10 张 → SelectTab 重新打开面板；否则 → Park 再领）。
     "TaskMerchantAfterReceipt": {
         "pre_delay": 0,
         "post_delay": 0
