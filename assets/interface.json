@@ -953,13 +953,17 @@
                     "label": "好友名称",
                     "default": "",
                     "pipeline_type": "string",
-                    "pattern_msg": "请填写赠送角色名称"
+                    "verify": "^\\S(.*\\S)?$",
+                    "pattern_msg": "请填写赠送角色名称，首尾不能有空格"
                 }
             ],
             "pipeline_override": {
-                "TaskMerchantConfigure": {
-                    "attach": {
-                        "recipient": "{merchant_recipient}"
+                "TaskMerchantGiftPaste": {
+                    "action": {
+                        "type": "InputText",
+                        "param": {
+                            "input_text": "{merchant_recipient}"
+                        }
                     }
                 }
             }
@@ -975,7 +979,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "survival_score_70": true
+                                "survival_score": 70
                             }
                         }
                     }
@@ -986,7 +990,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "survival_score_120": true
+                                "survival_score": 120
                             }
                         }
                     }
@@ -997,7 +1001,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "survival_score_170": true
+                                "survival_score": 170
                             }
                         }
                     }
@@ -1016,7 +1020,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "ranked_participation_1": true
+                                "ranked_participation": 1
                             }
                         }
                     }
@@ -1027,7 +1031,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "ranked_participation_2": true
+                                "ranked_participation": 2
                             }
                         }
                     }
@@ -1038,7 +1042,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "ranked_participation_3": true
+                                "ranked_participation": 3
                             }
                         }
                     }
@@ -1057,7 +1061,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "wanted_1": true
+                                "wanted": 1
                             }
                         }
                     }
@@ -1068,7 +1072,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "wanted_3": true
+                                "wanted": 3
                             }
                         }
                     }
@@ -1079,7 +1083,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "wanted_5": true
+                                "wanted": 5
                             }
                         }
                     }
@@ -1098,7 +1102,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "escort_1": true
+                                "escort": 1
                             }
                         }
                     }
@@ -1109,7 +1113,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "escort_3": true
+                                "escort": 3
                             }
                         }
                     }
@@ -1128,7 +1132,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "arena_participation_1": true
+                                "arena_participation": 1
                             }
                         }
                     }
@@ -1139,7 +1143,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "arena_participation_2": true
+                                "arena_participation": 2
                             }
                         }
                     }
@@ -1150,7 +1154,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "arena_participation_3": true
+                                "arena_participation": 3
                             }
                         }
                     }
@@ -1161,7 +1165,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "arena_participation_6": true
+                                "arena_participation": 6
                             }
                         }
                     }
@@ -1180,7 +1184,7 @@
                     "pipeline_override": {
                         "TaskMerchantConfigure": {
                             "attach": {
-                                "quiz_participation_1": true
+                                "quiz_participation": 1
                             }
                         }
                     }

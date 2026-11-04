@@ -1,135 +1,135 @@
-// 原生720p正文OCR，不额外放大。
+// 坐标均为 1340×720 截图坐标；[947,220] 为任务卡面板右上角关闭按钮。
 {
     "TaskMerchantStart": {
         "pre_delay": 0,
         "post_delay": 0,
-        "rate_limit": 100,
-        "timeout": 8000,
         "next": [ "TaskMerchantConfigure" ]
     },
-    // 使用 attach 的扁平键合并收件人和各选项，避免嵌套对象相互覆盖。
+    // attach 存各类任务的赠送阈值（要求 ≤ 阈值则赠送，0 为不赠送），由 interface.json 选项逐键覆盖。
     "TaskMerchantConfigure": {
-        "rate_limit": 100,
-        "timeout": 8000,
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "TaskMerchantConfigure"
-            }
-        },
-        "next": [ "TaskMerchantPrepareToolbar" ],
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "TaskMerchantToolbarMapReady" ],
         "attach": {
-            "recipient": "",
-            "survival_score_70": false,
-            "survival_score_120": false,
-            "survival_score_170": false,
-            "ranked_participation_1": false,
-            "ranked_participation_2": false,
-            "ranked_participation_3": false,
-            "wanted_1": false,
-            "wanted_3": false,
-            "wanted_5": false,
-            "escort_1": false,
-            "escort_3": false,
-            "arena_participation_1": false,
-            "arena_participation_2": false,
-            "arena_participation_3": false,
-            "arena_participation_6": false,
-            "quiz_participation_1": false
+            "survival_score": 0,
+            "ranked_participation": 0,
+            "wanted": 0,
+            "escort": 0,
+            "arena_participation": 0,
+            "quiz_participation": 0
         }
     },
     // 顶部栏在整个任务开始时收起，正常结束时展开；已处于目标状态则不点击。
-    // 箭头模板来自2026-11-03实图，互匹配最高0.70，含悬停正例最低0.91。
-    "TaskMerchantPrepareToolbar": {
-        "next": [ "TaskMerchantToolbarPanelOpen", "TaskMerchantToolbarMapReady" ],
-        "timeout": 5000,
-        "rate_limit": 100
-    },
-    "TaskMerchantToolbarPanelOpen": {
-        "recognition": { "type": "And", "param": { "all_of": [ "TaskMerchantFirstRow" ] } },
-        "action": { "type": "LongPress", "param": { "target": [ 947, 220, 1, 1 ], "duration": 100 } },
-        "next": [ "TaskMerchantToolbarMapReady" ],
-        "timeout": 5000,
-        "rate_limit": 100
-    },
     "TaskMerchantToolbarMapReady": {
-        "recognition": { "type": "And", "param": { "all_of": [ "LoginMapVisible" ] } },
-        "next": [ "TaskMerchantEnsureTopToolbarCollapsed" ],
-        "timeout": 5000,
-        "rate_limit": 100
-    },
-    "TaskMerchantEnsureTopToolbarCollapsed": {
-        "next": [ "TaskMerchantTopToolbarCollapsed", "TaskMerchantCollapseTopToolbar" ],
-        "timeout": 5000,
-        "rate_limit": 100
-    },
-    "TaskMerchantCollapseTopToolbar": {
-        "recognition": { "type": "And", "param": { "all_of": [ "TaskMerchantTopToolbarExpanded" ] } },
-        "action": { "type": "LongPress", "param": { "target": [ 1179, 70, 1, 1 ], "duration": 100 } },
-        "next": [ "TaskMerchantTopToolbarCollapsed" ],
-        "timeout": 5000,
-        "rate_limit": 100
-    },
-    "TaskMerchantTopToolbarCollapsed": {
-        "recognition": { "type": "TemplateMatch", "param": {
-                "roi": [ 1169, 56, 20, 28 ],
-                "template": "alt_accounts/task_merchant/top_toolbar_collapsed.png",
-                "threshold": 0.85,
-                "method": 5
-            } },
-        "next": [ "TaskMerchantOpenPanel" ],
-        "timeout": 5000,
-        "rate_limit": 100
-    },
-    "TaskMerchantComplete": {
-        "recognition": { "type": "And", "param": { "all_of": [ "LoginMapVisible" ] } },
-        "next": [ "TaskMerchantEnsureTopToolbarExpanded" ],
-        "timeout": 5000,
-        "rate_limit": 100
-    },
-    "TaskMerchantEnsureTopToolbarExpanded": {
-        "next": [ "TaskMerchantTopToolbarExpanded", "TaskMerchantExpandTopToolbar" ],
-        "timeout": 5000,
-        "rate_limit": 100
-    },
-    "TaskMerchantExpandTopToolbar": {
-        "recognition": { "type": "And", "param": { "all_of": [ "TaskMerchantTopToolbarCollapsed" ] } },
-        "action": { "type": "LongPress", "param": { "target": [ 1179, 70, 1, 1 ], "duration": 100 } },
-        "next": [ "TaskMerchantTopToolbarExpanded" ],
-        "timeout": 5000,
-        "rate_limit": 100
-    },
-    "TaskMerchantTopToolbarExpanded": {
-        "recognition": { "type": "TemplateMatch", "param": {
-                "roi": [ 1169, 56, 20, 28 ],
-                "template": "alt_accounts/task_merchant/top_toolbar_expanded.png",
-                "threshold": 0.85,
-                "method": 5
-            } }
-    },
-    "TaskMerchantOpenPanel": {
         "pre_delay": 0,
         "post_delay": 0,
-        "rate_limit": 100,
-        "timeout": 8000,
-        "next": [ "TaskMerchantProcessCard", "TaskMerchantEmptyList", "TaskMerchantSceneReady" ]
-    },
-    "TaskMerchantSceneReady": {
-        "rate_limit": 100,
-        "timeout": 8000,
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [ "LoginMapVisible" ]
             }
         },
-        "action": "DoNothing",
+        "next": [ "TaskMerchantEnsureTopToolbarCollapsed" ]
+    },
+    "TaskMerchantEnsureTopToolbarCollapsed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "TaskMerchantTopToolbarCollapsed", "TaskMerchantCollapseTopToolbar" ]
+    },
+    "TaskMerchantCollapseTopToolbar": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "TaskMerchantTopToolbarExpanded" ]
+            }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1179, 70, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantTopToolbarCollapsed" ]
+    },
+    // 收起/展开箭头模板互匹配最高 0.70，含悬停正例最低 0.91。
+    "TaskMerchantTopToolbarCollapsed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [ 1169, 56, 20, 28 ],
+                "template": "alt_accounts/task_merchant/top_toolbar_collapsed.png",
+                "threshold": 0.85,
+                "method": 5
+            }
+        },
         "next": [ "TaskMerchantSelectTab" ]
     },
+    "TaskMerchantTopToolbarExpanded": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [ 1169, 56, 20, 28 ],
+                "template": "alt_accounts/task_merchant/top_toolbar_expanded.png",
+                "threshold": 0.85,
+                "method": 5
+            }
+        }
+    },
+    // 正常结束：回到地图后恢复顶部栏展开。
+    "TaskMerchantComplete": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginMapVisible" ]
+            }
+        },
+        "next": [ "TaskMerchantEnsureTopToolbarExpanded" ]
+    },
+    "TaskMerchantEnsureTopToolbarExpanded": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "TaskMerchantTopToolbarExpanded", "TaskMerchantExpandTopToolbar" ]
+    },
+    "TaskMerchantExpandTopToolbar": {
+        "timeout": 5000,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "TaskMerchantTopToolbarCollapsed" ]
+            }
+        },
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1179, 70, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "TaskMerchantTopToolbarExpanded" ]
+    },
+    // 面板内的卡片循环入口（处理完一张卡后回到这里）：有卡 → 分类处理；列表空 → 关闭面板去补卡。
+    "TaskMerchantOpenPanel": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 8000,
+        "next": [ "TaskMerchantProcessCard", "TaskMerchantEmptyList" ]
+    },
+    // 从限时热点进入「任务总动员」面板：任务开始收起顶部栏后、补卡领满后都从这里进。
     "TaskMerchantSelectTab": {
-        "recognition": "DirectHit",
         "rate_limit": 100,
         "timeout": 8000,
+        "recognition": "DirectHit",
         "action": {
             "type": "Custom",
             "param": {
@@ -140,19 +140,6 @@
             }
         },
         "next": [ "TaskMerchantProcessCard", "TaskMerchantEmptyList" ]
-    },
-    "TaskMerchantFirstRow": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 100,
-        "timeout": 8000,
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 708, 265, 121, 18 ],
-                "expected": [ "输入好友.*筛选" ]
-            }
-        }
     },
     "TaskMerchantEmptyList": {
         "rate_limit": 100,
@@ -173,11 +160,10 @@
         },
         "next": [ "TaskMerchantPanelClosed" ]
     },
+    // 面板关闭后去找商人补卡，见 Navigation.json。
     "TaskMerchantPanelClosed": {
         "pre_delay": 0,
         "post_delay": 0,
-        "rate_limit": 100,
-        "timeout": 8000,
         "recognition": {
             "type": "And",
             "param": {
@@ -186,11 +172,8 @@
         },
         "next": [ "TaskMerchantBeginRefill" ]
     },
+    // 首张卡正文，由 TaskMerchantClassify 调用；原生 720p 识别，不额外放大。
     "TaskMerchantBodyOCR": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 100,
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -200,6 +183,7 @@
             }
         }
     },
+    // next 由 RouteCard 按分类结果写入（赠送 → GiftFocus；删除 → OldDeleteToastGone）。
     "TaskMerchantProcessCard": {
         "rate_limit": 100,
         "timeout": 8000,
@@ -218,8 +202,6 @@
         "next": [ ]
     },
     "TaskMerchantGiftFocus": {
-        "rate_limit": 100,
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -236,17 +218,20 @@
         },
         "next": [ "TaskMerchantGiftPaste" ]
     },
+    // GiftFocus 已识别到占位文字，输入框为空，无需先全选清除。
+    // input_text 由 interface.json 的 TaskMerchantRecipient 覆盖，非空由其 verify 保证。
     "TaskMerchantGiftPaste": {
         "rate_limit": 100,
         "timeout": 8000,
         "action": {
-            "type": "Custom",
+            "type": "InputText",
             "param": {
-                "custom_action": "TaskMerchantPasteRecipient"
+                "input_text": ""
             }
         },
         "next": [ "TaskMerchantFirstFriend" ]
     },
+    // 输入后弹出的好友下拉列表，点第一项；等输入框稳定再判断下拉是否收起。
     "TaskMerchantFirstFriend": {
         "rate_limit": 100,
         "timeout": 8000,
@@ -287,6 +272,7 @@
         "inverse": true,
         "next": [ "TaskMerchantGiftSend" ]
     },
+    // 占位文字消失 = 已选中好友，才点赠送。
     "TaskMerchantGiftSend": {
         "rate_limit": 100,
         "timeout": 8000,
@@ -308,10 +294,10 @@
         "max_hit": 1000,
         "next": [ "TaskMerchantRecipientFull", "TaskMerchantGiftCompleted" ]
     },
+    // 对方任务已满时无法再送，关闭面板结束整个任务。
     "TaskMerchantRecipientFull": {
         "rate_limit": 100,
         "timeout": 8000,
-        "enabled": true,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -328,11 +314,8 @@
         },
         "next": [ "TaskMerchantComplete" ]
     },
+    // 以下两个节点仅供 GiftCompleted 的 Or 引用。
     "TaskMerchantGiftInputReset": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 100,
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -342,10 +325,6 @@
         }
     },
     "TaskMerchantGiftEmpty": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 100,
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -354,11 +333,10 @@
             }
         }
     },
+    // 赠送成功：输入框恢复占位文字（下一张卡），或卡片已全部送完。
     "TaskMerchantGiftCompleted": {
         "pre_delay": 0,
         "post_delay": 0,
-        "rate_limit": 100,
-        "timeout": 8000,
         "recognition": {
             "type": "Or",
             "param": {
@@ -373,10 +351,10 @@
         },
         "next": [ "TaskMerchantOpenPanel" ]
     },
+    // 等上一张卡的"删除成功"消失，避免误判本次删除结果。
     "TaskMerchantOldDeleteToastGone": {
         "pre_delay": 0,
         "post_delay": 0,
-        "rate_limit": 100,
         "timeout": 8000,
         "recognition": {
             "type": "OCR",
@@ -388,6 +366,7 @@
         "inverse": true,
         "next": [ "TaskMerchantDeleteX" ]
     },
+    // 首张卡右侧的删除按钮。
     "TaskMerchantDeleteX": {
         "rate_limit": 100,
         "timeout": 8000,
@@ -408,8 +387,10 @@
         "max_hit": 1000,
         "next": [ "TaskMerchantDeleteSucceeded", "TaskMerchantDeletePrompt" ]
     },
+    // 本次登录首次删除会弹确认框（消耗 5000 铜币）；勾选"本次登录不再提示"后，后续删除直接成功。
     "TaskMerchantDeletePrompt": {
-        "rate_limit": 100,
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 1500,
         "recognition": {
             "type": "OCR",
@@ -421,8 +402,8 @@
         },
         "next": [ "TaskMerchantDeleteRemember", "TaskMerchantDeleteConfirm" ]
     },
+    // 复选框未勾选才点；已勾选则直接确认。
     "TaskMerchantDeleteRemember": {
-        "rate_limit": 100,
         "timeout": 1500,
         "recognition": {
             "type": "TemplateMatch",
@@ -443,9 +424,11 @@
         "max_hit": 1000,
         "next": [ "TaskMerchantDeleteConfirm" ]
     },
+    // 对话框 1.5s 内未消失：仍识别到对话框才补点确认。
     "TaskMerchantDeleteConfirm": {
         "rate_limit": 100,
         "timeout": 1500,
+        "max_hit": 1000,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -481,8 +464,6 @@
     "TaskMerchantDeleteSucceeded": {
         "pre_delay": 0,
         "post_delay": 0,
-        "rate_limit": 100,
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {
