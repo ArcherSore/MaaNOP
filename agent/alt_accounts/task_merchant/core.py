@@ -59,16 +59,23 @@ class Classify(CustomRecognition):
         category, required = parse_requirement(text)
         # 阈值见 TaskMerchant.json 的 TaskMerchantConfigure.attach。
         thresholds = context.get_node_data("TaskMerchantConfigure")["attach"]
-        gift = category == "instant_complete" or (category in thresholds and required <= thresholds[category])
+        threshold = thresholds.get(category)
+        gift = category == "instant_complete" or (threshold is not None and required <= threshold)
         return CustomRecognition.AnalyzeResult(
             box=[574, 283, 256, 14],
-            detail={"category": category, "required": required, "decision": "gift" if gift else "delete", "text": text},
+            detail={"category": category, "required": required, "threshold": threshold,
+                    "decision": "gift" if gift else "delete", "text": text},
         )
 
 
 @AgentServer.custom_action("TaskMerchantRouteCard")
 class RouteCard(CustomAction):
     def run(self, context, argv):
-        gift = argv.reco_detail.best_result.detail["decision"] == "gift"
+        detail = argv.reco_detail.best_result.detail
+        gift = detail["decision"] == "gift"
+        # 在动作里打印：识别可能被轮询多次，动作每张卡只执行一次。
+        required, threshold = (("-" if v is None else v) for v in (detail["required"], detail["threshold"]))
+        print(f"任务商人：卡片「{detail['text']}」→ {detail['category']}"
+              f"（要求 {required}，阈值 {threshold}）{'赠送' if gift else '删除'}")
         destination = "TaskMerchantGiftFocus" if gift else "TaskMerchantOldDeleteToastGone"
         return context.override_next(argv.node_name, [destination])

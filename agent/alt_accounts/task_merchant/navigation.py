@@ -12,8 +12,9 @@ from maa.custom_action import CustomAction
 from maa.custom_recognition import CustomRecognition
 
 
-# 目标场景 -> (入口场景, 入口选点节点)：从别处前往会先到入口场景，须先在入口场景找商人，未找到再绕行。
-DETOURS = {
+# 子场景 -> (入口场景, 入口选点节点)：子场景没有子地图，点地标只能先到入口场景，再从入口走过去。
+# 入口场景本身也可能有商人，须先在入口找，未找到再走到子场景。
+SUB_SCENES = {
     "终末谷上方": ("终末谷下方", "TaskMerchantSelectValleyLocation"),
     "沙忍村北": ("沙忍村南", "TaskMerchantSelectSandLocation"),
 }
@@ -46,11 +47,20 @@ def _scroll(context, image):
     return [x - 25, y - 4, 38, 42]
 
 
-def _region(box, landmarks):
-    # 卷轴紧贴在所属区域地标的正上方；28 与 65 为实图测量的偏移和容差。
+def _nearest(box, landmarks):
+    # 卷轴紧贴在所属区域地标的正上方；28 为实图测量的偏移。
     x, y, w, h = box
-    distance, name = min((math.hypot(x+w/2-p[0], y+h/2+28-p[1]), name) for name, p in landmarks.items())
+    return min((math.hypot(x+w/2-p[0], y+h/2+28-p[1]), name) for name, p in landmarks.items())
+
+
+def _region(box, landmarks):
+    # 65 为实图测量的容差。
+    distance, name = _nearest(box, landmarks)
     return name if distance <= 65 else None
+
+
+def _pos(coords):
+    return f"({coords[0]},{coords[1]})" if coords else "(未读到)"
 
 
 def _map_box(context, entry, ready):
@@ -59,19 +69,26 @@ def _map_box(context, entry, ready):
     return node.recognition.box if node else None
 
 
-def _locate(context, profile):
-    """返回绿点可见的位置列表；截图失败或任务停止时返回 None。"""
+def _locate(context, profiles, scene):
+    """返回该场景绿点可见的位置列表；截图失败或任务停止时返回 None。"""
     frame = context.tasker.controller.post_screencap().wait().get()
     if context.tasker.stopping or frame is None:
         return None
     # 同一帧判断全部候选，结果才可比较。
+    locations = profiles[scene]["locations"]
     matches = []
-    for location in profile["locations"]:
+    for location in locations:
         result = context.run_recognition(location["recognition"], frame)
         if context.tasker.stopping:
             return None
         if result and result.hit:
             matches.append(location)
+    if not matches:
+        print(f"任务商人：{scene} 未找到绿点（共 {len(locations)} 个候选）")
+    elif len(matches) > 1:
+        print(f"任务商人：{scene} 多处命中 {'、'.join(_pos(m['position']) for m in matches)}，不点击")
+    else:
+        print(f"任务商人：{scene} 定位到 {_pos(matches[0]['position'])}")
     return matches
 
 
@@ -133,17 +150,22 @@ class TaskMerchantPrepareNavigation(CustomAction):
             name = _region(box, landmarks)
         profile = profiles.get(name)
         if profile is None:
+            distance, nearest = _nearest(box, landmarks)
+            print(f"任务商人：卷轴 {list(box)} 未对应已配置区域（最近 {nearest}，距离 {distance:.0f}）")
             return False
         # 已在该场景时点地标只会关闭地图、原地不动；不在时自动寻路，因此总是点地标。
-        # 绕行场景点完后可能在目标场景，也可能在入口场景，两者都接受，由 SelectEntryLocation 分辨。
-        detour = DETOURS.get(name)
-        scenes = [name, detour[0]] if detour else [name]
+        # 子场景点完后可能已在子场景，也可能在入口场景，两者都接受，由 SelectEntryLocation 分辨。
+        sub = SUB_SCENES.get(name)
+        scenes = [name, sub[0]] if sub else [name]
         # 绿点阈值按未遮挡收紧；本次任务已在该场景定位过时，角色可能正挡住绿点，直接沿用已写入的停靠参数。
         # 不考虑商人在同一场景内换位置。
+        route = f"前往 {name}" + (f"（入口 {sub[0]}）" if sub else "")
         if context.get_node_data("TaskMerchantBeginRefill")["attach"].get("located") == name:
             scene_next = "TaskMerchantPark"
+            print(f"任务商人：{route}，沿用本次已定位的停靠")
         else:
-            scene_next = detour[1] if detour else "TaskMerchantLocateMerchant"
+            scene_next = sub[1] if sub else "TaskMerchantLocateMerchant"
+            print(f"任务商人：{route}，识别绿点")
         return context.override_pipeline({
             "TaskMerchantEnterSelected": {"action": {"type": "LongPress", "param": {"target": [*landmarks[name], 1, 1], "duration": 100}}},
             "TaskMerchantSelectedScene": {
@@ -159,19 +181,21 @@ class TaskMerchantPrepareNavigation(CustomAction):
 
 @AgentServer.custom_action("TaskMerchantSelectEntryLocation")
 class TaskMerchantSelectEntryLocation(CustomAction):
-    """已在目标场景则直接找商人；在入口场景则有商人就地停靠，没有则走 approach 绕行到目标场景。"""
+    """已在子场景则直接找商人；在入口场景则有商人就地停靠，没有则走 approach 从入口走到子场景。"""
     def run(self, context, argv):
         params = json.loads(argv.custom_action_param)
         profiles = _navigation_config(context)["profiles"]
         text = context.tasker.get_latest_node("TaskMerchantSelectedScene").recognition.best_result.text
         if re.search(_scene_pattern(profiles, params["target"]), text):
+            print(f"任务商人：读到「{text}」，已在 {params['target']}")
             return context.override_next(argv.node_name, ["TaskMerchantLocateMerchant"])
-        profile = profiles[params["scene"]]
-        matches = _locate(context, profile)
+        print(f"任务商人：读到「{text}」，在入口 {params['scene']}，先找商人")
+        matches = _locate(context, profiles, params["scene"])
         # 多处同时命中说明有干扰（如角色标记），不猜。
         if matches is None or len(matches) > 1:
             return False
         if not matches:
+            print(f"任务商人：{params['scene']} 无商人，走到 {params['target']}")
             return context.override_next(argv.node_name, [params["approach"]])
         return (context.override_pipeline(_parking_overrides(matches[0], params["target"]))
                 and context.override_next(argv.node_name, ["TaskMerchantPark"]))
@@ -181,8 +205,7 @@ class TaskMerchantSelectEntryLocation(CustomAction):
 class TaskMerchantLocateMerchant(CustomAction):
     def run(self, context, argv):
         params = json.loads(argv.custom_action_param)
-        profile = _navigation_config(context)["profiles"][params["scene"]]
-        matches = _locate(context, profile)
+        matches = _locate(context, _navigation_config(context)["profiles"], params["scene"])
         # 0 处：商人在未记录的新位置，需补充探索；多处：有干扰。都不猜。
         if matches is None or len(matches) != 1:
             return False
@@ -221,11 +244,13 @@ class TaskMerchantCloudRoute(CustomAction):
     """
     def run(self, context, argv):
         target = json.loads(argv.custom_action_param)["target"]
-        for _ in range(6):
+        # 每段打印起止坐标，用于积累中途停靠点与所需点击次数。
+        for segment in range(1, 7):
             text = _cloud_text(context)
             if text is None:
                 return False
             if re.search(target, text):
+                print(f"任务商人：顶楼已到达 {_pos(_coords(text))}")
                 return True
             start = _coords(text)
             action = context.run_action("TaskMerchantCloudPark")
@@ -239,11 +264,13 @@ class TaskMerchantCloudRoute(CustomAction):
                 if text is None:
                     return False
             if current in (None, start):
+                print(f"任务商人：顶楼第 {segment} 段 点击 {CLOUD_START_SECONDS} 秒后坐标未变，重新点击")
                 continue
             # 等停下：坐标连续 0.4 秒不变；30 秒仍未停下则失败。
             last, since = current, time.monotonic()
             while time.monotonic() - since < CLOUD_STOP_SECONDS:
                 if time.monotonic() - begin > 30:
+                    print(f"任务商人：顶楼第 {segment} 段 30 秒未停下，最后坐标 {_pos(last)}")
                     return False
                 time.sleep(CLOUD_POLL_SECONDS)
                 text = _cloud_text(context)
@@ -252,6 +279,8 @@ class TaskMerchantCloudRoute(CustomAction):
                 current = _coords(text)
                 if current and current != last:
                     last, since = current, time.monotonic()
+            print(f"任务商人：顶楼第 {segment} 段 {_pos(start)} → 停在 {_pos(last)}")
+        print("任务商人：顶楼 6 段仍未到达")
         return False
 
 
