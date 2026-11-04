@@ -3,12 +3,12 @@
     "TaskMerchantStart": {
         "pre_delay": 0,
         "post_delay": 0,
-        "timeout": 8000,
         "next": [ "TaskMerchantConfigure" ]
     },
     // attach 存各类任务的赠送阈值（要求 ≤ 阈值则赠送，0 为不赠送），由 interface.json 选项逐键覆盖。
     "TaskMerchantConfigure": {
-        "timeout": 8000,
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": [ "TaskMerchantPrepareToolbar" ],
         "attach": {
             "survival_score": 0,
@@ -22,6 +22,8 @@
     // 顶部栏在整个任务开始时收起，正常结束时展开；已处于目标状态则不点击。
     // 面板开着时先关闭，否则挡住地图判断。
     "TaskMerchantPrepareToolbar": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 5000,
         "next": [ "TaskMerchantToolbarPanelOpen", "TaskMerchantToolbarMapReady" ]
     },
@@ -44,7 +46,8 @@
         "next": [ "TaskMerchantToolbarMapReady" ]
     },
     "TaskMerchantToolbarMapReady": {
-        "timeout": 5000,
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -54,6 +57,8 @@
         "next": [ "TaskMerchantEnsureTopToolbarCollapsed" ]
     },
     "TaskMerchantEnsureTopToolbarCollapsed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 5000,
         "next": [ "TaskMerchantTopToolbarCollapsed", "TaskMerchantCollapseTopToolbar" ]
     },
@@ -76,7 +81,8 @@
     },
     // 收起/展开箭头模板互匹配最高 0.70，含悬停正例最低 0.91。
     "TaskMerchantTopToolbarCollapsed": {
-        "timeout": 5000,
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -89,6 +95,8 @@
         "next": [ "TaskMerchantOpenPanel" ]
     },
     "TaskMerchantTopToolbarExpanded": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -101,7 +109,8 @@
     },
     // 正常结束：回到地图后恢复顶部栏展开。
     "TaskMerchantComplete": {
-        "timeout": 5000,
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -111,6 +120,8 @@
         "next": [ "TaskMerchantEnsureTopToolbarExpanded" ]
     },
     "TaskMerchantEnsureTopToolbarExpanded": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 5000,
         "next": [ "TaskMerchantTopToolbarExpanded", "TaskMerchantExpandTopToolbar" ]
     },
@@ -139,7 +150,8 @@
         "next": [ "TaskMerchantProcessCard", "TaskMerchantEmptyList", "TaskMerchantSceneReady" ]
     },
     "TaskMerchantSceneReady": {
-        "timeout": 8000,
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -167,9 +179,6 @@
     },
     // 面板已打开且有卡：首张卡好友输入框的占位文字。
     "TaskMerchantFirstRow": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -201,7 +210,6 @@
     "TaskMerchantPanelClosed": {
         "pre_delay": 0,
         "post_delay": 0,
-        "timeout": 8000,
         "recognition": {
             "type": "And",
             "param": {
@@ -212,9 +220,6 @@
     },
     // 首张卡正文，由 TaskMerchantClassify 调用；原生 720p 识别，不额外放大。
     "TaskMerchantBodyOCR": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -243,7 +248,6 @@
         "next": [ ]
     },
     "TaskMerchantGiftFocus": {
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -358,9 +362,6 @@
     },
     // 以下两个节点仅供 GiftCompleted 的 Or 引用。
     "TaskMerchantGiftInputReset": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -370,9 +371,6 @@
         }
     },
     "TaskMerchantGiftEmpty": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -385,7 +383,6 @@
     "TaskMerchantGiftCompleted": {
         "pre_delay": 0,
         "post_delay": 0,
-        "timeout": 8000,
         "recognition": {
             "type": "Or",
             "param": {
@@ -438,6 +435,8 @@
     },
     // 本次登录首次删除会弹确认框（消耗 5000 铜币）；勾选"本次登录不再提示"后，后续删除直接成功。
     "TaskMerchantDeletePrompt": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 1500,
         "recognition": {
             "type": "OCR",
@@ -511,7 +510,6 @@
     "TaskMerchantDeleteSucceeded": {
         "pre_delay": 0,
         "post_delay": 0,
-        "timeout": 8000,
         "recognition": {
             "type": "OCR",
             "param": {

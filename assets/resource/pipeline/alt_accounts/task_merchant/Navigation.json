@@ -643,8 +643,7 @@
                 }
             }
         },
-        "next": [ "TaskMerchantEnterSelected" ],
-        "timeout": 120000
+        "next": [ "TaskMerchantEnterSelected" ]
     },
     "TaskMerchantOpenWorldMap": {
         "action": {
@@ -658,6 +657,8 @@
         "timeout": 10000
     },
     "TaskMerchantWorldMapReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "Custom",
             "param": {
@@ -702,6 +703,8 @@
         "timeout": 10000
     },
     "TaskMerchantKonohaMapReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "Custom",
             "param": {
@@ -720,12 +723,12 @@
     },
     // recognition（目标场景名 OCR）与 next 由 PrepareNavigation 写入。
     "TaskMerchantSelectedScene": {
-        "timeout": 10000
+        "pre_delay": 0,
+        "post_delay": 0
     },
     // action（自定义动作 TaskMerchantLocateMerchant 及目标场景参数）由 PrepareNavigation 写入。
     "TaskMerchantLocateMerchant": {
-        "next": [ "TaskMerchantPark" ],
-        "timeout": 60000
+        "next": [ "TaskMerchantPark" ]
     },
     // ---- 沙忍村南北路线 ----
     // next 由 SelectEntryLocation 写入（已在目标 → LocateMerchant；入口有商人 → Park；否则 → approach）。
@@ -740,8 +743,7 @@
                     "approach": "TaskMerchantSandApproach"
                 }
             }
-        },
-        "timeout": 5000
+        }
     },
     "TaskMerchantSandApproach": {
         "action": {
@@ -756,6 +758,8 @@
         "max_hit": 200
     },
     "TaskMerchantSandAtExit": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -770,8 +774,7 @@
             "rate_limit": 100,
             "timeout": 5000
         },
-        "next": [ "TaskMerchantSandCrossExit" ],
-        "timeout": 5000
+        "next": [ "TaskMerchantSandCrossExit" ]
     },
     "TaskMerchantSandCrossExit": {
         "action": {
@@ -786,6 +789,8 @@
         "max_hit": 200
     },
     "TaskMerchantSandNorthReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -794,8 +799,7 @@
                 "only_rec": false
             }
         },
-        "next": [ "TaskMerchantLocateMerchant" ],
-        "timeout": 5000
+        "next": [ "TaskMerchantLocateMerchant" ]
     },
     // ---- 终末谷上下路线 ----
     // next 由 SelectEntryLocation 写入（已在目标 → LocateMerchant；入口有商人 → Park；否则 → approach）。
@@ -810,8 +814,7 @@
                     "approach": "TaskMerchantValleyApproach"
                 }
             }
-        },
-        "timeout": 5000
+        }
     },
     "TaskMerchantValleyApproach": {
         "action": {
@@ -826,6 +829,8 @@
         "max_hit": 200
     },
     "TaskMerchantValleyAtExit": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -840,8 +845,7 @@
             "rate_limit": 100,
             "timeout": 5000
         },
-        "next": [ "TaskMerchantValleyCrossExit" ],
-        "timeout": 5000
+        "next": [ "TaskMerchantValleyCrossExit" ]
     },
     "TaskMerchantValleyCrossExit": {
         "action": {
@@ -856,6 +860,8 @@
         "max_hit": 200
     },
     "TaskMerchantValleyUpperReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -864,8 +870,7 @@
                 "only_rec": false
             }
         },
-        "next": [ "TaskMerchantLocateMerchant" ],
-        "timeout": 5000
+        "next": [ "TaskMerchantLocateMerchant" ]
     },
     // ---- 云隐村顶楼停靠（TaskMerchantCloudRoute 调用）----
     // 寻路可能提前停在不固定的中途点：点一次停靠点，等角色停下读坐标，未到终点就再点。
@@ -890,12 +895,16 @@
     },
     // recognition（到达坐标 OCR）与 post_wait_freezes（商人附近静止）由 _parking_overrides 写入。
     "TaskMerchantParked": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": [ "TaskMerchantOldReceiptGone" ],
         "timeout": 5000,
         "rate_limit": 100
     },
     // 再领时上一轮的领取提示可能还在，须等其消失，否则 ClaimReceipt 会把旧提示当作本次结果。
     "TaskMerchantOldReceiptGone": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -905,8 +914,7 @@
             }
         },
         "inverse": true,
-        "next": [ "TaskMerchantClickFixedName" ],
-        "timeout": 5000
+        "next": [ "TaskMerchantClickFixedName" ]
     },
     // action（点击"任务商人"文字中心）由 _parking_overrides 写入。
     "TaskMerchantClickFixedName": {
@@ -930,12 +938,12 @@
                 "custom_action": "TaskMerchantRouteClaimReceipt"
             }
         },
-        "next": [ "TaskMerchantAfterReceipt" ],
-        "timeout": 5000
+        "next": [ "TaskMerchantAfterReceipt" ]
     },
     // next 由 RouteClaimReceipt 写入（满 10 张 → OpenPanel；否则 → Park 再领）。
     "TaskMerchantAfterReceipt": {
-        "timeout": 5000
+        "pre_delay": 0,
+        "post_delay": 0
     },
     // ==== 绿点识别 ====
     // 每个节点对应一个商人站位：ROI 是小地图上该站位绿点所在的小格（停靠点旁），HSV 颜色识别。
