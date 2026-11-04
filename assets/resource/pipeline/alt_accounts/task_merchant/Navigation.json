@@ -43,7 +43,17 @@
                             "receipt_roi": [ 400, 260, 550, 200 ],
                             "coordinate_variants": [ ],
                             "locations": [
-                                { "recognition": "TaskMerchantDeadwoodUpperRightDot" }
+                                { "recognition": "TaskMerchantDeadwoodUpperRightDot" },
+                                {
+                                    "recognition": "TaskMerchantDeadwoodCentralDot",
+                                    "parking": [ 1276, 149 ],
+                                    "position": [ 199, 135 ],
+                                    "point": [ 505, 392 ],
+                                    "freeze_roi": [ 479, 382, 52, 20 ],
+                                    "parking_only_rec": true,
+                                    "coordinate_pattern": "(?<![0-9])199[^0-9]+135(?![0-9])",
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
+                                }
                             ]
                         },
                         "短册街": {
@@ -52,7 +62,22 @@
                             "position": [ 317, 57 ],
                             "freeze_roi": [ 1070, 345, 80, 140 ],
                             "scene_only_rec": false,
-                            "coordinate_variants": [ ]
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                {
+                                    "recognition": "TaskMerchantTanzakuOriginalDot"
+                                },
+                                {
+                                    "recognition": "TaskMerchantTanzakuSecondDot",
+                                    "parking": [ 1284, 149 ],
+                                    "position": [ 218, 135 ],
+                                    "point": [ 537, 373 ],
+                                    "freeze_roi": [ 511, 363, 52, 20 ],
+                                    "parking_only_rec": true,
+                                    "coordinate_pattern": "(?<![0-9])218[^0-9]+135(?![0-9])",
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
+                                }
+                            ]
                         },
                         "木叶村北": {
                             "parking": [ 1281, 209 ],
@@ -80,7 +105,22 @@
                             "parking_only_rec": true,
                             "coordinate_pattern": "(?<![0-9])118[^0-9]*99(?![0-9])",
                             "receipt_roi": [ 350, 260, 650, 210 ],
-                            "coordinate_variants": [ ]
+                            "coordinate_variants": [ ],
+                            "locations": [
+                                {
+                                    "recognition": "TaskMerchantFireForestOriginalDot"
+                                },
+                                {
+                                    "recognition": "TaskMerchantFireForestLowerLeftDot",
+                                    "parking": [ 1231, 204 ],
+                                    "position": [ 63, 235 ],
+                                    "point": [ 349, 421 ],
+                                    "freeze_roi": [ 323, 411, 52, 20 ],
+                                    "parking_only_rec": true,
+                                    "coordinate_pattern": "(?<![0-9])63[^0-9]*235(?![0-9])",
+                                    "receipt_roi": [ 350, 260, 650, 210 ]
+                                }
+                            ]
                         },
                         "川之国峡谷": {
                             "parking": [ 1280, 134 ],
@@ -98,6 +138,16 @@
                                     "freeze_roi": [ 491, 274, 52, 20 ],
                                     "parking_only_rec": true,
                                     "receipt_roi": [ 300, 260, 650, 210 ]
+                                },
+                                {
+                                    "recognition": "TaskMerchantCanyonCentralDot",
+                                    "parking": [ 1251, 136 ],
+                                    "position": [ 87, 92 ],
+                                    "point": [ 740, 394 ],
+                                    "freeze_roi": [ 714, 384, 52, 20 ],
+                                    "parking_only_rec": true,
+                                    "coordinate_pattern": "(?<![0-9])87[^0-9]+92(?![0-9])",
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
                                 }
                             ]
                         },
@@ -301,6 +351,16 @@
                                     "parking_roi": [ 1205, 81, 130, 19 ],
                                     "parking_only_rec": true,
                                     "coordinate_pattern": "(^|[^0-9])95[^0-9]+133([^0-9]|$)"
+                                },
+                                {
+                                    "recognition": "TaskMerchantTempleUpperRightDot",
+                                    "parking": [ 1294, 111 ],
+                                    "position": [ 239, 32 ],
+                                    "point": [ 784, 142 ],
+                                    "freeze_roi": [ 758, 132, 52, 20 ],
+                                    "parking_only_rec": true,
+                                    "coordinate_pattern": "(?<![0-9])239[^0-9]+32(?![0-9])",
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
                                 }
                             ]
                         },
@@ -496,6 +556,16 @@
                                     "position": [ 62, 91 ],
                                     "freeze_roi": [ 343, 311, 52, 20 ],
                                     "parking_only_rec": true
+                                },
+                                {
+                                    "recognition": "TaskMerchantFiveSealLowerRightDot",
+                                    "parking": [ 1301, 194 ],
+                                    "position": [ 241, 239 ],
+                                    "point": [ 828, 506 ],
+                                    "freeze_roi": [ 802, 496, 52, 20 ],
+                                    "parking_only_rec": true,
+                                    "coordinate_pattern": "(?<![0-9])241[^0-9]*239(?![0-9])",
+                                    "receipt_roi": [ 400, 260, 550, 200 ]
                                 }
                             ]
                         }
@@ -662,7 +732,7 @@
     "TaskMerchantTrainingLowerDot": {
         "recognition": { "type": "ColorMatch", "param": {
                 "roi": [ 1298, 197, 12, 12 ], "method": 40,
-                "lower": [ 45, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+                "lower": [ 50, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
             } }
     },
     "TaskMerchantDesertOriginalDot": {
@@ -710,7 +780,7 @@
     "TaskMerchantForestUpperDot": {
         "recognition": { "type": "ColorMatch", "param": {
                 "roi": [ 1315, 167, 11, 10 ], "method": 40,
-                "lower": [ 50, 150, 150 ], "upper": [ 85, 255, 255 ], "count": 8
+                "lower": [ 55, 180, 180 ], "upper": [ 85, 255, 255 ], "count": 3
             } }
     },
     "TaskMerchantForestLeftDot": {
@@ -1099,5 +1169,101 @@
         "next": [ "TaskMerchantCloudStopped" ],
         "timeout": 30000,
         "rate_limit": 100
+    },
+    "TaskMerchantTempleUpperRightDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1294, 103, 12, 12 ],
+                "method": 40,
+                "lower": [ 55, 150, 150 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 3
+            }
+        }
+    },
+    "TaskMerchantTanzakuOriginalDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1316, 116, 13, 13 ],
+                "method": 40,
+                "lower": [ 55, 150, 150 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 3
+            }
+        }
+    },
+    "TaskMerchantTanzakuSecondDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1271, 148, 11, 11 ],
+                "method": 40,
+                "lower": [ 55, 150, 150 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 8
+            }
+        }
+    },
+    "TaskMerchantDeadwoodCentralDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1263, 148, 12, 12 ],
+                "method": 40,
+                "lower": [ 55, 150, 150 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 8
+            }
+        }
+    },
+    "TaskMerchantCanyonCentralDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1252, 137, 12, 12 ],
+                "method": 40,
+                "lower": [ 55, 150, 150 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 5
+            }
+        }
+    },
+    "TaskMerchantFireForestOriginalDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1244, 138, 13, 13 ],
+                "method": 40,
+                "lower": [ 55, 150, 150 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 5
+            }
+        }
+    },
+    "TaskMerchantFireForestLowerLeftDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1220, 204, 12, 12 ],
+                "method": 40,
+                "lower": [ 55, 150, 150 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 5
+            }
+        }
+    },
+    "TaskMerchantFiveSealLowerRightDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1301, 194, 11, 10 ],
+                "method": 40,
+                "lower": [ 55, 150, 150 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 5
+            }
+        }
     }
 }
