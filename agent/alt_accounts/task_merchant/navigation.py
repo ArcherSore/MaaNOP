@@ -145,7 +145,7 @@ class TaskMerchantPrepareNavigation(CustomAction):
         if name == "沙忍村北" and current != name:
             scene["recognition"]["param"]["expected"] = ["[砂沙][忍绍]村南"]
             scene["next"] = ["TaskMerchantSelectSandLocation"]
-        if profile.get("locations"):
+        if profile.get("locations") and scene["next"] == ["TaskMerchantPark"]:
             scene["next"] = ["TaskMerchantLocateMerchant"]
         return context.override_pipeline({
             **_parking_overrides(name, profile),
