@@ -339,6 +339,13 @@
                                     "point": [ 490, 281 ],
                                     "position": [ 62, 69 ],
                                     "freeze_roi": [ 464, 271, 52, 20 ]
+                                },
+                                {
+                                    "recognition": "TaskMerchantDeathForestSecondDot",
+                                    "parking": [ 1298, 186 ],
+                                    "point": [ 976, 331 ],
+                                    "position": [ 107, 98 ],
+                                    "freeze_roi": [ 950, 321, 52, 20 ]
                                 }
                             ]
                         },
@@ -1242,6 +1249,18 @@
             "type": "ColorMatch",
             "param": {
                 "roi": [ 1242, 153, 11, 10 ],
+                "method": 40,
+                "lower": [ 55, 180, 180 ],
+                "upper": [ 85, 255, 255 ],
+                "count": 8
+            }
+        }
+    },
+    "TaskMerchantDeathForestSecondDot": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1301, 180, 12, 12 ],
                 "method": 40,
                 "lower": [ 55, 180, 180 ],
                 "upper": [ 85, 255, 255 ],
