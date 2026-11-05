@@ -99,7 +99,7 @@
                 "target": [ 969, 607, 51, 19 ]
             }
         },
-        "next": [ "InfiniteIllusionConfirm2" ],
+        "next": [ "InfiniteIllusionConfirm2", "[JumpBack]HandleConfirmPopup" ],
         "on_error": [ "InfiniteIllusionSweep2" ]
     },
     "InfiniteIllusionConfirm2": {
@@ -153,7 +153,7 @@
                 "target": [ 969, 607, 51, 19 ]
             }
         },
-        "next": [ "InfiniteIllusionConfirm3" ],
+        "next": [ "InfiniteIllusionConfirm3", "[JumpBack]HandleConfirmPopup" ],
         "on_error": [ "InfiniteIllusionSweep3" ]
     },
     "InfiniteIllusionConfirm3": {
