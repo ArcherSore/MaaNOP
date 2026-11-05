@@ -27,16 +27,15 @@
         "focus": {
             "Node.Action.Succeeded": "开始领取无限幻象"
         },
-        "next": [ "InfiniteIllusionSweep1" ],
+        "next": [ "InfiniteIllusionTrial1" ],
         "on_error": [ "ClickOnInfiniteIllusion" ]
     },
     "InfiniteIllusionSweep1": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "alt_accounts/infinite_illusion/Flag.png",
-                "roi": [ 441, 66, 62, 64 ]
+                "all_of": [ "InfiniteIllusionTrial1Flag", "InfiniteIllusionSweepOrange" ]
             }
         },
         "action": {
@@ -81,16 +80,15 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "InfiniteIllusionSweep2" ],
+        "next": [ "InfiniteIllusionTrial2" ],
         "on_error": [ "InfiniteIllusionSwitchTo2" ]
     },
     "InfiniteIllusionSweep2": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "alt_accounts/infinite_illusion/Flag.png",
-                "roi": [ 502, 67, 64, 63 ]
+                "all_of": [ "InfiniteIllusionTrial2Flag", "InfiniteIllusionSweepOrange" ]
             }
         },
         "action": {
@@ -135,16 +133,15 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": [ "InfiniteIllusionSweep3" ],
+        "next": [ "InfiniteIllusionTrial3" ],
         "on_error": [ "InfiniteIllusionSwitchTo3" ]
     },
     "InfiniteIllusionSweep3": {
         "timeout": 5000,
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "alt_accounts/infinite_illusion/Flag.png",
-                "roi": [ 566, 65, 63, 63 ]
+                "all_of": [ "InfiniteIllusionTrial3Flag", "InfiniteIllusionSweepOrange" ]
             }
         },
         "action": {
@@ -173,6 +170,255 @@
         },
         "next": [ "ExitInfiniteIllusion" ],
         "on_error": [ "InfiniteIllusionConfirm3" ]
+    },
+    "InfiniteIllusionTrial1Flag": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/Flag.png",
+                "roi": [ 441, 66, 62, 64 ]
+            }
+        }
+    },
+    "InfiniteIllusionTrial2Flag": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/Flag.png",
+                "roi": [ 502, 67, 64, 63 ]
+            }
+        }
+    },
+    "InfiniteIllusionTrial3Flag": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/Flag.png",
+                "roi": [ 566, 65, 63, 63 ]
+            }
+        }
+    },
+    "InfiniteIllusionTrial1": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "InfiniteIllusionTrial1Flag" ]
+            }
+        },
+        "anchor": {
+            "InfiniteIllusionSweepTarget": "InfiniteIllusionSweep1",
+            "InfiniteIllusionTrialDone": "InfiniteIllusionSwitchTo2",
+            "InfiniteIllusionBattleReturn": "InfiniteIllusionBattleReturn1"
+        },
+        "timeout": 10000,
+        "next": [ "InfiniteIllusionSweepReady" ]
+    },
+    "InfiniteIllusionTrial2": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "InfiniteIllusionTrial2Flag" ]
+            }
+        },
+        "anchor": {
+            "InfiniteIllusionSweepTarget": "InfiniteIllusionSweep2",
+            "InfiniteIllusionTrialDone": "InfiniteIllusionSwitchTo3",
+            "InfiniteIllusionBattleReturn": "InfiniteIllusionBattleReturn2"
+        },
+        "timeout": 10000,
+        "next": [ "InfiniteIllusionSweepReady" ]
+    },
+    "InfiniteIllusionTrial3": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "InfiniteIllusionTrial3Flag" ]
+            }
+        },
+        "anchor": {
+            "InfiniteIllusionSweepTarget": "InfiniteIllusionSweep3",
+            "InfiniteIllusionTrialDone": "ExitInfiniteIllusion",
+            "InfiniteIllusionBattleReturn": "InfiniteIllusionBattleReturn3"
+        },
+        "timeout": 10000,
+        "next": [ "InfiniteIllusionSweepReady" ]
+    },
+    "InfiniteIllusionSweepReady": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 963, 604, 65, 24 ],
+                "only_rec": true,
+                "expected": "扫荡"
+            }
+        },
+        // 先确认按钮已出现，再分别识别橙色和灰色；识别不到橙色不能直接视作灰色。
+        "timeout": 5000,
+        "next": [ "[Anchor]InfiniteIllusionSweepTarget", "InfiniteIllusionChallenge" ]
+    },
+    "InfiniteIllusionSweepOrange": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 968, 608, 53, 17 ],
+                "method": 40,
+                "lower": [ 0, 90, 100 ],
+                "upper": [ 30, 255, 255 ],
+                "count": 300
+            }
+        }
+    },
+    "InfiniteIllusionSweepGray": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 968, 608, 53, 17 ],
+                "method": 40,
+                "lower": [ 0, 0, 60 ],
+                "upper": [ 180, 65, 235 ],
+                "count": 500
+            }
+        }
+    },
+    "InfiniteIllusionChallengeButton": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/Challenge.png",
+                "roi": [ 1040, 540, 150, 150 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "InfiniteIllusionChallenge": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "InfiniteIllusionSweepGray", "InfiniteIllusionChallengeButton" ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "anchor": {
+            "CommonBattleStartTarget": "InfiniteIllusionBattleStart",
+            "CommonBattleOutcome": "InfiniteIllusionBattleOutcome",
+            "CommonBattleContinue": "InfiniteIllusionBattleWait",
+            "CommonBattleInterrupt": "CommonBattleNoInterrupt"
+        },
+        "timeout": 20000,
+        // 开战倒计时可能自行结束，须同时接住已经进入战斗的状态。
+        "next": [ "[Anchor]CommonBattleOutcome", "InfiniteIllusionBattleStart", "CommonBattleAutoOn", "CommonBattleAutoOff" ]
+    },
+    "InfiniteIllusionBattleStart": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "CommonBattleStartButton" ]
+            }
+        },
+        "next": [ "CommonBattleClickStart" ]
+    },
+    "InfiniteIllusionBattleWait": {
+        "timeout": 600000,
+        "next": [ "[Anchor]CommonBattleOutcome" ]
+    },
+    "InfiniteIllusionBattleOutcome": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "InfiniteIllusionBattleResultConfirm", "InfiniteIllusionBattleSettlement" ]
+            }
+        },
+        "next": [ "InfiniteIllusionBattleResultConfirm", "InfiniteIllusionBattleSettlement" ]
+    },
+    "InfiniteIllusionBattleResultConfirm": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                // 与公共开战 OCR 的 ROI 分开，避免候选列表中区域重叠。
+                "roi": [ 625, 444, 90, 18 ],
+                "expected": "^确认$"
+            }
+        },
+        "action": "Click",
+        "timeout": 10000,
+        "next": [ "InfiniteIllusionBattleSettlement", "[Anchor]InfiniteIllusionBattleReturn" ]
+    },
+    "InfiniteIllusionBattleSettlement": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/infinite_illusion/SettlementTitle.png",
+                "roi": [ 590, 235, 150, 65 ],
+                "threshold": 0.8
+            }
+        },
+        "timeout": 10000,
+        "next": [ "InfiniteIllusionBattleSettlementReturn", "[Anchor]InfiniteIllusionBattleReturn" ]
+    },
+    "InfiniteIllusionBattleSettlementReturn": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 620, 438, 110, 28 ],
+                "expected": "返[回网]游戏"
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 643, 445, 44, 10 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "[Anchor]InfiniteIllusionBattleReturn" ]
+    },
+    "InfiniteIllusionBattleReturn1": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "InfiniteIllusionTrial1Flag" ]
+            }
+        },
+        "next": [ "InfiniteIllusionBattleRecheck" ]
+    },
+    "InfiniteIllusionBattleReturn2": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "InfiniteIllusionTrial2Flag" ]
+            }
+        },
+        "next": [ "InfiniteIllusionBattleRecheck" ]
+    },
+    "InfiniteIllusionBattleReturn3": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "InfiniteIllusionTrial3Flag" ]
+            }
+        },
+        "next": [ "InfiniteIllusionBattleRecheck" ]
+    },
+    "InfiniteIllusionBattleRecheck": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "InfiniteIllusionSweepReady" ]
+            }
+        },
+        // 战后橙色只代表本试炼完成，不能回到首次进入时的扫荡分流。
+        "timeout": 10000,
+        "next": [ "InfiniteIllusionBattleDone", "InfiniteIllusionChallenge" ]
+    },
+    "InfiniteIllusionBattleDone": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "InfiniteIllusionSweepOrange" ]
+            }
+        },
+        "next": [ "[Anchor]InfiniteIllusionTrialDone" ]
     },
     "ExitInfiniteIllusion": {
         "recognition": {

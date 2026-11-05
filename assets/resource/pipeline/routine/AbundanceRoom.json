@@ -120,7 +120,8 @@
         "anchor": {
             "CommonBattleStartTarget": "AbundanceBattleStart",
             "CommonBattleOutcome": "AbundanceBattleOutcome",
-            "CommonBattleContinue": "AbundanceBattleWait"
+            "CommonBattleContinue": "AbundanceBattleWait",
+            "CommonBattleInterrupt": "CommonBattleNoInterrupt"
         },
         "next": [ "CommonBattleClickStart" ]
     },

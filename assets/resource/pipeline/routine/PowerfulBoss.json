@@ -112,7 +112,8 @@
         "anchor": {
             "CommonBattleStartTarget": "BossBattleStart",
             "CommonBattleOutcome": "BossBattleOutcome",
-            "CommonBattleContinue": "BossBattleWait"
+            "CommonBattleContinue": "BossBattleWait",
+            "CommonBattleInterrupt": "CommonBattleNoInterrupt"
         },
         "next": [ "CommonBattleClickStart" ]
     },

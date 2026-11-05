@@ -459,7 +459,8 @@
         "anchor": {
             "CommonBattleStartTarget": "TeamDungeonBattleStart",
             "CommonBattleOutcome": "TeamDungeonBattleOutcome",
-            "CommonBattleContinue": "TeamDungeonBattleWait"
+            "CommonBattleContinue": "TeamDungeonBattleWait",
+            "CommonBattleInterrupt": "CommonBattleNoInterrupt"
         },
         "next": [ "CommonBattleClickStart" ]
     },
