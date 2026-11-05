@@ -43,7 +43,6 @@
             }
         }
     },
-    // 720 高度下，正常主界面战令黄字 96 像素，降难度/结算遮罩 0；40 留出渲染余量。
     // OCR 在遮罩下仍能读到主界面，需同时确认亮度，不能提前点击背景按钮。
     "DailyArenaMainBright": {
         "pre_delay": 0,
@@ -198,7 +197,7 @@
         "inverse": true,
         "next": [ "DailyArenaMain" ]
     },
-    // 720 高度实机下方绿字出现过「条件已溝足」；仅容错满/溝，仍严格区分已和未。
+    // OCR 会把「满」读成「溝」；仅容错满/溝，仍严格区分已和未。
     "DailyArenaTopReady": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -233,7 +232,7 @@
         },
         "next": [ "DailyArenaTopLowerButton" ]
     },
-    // 2026-10-25 发布包 debug：按钮已出现，但末两字读成「赚虚」（0.651），持续 20 秒未命中。
+    // 按钮末两字 OCR 不稳。
     // 同 ROI 中「降低」稳定，且领取/已满足/未满足均不含该前缀；上下按钮统一匹配此前缀。
     "DailyArenaTopLowerButton": {
         "recognition": {
@@ -370,7 +369,7 @@
         },
         "next": [ "DailyArenaLowerFree", "DailyArenaLowerCheckEmpty" ]
     },
-    // 2026-10-25 17:45 发布包 debug：确定后鼠标落在忍者上，技能说明遮住战令。
+    // 确定后鼠标会落在忍者上，技能说明遮住战令。
     // 入口及关闭弹窗后先复用 MouseMoveReset 移到左侧空白，再识别后续画面；不增加恢复分支。
     "DailyArenaLowerFree": {
         "recognition": {

@@ -69,7 +69,7 @@
         },
         "next": [ "TaskMerchantTopToolbarCollapsed" ]
     },
-    // 收起/展开箭头模板互匹配最高 0.70，含悬停正例最低 0.91。
+    // 收起/展开箭头互相相似，阈值须高于二者互相匹配的得分，同时容纳悬停外观。
     "TaskMerchantTopToolbarCollapsed": {
         "pre_delay": 0,
         "post_delay": 0,

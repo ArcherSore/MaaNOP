@@ -1,4 +1,4 @@
-"""Compare an OCR number with the configured QQ; all UI flow lives in Pipeline.
+"""把 OCR 读到的号码与配置的 QQ 比较；所有界面流程都在 Pipeline 中。
 
 不依赖 AgentServer，Agent 和多开对话框的独立进程都用它。
 """
@@ -22,7 +22,7 @@ class CompareAccount(CustomRecognition):
             if not ocr.hit or not ocr.best_result:
                 return None
             number = ocr.best_result.text.strip()
-        # An empty source compares "" with the configured QQ for manual login.
+        # 来源为空时，用 "" 与配置的 QQ 比较，用于手动登录。
         similarity = SequenceMatcher(None, number, param["uin"]).ratio()
         if similarity >= param["threshold"]:
             return CustomRecognition.AnalyzeResult(

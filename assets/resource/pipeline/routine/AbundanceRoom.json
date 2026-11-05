@@ -124,7 +124,7 @@
         },
         "next": [ "CommonBattleClickStart" ]
     },
-    // 删除迁移遗留的 30 秒探测循环；与组队 / 强者相同，最多等 10 分钟结算。
+    // 最多等 10 分钟结算，与组队 / 强者相同。
     "AbundanceBattleWait": {
         "timeout": 600000,
         "next": [ "AbundanceResultConfirm" ]

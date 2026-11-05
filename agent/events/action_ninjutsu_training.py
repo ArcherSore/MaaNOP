@@ -95,13 +95,13 @@ def round_finished(context: Context, image) -> bool:
 
 
 def recognize_round(context: Context, image) -> list[tuple[int, str]]:
-    """Read the entire round before clicking; preserve slot order and repeats."""
+    """先读完整一轮再点击；保留槽位顺序和重复项。"""
     best = {}
     for seal_name, node_name in SEAL_RECOGNITION_NODES.items():
         if context.tasker.stopping:
             raise RuntimeError("任务已停止")
         detail = recognize(context, image, node_name, HAND_SEALS_ROI)
-        # filtered_results contains every threshold-passing match, not just best.
+        # filtered_results 包含所有通过阈值的匹配，而不只是最佳匹配。
         for result in detail.filtered_results:
             x, y, w, h = result.box
             cx, cy = x + w / 2, y + h / 2
@@ -119,7 +119,7 @@ def recognize_round(context: Context, image) -> list[tuple[int, str]]:
 
     if not best:
         raise RuntimeError("未识别到本轮手印")
-    # Slots 1-5 share the same empty-slot image. Slot 6 has no empty check.
+    # 槽位 1-5 共用同一张空槽图；槽位 6 不检查空槽。
     slot_count = MAX_SLOTS if MAX_SLOTS - 1 in best else MAX_SLOTS - 1
     for slot_index in range(MAX_SLOTS - 1):
         if recognize(
@@ -181,7 +181,7 @@ def detect_after_click(
 def verify_slot(
     context: Context, sequence: list[tuple[int, str]], position: int
 ) -> None:
-    """Follow PipelineTask: accept hits, then check timeout and rate-limit misses."""
+    """与 PipelineTask 一致：命中即接受，未命中才检查超时并按 rate_limit 限速。"""
     slot_index, seal_name = sequence[position]
     last_slot = position == len(sequence) - 1
     timeout = ROUND_FINISH_TIMEOUT if last_slot else SLOT_VERIFY_TIMEOUT

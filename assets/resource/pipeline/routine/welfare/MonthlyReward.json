@@ -244,7 +244,7 @@
         "timeout": 8000,
         "next": [ "BigMonthInactive", "BigMonthActive" ]
     },
-    // 未激活按钮兼容「充值」「购买」；「购买」证据：debug/on_error/2026.11.03-18.11.30.684_MonthlyClickTab.png。
+    // 未激活按钮兼容「充值」「购买」。
     "BigMonthInactive": {
         "recognition": {
             "type": "And",
@@ -339,7 +339,6 @@
         },
         "next": [ "BigMonthTaken" ]
     },
-    // 大月卡已领沿用月卡的「灰色+已领取」正向条件；尚无其独立领取后截图。
     "BigMonthTaken": {
         "recognition": {
             "type": "And",

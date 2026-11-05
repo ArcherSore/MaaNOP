@@ -2,7 +2,7 @@
 // 到了周末福利页后，找到「忍者拼图」那一行，点「去完成」进入窗口，
 // 按 简单/普通/困难 依次检查每个难度：已领取就跳过；奖励亮着就领取；否则开一局，
 // 由 SolveJigsawPuzzle 把碎片拖到位，确定后回来领取，最后关掉窗口，交给 WeekendActivityDone。
-// 三个难度的按钮行相隔 57 像素，除 ROI/目标框的 y 不同外，节点写法完全一样
+// 三个难度的节点写法完全一样，只有 ROI/目标框的 y 不同
 {
     // ===== 周末福利页里「忍者拼图」那一行 =====
     // 行的位置不固定，按标题 OCR 找；按钮在标题右下方：orange = 去完成，grey = 已完成（本日奖励次数用完）
@@ -30,7 +30,7 @@
         },
         "next": [ "WeekendActivityDone" ]
     },
-    // roi_offset 的宽高是在标题框的宽高上加：这里取标题框右移 315、下移 44，宽 +20、高 +4，正好盖住按钮
+    // roi_offset 的宽高是在标题框的宽高上加（不是绝对值），使 ROI 盖住标题右下方的按钮
     "PuzzleGo": {
         "recognition": {
             "type": "ColorMatch",
@@ -67,7 +67,7 @@
         "next": [ "WeekendActivityDone" ]
     },
 
-    // ===== 简单（4×4）：按钮行中心 y=352 =====
+    // ===== 简单（4×4） =====
     // 检查这一行的状态：已领取 → 下一个难度；奖励亮着 → 领取；否则开始
     "PuzzleEasy": {
         "next": [ "PuzzleEasyClaimed", "PuzzleEasyClaimReady", "PuzzleEasyStart" ]
@@ -151,7 +151,7 @@
         "on_error": [ "PuzzleSolveFailed" ]
     },
 
-    // ===== 普通（5×5）：按钮行中心 y=409 =====
+    // ===== 普通（5×5） =====
     "PuzzleNormal": {
         "next": [ "PuzzleNormalClaimed", "PuzzleNormalClaimReady", "PuzzleNormalStart" ]
     },
@@ -232,7 +232,7 @@
         "on_error": [ "PuzzleSolveFailed" ]
     },
 
-    // ===== 困难（6×6）：按钮行中心 y=466 =====
+    // ===== 困难（6×6） =====
     "PuzzleHard": {
         "next": [ "PuzzleHardClaimed", "PuzzleHardClaimReady", "PuzzleHardStart" ]
     },
@@ -314,7 +314,7 @@
     },
 
     // ===== 三个难度共用 =====
-    // 点开始后先停在「开始游戏」按钮上，点了之后有约 6 秒的开场动画。
+    // 点开始后先停在「开始游戏」按钮上，点了之后有开场动画。
     // 动画盖住计时圈，动画一结束圈才露出来：用它判断碎片已经发好、可以开拖
     "PuzzleBeginGame": {
         "recognition": {

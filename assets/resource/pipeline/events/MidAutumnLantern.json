@@ -98,7 +98,7 @@
             "Node.Action.Succeeded": "中秋盛典完成"
         }
     },
-    // Called from action_mid_autumn.py.
+    // 由 action_mid_autumn.py 调用。
     "LanternColorPopupTemplate": {
         "recognition": {
             "type": "TemplateMatch",

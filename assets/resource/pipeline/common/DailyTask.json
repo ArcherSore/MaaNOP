@@ -48,7 +48,6 @@
             }
         }
     },
-    // 限时页签：选中 1.0，日常活动页 0.52。
     "DailyLimitedTab": {
         "recognition": {
             "type": "TemplateMatch",
@@ -173,7 +172,6 @@
         "timeout": 5000,
         "next": [ "DailyTaskReady" ]
     },
-    // 参与按钮：橙色可用约 665；灰色不可用约 830、可用时 ≤100。
     "DailyJoinAvailable": {
         "recognition": {
             "type": "ColorMatch",

@@ -77,7 +77,6 @@
         "next": [ "OnlineGiftReady" ]
     },
     // 可领取按钮悬停时变亮，需兼容两种外观。
-    // 橙色像素实测：可领取约 290，倒计时/已领取为 0。
     "OnlineClaimButton": {
         "recognition": {
             "type": "And",

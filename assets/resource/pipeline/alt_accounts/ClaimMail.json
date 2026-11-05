@@ -60,7 +60,6 @@
                         "recognition": {
                             "type": "ColorMatch",
                             "param": {
-                                // 邮件前台 414，仓库及其加载遮罩为 0。
                                 "roi": [ 418, 220, 50, 14 ],
                                 "method": 40,
                                 "lower": [ 85, 100, 120 ],
@@ -179,7 +178,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                // 1007 实图：蓝态 260，灰态及仓库加载为 0；仅采样按钮内部。
+                // 仅采样按钮内部。
                 "roi": [ 785, 524, 42, 14 ],
                 "method": 40,
                 "lower": [ 85, 100, 70 ],
@@ -192,7 +191,6 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                // 蓝态 210，灰态 486，加载为 0。
                 "roi": [ 785, 524, 42, 14 ],
                 "method": 40,
                 "lower": [ 0, 0, 40 ],
@@ -205,7 +203,6 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                // 蓝态 306，灰态及仓库加载为 0。
                 "roi": [ 707, 524, 42, 14 ],
                 "method": 40,
                 "lower": [ 85, 100, 70 ],
@@ -218,7 +215,6 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                // 蓝态 166，灰态 492，加载为 0。
                 "roi": [ 707, 524, 42, 14 ],
                 "method": 40,
                 "lower": [ 0, 0, 40 ],

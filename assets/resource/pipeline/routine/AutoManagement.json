@@ -1,5 +1,5 @@
 // 当天首次托管消耗 1 张托管卡；沿用用户设置，不支持「空闲时自动停靠在温泉」。
-// 托管会循环执行而不自行停止；实测三个号一轮内最长 6 秒无新日志，两轮间约 70 秒。
+// 托管会循环执行而不自行停止。
 // 扫荡、切图、弹窗和好友浇水期间可能无新日志，必须排除这些忙碌状态。
 // 首轮完成以排除忙碌状态后日志连续 10 秒不变判定；后续轮次补做及长期等待项目留给下次运行。
 {
@@ -7,7 +7,7 @@
         "focus": {
             "Node.PipelineNode.Failed": "托管失败：主界面左上角找不到托管入口"
         },
-        // 「激活上忍勋章返还点券」会遮住入口模板，实测不到 10 秒自行消失。
+        // 「激活上忍勋章返还点券」会遮住入口模板，但会自行消失。
         "timeout": 15000,
         "next": [ "AutoManageRunning", "AutoManageConfirm", "AutoManageStartReady", "AutoManageWindowRunning", "AutoManageOpenWindow" ]
     },
@@ -33,7 +33,7 @@
         "focus": {
             "Node.PipelineNode.Failed": "托管失败：托管系统窗口没有打开"
         },
-        "post_delay": 1500, // 窗口先出空框，约 1 秒后才绘制内容，无中间状态。
+        "post_delay": 1500, // 窗口先出空框，稍后才绘制内容，无中间状态。
         "timeout": 10000,
         "next": [ "AutoManageStartReady", "AutoManageWindowRunning", "AutoManageOpenAgain" ]
     },
@@ -79,7 +79,6 @@
             }
         }
     },
-    // 开始按钮橙色像素实测（S≥120）：普通 220、悬停 247、灰色/遮罩下为 0。
     // 悬停会提亮并降低饱和度，需兼容两种外观。
     "AutoManageStartReady": {
         "recognition": {
@@ -144,7 +143,7 @@
         "next": [ "AutoManageRunning" ]
     },
     // 托管中可由「查看日志」打开窗口；关闭后才露出左下托管面板。
-    // 退出按钮蓝色像素实测：普通 483、悬停 362、灰色/遮罩下为 0；悬停模板得分仅 0.75。
+    // 悬停时模板得分明显降低，所以退出按钮用颜色识别。
     "AutoManageWindowRunning": {
         "recognition": {
             "type": "And",
@@ -198,7 +197,7 @@
             }
         }
     },
-    // 忍者考试扫荡期间面板改为「正在扫荡」，结束后恢复；最长 540 秒。
+    // 忍者考试扫荡期间面板改为「正在扫荡」，结束后恢复。
     "AutoManageSweepPanel": {
         "recognition": {
             "type": "TemplateMatch",
@@ -228,11 +227,11 @@
             "Node.Recognition.Succeeded": "托管中，等这一轮做完后退出托管",
             "Node.PipelineNode.Failed": "托管失败：20 分钟内未能确认本轮完成，托管尚未退出，请手动检查"
         },
-        "timeout": 1200000, // 安全超时依据：扫荡 540 秒的实测全程约 12.6 分钟。
+        "timeout": 1200000, // 安全超时，须覆盖忍者考试扫荡的全程。
         "next": [ "AutoManageIdle" ]
     },
-    // 好友浇水不写日志，满成长提示曾持续 20 多秒，需视为忙碌。
-    // 模板仅截左半句以避开人物遮挡；实测有提示 0.79~1.0，无提示 ≤0.4。
+    // 好友浇水不写日志，满成长提示会持续较久，需视为忙碌。
+    // 模板仅截左半句以避开人物遮挡。
     "AutoManageWaterFullToast": {
         "recognition": {
             "type": "TemplateMatch",
@@ -243,7 +242,7 @@
             }
         }
     },
-    // 退出无确认框，面板实测约 0.5 秒内消失。
+    // 退出无确认框，点击后面板很快消失。
     "AutoManageIdle": {
         "recognition": {
             "type": "Custom",
@@ -266,11 +265,11 @@
         "focus": {
             "Node.PipelineNode.Failed": "托管失败：点了退出托管，但托管面板还在"
         },
-        "post_delay": 1500, // 面板约 0.5 秒内消失，无中间状态；等待 1.5 秒后再判断是否需要重试。
+        "post_delay": 1500, // 面板很快消失，无中间状态；等待后再判断是否需要重试。
         "timeout": 10000,
         "next": [ "AutoManageExited", "AutoManageExitAgain" ]
     },
-    // 窗口不在前台时退出点击可能只激活窗口；实测按钮高亮但仍未退出。
+    // 窗口不在前台时退出点击可能只激活窗口。
     "AutoManageExitAgain": {
         "max_hit": 2,
         "recognition": {

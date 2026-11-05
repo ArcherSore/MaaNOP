@@ -43,7 +43,7 @@
         "timeout": 10000,
         "next": [ "AbilityExamChallenge" ]
     },
-    // 橙色面积判可领并排除红章：单按钮 ≥390，全盖章 ≤70。
+    // 橙色面积判可领并排除红章。
     "AbilityExamHubClaimable": {
         "recognition": {
             "type": "ColorMatch",
@@ -73,7 +73,7 @@
         "timeout": 10000,
         "next": [ "AbilityExamClaim", "AbilityExamClaimDone" ]
     },
-    // 四档全盖章才结束；印章实测分数：未领 ≤0.22，已领 1.0。
+    // 四档全盖章才结束。
     "AbilityExamClaimDone": {
         "focus": {
             "Node.Action.Succeeded": "「忍者能力考试」任务完成"

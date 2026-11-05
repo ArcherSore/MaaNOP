@@ -7,8 +7,8 @@ from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
 # 白字的最暗通道 > TEXT_BRIGHT 算文字；两帧同一像素亮度差 > PIXEL_DIFF 且其中一帧是文字，算变了。
-# 实测（1340x720）：面板底色半透明，背后场景变化、切地图后重新画出，变化像素都是 0；
-# 只差时间戳最后一位的两行日志（09:02:07 → 09:02:08）变 7~10 个像素，换一行别的日志变 90~700 个。
+# 面板底色半透明：背后场景变化、切地图后重新画出，不计入变化像素；
+# 只差时间戳最后一位的两行日志变化很少，换一行别的日志变化很多，阈值须落在两者之间。
 TEXT_BRIGHT = 140
 PIXEL_DIFF = 60
 MIN_CHANGED_PIXELS = 3

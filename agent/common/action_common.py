@@ -51,7 +51,7 @@ class PreciseClick(CustomAction):
 
 
 ESC_KEY = 27
-# A blank spot in the middle of the game window; clicking it gives the window key focus.
+# 游戏窗口中间的空白处；点击它让窗口获得键盘焦点。
 FOCUS_BOX = (680, 400, 1, 1)
 
 
@@ -97,7 +97,7 @@ class CloseAllPopupsWithEsc(CustomAction):
 
 @AgentServer.custom_action("FalseAction")
 class FalseAction(CustomAction):
-    """Always fails. A terminal node for a recognized state that means the goal cannot be met; the failed action ends the task as Failed."""
+    """始终失败。用作已识别到无法达成目标的状态的终止节点，失败的动作使任务以 Failed 结束。"""
 
     def run(
         self,

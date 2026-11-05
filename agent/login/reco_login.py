@@ -20,7 +20,7 @@ AgentServer.custom_recognition("CompareWebAccount")(CompareAccount)
 
 
 def _get_target_server(context: Context):
-    """(server_id, region_type) chosen by the latest GetNextServer, or None when finished."""
+    """最近一次 GetNextServer 选出的 (server_id, region_type)；已全部完成时为 None。"""
     server = get_latest_detail(context, "GetNextServer")
     if not server or "server_id" not in server:
         return None

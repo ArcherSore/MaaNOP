@@ -17,7 +17,7 @@ from maa.toolkit import Toolkit
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from login.compare_account import CompareAccount  # noqa: E402
 
-DIALOG_WAIT_SECONDS = 10  # 窗口出现实测约 63 ms，留足余量
+DIALOG_WAIT_SECONDS = 10  # 等待多开窗口出现的上限
 
 
 def main():

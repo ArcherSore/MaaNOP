@@ -7,7 +7,7 @@ from login.constants import SERVER_1000_LIST_ROI
 
 
 def get_latest_detail(context: Context, node_name: str) -> Optional[dict[str, Any]]:
-    """Detail of the node's latest hit, only if it was hit in the current task."""
+    """节点最近一次命中的详情，仅当它在当前任务中命中过。"""
     if context.get_hit_count(node_name) == 0:
         return None
 
@@ -32,7 +32,7 @@ def send_focus_message(context: Context, message: str) -> None:
 
 
 def click_center(context: Context, box) -> bool:
-    """Click the exact center of box; a pipeline Click picks a random point inside it."""
+    """点击 box 的正中心；pipeline 的 Click 会在框内随机取点。"""
     if not box:
         return False
 
@@ -49,7 +49,7 @@ SERVER_NUMBER_CHARS = set("0123456789|")
 SERVER_GRID_ROW_TOLERANCE = 9
 SERVER_GRID_COL_TOLERANCE = 45
 SERVER_GRID_MIN_BASE_VOTES = 3
-# Alliance's descending grid slots 73, 72, 71, 70 contain servers 70, 73, 72, 71.
+# 联盟区网格按 73、72、71、70 降序排列的槽位，实际对应的服务器是 70、73、72、71。
 ALLIANCE_GRID_TO_SERVER = {73: 70, 72: 73, 71: 72, 70: 71}
 ALLIANCE_SERVER_TO_GRID = {server: grid for grid, server in ALLIANCE_GRID_TO_SERVER.items()}
 

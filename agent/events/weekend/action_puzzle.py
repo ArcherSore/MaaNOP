@@ -8,32 +8,29 @@ from maa.custom_action import CustomAction
 from maa.pipeline import JTemplateMatch
 
 
-# The left board shows the picture dimmed to DIM_FACTOR of its brightness; the
-# loose pieces are piled in the right panel in full color, at the same scale.
+# 左侧棋盘显示压暗到 DIM_FACTOR 亮度的图片；散落的碎片以原色、同样的缩放堆在右侧面板。
 BOARD = (388, 240, 296, 296)
 PILE = (776, 241, 176, 294)
 DIM_FACTOR = 0.295
 
-# Only the middle of a cell is identical on every piece shape; the tabs and
-# notches live in the outer quarter.
+# 只有格子中间部分在各种碎片形状上完全一致；凸起和凹口在外侧四分之一处。
 CORE_MARGIN = 0.26
-# TemplateMatch method 10001: inverted TM_SQDIFF_NORMED, 1.0 is a perfect color match.
+# TemplateMatch 方法 10001：反转的 TM_SQDIFF_NORMED，1.0 表示颜色完全匹配。
 MATCH_METHOD = 10001
-# Matches closer than this to a rejected drag point count as the same piece.
+# 与被拒绝的拖放点距离小于该值的匹配视为同一块碎片。
 SAME_PIECE_DISTANCE = 10
-# A cell counts as filled once this share of its core pixels differ from the
-# dimmed picture by more than FILLED_DELTA (a placed piece is ~3x brighter).
+# 格子核心像素中，与压暗图片相差超过 FILLED_DELTA 的比例达到该值，即视为已填（放上的碎片亮得多）。
 FILLED_DELTA = 4
 FILLED_SHARE = 0.5
 
 DRAG_DURATION = 300
-# Recorded rejected pieces return in about 0.3 s; fixed wait tested on 2026-10-24.
+# 被拒绝的碎片要过一会儿才回到堆里，所以固定等待。
 SETTLE_DELAY = 0.3
 MAX_DRAGS_PER_PIECE = 6
 
 
 def cell_cores(count: int) -> list[tuple[slice, slice]]:
-    """Row/column slices of every cell's core within the board, indexed by row * count + column."""
+    """棋盘内每个格子核心区域的行/列切片，下标为 row * count + column。"""
     size = BOARD[2] / count
     margin = size * CORE_MARGIN
     return [
@@ -45,9 +42,9 @@ def cell_cores(count: int) -> list[tuple[slice, slice]]:
 
 
 def filled_cells(image: np.ndarray, picture: np.ndarray, cores: list[tuple[slice, slice]]) -> set[int]:
-    """Cells whose core no longer looks like the dimmed picture, i.e. holds a piece."""
+    """核心区域不再像压暗图片的格子，即已放上碎片的格子。"""
     x, y, w, h = BOARD
-    # int16 so that subtracting uint8 pixels cannot wrap around.
+    # 用 int16，避免 uint8 像素相减时回绕。
     delta = np.abs(image[y:y + h, x:x + w].astype(np.int16) - picture).max(axis=2) > FILLED_DELTA
     return {cell for cell, core in enumerate(cores) if delta[core].mean() >= FILLED_SHARE}
 
@@ -55,11 +52,10 @@ def filled_cells(image: np.ndarray, picture: np.ndarray, cores: list[tuple[slice
 def find_in_pile(
     context: Context, image: np.ndarray, template_name: str, rejected: list[tuple[int, int]]
 ) -> tuple[float, tuple[int, int]] | None:
-    """Best match of a cell's template in the pile as (score, center), ignoring
-    spots where a drag of this cell was already rejected."""
+    """格子模板在碎片堆中的最佳匹配 (得分, 中心)，忽略该格子已被拒绝过的拖放位置。"""
     detail = context.run_recognition_direct(
         "TemplateMatch",
-        # Threshold 0 keeps every candidate, so a rejected spot can be skipped.
+        # 阈值为 0 保留所有候选，以便跳过被拒绝的位置。
         JTemplateMatch(template=[template_name], roi=PILE, threshold=[0.0], method=MATCH_METHOD),
         image,
     )
@@ -81,11 +77,10 @@ def find_in_pile(
 
 @AgentServer.custom_action("SolveJigsawPuzzle")
 class SolveJigsawPuzzle(CustomAction):
-    """Drag every piece from the pile onto its cell. The param is the grid size.
+    """把碎片堆里的每块碎片拖到对应格子。参数是棋盘边长。
 
-    The board (dimmed picture) is the answer. A piece dropped on a wrong cell is
-    rejected, so the color match only ranks the guesses and the board shows
-    which cells are filled."""
+    棋盘（压暗的图片）就是答案。碎片放错格子会被拒绝，所以颜色匹配只用来给猜测排序，
+    棋盘用来判断哪些格子已填。"""
 
     def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
         try:
@@ -96,7 +91,7 @@ class SolveJigsawPuzzle(CustomAction):
             x, y, w, h = BOARD
             picture = image[y:y + h, x:x + w].astype(np.int16)
             cores = cell_cores(count)
-            # What each cell's piece should look like in the pile: the dimmed core, brightened back.
+            # 每个格子的碎片在堆里应有的样子：把压暗的核心区域还原亮度。
             names = []
             for cell, core in enumerate(cores):
                 names.append(f"JigsawCell{cell}")
@@ -141,7 +136,7 @@ class SolveJigsawPuzzle(CustomAction):
                 image = controller.post_screencap().wait().get()
                 filled = filled_cells(image, picture, cores)
                 if cell in filled:
-                    # Progress: a spot that failed before only changes when the piece covering it leaves, so forget just the spots under the body of the piece that left.
+                    # 有进展：失败过的位置只有在覆盖它的碎片离开后才会变化，所以只忘掉离开的碎片所覆盖的位置。
                     rejected = {
                         other: [
                             spot for spot in spots

@@ -2,8 +2,8 @@
     // 登录小号组件。调用方节点设置锚点 ServerSelected=LoginPopupAppears、LoginComplete=登录后的去向，next 指向 TempAccountOpenMulti（例：TaskMerchantStart），
     // 并用 pipeline_override 把 GetNextServer 的 next 接到 WebLoginReady（新标签页的登录入口页与 WebLoginReady 画面相同，无需刷新）。
 
-    // 按钮随标签数右移（1 个标签 x=171，每多一个右移 94），OCR 会把标签和按钮合成一个框并把「号」读成「导」，所以用模板。
-    // 模板只取按钮内部（整个按钮 3 个标签时仅 0.704）。得分：1 个标签 1.0、3 个标签 0.919，其他位置最高 0.41（2026-11-04 截图）。
+    // 按钮随已开标签数右移，所以整行匹配。用模板不用 OCR：OCR 会把标签和按钮合成一个框。
+    // 模板只取按钮内部，避开平行四边形的边角。
     "TempAccountOpenMulti": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -15,7 +15,7 @@
                 "threshold": 0.8
             }
         },
-        // 按钮是平行四边形，边角在按钮外（曾随机点到 (176,7) 没有响应），点击框缩到模板内部。
+        // 按钮是平行四边形，边角在按钮外，点击框缩到模板内部。
         "anchor": { "TempAccountTabButton": "TempAccountOpenMulti" },
         "action": {
             "type": "Click",
@@ -35,8 +35,8 @@
         },
         "next": [ "TempAccountTabOpened" ]
     },
-    // 新标签出现后按钮右移，原位置的按钮消失。必须先确认这一点再等选服页：
-    // 点头像后 50 毫秒内旧标签的画面就命中了 ReChooseServer，新账号还没加载就开始选服（2026-11-04 实测）。
+    // 先确认新标签已出现（按钮右移，原位置的按钮消失）再等选服页，
+    // 否则旧标签的画面可能先命中 ReChooseServer。
     "TempAccountTabOpened": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -63,7 +63,7 @@
         "next": [ "SetServerRegion" ]
     },
 
-    // 关闭小号：关最右的标签（刚开的小号），只在业务正常结束后进入。× 在按钮模板左侧 20 像素，约 8×8，点击框 5×5（2026-11-04 截图）。
+    // 关闭小号：关最右的标签（刚开的小号），只在业务正常结束后进入。× 在按钮模板左侧。
     // 关闭后按钮左移一个标签宽度，所以「按钮离开原位置」即成功。重试必须在原位置匹配：
     // 点击已生效但画面未刷新时，整行匹配会点到下一个标签（主号）的 ×。
     "TempAccountCloseTab": {
@@ -129,7 +129,7 @@
     },
 
     // 以下节点只在对话框窗口的控制器上运行，坐标为该窗口 720×978 截图坐标。
-    // 悬停后头像下方的昵称换成 QQ 号；槽 ROI 是号码位置（槽间距 182），点击点用 target_offset 移到头像中心。
+    // 悬停后头像下方的昵称换成 QQ 号；槽 ROI 是号码位置，点击点用 target_offset 移到头像中心。
     "TempDialogStart": {
         "pre_delay": 0,
         "post_delay": 0,

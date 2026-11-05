@@ -213,7 +213,7 @@ class TaskMerchantLocateMerchant(CustomAction):
 
 
 # 走路时坐标持续变化：读数连续 0.4 秒不变视为角色已停下；点击后 2 秒坐标未变视为点击未生效。
-# 轮询间隔与流水线 rate_limit 一致，避免截图 + OCR（约 20ms）空转。
+# 轮询间隔与流水线 rate_limit 一致，避免截图 + OCR 空转。
 CLOUD_STOP_SECONDS = 0.4
 CLOUD_START_SECONDS = 2
 CLOUD_POLL_SECONDS = 0.1

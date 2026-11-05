@@ -53,7 +53,6 @@
         "next": [ "NameFieldCleared" ]
     },
     // 点击姓名栏才会清空随机名；若点击丢失，后续账号名无法输入。
-    // 亮灰色像素实测：清空后 0，随机名 98~161，输入 X974 后 78。
     "NameFieldCleared": {
         "recognition": {
             "type": "Custom",
@@ -395,7 +394,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 568, 447, 65, 18 ] // recruitment button
+                "target": [ 568, 447, 65, 18 ] // 招募按钮
             }
         },
         "post_delay": 700,
@@ -457,7 +456,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 937, 85, 23, 22 ] // groups button
+                "target": [ 937, 85, 23, 22 ] // 群组按钮
             }
         },
         "on_error": [ "ClickOnGroups" ],
@@ -475,8 +474,8 @@
         "action": {
             "type": "Swipe",
             "param": {
-                "begin": [ 764, 266, 93, 40 ], // Naruto
-                "end": [ 452, 389, 18, 11 ], // position
+                "begin": [ 764, 266, 93, 40 ], // 鸣人
+                "end": [ 452, 389, 18, 11 ], // 位置
                 "duration": 800
             }
         },
@@ -507,7 +506,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1100, 88, 16, 13 ] // close button
+                "target": [ 1100, 88, 16, 13 ] // 关闭按钮
             }
         },
         "post_delay": 1000,
@@ -551,7 +550,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1287, 669, 41, 34 ] // copy entry
+                "target": [ 1287, 669, 41, 34 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -600,7 +599,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1283, 197, 15, 10 ] // position of 木叶丸三人组
+                "target": [ 1283, 197, 15, 10 ] // 木叶丸三人组位置
             }
         },
         "timeout": 11000,
@@ -852,7 +851,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1287, 669, 41, 34 ] // copy entry
+                "target": [ 1287, 669, 41, 34 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -1017,7 +1016,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 568, 447, 65, 18 ] // recruitment button
+                "target": [ 568, 447, 65, 18 ] // 招募按钮
             }
         },
         "post_delay": 700,
@@ -1069,7 +1068,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 937, 85, 23, 22 ] // groups button
+                "target": [ 937, 85, 23, 22 ] // 群组按钮
             }
         },
         "on_error": [ "ClickOnGroupsAgain" ],
@@ -1087,8 +1086,8 @@
         "action": {
             "type": "Swipe",
             "param": {
-                "begin": [ 764, 266, 93, 40 ], // Sasuke
-                "end": [ 433, 486, 19, 14 ], // position
+                "begin": [ 764, 266, 93, 40 ], // 佐助
+                "end": [ 433, 486, 19, 14 ], // 位置
                 "duration": 800
             }
         },
@@ -1133,7 +1132,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1000, 277, 78, 35 ] // Sasuke
+                "target": [ 1000, 277, 78, 35 ] // 佐助
             }
         },
         "on_error": [ "ClickOnSasuke" ],
@@ -1166,7 +1165,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 578, 319, 32, 11 ] // feed once button
+                "target": [ 578, 319, 32, 11 ] // 喂养一次按钮
             }
         },
         // 关闭引导表示喂养已完成；重试须确认喂养引导仍在，避免重复消耗。
@@ -1203,7 +1202,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1100, 88, 16, 13 ] // close button
+                "target": [ 1100, 88, 16, 13 ] // 关闭按钮
             }
         },
         "post_delay": 1000,
@@ -1311,7 +1310,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1287, 669, 41, 34 ] // copy entry
+                "target": [ 1287, 669, 41, 34 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -1349,7 +1348,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1275, 142, 13, 6 ] // position of wolves No.1
+                "target": [ 1275, 142, 13, 6 ] // 狼群位置 1
             }
         },
         "timeout": 9000,
@@ -1382,7 +1381,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1259, 125, 10, 6 ] // position of wolves No.2
+                "target": [ 1259, 125, 10, 6 ] // 狼群位置 2
             }
         },
         "timeout": 9000,
@@ -1415,7 +1414,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1224, 127, 11, 10 ] // position of wolves No.3
+                "target": [ 1224, 127, 11, 10 ] // 狼群位置 3
             }
         },
         "timeout": 11000,
@@ -1580,7 +1579,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 491, 557, 43, 13 ] // position of Talent
+                "target": [ 491, 557, 43, 13 ] // 天赋位置
             }
         },
         "post_delay": 700,
@@ -1750,7 +1749,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1287, 669, 41, 34 ] // copy entry
+                "target": [ 1287, 669, 41, 34 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -1788,7 +1787,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1264, 161, 14, 13 ] // position of 猪鹿
+                "target": [ 1264, 161, 14, 13 ] // 猪鹿位置
             }
         },
         "timeout": 9000,
@@ -1818,7 +1817,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1255, 142, 12, 11 ] // position of 猪鹿蝶
+                "target": [ 1255, 142, 12, 11 ] // 猪鹿蝶位置
             }
         },
         "timeout": 9000,
@@ -2049,7 +2048,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1287, 669, 41, 34 ] // copy entry
+                "target": [ 1287, 669, 41, 34 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -2143,7 +2142,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1302, 124, 5, 5 ] // position of pre-position
+                "target": [ 1302, 124, 5, 5 ] // 预备点位置
             }
         },
         "post_delay": 3500,
@@ -2377,7 +2376,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1235, 298, 37, 7 ] // copy entry
+                "target": [ 1235, 298, 37, 7 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -2415,7 +2414,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1272, 178, 11, 11 ] // position of LandOfWaves enemies 1
+                "target": [ 1272, 178, 11, 11 ] // 波之国敌人位置 1
             }
         },
         "timeout": 19000,
@@ -2448,7 +2447,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1291, 213, 8, 7 ] // position of LandOfWaves enemies 2
+                "target": [ 1291, 213, 8, 7 ] // 波之国敌人位置 2
             }
         },
         "timeout": 17000,
@@ -2481,7 +2480,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1318, 226, 5, 5 ] // finish position of LandOfWaves
+                "target": [ 1318, 226, 5, 5 ] // 波之国终点位置
             }
         },
         "timeout": 11000,
@@ -2663,7 +2662,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1287, 669, 41, 34 ] // copy entry
+                "target": [ 1287, 669, 41, 34 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -2701,7 +2700,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1297, 148, 9, 16 ] // position of Seaside enemies 1
+                "target": [ 1297, 148, 9, 16 ] // 海边敌人位置 1
             }
         },
         "timeout": 11000,
@@ -2734,7 +2733,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1286, 125, 9, 9 ] // position of Seaside enemies 2
+                "target": [ 1286, 125, 9, 9 ] // 海边敌人位置 2
             }
         },
         "timeout": 11000,
@@ -2768,7 +2767,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1251, 148, 11, 8 ] // position of Seaside enemies 3
+                "target": [ 1251, 148, 11, 8 ] // 海边敌人位置 3
             }
         },
         "on_error": [ "MoveToSeasideEnemies3" ],
@@ -2797,7 +2796,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1251, 148, 11, 8 ] // position of Seaside enemies 3
+                "target": [ 1251, 148, 11, 8 ] // 海边敌人位置 3
             }
         },
         "timeout": 11000,
@@ -3028,7 +3027,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1287, 669, 41, 34 ] // copy entry
+                "target": [ 1287, 669, 41, 34 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -3066,7 +3065,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1298, 193, 6, 5 ] // specific position of Zabuza
+                "target": [ 1298, 193, 6, 5 ] // 再不斩具体位置
             }
         },
         "timeout": 5000,
@@ -3226,7 +3225,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1287, 669, 41, 34 ] // copy entry
+                "target": [ 1287, 669, 41, 34 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -3264,7 +3263,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1281, 120, 8, 7 ] // position of Bridge Enemies 1
+                "target": [ 1281, 120, 8, 7 ] // 桥上敌人位置 1
             }
         },
         "timeout": 7000,
@@ -3364,7 +3363,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1251, 136, 10, 8 ] // position of Bridge Enemies 2
+                "target": [ 1251, 136, 10, 8 ] // 桥上敌人位置 2
             }
         },
         "timeout": 6000,
@@ -3397,7 +3396,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1211, 148, 11, 10 ] // position of Bridge Enemies 3
+                "target": [ 1211, 148, 11, 10 ] // 桥上敌人位置 3
             }
         },
         "timeout": 120000,
@@ -3617,7 +3616,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1287, 669, 41, 34 ] // copy entry
+                "target": [ 1287, 669, 41, 34 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -3655,7 +3654,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1263, 152, 10, 10 ] // position of SoloTraining enemies 1
+                "target": [ 1263, 152, 10, 10 ] // 单人训练敌人位置 1
             }
         },
         "timeout": 7000,
@@ -3688,7 +3687,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1252, 184, 16, 7 ] // position of SoloTraining enemies 2
+                "target": [ 1252, 184, 16, 7 ] // 单人训练敌人位置 2
             }
         },
         "timeout": 7000,
@@ -3721,7 +3720,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1303, 164, 10, 7 ] // position of SoloTraining enemies 3
+                "target": [ 1303, 164, 10, 7 ] // 单人训练敌人位置 3
             }
         },
         "timeout": 120000,
@@ -3861,7 +3860,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1287, 669, 41, 34 ] // copy entry
+                "target": [ 1287, 669, 41, 34 ] // 副本入口
             }
         },
         "post_delay": 700,
@@ -3900,7 +3899,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1283, 129, 7, 7 ] // position of RabbitContest enemies 1
+                "target": [ 1283, 129, 7, 7 ] // 兔子比赛敌人位置 1
             }
         },
         "on_error": [ "MoveToRabbitContestEnemies1" ],
@@ -3932,7 +3931,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1262, 147, 8, 8 ] // position of RabbitContest enemies 2
+                "target": [ 1262, 147, 8, 8 ] // 兔子比赛敌人位置 2
             }
         },
         "timeout": 5000,
@@ -3966,7 +3965,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1272, 172, 11, 11 ] // position of RabbitContest enemies 3
+                "target": [ 1272, 172, 11, 11 ] // 兔子比赛敌人位置 3
             }
         },
         "on_error": [ "MoveToRabbitContestEnemies3" ],
@@ -3999,7 +3998,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1272, 176 ] // specific position of RabbitContest
+                "target": [ 1272, 176 ] // 兔子比赛具体位置
             }
         },
         "next": [ "[JumpBack]ServerBusy", "CatchEnemyRabbit1" ]
@@ -4087,7 +4086,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 1272, 176 ] // specific position of RabbitContest
+                "target": [ 1272, 176 ] // 兔子比赛具体位置
             }
         },
         "post_delay": 1200,
@@ -4350,8 +4349,8 @@
         "next": [ "[JumpBack]ServerBusy", "BatchServerDone" ]
     },
     /* ---------------------------------------- quest dialog and HUD recognition (shared) ---------------------------------------- */
-    // 小字模板缩放后偏移 1~2 像素，跨设备得分 0.95→0.47（38 帧全漏）；OCR 两台设备均为 1.0。
-    // ROI 同时覆盖普通按钮 x739~832 与合战演练等偏左按钮 x703~799。
+    // 小字模板缩放后偏移，跨设备得分骤降；OCR 稳定，所以用 OCR。
+    // ROI 同时覆盖普通按钮与合战演练等偏左的按钮。
     "QuestDialogAccept": {
         "recognition": {
             "type": "OCR",
@@ -4482,7 +4481,7 @@
             }
         }
     },
-    // 带战斗边框的黑屏：中央像素至少约 98% 接近黑色，排除正常剧情黑底字幕。
+    // 带战斗边框的黑屏：中央像素几乎全黑，排除正常剧情黑底字幕。
     "ServerBlackLoading": {
         "recognition": {
             "type": "And",
@@ -4513,7 +4512,7 @@
             }
         }
     },
-    // 背景多变，green_mask 只比对旋涡；保留原 12 帧模板及阈值。
+    // 背景多变，green_mask 只比对旋涡。
     "ServerBusySpinner": {
         "recognition": {
             "type": "TemplateMatch",
@@ -4551,8 +4550,7 @@
             }
         }
     },
-    // 场景内 LOADING 在 x≈550、y≈390；only_rec 避免背景使检测框漏掉 G。
-    // 来源：2026-10-28 用户诊断包的 21.53.08.360_ColorMatch 图，文字区域未被标注覆盖。
+    // only_rec 避免背景使检测框漏掉 G。
     "SceneLoadingText": {
         "recognition": {
             "type": "OCR",
@@ -4563,8 +4561,7 @@
             }
         }
     },
-    // 黑底加载的 LOADING 在 x≈475、y≈400，比场景内靠左，使用另一小 ROI。
-    // 来源：debug/leveling-qq/frames/failed-MoveToKakashi.png 等真实加载截图。
+    // 黑底加载的 LOADING 比场景内靠左，使用另一小 ROI。
     "BlackLoadingText": {
         "recognition": {
             "type": "OCR",

@@ -75,7 +75,6 @@
         "next": [ "JournalClaim", "JournalNoClaim" ]
     },
     // 领取后下一条会移到鼠标下，需兼容悬停外观。
-    // 橙色像素实测：可领取约 280，灰色按钮 0，底色最多 27。
     "JournalClaimButton": {
         "recognition": {
             "type": "And",
@@ -125,9 +124,8 @@
             "Node.Action.Succeeded": "领取修行录任务奖励",
             "Node.PipelineNode.Failed": "修行录领取失败：修行录界面状态异常"
         },
-        // 安全上限依据：每周经验上限 6500，每条 150~200。
         "max_hit": 80,
-        "post_delay": 1500, // 领取动画和飘字约 1.5 秒，期间画面不静止。
+        "post_delay": 1500, // 领取动画和飘字期间画面不静止。
         "next": [ "JournalClaim", "JournalNoClaim" ]
     },
     "JournalNoClaim": {

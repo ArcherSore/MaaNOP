@@ -8,11 +8,10 @@ from maa.custom_action import CustomAction
 from maa.pipeline import JActionType, JClick
 
 
-# Indexed by solver color; the order follows the pentagon clockwise from the
-# top, so adjacent elements are compatible and non-adjacent ones conflict.
-# (name, lower RGB, upper RGB, count) - same meaning as a ColorMatch node.
-# 火 and 土 are split by G: a lit 火 cell also has ~140 pixels in the 土
-# range (bright stripes), so 土's count must stay above that.
+# 以求解器的颜色编号为下标；顺序沿五边形从顶部顺时针排列，相邻元素相容，不相邻元素冲突。
+# (名称, RGB 下限, RGB 上限, 像素数) - 含义与 ColorMatch 节点相同。
+# 火和土靠 G 通道区分：点亮的火格在土的颜色范围内也有一部分像素（亮条纹），
+# 所以土的像素数下限必须高于它。
 LANTERN_COLORS = [
     ("火", [200, 40, 0], [255, 115, 30], 200),
     ("土", [200, 125, 0], [255, 215, 30], 200),
@@ -21,15 +20,14 @@ LANTERN_COLORS = [
     ("雷", [110, 20, 130], [230, 130, 210], 200),
 ]
 
-# Row-major, cell = 4 * row + column. Used both for the color read and as the
-# click box.
+# 按行优先编号，cell = 4 * row + column。既用于读颜色，也作为点击框。
 CELL_ROIS = [
     [554, 301, 25, 25], [610, 301, 25, 25], [667, 301, 25, 25], [723, 301, 25, 25],
     [554, 355, 25, 25], [610, 355, 25, 25], [667, 355, 25, 25], [723, 355, 25, 25],
     [554, 410, 25, 25], [610, 410, 25, 25], [667, 410, 25, 25], [723, 410, 25, 25],
     [554, 464, 25, 25], [610, 464, 25, 25], [667, 464, 25, 25], [723, 464, 25, 25],
 ]
-# Click boxes of the five lanterns in the color popup, indexed by solver color.
+# 颜色弹窗中五个灯笼的点击框，以求解器的颜色编号为下标。
 POPUP_COLOR_BOXES = [
     [638, 336, 14, 14],  # 火
     [687, 373, 14, 14],  # 土
@@ -44,8 +42,7 @@ MAX_CLICK_RETRIES = 3
 
 
 class LanternSolver:
-    """Painting all 14 empty cells in the returned order
-    leaves every color with at least 3 lanterns."""
+    """按返回的顺序涂满 14 个空格后，每种颜色至少有 3 个灯笼。"""
 
     F = (0, 0, 1, 2,
          0, 1, 2, 3,
@@ -61,17 +58,17 @@ class LanternSolver:
     RIGHT_COLUMNS_DOWN = tuple(4 * r + c for c in range(3, -1, -1) for r in range(4))
     LEFT_COLUMNS_UP = tuple(4 * r + c for c in range(4) for r in range(3, -1, -1))
 
-    # Each rule is (paint-color template, traversal order).
+    # 每条规则是 (涂色模板, 遍历顺序)。
     RULES = {
         "A": (tuple((c + 2) % 5 for c in F), ROW_ORDER),
         "B": (tuple((c + 3) % 5 for c in F), ROW_ORDER),
         "C": (tuple((1 - c) % 5 for c in G), RIGHT_COLUMNS_DOWN),
         "D": (G, LEFT_COLUMNS_UP),
         "E": (tuple((c - 1) % 5 for c in G), LEFT_COLUMNS_UP),
-        "X": (F[:6] + (3,) + F[7:], RIGHT_COLUMNS_DOWN),  # F with cell 6 set to 3
+        "X": (F[:6] + (3,) + F[7:], RIGHT_COLUMNS_DOWN),  # 把 F 的第 6 格设为 3
     }
 
-    # Canonical position pair -> rules for color distances 0, 1, 2.
+    # 规范化的位置对 -> 颜色距离为 0、1、2 时的规则。
     CHOICES = {
         (0, 1): "CDA",  (0, 2): "DCC",  (0, 3): "AAA",
         (0, 5): "DCD",  (0, 6): "AAA",  (0, 7): "ABC",
@@ -83,7 +80,7 @@ class LanternSolver:
     }
 
     def __init__(self) -> None:
-        # maps[s][p]: where cell p goes under rotation/reflection s.
+        # maps[s][p]：格子 p 在旋转/翻转 s 之后的位置。
         self.maps = tuple(
             tuple(self.transform(p, s) for p in range(16)) for s in range(8)
         )
@@ -93,7 +90,7 @@ class LanternSolver:
 
     @staticmethod
     def transform(p: int, symmetry: int) -> int:
-        """Map cell p through one of the 8 rotations/reflections of the grid."""
+        """把格子 p 按棋盘 8 种旋转/翻转之一做映射。"""
         r, c = divmod(p, 4)
         if symmetry >= 4:
             c = 3 - c
@@ -102,15 +99,15 @@ class LanternSolver:
         return 4 * r + c
 
     def solve(self, p1: int, c1: int, p2: int, c2: int) -> list[tuple[int, int]]:
-        """Return 14 (cell, color) moves for two lit cells p1, p2 with colors c1, c2."""
-        # Rotate/flip the board so the two lit cells land on a canonical pair.
+        """针对颜色为 c1、c2 的两个点亮格 p1、p2，返回 14 步 (格子, 颜色)。"""
+        # 旋转/翻转棋盘，使两个点亮格落在规范化的位置对上。
         (p, q), symmetry = min(
             (tuple(sorted((mapping[p1], mapping[p2]))), s)
             for s, mapping in enumerate(self.maps)
         )
         base, other = (c1, c2) if self.maps[symmetry][p1] == p else (c2, c1)
 
-        # Only the color distance around the pentagon matters, plus its direction.
+        # 只有五边形上的颜色距离及其方向有影响。
         difference = (other - base) % 5
         sign = 1 if difference <= 2 else -1
         distance = min(difference, 5 - difference)
@@ -134,12 +131,12 @@ def click_box(context: Context, box: Sequence[int], name: str) -> None:
 
 
 def read_cell(image: np.ndarray, cell: int) -> Optional[int]:
-    """Return the solver color of a cell, or None if it is not lit."""
+    """返回格子的求解器颜色编号；未点亮时返回 None。"""
     x, y, w, h = CELL_ROIS[cell]
-    # Screenshots are BGR; reversing the channels gives RGB without copying.
+    # 截图是 BGR；反转通道即得 RGB，无需拷贝。
     rgb = image[y:y + h, x:x + w, ::-1]
     for color, (_, lower, upper, count) in enumerate(LANTERN_COLORS):
-        # True for each pixel whose R, G and B all lie within the range.
+        # 每个像素的 R、G、B 都在范围内时为 True。
         in_range = np.all((rgb >= lower) & (rgb <= upper), axis=-1)
         if np.count_nonzero(in_range) >= count:
             return color
@@ -154,7 +151,7 @@ def popup_visible(context: Context, image) -> bool:
 
 
 def wait_popup(context: Context, visible: bool) -> bool:
-    """Take screenshots until the popup is shown (or gone), up to POPUP_TIMEOUT."""
+    """持续截图直到弹窗出现（或消失），最长 POPUP_TIMEOUT。"""
     deadline = time.monotonic() + POPUP_TIMEOUT
     while True:
         check_stopping(context)

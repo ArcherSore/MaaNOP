@@ -145,7 +145,6 @@
         },
         "next": [ "WebLoginReady", "WebPhoneAccount", "WebHoverCandidate" ]
     },
-    // 手机标记得分 0.9957～1.0，其他位置最高 0.6992。
     "WebPhoneAccount": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -232,7 +231,6 @@
         },
         "next": [ "WebLoginReady", "WebClickNext" ]
     },
-    // 箭头得分 1.0，无箭头时为 0.0。
     "WebNextPage": {
         "pre_delay": 0,
         "post_delay": 0,

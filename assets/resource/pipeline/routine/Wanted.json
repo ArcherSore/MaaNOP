@@ -25,7 +25,6 @@
         "next": [ "WantedOpenDaily" ]
     },
     // 入口须未组队；创建、退队各点击一次，等待悬停高亮变化。
-    // 高亮像素 38，未高亮 ≤4，遮罩下 0。
     "WantedGroupHover": {
         "recognition": {
             "type": "ColorMatch",
@@ -59,7 +58,6 @@
         "next": [ "WantedTeamListOpened" ]
     },
 
-    // 匹配分数：正常 1.0，遮罩下 0.77，其他 ≤0.45。
     "WantedTeamListOpened": {
         "max_hit": 1,
         "recognition": {
@@ -79,7 +77,6 @@
         "timeout": 10000,
         "next": [ "WantedTeamDialog" ]
     },
-    // 匹配分数：目标 1.0，其他 ≤0.38。
     "WantedTeamDialog": {
         "max_hit": 1,
         "recognition": {
@@ -126,7 +123,6 @@
         "timeout": 10000,
         "next": [ "WantedTeamUntick" ]
     },
-    // 标签分数 1.0，其他 ≤0.30；绿勾像素约 36，未勾选 0。
     "WantedTeamWinLabel": {
         "recognition": {
             "type": "TemplateMatch",
@@ -200,7 +196,6 @@
         "next": [ "WantedOpenDaily" ]
     },
 
-    // 「离开组队」蓝底像素：有队伍 ≥60，无队伍 0。
     "WantedTeamExit": {
         "max_hit": 1,
         "recognition": {
@@ -270,7 +265,6 @@
             }
         }
     },
-    // 模板实测：普通/选中/已完成均 ≥0.93，其他行或画面最高 0.41。
     "WantedRow": {
         "recognition": {
             "type": "TemplateMatch",
@@ -281,7 +275,7 @@
             }
         }
     },
-    // 详情标题仅在选中通缉任务时出现：1.0；其他行最高 0.52。
+    // 详情标题仅在选中通缉任务时出现。
     "WantedPanelTitle": {
         "recognition": {
             "type": "TemplateMatch",
@@ -369,8 +363,7 @@
         },
         "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "WantedInVillage" ]
     },
-    // 窗口标签实测：含确认框遮罩时 ≥0.89，其他画面最高 0.27。
-    // 自动完成按钮仅蓝色面可点击（x 810~862），两端尖角不可点。
+    // 自动完成按钮仅蓝色面可点击，两端尖角不可点。
     "WantedRemainLabel": {
         "recognition": {
             "type": "TemplateMatch",
@@ -396,7 +389,6 @@
         },
         "next": [ "WantedSoloConfirm" ]
     },
-    // 单人确认框模板实测：1.0，其他画面最高 0.42。
     "WantedSoloText": {
         "recognition": {
             "type": "TemplateMatch",
@@ -407,7 +399,7 @@
             }
         }
     },
-    // 确认按钮仅两侧卷纹之间可点击；确认框立即消失，任务窗口约 3 秒后关闭。
+    // 确认按钮仅两侧卷纹之间可点击；确认框立即消失，任务窗口稍后才关闭。
     "WantedSoloConfirm": {
         "recognition": {
             "type": "And",
@@ -436,7 +428,6 @@
         },
         "next": [ "WantedWaitDone" ]
     },
-    // 寻路横幅模板实测：显示时 ≥0.99，淡入淡出 0.59~0.93，无横幅时最高 0.31。
     "WantedPathing": {
         "recognition": {
             "type": "TemplateMatch",
@@ -459,7 +450,7 @@
             }
         }
     },
-    // 超时依据：实测 5 轮共约 8 分半，预留较慢战斗和更多轮次的时间。
+    // 超时要覆盖较慢战斗和更多轮次。
     "WantedWaitDone": {
         "focus": {
             "Node.PipelineNode.Failed": "失败, 20分钟没有结束..."
@@ -467,7 +458,7 @@
         "timeout": 1200000,
         "next": [ "WantedIdle1" ]
     },
-    // 切地图、到达 NPC、镜头平移时会短暂呈闲置状态，实测最长约 9 秒。
+    // 切地图、到达 NPC、镜头平移时会短暂呈闲置状态。
     // 无其他状态可区分，需间隔采样确认约 20 秒闲置，再核对日常次数。
     "WantedIdle1": {
         "max_hit": 200, // 安全上限：途中短暂闲置也会累计命中。

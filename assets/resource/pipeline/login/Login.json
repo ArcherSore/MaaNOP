@@ -102,7 +102,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 665, 559, 33, 6 ] // 重新选区button
+                "target": [ 665, 559, 33, 6 ] // 重新选区按钮
             }
         },
         "next": [ "ServerListReady" ],
@@ -239,13 +239,13 @@
             }
         },
         "pre_delay": 0,
-        "post_delay": 1000, // 弹窗点中后约 0.1 秒消失，等待后再识别，避免补点到地图。
+        "post_delay": 1000, // 弹窗点中后很快消失，等待后再识别，避免补点到地图。
         "action": { "type": "Click" },
         "next": [ "LoginPopupAppears", "LoginScreenClear" ]
     },
     "LoginScreenClear": {
         "pre_delay": 0,
-        "post_delay": 2000, // 相邻弹窗实测间隔约 0.5 秒，需留出 2 秒安静期。
+        "post_delay": 2000, // 相邻弹窗会接连出现，需留出安静期。
         "recognition": {
             "type": "Custom",
             "param": {
@@ -253,13 +253,13 @@
                 "custom_recognition_param": { "match": "LoginMapVisible", "without": "WalkLoading" }
             }
         },
-        // 实图：体力标签出现时 LOADING 仍未消失，须同帧排除加载。
+        // 体力标签出现时 LOADING 仍未消失，须同帧排除加载。
         "next": [ "LoginPopupAppears", "LoginScreenStillClear" ]
     },
     "LoginMapVisible": {
         "pre_delay": 0,
         "post_delay": 0,
-        // 10001 对亮度敏感，体力标签在遮罩下实测约 0.05，可用于确认地图无遮挡。
+        // 10001 对亮度敏感，体力标签在遮罩下得分很低，可用于确认地图无遮挡。
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -320,8 +320,6 @@
         "pre_delay": 0,
         "post_delay": 0,
         // QQ 大厅高级模式为实心三角，基础模式为 V 形；保留两种渲染的模板。
-        // 基础模板来源：debug/on_error/2026.10.28-08.49.16.926_ScrollToTarget.png，裁剪 [890, 510, 11, 10]。
-        // 实图回放：高级 0.9407、基础 1.0，地图/战斗/奖励等非目标画面最高 0.696，阈值保持 0.8。
         "recognition": {
             "type": "TemplateMatch",
             "param": {

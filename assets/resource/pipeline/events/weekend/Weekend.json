@@ -80,7 +80,7 @@
         "timeout": 5000,
         "next": [ "FindWeekendTab", "ScrollHotspotTabs", "WeekendTabsBottom", "WeekendTabsSinglePage" ]
     },
-    // 灰箭头模板取自 [421,533,22,19]；灰态最低 0.846、可点击态最高 0.695，阈值 0.8。
+    // 灰箭头模板须与可点击态区分，阈值高于可点击态的得分。
     "WeekendTabsBottom": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -152,7 +152,7 @@
         "post_delay": 0,
         "next": [ "CloseWeekendWindow", "WeekendWindowClosed" ]
     },
-    // QQ 大厅实图：充值页红叉 x=910（2026-10-26 debug）、周末福利页 x=937；ROI 兼容两者，点击框向内缩。
+    // 充值页和周末福利页的关闭叉位置不同，ROI 兼容两者，点击框向内缩。
     "CloseWeekendWindow": {
         "recognition": {
             "type": "TemplateMatch",

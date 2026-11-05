@@ -1,4 +1,4 @@
-"""Start the QQ Game Hall; the frontend owns process cleanup on failure/stop."""
+"""启动 QQ 游戏大厅；失败或停止时的进程清理由前端负责。"""
 import json
 import ctypes
 from ctypes import wintypes
@@ -36,7 +36,7 @@ def prepare_window(hwnd):
 def launch(uin, executable):
     from maa.toolkit import Toolkit
 
-    # Toolkit enumerates the caller's desktop, so the main desktop's game is not reused.
+    # Toolkit 只枚举调用者所在桌面，因此不会复用主桌面上的游戏。
     window = game_window(Toolkit.find_desktop_windows())
     if window:
         print("游戏窗口已存在，复用当前窗口。", flush=True)
