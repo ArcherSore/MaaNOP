@@ -304,7 +304,7 @@
     "ClaimingTasks": {
         "pre_delay": 0,
         "post_delay": 0,
-        "next": [ "ClaimReturnGiftEntry", "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "BatchServerDone" ]
+        "next": [ "ClaimReturnGiftEntry", "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     },
     "AllServerCompleted": {
         "pre_delay": 0,

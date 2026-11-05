@@ -8,7 +8,7 @@
         "focus": {
             "Node.Recognition.Succeeded": "回归奖励未触发，没到30级或者没满7天就登录了！！！"
         },
-        "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "BatchServerDone" ]
+        "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     },
     "ClickOnReturnGift": {
         "recognition": {
@@ -139,7 +139,7 @@
         "focus": {
             "Node.Recognition.Succeeded": "成功领取回归礼包"
         },
-        "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "BatchServerDone" ]
+        "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     },
     "noClaimReturnGift": {
         "recognition": {
@@ -172,7 +172,7 @@
             "type": "And",
             "param": { "all_of": [ "LoginScreenClear" ] }
         },
-        "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "BatchServerDone" ]
+        "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     },
     "CheckRemainPopup": {
         "recognition": {
