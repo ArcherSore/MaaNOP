@@ -19,7 +19,31 @@
         "focus": {
             "Node.Action.Succeeded": "开始领取邮件附件"
         },
-        "next": "WaitMailAttachmentButton"
+        "next": [ "WaitMailAttachmentReady" ]
+    },
+    "WaitMailAttachmentReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "MailMainReady" ]
+            }
+        },
+        "timeout": 3000,
+        "next": [ "WaitMailAttachmentButton" ],
+        // 空邮箱与加载中无法可靠区分
+        "on_error": [ "MailAttachmentUnavailable" ]
+    },
+    "MailAttachmentUnavailable": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "MailMainReady" ]
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "邮箱为空！"
+        },
+        "next": [ "CloseMail" ]
     },
     "WaitMailAttachmentButton": {
         "recognition": {
