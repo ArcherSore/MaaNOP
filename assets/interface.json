@@ -76,7 +76,7 @@
             "group": [ "AltAccount" ],
             "entry": "AccountClaims",
             "description": "依次登录所选服务器，领取勾选的奖励。请先完成各服角色的注册和练级。\n\n某服登录失败时停止整个任务。\n\n- **等级经验**：用铜币找回 50% 经验，适合 16～30 级小号，请备足铜币。\n- **邮件附件**：领取邮件中的附件。\n- **幻象奖励**：52 级解锁后使用，请先手动完成首次伤害。每周运行一次即可，重复运行会再次扫荡。\n- **回归奖励**：领取 30 级及以上角色连续 7 天未登录后触发的回归点券。",
-            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift" ]
+            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift", "ClaimAnniversarySignin" ]
         },
         {
             "name": "ArenaRankGrind",
@@ -604,6 +604,26 @@
                     "label": "不领取",
                     "pipeline_override": {
                         "ClaimInfiniteIllusionEntry": {
+                            "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "ClaimAnniversarySignin": {
+            "type": "switch",
+            "label": "周年庆签到",
+            "default_case": "Yes",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "label": "领取"
+                },
+                {
+                    "name": "No",
+                    "label": "不领取",
+                    "pipeline_override": {
+                        "ClaimAnniversarySigninEntry": {
                             "enabled": false
                         }
                     }

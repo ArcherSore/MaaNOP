@@ -1,0 +1,105 @@
+{
+    "ClaimAnniversarySigninEntry": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "EnterHotspotActivity",
+                "custom_action_param": {
+                    "expected": "薪火签到"
+                }
+            }
+        },
+        "timeout": 10000,
+        "next": [ "AnniversarySigninClaimedColor", "AnniversarySigninClaimColor" ]
+    },
+    // 先分颜色再读字，避免两个候选的 OCR ROI 重叠；灰色按钮也有“领取”大字。
+    "AnniversarySigninClaimColor": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 575, 400, 8, 22 ],
+                "method": 40,
+                "lower": [ 18, 150, 120 ],
+                "upper": [ 40, 255, 255 ],
+                "count": 120
+            }
+        },
+        "next": [ "AnniversarySigninClaim" ]
+    },
+    "AnniversarySigninClaimedColor": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 575, 400, 8, 22 ],
+                "method": 40,
+                "lower": [ 0, 0, 120 ],
+                "upper": [ 179, 50, 255 ],
+                "count": 120
+            }
+        },
+        "next": [ "AnniversarySigninClaimed" ]
+    },
+    "AnniversarySigninClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AnniversarySigninClaimColor",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 550, 385, 145, 55 ],
+                                "expected": "^领取$"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 585, 402, 65, 20 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "AnniversarySigninClaimedColor" ]
+    },
+    "AnniversarySigninClaimed": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AnniversarySigninClaimedColor",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 640, 399, 47, 35 ],
+                                "expected": "^已领取$"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 935, 208, 8, 8 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "AnniversarySigninDone" ]
+    },
+    "AnniversarySigninDone": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginMapVisible" ]
+            }
+        },
+        "next": [ "BatchServerDone" ]
+    }
+}

@@ -143,6 +143,6 @@
                 "all_of": [ "LoginScreenClear" ]
             }
         },
-        "next": [ "BatchServerDone" ]
+        "next": [ "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     }
 }

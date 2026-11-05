@@ -282,6 +282,6 @@
             "type": "And",
             "param": { "all_of": [ "LoginScreenClear" ] }
         },
-        "next": [ "ClaimLevelEntry", "BatchServerDone" ]
+        "next": [ "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     }
 }
