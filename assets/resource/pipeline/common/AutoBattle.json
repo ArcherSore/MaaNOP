@@ -1,7 +1,8 @@
 {
-    // 四个 PvE 任务共用。调用方保留开战入口名和次数上限，并设置三个锚点：
+    // PvE 任务共用。调用方保留开战入口，并在每次接入时设置四个锚点：
     // CommonBattleStartTarget 指向自己的开战节点，兼作点击目标和重试入口；
     // CommonBattleContinue 指向结果等待，CommonBattleOutcome 只识别已有结果。
+    // CommonBattleInterrupt 指向业务退出条件；不需要中途退出时绑定 CommonBattleNoInterrupt。
     // 不接入竞技场。
     // 开战按钮有居中单按钮和双按钮两种布局，ROI 须同时覆盖。
     // ROI 下边界避开考试「下一关」的 OCR 区域。
@@ -15,8 +16,6 @@
         }
     },
     "CommonBattleClickStart": {
-        // 整个任务累计的安全上限；组队 / 考试还保留各自的 20 / 24 次上限。
-        "max_hit": 80,
         "action": {
             "type": "Click",
             "param": {
@@ -25,7 +24,7 @@
         },
         "timeout": 20000,
         // 只有再次识别到开战按钮才补点，进入战斗后不再点击旧位置。
-        "next": [ "[Anchor]CommonBattleOutcome", "CommonBattleAutoOn", "CommonBattleAutoOff", "[Anchor]CommonBattleStartTarget" ]
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleAutoOn", "CommonBattleAutoOff", "[Anchor]CommonBattleStartTarget" ]
     },
     "CommonBattleAutoOn": {
         "recognition": {
@@ -35,7 +34,7 @@
                 "roi": [ 828, 620, 80, 80 ]
             }
         },
-        "next": [ "[Anchor]CommonBattleOutcome", "CommonBattleSpeedOn", "CommonBattleSpeedOff", "[Anchor]CommonBattleStartTarget" ]
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleSpeedOn", "CommonBattleSpeedOff", "[Anchor]CommonBattleStartTarget" ]
     },
     "CommonBattleAutoOff": {
         "recognition": {
@@ -47,7 +46,7 @@
         },
         "action": "Click",
         // 点击后等 On 验证；切换期间可能显示旧状态，不立即重复切换。
-        "next": [ "[Anchor]CommonBattleOutcome", "CommonBattleAutoOn", "[Anchor]CommonBattleStartTarget" ]
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleAutoOn", "[Anchor]CommonBattleStartTarget" ]
     },
     "CommonBattleSpeedOn": {
         "recognition": {
@@ -57,7 +56,7 @@
                 "roi": [ 870, 635, 69, 69 ]
             }
         },
-        "next": [ "[Anchor]CommonBattleContinue" ]
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "[Anchor]CommonBattleContinue" ]
     },
     "CommonBattleSpeedOff": {
         "recognition": {
@@ -68,6 +67,53 @@
             }
         },
         "action": "Click",
-        "next": [ "[Anchor]CommonBattleOutcome", "CommonBattleSpeedOn", "[Anchor]CommonBattleStartTarget" ]
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleSpeedOn", "[Anchor]CommonBattleStartTarget" ]
+    },
+    "CommonBattleNoInterrupt": {
+        "enabled": false
+    },
+    "CommonBattleRetreat": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "common/battle/Retreat.png", "common/battle/RetreatHover.png" ],
+                "roi": [ 1050, 610, 80, 60 ],
+                "threshold": 0.8
+            }
+        },
+        "action": "Click",
+        "timeout": 5000,
+        "next": [ "CommonBattleRetreatConfirm" ]
+    },
+    "CommonBattleRetreatDialogText": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 965, 551, 145, 40 ],
+                "expected": [ "撤退将判定.*失败", "确定撤退吗" ]
+            }
+        }
+    },
+    "CommonBattleRetreatConfirmText": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 979, 592, 50, 22 ],
+                "expected": "^确认$"
+            }
+        }
+    },
+    "CommonBattleRetreatConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "CommonBattleRetreatDialogText", "CommonBattleRetreatConfirmText" ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "timeout": 5000,
+        "next": [ "[Anchor]CommonBattleOutcome" ]
     }
 }

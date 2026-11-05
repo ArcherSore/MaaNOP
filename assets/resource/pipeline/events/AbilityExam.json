@@ -144,7 +144,8 @@
         "anchor": {
             "CommonBattleStartTarget": "AbilityExamStart",
             "CommonBattleOutcome": "AbilityExamBattleOutcome",
-            "CommonBattleContinue": "AbilityExamBattleWait"
+            "CommonBattleContinue": "AbilityExamBattleWait",
+            "CommonBattleInterrupt": "CommonBattleNoInterrupt"
         },
         "next": [ "CommonBattleClickStart" ]
     },
