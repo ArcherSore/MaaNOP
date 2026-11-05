@@ -112,7 +112,7 @@
                             "param": {
                                 "roi": [ 665, 501, 66, 28 ],
                                 "only_rec": true,
-                                "expected": [ "^(充值|领取|已领取)$" ]
+                                "expected": [ "^(充值|购买|领取|已领取)$" ]
                             }
                         }
                     }
@@ -122,6 +122,7 @@
         "timeout": 8000,
         "next": [ "MonthInactive", "MonthActive" ]
     },
+    // 小月卡 → 大月卡 → 勋章分别判断；未激活仅跳过本项，不提前关闭福利大厅。
     // 两列单独核对，不能用另一列的状态证明本列领取成功。
     // 下一列表中「未激活」OCR 在按钮，「已激活」OCR 在剩余天数，ROI 不重叠。
     "MonthInactive": {
@@ -243,6 +244,7 @@
         "timeout": 8000,
         "next": [ "BigMonthInactive", "BigMonthActive" ]
     },
+    // 未激活按钮兼容「充值」「购买」；「购买」证据：debug/on_error/2026.11.03-18.11.30.684_MonthlyClickTab.png。
     "BigMonthInactive": {
         "recognition": {
             "type": "And",
@@ -254,7 +256,7 @@
                             "param": {
                                 "roi": [ 665, 501, 66, 28 ],
                                 "only_rec": true,
-                                "expected": [ "^充值$" ]
+                                "expected": [ "^(充值|购买)$" ]
                             }
                         }
                     },
@@ -262,7 +264,7 @@
                 ]
             }
         },
-        "next": [ "OnlineClose" ]
+        "next": [ "MedalReward" ]
     },
     "BigMonthActive": {
         "recognition": {
@@ -358,6 +360,6 @@
                 ]
             }
         },
-        "next": [ "OnlineClose" ]
+        "next": [ "MedalReward" ]
     }
 }
