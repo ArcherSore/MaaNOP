@@ -362,7 +362,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "events/weekend/CloseX.png",
+                "template": "common/hotspot/CloseX.png",
                 "roi": [ 905, 254, 60, 48 ]
             }
         },

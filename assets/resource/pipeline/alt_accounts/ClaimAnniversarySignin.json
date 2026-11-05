@@ -10,7 +10,7 @@
             }
         },
         "timeout": 10000,
-        "next": [ "AnniversarySigninClaimedColor", "AnniversarySigninClaimColor" ]
+        "next": [ "AnniversarySigninDone", "AnniversarySigninClaimedColor", "AnniversarySigninClaimColor" ]
     },
     // 先分颜色再读字，避免两个候选的 OCR ROI 重叠；灰色按钮也有“领取”大字。
     "AnniversarySigninClaimColor": {

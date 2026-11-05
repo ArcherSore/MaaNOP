@@ -1,3 +1,4 @@
+// 找到标签后交还调用方验证业务页面；确认缺席时关闭并验证主界面后返回。
 {
     "HotspotEntry": {
         "next": [ "OpenHotspot" ]
@@ -13,18 +14,110 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "ClickHotspotEntry" ]
+        // 打开和翻页后先等侧栏稳定，再识别标签或箭头。
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 352, 241, 109, 268 ],
+            "threshold": 0.98,
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "next": [ "ClickHotspotEntry", "ScrollHotspotActivityTabs", "HotspotTabsBottom", "HotspotTabsSinglePage" ]
     },
     "ClickHotspotEntry": {
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 350, 275, 120, 280 ],
+                "roi": [ 352, 241, 109, 268 ],
                 "expected": [ "(?!)" ]
             }
         },
         "action": {
             "type": "Click"
+        }
+    },
+    "ScrollHotspotActivityTabs": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/hotspot/ScrollDown.png",
+                "roi": [ 415, 528, 40, 32 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 352, 241, 109, 268 ],
+            "threshold": 0.98,
+            "rate_limit": 100,
+            "timeout": 5000
+        },
+        "timeout": 5000,
+        "next": [ "ClickHotspotEntry", "ScrollHotspotActivityTabs", "HotspotTabsBottom", "HotspotTabsSinglePage" ]
+    },
+    // 灰箭头模板须与可点击态区分，阈值高于可点击态的得分。
+    "HotspotTabsBottom": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/hotspot/ScrollDownDisabled.png",
+                "roi": [ 415, 528, 40, 32 ],
+                "threshold": 0.8
+            }
+        },
+        "next": [ "HotspotClose" ]
+    },
+    // 活动不足一页时不显示翻页箭头，需识别单页底边确认列表已完整显示。
+    "HotspotTabsSinglePage": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/hotspot/TabsSinglePageFooter.png",
+                "roi": [ 337, 504, 138, 36 ],
+                "threshold": 0.85
+            }
+        },
+        "next": [ "HotspotClose" ]
+    },
+    "HotspotClose": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "CloseHotspotWindow", "HotspotWindowClosed" ]
+    },
+    // 充值页和周末福利页的关闭叉位置不同，ROI 兼容两者，点击框向内缩。
+    "CloseHotspotWindow": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/hotspot/CloseX.png",
+                "roi": [ 900, 195, 65, 48 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [ 4, 4, -8, -8 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "HotspotWindowClosed" ]
+    },
+    // 复用亮度敏感的体力标识，排除窗口遮罩。
+    "HotspotWindowClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginMapVisible" ]
+            }
         }
     },
     "TopEntryTemplate": {

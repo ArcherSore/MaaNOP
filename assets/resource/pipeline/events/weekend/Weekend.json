@@ -64,7 +64,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "events/weekend/ScrollDown.png",
+                "template": "common/hotspot/ScrollDown.png",
                 "roi": [ 415, 528, 40, 32 ],
                 "threshold": 0.9
             }
@@ -87,7 +87,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "events/weekend/ScrollDownDisabled.png",
+                "template": "common/hotspot/ScrollDownDisabled.png",
                 "roi": [ 415, 528, 40, 32 ],
                 "threshold": 0.8
             }
@@ -101,7 +101,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "events/weekend/TabsSinglePageFooter.png",
+                "template": "common/hotspot/TabsSinglePageFooter.png",
                 "roi": [ 337, 504, 138, 36 ],
                 "threshold": 0.85
             }
@@ -157,7 +157,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "events/weekend/CloseX.png",
+                "template": "common/hotspot/CloseX.png",
                 "roi": [ 900, 195, 65, 48 ]
             }
         },

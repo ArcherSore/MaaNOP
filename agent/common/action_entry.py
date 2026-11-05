@@ -51,7 +51,7 @@ class EnterDailyTask(CustomAction):
 
 @AgentServer.custom_action("EnterHotspotActivity")
 class EnterHotspotActivity(CustomAction):
-    """打开限时热点并在侧栏找到具体活动入口"""
+    """查找限时热点活动；确认缺席时关闭，业务后继由调用方识别。"""
 
     def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
         expected = json.loads(argv.custom_action_param)["expected"]
@@ -68,4 +68,11 @@ class EnterHotspotActivity(CustomAction):
                 }
             },
         )
-        return result is not None and result.status.succeeded
+        if context.tasker.stopping:
+            return False
+        nodes = result.nodes if result else []
+        return bool(
+            nodes
+            and nodes[-1].completed
+            and nodes[-1].name in ("ClickHotspotEntry", "HotspotWindowClosed")
+        )
