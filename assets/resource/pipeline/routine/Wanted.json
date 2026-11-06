@@ -350,7 +350,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "routine/wanted/BackToVillage.png",
+                "template": "common/map/BackToVillage.png",
                 "roi": [ 1290, 48, 50, 30 ],
                 "threshold": 0.8
             }

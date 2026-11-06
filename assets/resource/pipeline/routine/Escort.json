@@ -1,0 +1,414 @@
+{
+    "Escort": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 10000,
+        "next": [ "EscortList", "EscortOrganization", "EscortOpenOrganization" ]
+    },
+    "EscortOpenOrganization": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginMapVisible", "OrganizationEntry" ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [ 3, 2, -6, -4 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "EscortOrganization" ]
+    },
+    "EscortOrganization": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 670, 505, 80, 32 ],
+                "expected": "^押镖"
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 868, 523, 15, 7 ]
+            }
+        },
+        "timeout": 45000,
+        "next": [ "EscortList" ]
+    },
+    // 标题上沿位于窗口外，模板不能带入后方的地图背景。
+    "EscortListFront": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/escort/WindowTitle.png",
+                "roi": [ 627, 191, 86, 29 ],
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    "EscortList": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "EscortListFront" ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "EscortNoFreeSS", "EscortCheckFreeSS" ]
+    },
+    "EscortNoFreeSS": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 817, 239, 112, 19 ],
+                "expected": "^免费接取SS级任务次数[：:]?0[/／]?[1-9][0-9]*$",
+                "only_rec": true,
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 940, 217, 8, 8 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "EscortMapReturned" ]
+    },
+    // 次数 OCR 分两阶段识别，避免同一 next 的重叠 ROI 触发批处理损坏。
+    "EscortCheckFreeSS": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "EscortHasFreeSS" ]
+    },
+    "EscortHasFreeSS": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 817, 239, 112, 19 ],
+                "expected": "^免费接取SS级任务次数[：:]?[1-9][0-9]*[/／]?[1-9][0-9]*$",
+                "only_rec": true,
+                "threshold": 0.8
+            }
+        },
+        "timeout": 5000,
+        "next": [ "EscortAcceptSS", "EscortCheckRefresh" ]
+    },
+    "EscortAvailableTask": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "EscortSSRow1", "EscortSSRow2", "EscortSSRow3" ]
+            }
+        }
+    },
+    "EscortAcceptSS": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "EscortAvailableTask" ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "max_hit": 1,
+        "timeout": 10000,
+        "next": [ "EscortDepart" ]
+    },
+    "EscortCheckRefresh": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "EscortListFront",
+                    "without": "EscortAvailableTask"
+                }
+            }
+        },
+        "timeout": 5000,
+        "next": [ "EscortRefreshFree", "EscortNoRefresh" ]
+    },
+    "EscortFreeRefreshZero": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 818, 512, 82, 25 ],
+                "expected": "^免费刷新[（(]0[）)]$",
+                "threshold": 0.8
+            }
+        }
+    },
+    // 零次识别通过 Custom 单独执行，避免与正数次数的 OCR ROI 重叠。
+    "EscortNoRefresh": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "EscortFreeRefreshZero",
+                    "without": "EscortAvailableTask"
+                }
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 940, 217, 8, 8 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "EscortMapReturned" ]
+    },
+    "EscortRefreshFree": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 818, 512, 82, 25 ],
+                "expected": "^免费刷新[（(][1-9][0-9]*[）)]$",
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 839, 521, 37, 8 ]
+            }
+        },
+        "max_hit": 4,
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 430, 264, 482, 235 ],
+            "threshold": 0.98,
+            "timeout": 5000
+        },
+        "timeout": 5000,
+        "next": [ "EscortHasFreeSS" ]
+    },
+    "EscortDepart": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 569, 505, 70, 27 ],
+                "expected": "^出发$",
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "max_hit": 1,
+        "timeout": 15000,
+        "next": [ "EscortInProgress" ]
+    },
+    "EscortTracker": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1195, 400, 144, 36 ],
+                "expected": "押送物品",
+                "threshold": 0.8
+            }
+        }
+    },
+    "EscortInProgress": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "EscortTracker" ]
+            }
+        },
+        "timeout": 1800000,
+        "next": [ "EscortFinish" ]
+    },
+    "EscortFinish": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 709, 441, 88, 31 ],
+                "expected": "^完成任务$",
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 535, 284, 266, 196 ],
+            "threshold": 0.98,
+            "timeout": 5000
+        },
+        "timeout": 10000,
+        "next": [ "EscortExtraReward", "EscortCompleted" ]
+    },
+    "EscortExtraReward": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 580, 335, 186, 33 ],
+                "expected": "获得额外物品奖励",
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 660, 420, 16, 8 ]
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 539, 320, 262, 128 ],
+            "threshold": 0.98,
+            "timeout": 5000
+        },
+        "timeout": 10000,
+        "next": [ "EscortCompleted" ]
+    },
+    "EscortCompleted": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "LoginMapVisible",
+                    "without": "EscortTracker"
+                }
+            }
+        },
+        "next": [ "ReturnToVillage" ]
+    },
+    "EscortMapReturned": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginMapVisible" ]
+            }
+        },
+        "next": [ "ReturnToVillage" ]
+    },
+    "EscortSSRow1": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "routine/escort/SSGrade.png",
+                                "roi": [ 445, 260, 65, 65 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 827, 275, 69, 26 ],
+                                "expected": "^押送$",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        }
+    },
+    "EscortSSRow2": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "routine/escort/SSGrade.png",
+                                "roi": [ 445, 343, 65, 65 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 827, 358, 69, 26 ],
+                                "expected": "^押送$",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        }
+    },
+    "EscortSSRow3": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "routine/escort/SSGrade.png",
+                                "roi": [ 445, 426, 65, 65 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 827, 441, 69, 26 ],
+                                "expected": "^押送$",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        }
+    }
+}

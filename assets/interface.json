@@ -121,6 +121,13 @@
             "option": [ "WantedTeam", "WantedSoloTeam" ]
         },
         {
+            "name": "Escort",
+            "label": "押镖",
+            "group": [ "Routine" ],
+            "entry": "Escort",
+            "description": "接取一次免费 SS 级押镖并自动出发，到达终点后完成任务。免费 SS 次数用完，或没有可接的 SS 且免费刷新用完时正常退出；结束后返回木叶村南。\n\n请从地图主界面或押镖列表开始。当前仅支持无人劫掠的正常流程。"
+        },
+        {
             "name": "AbundanceRoom",
             "label": "丰饶之间",
             "group": [ "Routine" ],
