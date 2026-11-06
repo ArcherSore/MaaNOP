@@ -1,10 +1,14 @@
 {
     "ClaimInfiniteIllusionEntry": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 5000,
         "next": [ "ClickOnInfiniteIllusion" ],
         "on_error": [ "SkipInfiniteIllusion" ]
     },
     "SkipInfiniteIllusion": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "focus": {
             "Node.Recognition.Succeeded": "无限幻象未解锁（52级解锁）"
         },
@@ -172,6 +176,8 @@
         "on_error": [ "InfiniteIllusionConfirm3" ]
     },
     "InfiniteIllusionTrial1Flag": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -181,6 +187,8 @@
         }
     },
     "InfiniteIllusionTrial2Flag": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -190,6 +198,8 @@
         }
     },
     "InfiniteIllusionTrial3Flag": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -199,6 +209,8 @@
         }
     },
     "InfiniteIllusionTrial1": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -214,6 +226,8 @@
         "next": [ "InfiniteIllusionSweepReady" ]
     },
     "InfiniteIllusionTrial2": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -229,6 +243,8 @@
         "next": [ "InfiniteIllusionSweepReady" ]
     },
     "InfiniteIllusionTrial3": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -244,6 +260,8 @@
         "next": [ "InfiniteIllusionSweepReady" ]
     },
     "InfiniteIllusionSweepReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -257,6 +275,8 @@
         "next": [ "[Anchor]InfiniteIllusionSweepTarget", "InfiniteIllusionChallenge" ]
     },
     "InfiniteIllusionSweepOrange": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -269,6 +289,8 @@
         }
     },
     "InfiniteIllusionSweepGray": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -281,6 +303,8 @@
         }
     },
     "InfiniteIllusionChallengeButton": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -310,6 +334,8 @@
         "next": [ "[Anchor]CommonBattleOutcome", "InfiniteIllusionBattleStart", "CommonBattleAutoOn", "CommonBattleAutoOff" ]
     },
     "InfiniteIllusionBattleStart": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -319,10 +345,14 @@
         "next": [ "CommonBattleClickStart" ]
     },
     "InfiniteIllusionBattleWait": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 600000,
         "next": [ "[Anchor]CommonBattleOutcome" ]
     },
     "InfiniteIllusionBattleOutcome": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "Or",
             "param": {
@@ -345,6 +375,8 @@
         "next": [ "InfiniteIllusionBattleSettlement", "[Anchor]InfiniteIllusionBattleReturn" ]
     },
     "InfiniteIllusionBattleSettlement": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -374,6 +406,8 @@
         "next": [ "[Anchor]InfiniteIllusionBattleReturn" ]
     },
     "InfiniteIllusionBattleReturn1": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -383,6 +417,8 @@
         "next": [ "InfiniteIllusionBattleRecheck" ]
     },
     "InfiniteIllusionBattleReturn2": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -392,6 +428,8 @@
         "next": [ "InfiniteIllusionBattleRecheck" ]
     },
     "InfiniteIllusionBattleReturn3": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -401,6 +439,8 @@
         "next": [ "InfiniteIllusionBattleRecheck" ]
     },
     "InfiniteIllusionBattleRecheck": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -412,6 +452,8 @@
         "next": [ "InfiniteIllusionBattleDone", "InfiniteIllusionChallenge" ]
     },
     "InfiniteIllusionBattleDone": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -434,6 +476,8 @@
         "next": [ "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     },
     "HandleConfirmPopup": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -444,6 +488,8 @@
         "next": [ "IllusionWarningChecked", "IllusionWarningUnchecked" ]
     },
     "IllusionWarningChecked": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -457,6 +503,8 @@
         "next": "CloseConfirmPopup"
     },
     "IllusionWarningUnchecked": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -503,6 +551,8 @@
         }
     },
     "IllusionLowRewardWarning": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -512,6 +562,8 @@
         }
     },
     "IllusionWarningConfirmText": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {

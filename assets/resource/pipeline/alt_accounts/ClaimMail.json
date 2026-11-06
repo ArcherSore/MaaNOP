@@ -1,5 +1,7 @@
 {
     "ClaimMailEntry": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": [ "ClickOnMail" ]
     },
     "ClickOnMail": {
@@ -22,18 +24,22 @@
         "next": [ "WaitMailAttachmentReady" ]
     },
     "WaitMailAttachmentReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [ "MailMainReady" ]
             }
         },
-        "timeout": 3000,
+        "timeout": 2000,
         "next": [ "WaitMailAttachmentButton" ],
         // 空邮箱与加载中无法可靠区分
         "on_error": [ "MailAttachmentUnavailable" ]
     },
     "MailAttachmentUnavailable": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -46,6 +52,8 @@
         "next": [ "CloseMail" ]
     },
     "WaitMailAttachmentButton": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -67,6 +75,8 @@
         "next": [ "ClickOnAttachments", "NoAttachments" ]
     },
     "MailMainReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -146,6 +156,8 @@
         "next": "MailClaimed"
     },
     "MailClaimed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -189,6 +201,8 @@
         "next": "MailWarehouseEmpty"
     },
     "MailWarehouseFooter": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -199,6 +213,8 @@
         }
     },
     "MailClaimButtonBlue": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -212,6 +228,8 @@
         }
     },
     "MailClaimButtonGray": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -224,6 +242,8 @@
         }
     },
     "MailDeleteButtonBlue": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -236,6 +256,8 @@
         }
     },
     "MailDeleteButtonGray": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -248,6 +270,8 @@
         }
     },
     "MailWarehouseEmpty": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -258,6 +282,8 @@
         "next": "CloseAttachments"
     },
     "NoAttachments": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -302,6 +328,8 @@
         "next": "MailClosed"
     },
     "MailClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": { "all_of": [ "LoginScreenClear" ] }

@@ -1,6 +1,8 @@
 // 找到标签后交还调用方验证业务页面；确认缺席时关闭并验证主界面后返回。
 {
     "HotspotEntry": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": [ "OpenHotspot" ]
     },
     "OpenHotspot": {
@@ -121,6 +123,8 @@
         }
     },
     "TopEntryTemplate": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -130,6 +134,8 @@
         }
     },
     "BottomEntryTemplate": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
