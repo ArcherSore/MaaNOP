@@ -5,6 +5,7 @@
         "next": [ "ClickOnMail" ]
     },
     "ClickOnMail": {
+        "rate_limit": 200,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -107,6 +108,7 @@
         }
     },
     "ClickOnAttachments": {
+        "rate_limit": 200,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -128,6 +130,7 @@
         "next": [ "MailClaimAll", "MailDeleteAll", "MailWarehouseEmpty" ]
     },
     "MailClaimAll": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -156,6 +159,7 @@
         "next": "MailClaimed"
     },
     "MailClaimed": {
+        "rate_limit": 200,
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
@@ -172,6 +176,7 @@
         "next": "MailDeleteAll"
     },
     "MailDeleteAll": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {

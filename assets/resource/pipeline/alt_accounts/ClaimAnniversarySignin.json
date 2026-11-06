@@ -29,6 +29,7 @@
         "next": [ "AnniversarySigninClaim" ]
     },
     "AnniversarySigninClaimedColor": {
+        "rate_limit": 200,
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
@@ -44,6 +45,7 @@
         "next": [ "AnniversarySigninClaimed" ]
     },
     "AnniversarySigninClaim": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {

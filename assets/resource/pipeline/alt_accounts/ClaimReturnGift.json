@@ -15,6 +15,7 @@
         "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     },
     "ClickOnReturnGift": {
+        "rate_limit": 200,
         "recognition": {
             "type": "Custom",
             "param": {

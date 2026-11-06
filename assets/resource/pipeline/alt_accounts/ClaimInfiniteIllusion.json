@@ -15,6 +15,7 @@
         "next": [ "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     },
     "ClickOnInfiniteIllusion": {
+        "rate_limit": 200,
         "timeout": 5000,
         "recognition": {
             "type": "Custom",
@@ -35,6 +36,7 @@
         "on_error": [ "ClickOnInfiniteIllusion" ]
     },
     "InfiniteIllusionSweep1": {
+        "rate_limit": 200,
         "timeout": 5000,
         "recognition": {
             "type": "And",
@@ -88,6 +90,7 @@
         "on_error": [ "InfiniteIllusionSwitchTo2" ]
     },
     "InfiniteIllusionSweep2": {
+        "rate_limit": 200,
         "timeout": 5000,
         "recognition": {
             "type": "And",
