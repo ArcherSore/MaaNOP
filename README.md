@@ -81,6 +81,6 @@
 
 ## 📄 许可与免责声明
 
-本项目采用 [GPL-3.0](LICENSE) 许可证。第三方组件的许可信息请参阅 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+本项目采用 [GPL-3.0](LICENSE) 许可证。
 
 MaaNOP 为社区维护的开源自动化项目，与《火影忍者 Online》及其运营方无官方关联。请自行了解并遵守游戏服务条款及相关规定，使用自动化工具的风险由使用者自行承担。

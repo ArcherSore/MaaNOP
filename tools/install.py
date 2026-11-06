@@ -50,9 +50,9 @@ def install_payload(install: Path, version: str) -> None:
         ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo"),
         dirs_exist_ok=True,
     )
-    for name in ("README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"):
+    shutil.copytree(ROOT / "assets/locales", install / "locales", dirs_exist_ok=True)
+    for name in ("README.md", "LICENSE"):
         shutil.copy2(ROOT / name, install / name)
-    shutil.copytree(ROOT / "licenses", install / "licenses", dirs_exist_ok=True)
 
     interface = json.loads((ROOT / "assets/interface.json").read_text(encoding="utf-8"))
     interface["version"] = version
