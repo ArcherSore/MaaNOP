@@ -2,6 +2,8 @@
 // 卡片标题框（44x66）是难度栏、箭头和卡片点击区域的共同偏移基准。
 {
     "TeamDungeon": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": [ "TeamDungeonSetTeam" ]
     },
     "TeamDungeonSetTeam": {
@@ -146,6 +148,8 @@
         }
     },
     "TeamDungeonWindow": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -184,6 +188,8 @@
         "next": [ "TeamDungeonClosed" ]
     },
     "TeamDungeonClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -340,6 +346,7 @@
 
     // 打开窗口或切换页签后默认最高已解锁难度，只需向左调整。
     "TeamDungeonDiffTarget": {
+        "rate_limit": 200,
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
@@ -429,6 +436,7 @@
 
     // 确认按钮两端尖角不可点。
     "TeamDungeonSoloConfirm": {
+        "rate_limit": 200,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -466,6 +474,8 @@
     },
     // 精英触发时会短暂回副本窗口再出现「开战」；此处不操作窗口，继续等开战或结算。
     "TeamDungeonBattleWait": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 600000,
         "next": [ "TeamDungeonSettleReturn", "TeamDungeonBattleStart" ]
     },
@@ -482,6 +492,7 @@
 
     // 只匹配「返回」，避免后续文字和倒计时干扰；点击后会自动领奖并重开副本窗口。
     "TeamDungeonSettleReturn": {
+        "rate_limit": 200,
         "recognition": {
             "type": "OCR",
             "param": {

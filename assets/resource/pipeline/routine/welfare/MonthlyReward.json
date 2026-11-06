@@ -1,5 +1,7 @@
 {
     "MonthlyReward": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -49,6 +51,8 @@
         "next": [ "MonthlyContentReady" ]
     },
     "MonthlyContentReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -126,6 +130,8 @@
     // 两列单独核对，不能用另一列的状态证明本列领取成功。
     // 下一列表中「未激活」OCR 在按钮，「已激活」OCR 在剩余天数，ROI 不重叠。
     "MonthInactive": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -246,6 +252,8 @@
     },
     // 未激活按钮兼容「充值」「购买」。
     "BigMonthInactive": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {

@@ -18,6 +18,7 @@
         }
     },
     "CommonBattleClickStart": {
+        "rate_limit": 200,
         "action": {
             "type": "Click",
             "param": {

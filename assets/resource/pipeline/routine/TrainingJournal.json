@@ -1,6 +1,8 @@
 // 仅领取「任务」页签的奖励。
 {
     "TrainingJournal": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "focus": {
             "Node.PipelineNode.Failed": "修行录领取失败：主界面右侧找不到忍者修行录"
         },
@@ -8,6 +10,7 @@
         "next": [ "JournalOpened", "JournalOpenPanel" ]
     },
     "JournalOpenPanel": {
+        "rate_limit": 200,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -27,6 +30,8 @@
     },
     // 「本周经验上限」是修行录窗口的独有标识。
     "JournalOpened": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -60,6 +65,8 @@
         "next": [ "JournalTaskTabSelected" ]
     },
     "JournalTaskTabSelected": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -143,6 +150,8 @@
         "next": [ "JournalClaim", "JournalNoClaimConfirmed" ]
     },
     "JournalNoClaimConfirmed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -169,6 +178,8 @@
         "next": [ "JournalClosed" ]
     },
     "JournalClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {

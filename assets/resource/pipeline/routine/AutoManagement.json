@@ -4,6 +4,8 @@
 // 首轮完成以排除忙碌状态后日志连续 10 秒不变判定；后续轮次补做及长期等待项目留给下次运行。
 {
     "AutoManagement": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "focus": {
             "Node.PipelineNode.Failed": "托管失败：主界面左上角找不到托管入口"
         },
@@ -23,6 +25,7 @@
         }
     },
     "AutoManageOpenWindow": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -33,7 +36,7 @@
         "focus": {
             "Node.PipelineNode.Failed": "托管失败：托管系统窗口没有打开"
         },
-        "post_delay": 1500, // 窗口先出空框，稍后才绘制内容，无中间状态。
+        "post_delay": 500, // 窗口先出空框，稍后才绘制内容，无中间状态。
         "timeout": 10000,
         "next": [ "AutoManageStartReady", "AutoManageWindowRunning", "AutoManageOpenAgain" ]
     },
@@ -49,6 +52,7 @@
     // 窗口不在前台时首次点击可能只激活窗口，游戏不接收点击。
     // 托管中点击入口会直接结束托管，重试前必须在同一帧排除托管面板。
     "AutoManageOpenAgain": {
+        "rate_limit": 200,
         "max_hit": 2,
         "recognition": {
             "type": "Custom",
@@ -64,7 +68,7 @@
         "focus": {
             "Node.PipelineNode.Failed": "托管失败：托管系统窗口没有打开"
         },
-        "post_delay": 1500, // 同上
+        "post_delay": 500, // 同上
         "timeout": 10000,
         "next": [ "AutoManageStartReady", "AutoManageWindowRunning", "AutoManageOpenAgain" ]
     },
@@ -217,6 +221,8 @@
         }
     },
     "AutoManageRunning": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -244,6 +250,7 @@
     },
     // 退出无确认框，点击后面板很快消失。
     "AutoManageIdle": {
+        "rate_limit": 200,
         "recognition": {
             "type": "Custom",
             "param": {
@@ -265,12 +272,13 @@
         "focus": {
             "Node.PipelineNode.Failed": "托管失败：点了退出托管，但托管面板还在"
         },
-        "post_delay": 1500, // 面板很快消失，无中间状态；等待后再判断是否需要重试。
+        "post_delay": 500, // 面板很快消失，无中间状态；等待后再判断是否需要重试。
         "timeout": 10000,
         "next": [ "AutoManageExited", "AutoManageExitAgain" ]
     },
     // 窗口不在前台时退出点击可能只激活窗口。
     "AutoManageExitAgain": {
+        "rate_limit": 200,
         "max_hit": 2,
         "recognition": {
             "type": "And",
@@ -287,7 +295,7 @@
         "focus": {
             "Node.PipelineNode.Failed": "托管失败：点了退出托管，但托管面板还在"
         },
-        "post_delay": 1500, // 同上
+        "post_delay": 500, // 同上
         "timeout": 10000,
         "next": [ "AutoManageExited", "AutoManageExitAgain" ]
     },
@@ -304,6 +312,8 @@
     },
     // 退出必须在同一帧确认地图存在且面板消失；切图加载也会隐藏面板，分帧判断会误报退出。
     "AutoManageExited": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "Custom",
             "param": {

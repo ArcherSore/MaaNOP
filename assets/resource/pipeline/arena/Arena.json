@@ -236,6 +236,7 @@
         "on_error": [ "ArenaBattleKeepWaiting" ]
     },
     "WaitBattleEnd": {
+        "rate_limit": 200,
         "recognition": {
             "type": "TemplateMatch",
             "param": {

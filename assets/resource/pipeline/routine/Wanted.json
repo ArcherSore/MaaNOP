@@ -230,6 +230,8 @@
         "next": [ "WantedTeamExited" ]
     },
     "WantedTeamExited": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -322,6 +324,8 @@
         "next": [ "WantedDailyClosed" ]
     },
     "WantedDailyClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -334,6 +338,8 @@
     // 完成后停在野外，需回木叶村南，避免后续任务长途寻路超时。
     // 回村图标会触发加载；已在木叶村南时点击仍会重新加载。
     "WantedInVillage": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -347,6 +353,7 @@
         }
     },
     "WantedBackToVillage": {
+        "rate_limit": 200,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -452,6 +459,8 @@
     },
     // 超时要覆盖较慢战斗和更多轮次。
     "WantedWaitDone": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "focus": {
             "Node.PipelineNode.Failed": "失败, 20分钟没有结束..."
         },
@@ -502,6 +511,8 @@
         "next": [ "WantedIdle5", "WantedWaitDone" ]
     },
     "WantedIdle5": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
