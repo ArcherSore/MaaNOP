@@ -81,6 +81,7 @@ class MatchWithout(CustomRecognition):
 @AgentServer.custom_recognition("MatchPopup")
 class MatchPopup(CustomRecognition):
     """按顺序识别多种弹窗, 命中后返回该弹窗对应的点击目标位置。
+    template 使用模板识别；未提供 template 时用 expected 进行 OCR 识别。
     target 可省略，默认使用识别框；也可指定固定点击框。
 
     custom_recognition_param 格式:
@@ -89,6 +90,7 @@ class MatchPopup(CustomRecognition):
             {
                 "name": "弹窗名称",
                 "template": "arena/Xxx.png",   // 识别弹窗种类的模板, 支持数组
+                "expected": "正文正则",         // OCR 弹窗使用此字段代替 template，支持数组
                 "roi": [x, y, w, h],           // 可省略, 默认全屏
                 "target": [x, y, w, h],        // 可省略, 默认使用识别框
                 "focus": "识别到xxx弹窗"        // 可选, 命中时发送的通知消息
@@ -108,21 +110,24 @@ class MatchPopup(CustomRecognition):
                 return None
 
             template = popup.get("template")
-            if not template:
+            if template:
+                recognition_type = "TemplateMatch"
+                recognition_param = {"template": template}
+            elif popup.get("expected"):
+                recognition_type = "OCR"
+                recognition_param = {"expected": popup["expected"]}
+            else:
                 continue
 
-            template_param = {
-                "template": template,
-                "roi": popup.get("roi", [0, 0, 0, 0]),
-            }
+            recognition_param["roi"] = popup.get("roi", [0, 0, 0, 0])
             if "threshold" in popup:
-                template_param["threshold"] = popup["threshold"]
+                recognition_param["threshold"] = popup["threshold"]
             reco_detail = context.run_recognition(
                 argv.node_name,
                 argv.image,
                 {
                     argv.node_name: {
-                        "recognition": {"type": "TemplateMatch", "param": template_param}
+                        "recognition": {"type": recognition_type, "param": recognition_param}
                     }
                 },
             )

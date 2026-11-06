@@ -231,6 +231,7 @@
                 "custom_recognition": "MatchPopup",
                 "custom_recognition_param": {
                     "popups": [
+                        { "name": "试用到期", "expected": "上阵忍者.*试用.*自动下阵", "roi": [ 555, 355, 230, 30 ], "target": [ 591, 398, 36, 10 ] },
                         { "name": "公告", "template": "common/popup/Announcement.png", "roi": [ 647, 288, 196, 89 ], "target": [ 962, 310, 13, 12 ] },
                         { "name": "回归", "template": "common/popup/Return.png", "roi": [ 671, 161, 260, 136 ], "target": [ 901, 212, 13, 12 ] },
                         { "name": "福利", "template": "common/popup/Welfare.png", "roi": [ 797, 165, 121, 86 ], "target": [ 961, 203, 13, 12 ] },

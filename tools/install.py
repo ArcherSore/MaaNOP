@@ -1,159 +1,88 @@
+import argparse
+import json
 from pathlib import Path
-
 import shutil
-import sys
-
-try:
-    import jsonc
-except ModuleNotFoundError as e:
-    raise ImportError(
-        "Missing dependency 'json-with-comments' (imported as 'jsonc').\n"
-        f"Install it with:\n  {sys.executable} -m pip install json-with-comments\n"
-        "Or add it to your project's requirements."
-    ) from e
+import subprocess
+import tempfile
+import urllib.request
+import zipfile
 
 from configure import configure_ocr_model
 
 
-working_dir = Path(__file__).parent.parent.resolve()
-install_path = working_dir / Path("install")
-version = len(sys.argv) > 1 and sys.argv[1] or "v0.0.1"
-
-# the first parameter is self name
-if sys.argv.__len__() < 4:
-    print("Usage: python install.py <version> <os> <arch>")
-    print("Example: python install.py v1.0.0 win x86_64")
-    sys.exit(1)
-
-os_name = sys.argv[2]
-arch = sys.argv[3]
+ROOT = Path(__file__).parent.parent.resolve()
 
 
-def get_dotnet_platform_tag():
-    """自动检测当前平台并返回对应的dotnet平台标签"""
-    if os_name == "win" and arch == "x86_64":
-        platform_tag = "win-x64"
-    elif os_name == "win" and arch == "aarch64":
-        platform_tag = "win-arm64"
-    elif os_name == "macos" and arch == "x86_64":
-        platform_tag = "osx-x64"
-    elif os_name == "macos" and arch == "aarch64":
-        platform_tag = "osx-arm64"
-    elif os_name == "linux" and arch == "x86_64":
-        platform_tag = "linux-x64"
-    elif os_name == "linux" and arch == "aarch64":
-        platform_tag = "linux-arm64"
-    else:
-        print("Unsupported OS or architecture.")
-        print("available parameters:")
-        print("version: e.g., v1.0.0")
-        print("os: [win, macos, linux, android]")
-        print("arch: [aarch64, x86_64]")
-        sys.exit(1)
-
-    return platform_tag
-
-
-def install_deps():
-    if not (working_dir / "deps" / "bin").exists():
-        print('Please download the MaaFramework to "deps" first.')
-        print('请先下载 MaaFramework 到 "deps"。')
-        sys.exit(1)
-
-    if os_name == "android":
-        shutil.copytree(
-            working_dir / "deps" / "bin",
-            install_path,
-            dirs_exist_ok=True,
+def install_python(install: Path, version: str) -> None:
+    python_dir = install / "python"
+    python_dir.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="maanop-python-") as temp:
+        temp_dir = Path(temp)
+        archive = temp_dir / "python.zip"
+        urllib.request.urlretrieve(
+            f"https://www.python.org/ftp/python/{version}/python-{version}-embed-amd64.zip",
+            archive,
         )
-        shutil.copytree(
-            working_dir / "deps" / "share" / "MaaAgentBinary",
-            install_path / "MaaAgentBinary",
-            dirs_exist_ok=True,
+        with zipfile.ZipFile(archive) as package:
+            package.extractall(python_dir)
+
+        pth_file = next(python_dir.glob("*._pth"))
+        pth_file.write_text(
+            f"{pth_file.stem}.zip\n.\nLib/site-packages\n../agent\nimport site\n",
+            encoding="utf-8",
         )
-    else:
-        shutil.copytree(
-            working_dir / "deps" / "bin",
-            install_path / "runtimes" / get_dotnet_platform_tag() / "native",
-            ignore=shutil.ignore_patterns(
-                "*MaaDbgControlUnit*",
-                "*MaaThriftControlUnit*",
-                "*MaaRpc*",
-                "*MaaHttp*",
-                "plugins",
-                "*.node",
-                "*MaaPiCli*",
-            ),
-            dirs_exist_ok=True,
-        )
-        shutil.copytree(
-            working_dir / "deps" / "share" / "MaaAgentBinary",
-            install_path / "libs" / "MaaAgentBinary",
-            dirs_exist_ok=True,
-        )
-        shutil.copytree(
-            working_dir / "deps" / "bin" / "plugins",
-            install_path / "plugins" / get_dotnet_platform_tag(),
-            dirs_exist_ok=True,
+        python = python_dir / "python.exe"
+        get_pip = temp_dir / "get-pip.py"
+        urllib.request.urlretrieve("https://bootstrap.pypa.io/get-pip.py", get_pip)
+        subprocess.run([str(python), str(get_pip), "--no-warn-script-location"], check=True)
+        subprocess.run(
+            [str(python), "-m", "pip", "install", "--no-warn-script-location", "-r", str(ROOT / "agent/requirements.txt")],
+            check=True,
         )
 
 
-
-def install_resource():
-
+def install_payload(install: Path, version: str) -> None:
     configure_ocr_model()
-
+    shutil.copytree(ROOT / "assets/resource", install / "resource", dirs_exist_ok=True)
     shutil.copytree(
-        working_dir / "assets" / "resource",
-        install_path / "resource",
+        ROOT / "agent",
+        install / "agent",
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo"),
         dirs_exist_ok=True,
     )
-    shutil.copy2(
-        working_dir / "assets" / "interface.json",
-        install_path,
-    )
+    shutil.copytree(ROOT / "assets/locales", install / "locales", dirs_exist_ok=True)
+    for name in ("README.md", "LICENSE"):
+        shutil.copy2(ROOT / name, install / name)
 
-    with open(install_path / "interface.json", "r", encoding="utf-8") as f:
-        interface = jsonc.load(f)
-
+    interface = json.loads((ROOT / "assets/interface.json").read_text(encoding="utf-8"))
     interface["version"] = version
-
-    with open(install_path / "interface.json", "w", encoding="utf-8") as f:
-        jsonc.dump(interface, f, ensure_ascii=False, indent=4)
-
-
-def install_chores():
-    shutil.copy2(
-        working_dir / "README.md",
-        install_path,
-    )
-    shutil.copy2(
-        working_dir / "LICENSE",
-        install_path,
-    )
-    shutil.copy2(
-        working_dir / "THIRD_PARTY_NOTICES.md",
-        install_path,
-    )
-    shutil.copytree(
-        working_dir / "licenses",
-        install_path / "licenses",
-        dirs_exist_ok=True,
+    interface["agent"]["child_exec"] = "./python/python.exe"
+    (install / "interface.json").write_text(
+        json.dumps(interface, ensure_ascii=False, indent=4) + "\n", encoding="utf-8"
     )
 
 
-def install_agent():
-    shutil.copytree(
-        working_dir / "agent",
-        install_path / "agent",
-        dirs_exist_ok=True,
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Add MaaNOP resources and embedded Python to the Windows x64 GUI package.")
+    parser.add_argument("--version", required=True)
+    parser.add_argument("--python-version", required=True)
+    parser.add_argument("--install", type=Path, default=ROOT / "install")
+    args = parser.parse_args()
+    install = args.install.resolve()
+
+    for name in ("NarutoAutoGUI.exe", "libs/coreclr.dll", "worker/NarutoAutoWorker.exe", "worker/coreclr.dll"):
+        if not (install / name).is_file():
+            raise FileNotFoundError(f"Extract the self-contained NarutoAutoGUI Windows x64 release first: missing {name}")
+
+    install_python(install, args.python_version)
+    install_payload(install, args.version)
+    subprocess.run(
+        [str(install / "python/python.exe"), "-c", "import maa; from maa.agent.agent_server import AgentServer; import main; print('Packaged Python and Agent imports passed.')"],
+        cwd=install,
+        check=True,
     )
+    print(f"MaaNOP Windows x64 package ready: {install}")
 
 
 if __name__ == "__main__":
-    install_deps()
-    install_resource()
-    install_chores()
-    install_agent()
-
-    print(f"Install to {install_path} successfully.")
+    main()
