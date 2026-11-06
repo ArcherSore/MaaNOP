@@ -1,9 +1,13 @@
 {
     "ClaimLevelEntry": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": [ "ClaimLevel" ]
     },
     "ClaimLevel": {
-        "next": "ClickOnWelfare"
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "ClickOnWelfare" ]
     },
     "ClickOnWelfare": {
         "recognition": {
@@ -17,9 +21,6 @@
         },
         "action": {
             "type": "Click"
-        },
-        "focus": {
-            "Node.Action.Succeeded": "开始领取铜币经验"
         },
         "next": [ "AtClaimLevel", "NoAtClaimLevel" ]
     },
@@ -37,9 +38,11 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "AtClaimLevel"
+        "next": [ "AtClaimLevel" ]
     },
     "AtClaimLevel": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -50,6 +53,8 @@
         "next": [ "EnsureClaimLevel", "NoNeedClaimLevel", "NeedClaimLevel" ]
     },
     "NoNeedClaimLevel": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -58,10 +63,7 @@
                 "only_rec": true
             }
         },
-        "focus": {
-            "Node.Recognition.Succeeded": "不需要领取铜币经验"
-        },
-        "next": "ExitClaimLevel"
+        "next": [ "ExitClaimLevel" ]
     },
     "NeedClaimLevel": {
         "recognition": {
@@ -91,7 +93,7 @@
                 "target": [ 765, 322, 30, 5 ]
             }
         },
-        "next": "EnsureClaimLevel"
+        "next": [ "EnsureClaimLevel" ]
     },
     "EnsureClaimLevel": {
         "recognition": {
@@ -108,9 +110,24 @@
                 "target": [ 595, 405, 30, 5 ]
             }
         },
-        "next": "ClaimLevelConfirmed"
+        "next": [ "ClaimLevelConfirmed", "ClaimLevelUpgradePopup" ]
+    },
+    "ClaimLevelUpgradePopup": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/hotspot/CloseX.png",
+                "roi": [ 800, 265, 45, 45 ],
+                "threshold": 0.8
+            }
+        },
+        "next": [ "ExitClaimLevel" ]
     },
     "ClaimLevelConfirmed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -118,10 +135,7 @@
                 "roi": [ 630, 309, 100, 35 ]
             }
         },
-        "focus": {
-            "Node.Recognition.Succeeded": "成功领取铜币经验"
-        },
-        "next": "ExitClaimLevel"
+        "next": [ "ExitClaimLevel" ]
     },
     "ExitClaimLevel": {
         "action": {
@@ -134,9 +148,11 @@
             }
         },
         "timeout": 5000,
-        "next": "ClaimLevelClosed"
+        "next": [ "ClaimLevelClosed" ]
     },
     "ClaimLevelClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
