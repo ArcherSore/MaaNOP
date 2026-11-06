@@ -4512,23 +4512,6 @@
             }
         }
     },
-    // 背景多变，green_mask 只比对旋涡。
-    "ServerBusySpinner": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [ "alt_accounts/leveling/flags/ServerBusy/00.png", "alt_accounts/leveling/flags/ServerBusy/01.png",
-                    "alt_accounts/leveling/flags/ServerBusy/02.png", "alt_accounts/leveling/flags/ServerBusy/03.png",
-                    "alt_accounts/leveling/flags/ServerBusy/04.png", "alt_accounts/leveling/flags/ServerBusy/05.png",
-                    "alt_accounts/leveling/flags/ServerBusy/06.png", "alt_accounts/leveling/flags/ServerBusy/07.png",
-                    "alt_accounts/leveling/flags/ServerBusy/08.png", "alt_accounts/leveling/flags/ServerBusy/09.png",
-                    "alt_accounts/leveling/flags/ServerBusy/10.png", "alt_accounts/leveling/flags/ServerBusy/11.png" ],
-                "roi": [ 640, 361, 60, 44 ],
-                "threshold": 0.7,
-                "green_mask": true
-            }
-        }
-    },
     // MatchWithout 单独执行 LOADING 识别，避免与同列“开战”等重叠 ROI 参加批量 OCR。
     "ServerLoading": {
         "recognition": {

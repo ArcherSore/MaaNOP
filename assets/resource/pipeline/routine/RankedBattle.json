@@ -76,7 +76,8 @@
         "pre_delay": 0,
         "post_delay": 0,
         "timeout": 5000,
-        "next": [ "RankedChooseTarget" ]
+        "rate_limit": 100,
+        "next": [ "[JumpBack]ServerBusySpinner", "RankedChooseTarget" ]
     },
     "RankedAttemptsLeft": {
         "pre_delay": 0,
@@ -285,7 +286,7 @@
             }
         },
         "timeout": 15000,
-        "next": [ "RankedMain" ]
+        "next": [ "[JumpBack]RankedVictoryButton", "RankedMain" ]
     },
     "RankedExited": {
         "pre_delay": 0,
@@ -294,6 +295,23 @@
             "type": "And",
             "param": {
                 "all_of": [ "LoginScreenClear" ]
+            }
+        }
+    },
+    // 标题会被“挑战成功”遮挡；结算后只认此处确定按钮。
+    "RankedVictoryButton": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 630, 469, 82, 26 ],
+                "expected": "^确定$"
+            }
+        },
+        "max_hit": 20,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 655, 478, 29, 8 ]
             }
         }
     }
