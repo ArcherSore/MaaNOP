@@ -1,10 +1,13 @@
 // 通过 SelectTeam 动作调用，传入阵容编号（1～8）；选中后关闭忍者界面。
 {
     "SelectTeam": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 10000,
         "next": [ "SelectTeamWindow", "SelectTeamOpen" ]
     },
     "SelectTeamOpen": {
+        "rate_limit": 200,
         "recognition": {
             "type": "Custom",
             "param": {
@@ -19,6 +22,8 @@
         "next": [ "SelectTeamWindow" ]
     },
     "SelectTeamWindow": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -54,6 +59,7 @@
         "on_error": [ "SelectTeamWindow" ]
     },
     "SelectTeamClose": {
+        "rate_limit": 200,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -81,6 +87,8 @@
         "next": [ "SelectTeamDone", "SelectTeamClose" ]
     },
     "SelectTeamDone": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {

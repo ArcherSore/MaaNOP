@@ -235,6 +235,7 @@
     // 按钮末两字 OCR 不稳。
     // 同 ROI 中「降低」稳定，且领取/已满足/未满足均不含该前缀；上下按钮统一匹配此前缀。
     "DailyArenaTopLowerButton": {
+        "rate_limit": 200,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -493,6 +494,7 @@
     },
     // 三种正常结束条件共用退出；竞技场主界面可证明叉号已就绪，点击框位于图标内部。
     "DailyArenaExit": {
+        "rate_limit": 200,
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
@@ -517,6 +519,7 @@
         }
     },
     "DailyArenaStartBattle": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -547,6 +550,7 @@
     },
     // 结算确定后移开鼠标，等待主界面 1 秒；超时进入 on_error，重新 OCR 确定仍在才补点。
     "DailyArenaResultPopup": {
+        "rate_limit": 200,
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {

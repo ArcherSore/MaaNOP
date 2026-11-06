@@ -10,6 +10,7 @@
         "next": [ "ClickOnWelfare" ]
     },
     "ClickOnWelfare": {
+        "rate_limit": 200,
         "recognition": {
             "type": "Custom",
             "param": {
@@ -66,6 +67,7 @@
         "next": [ "ExitClaimLevel" ]
     },
     "NeedClaimLevel": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -96,6 +98,7 @@
         "next": [ "EnsureClaimLevel" ]
     },
     "EnsureClaimLevel": {
+        "rate_limit": 200,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -138,6 +141,8 @@
         "next": [ "ExitClaimLevel" ]
     },
     "ExitClaimLevel": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "action": {
             "type": "Custom",
             "param": {

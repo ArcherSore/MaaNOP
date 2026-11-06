@@ -4,7 +4,6 @@ import time
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
-from maa.pipeline import JActionType, JClickKey
 
 from common.utils import click_center
 
@@ -68,10 +67,10 @@ class CloseAllPopupsWithEsc(CustomAction):
         for _ in range(5):
             if context.tasker.stopping:
                 return False
-            escaped = context.run_action_direct(JActionType.ClickKey, JClickKey(key=[ESC_KEY]))
-            if context.tasker.stopping or not escaped or not escaped.success:
+            escaped = context.tasker.controller.post_click_key(ESC_KEY).wait()
+            if context.tasker.stopping or not escaped.succeeded:
                 return False
-            time.sleep(0.2)
+            time.sleep(0.1)
             if context.tasker.stopping:
                 return False
 
@@ -85,11 +84,11 @@ class CloseAllPopupsWithEsc(CustomAction):
             focused = click_center(context, FOCUS_BOX)
             if context.tasker.stopping or not focused:
                 return False
-            time.sleep(0.2)
+            time.sleep(0.1)
             if context.tasker.stopping:
                 return False
-            escaped = context.run_action_direct(JActionType.ClickKey, JClickKey(key=[ESC_KEY]))
-            if context.tasker.stopping or not escaped or not escaped.success:
+            escaped = context.tasker.controller.post_click_key(ESC_KEY).wait()
+            if context.tasker.stopping or not escaped.succeeded:
                 return False
 
         return True

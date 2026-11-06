@@ -14,6 +14,8 @@
     },
     // 先分颜色再读字，避免两个候选的 OCR ROI 重叠；灰色按钮也有“领取”大字。
     "AnniversarySigninClaimColor": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -27,6 +29,9 @@
         "next": [ "AnniversarySigninClaim" ]
     },
     "AnniversarySigninClaimedColor": {
+        "rate_limit": 200,
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -40,6 +45,7 @@
         "next": [ "AnniversarySigninClaimed" ]
     },
     "AnniversarySigninClaim": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -94,6 +100,8 @@
         "next": [ "AnniversarySigninDone" ]
     },
     "AnniversarySigninDone": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {

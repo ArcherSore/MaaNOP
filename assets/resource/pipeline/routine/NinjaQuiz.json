@@ -1,6 +1,8 @@
 // 固定选择第一项，不识别答案；每题超时 30 秒由游戏判错并切换。
 {
     "NinjaQuiz": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": [ "QuizOpenDaily" ]
     },
     "QuizOpenDaily": {
@@ -38,6 +40,7 @@
         }
     },
     "QuizJoin": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -81,6 +84,7 @@
         "inverse": true
     },
     "QuizStartDialog": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -191,6 +195,7 @@
     },
     // 提交后短暂延迟才出对错标记；切题后选项恢复浅色，最后一题后进入结算。
     "QuizSubmit": {
+        "rate_limit": 200,
         "max_hit": 30,
         "recognition": {
             "type": "Custom",
@@ -312,6 +317,8 @@
         "next": [ "QuizWindowClosed" ]
     },
     "QuizWindowClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {

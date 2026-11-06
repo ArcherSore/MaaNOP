@@ -1,6 +1,8 @@
 // 沿用游戏记住的上次难度，不自动选择难度。
 {
     "PowerfulBoss": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": [ "BossSetTeam" ]
     },
     "BossSetTeam": {
@@ -14,6 +16,7 @@
         "next": [ "BossGotoWindow" ]
     },
     "BossGotoWindow": {
+        "rate_limit": 200,
         "recognition": {
             "type": "Custom",
             "param": {
@@ -75,6 +78,7 @@
         "next": [ "BossWindowClosed" ]
     },
     "BossEnterBattle": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -118,6 +122,8 @@
         "next": [ "CommonBattleClickStart" ]
     },
     "BossWindowClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -131,6 +137,8 @@
     },
 
     "BossBattleWait": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 600000,
         "next": [ "BossBattleWon" ]
     },
@@ -165,6 +173,7 @@
         }
     },
     "BossBattleWon": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -227,6 +236,7 @@
     },
     // 普通领奖为「确定」，评分领奖为「查看分数」；后者只匹配较稳定的「分数」，并用奖励标题限定界面。
     "BossRewardConfirm": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -258,6 +268,8 @@
 
     // 顶部入口在遮罩下仍可识别；用未压暗的体力标识确认弹窗已关闭。
     "BossMapReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {

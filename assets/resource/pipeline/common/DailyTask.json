@@ -1,6 +1,8 @@
 // 通过 EnterDailyTask 调用：传入目标行、详情标题和页签；停在参与之前。
 {
     "DailyTask": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 10000,
         "next": [ "DailyWindowOpened", "DailyOpen" ]
     },
@@ -27,6 +29,7 @@
         }
     },
     "DailyOpen": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -59,6 +62,8 @@
         }
     },
     "DailyWindowOpened": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "Or",
             "param": {
@@ -78,6 +83,8 @@
         }
     },
     "DailyPageReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -163,6 +170,8 @@
         "next": [ "DailyTaskSelected" ]
     },
     "DailyTaskSelected": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {
@@ -205,6 +214,8 @@
         }
     },
     "DailyTaskReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "And",
             "param": {

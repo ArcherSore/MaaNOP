@@ -10,6 +10,7 @@
         "next": [ "OnlineHallOpened", "OnlineOpenHall" ]
     },
     "OnlineOpenHall": {
+        "rate_limit": 200,
         "recognition": {
             "type": "Custom",
             "param": {

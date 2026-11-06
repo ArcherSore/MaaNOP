@@ -1,5 +1,7 @@
 {
     "AbundanceRoom": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": [ "AbundanceSetTeam" ]
     },
     "AbundanceSetTeam": {
@@ -14,6 +16,7 @@
     },
 
     "AbundanceGotoRoom": {
+        "rate_limit": 200,
         "recognition": {
             "type": "Custom",
             "param": {
@@ -27,6 +30,8 @@
         "next": [ "AbundancePopup" ]
     },
     "AbundancePopup": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -93,6 +98,7 @@
     },
     // 悬停时关卡图有火焰动画，改用「简单」文字识别；点击区域避开「查看掉落」和「扫荡」。
     "AbundanceSimple": {
+        "rate_limit": 200,
         "recognition": {
             "type": "And",
             "param": {
@@ -127,6 +133,8 @@
     },
     // 最多等 10 分钟结算，与组队 / 强者相同。
     "AbundanceBattleWait": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "timeout": 600000,
         "next": [ "AbundanceResultConfirm" ]
     },
@@ -141,6 +149,7 @@
         "next": [ "AbundanceBattleWait" ]
     },
     "AbundanceResultConfirm": {
+        "rate_limit": 200,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
