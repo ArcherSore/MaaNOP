@@ -1,0 +1,318 @@
+{
+    "RankedBattle": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 10000,
+        "next": [ "RankedMain", "RankedGoto" ]
+    },
+    "RankedGoto": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": "routine/ranked_battle/Entry.png"
+                }
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [ 6, 6, -12, -12 ]
+            }
+        },
+        "next": [ "RankedMain" ]
+    },
+    // 亮度敏感的窗口标识排除缺人提示的遮罩，不能只凭背景文字选择对手。
+    "RankedMain": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/ranked_battle/MainFlag.png",
+                "roi": [ 538, 67, 230, 78 ],
+                "method": 10001,
+                "threshold": 0.8
+            }
+        },
+        "timeout": 5000,
+        "next": [ "RankedAttemptsRead" ]
+    },
+    "RankedAttemptsRead": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1088, 108, 22, 20 ],
+                "expected": "^\\d+$",
+                "replace": [ [ "^。$", "0" ] ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "RankedAttemptsNone", "RankedAttemptsCheck" ]
+    },
+    "RankedAttemptsNone": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1088, 108, 22, 20 ],
+                "expected": "^0$",
+                "replace": [ [ "^。$", "0" ] ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1135, 80, 11, 11 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "RankedExited" ]
+    },
+    // 零次和正数的 OCR 串联，避免同 ROI 在一个 next 中批量识别。
+    "RankedAttemptsCheck": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 5000,
+        "rate_limit": 100,
+        "next": [ "[JumpBack]ServerBusySpinner", "RankedChooseTarget" ]
+    },
+    "RankedAttemptsLeft": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1088, 108, 22, 20 ],
+                "expected": "^[1-9]\\d*$",
+                "replace": [ [ "^。$", "0" ] ]
+            }
+        }
+    },
+    "RankedPowerOCR": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "\\d+"
+            }
+        }
+    },
+    "RankedTarget": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "RankedLowestPower",
+                "custom_recognition_param": {
+                    "slots": [
+                        {
+                            "roi": [ 388, 591, 102, 22 ],
+                            "target": [ 406, 615, 34, 9 ]
+                        },
+                        {
+                            "roi": [ 520, 640, 102, 22 ],
+                            "target": [ 540, 666, 33, 9 ]
+                        },
+                        {
+                            "roi": [ 632, 620, 102, 22 ],
+                            "target": [ 652, 646, 33, 9 ]
+                        },
+                        {
+                            "roi": [ 738, 600, 110, 22 ],
+                            "target": [ 759, 627, 33, 9 ]
+                        },
+                        {
+                            "roi": [ 884, 591, 110, 22 ],
+                            "target": [ 909, 615, 33, 9 ]
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    // 标题和次数只证明窗口已打开，挑战按钮用于确认选敌区已就绪。
+    "RankedChallengeReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 901, 614, 54, 17 ],
+                "expected": "挑战"
+            }
+        }
+    },
+    "RankedChooseTarget": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "RankedAttemptsLeft", "RankedChallengeReady", "RankedTarget" ],
+                "box_index": 2
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "max_hit": 20,
+        "timeout": 20000,
+        "next": [ "RankedMissingNinjaConfirm", "RankedFinishBattle" ]
+    },
+    "RankedMissingNinjaText": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 556, 357, 237, 28 ],
+                "expected": "出战忍者不足4人"
+            }
+        }
+    },
+    "RankedMissingNinjaButton": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 577, 390, 68, 27 ],
+                "expected": "^确定$"
+            }
+        }
+    },
+    "RankedMissingNinjaConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "RankedMissingNinjaText", "RankedMissingNinjaButton" ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 594, 399, 34, 9 ]
+            }
+        },
+        "max_hit": 20,
+        "timeout": 20000,
+        "next": [ "RankedFinishBattle" ]
+    },
+    "RankedFinishButton": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/ranked_battle/FinishButton.png",
+                "roi": [ 1010, 616, 58, 49 ],
+                "threshold": 0.75
+            }
+        }
+    },
+    // 灰色禁用态保留相同图案，模板命中还须确认内部蓝色启用区域。
+    "RankedFinishEnabled": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1014, 624, 30, 36 ],
+                "method": 40,
+                "lower": [ 85, 120, 90 ],
+                "upper": [ 125, 255, 255 ],
+                "count": 60
+            }
+        }
+    },
+    // 排位自动且锁定二倍速；只在按钮仍可用时补点，变灰后等待结算。
+    "RankedFinishBattle": {
+        "pre_delay": 0,
+        "post_delay": 1000,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "RankedFinishButton", "RankedFinishEnabled" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1034, 637, 8, 8 ]
+            }
+        },
+        "max_hit": 20,
+        "timeout": 120000,
+        "next": [ "RankedResultConfirm", "RankedFinishBattle" ]
+    },
+    "RankedResultStats": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 622, 428, 99, 27 ],
+                "expected": "战斗统计"
+            }
+        }
+    },
+    "RankedResultButton": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 625, 456, 94, 25 ],
+                "expected": "^确定$"
+            }
+        }
+    },
+    "RankedResultConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "RankedResultStats", "RankedResultButton" ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 652, 464, 36, 8 ]
+            }
+        },
+        "timeout": 15000,
+        "next": [ "[JumpBack]RankedVictoryButton", "RankedMain" ]
+    },
+    "RankedExited": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginScreenClear" ]
+            }
+        }
+    },
+    // 标题会被“挑战成功”遮挡；结算后只认此处确定按钮。
+    "RankedVictoryButton": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 630, 469, 82, 26 ],
+                "expected": "^确定$"
+            }
+        },
+        "max_hit": 20,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 655, 478, 29, 8 ]
+            }
+        }
+    }
+}

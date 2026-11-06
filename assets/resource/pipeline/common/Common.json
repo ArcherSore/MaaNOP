@@ -15,5 +15,18 @@
         },
         "post_delay": 0,
         "rate_limit": 0
+    },
+    "ServerBusySpinner": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "common/server_busy/00.png", "common/server_busy/03.png", "common/server_busy/06.png", "common/server_busy/09.png" ],
+                "roi": [ 640, 361, 60, 44 ],
+                "threshold": 0.6,
+                "green_mask": true
+            }
+        }
     }
 }

@@ -168,6 +168,13 @@
             }
         },
         {
+            "name": "RankedBattle",
+            "label": "排位战",
+            "group": [ "Routine" ],
+            "entry": "RankedBattle",
+            "description": "挑战当前剩余次数，每场优先选择识别到的最低战斗力对手。\n\n沿用当前攻防阵容，出战不足 4 人时仍会确认挑战。"
+        },
+        {
             "name": "TeamDungeon",
             "label": "组队副本",
             "group": [ "Routine" ],
