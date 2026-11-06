@@ -1,62 +1,67 @@
-name: Bug 反馈（使用中文）
-description: 识别错误、操作异常、连接错误等
+name: 问题反馈
+description: MaaNOP 任务异常、识别错误或桌面分身问题
 labels: ["bug"]
 body:
-  - type: checkboxes
-    id: checks
-    attributes:
-      label: 在提问之前...
-      description: |
-        请确认自己完成了要求之后再进行勾选
-      options:
-        - label: 我理解 Issue 是用于反馈和解决问题的，而非吐槽评论区，将尽可能提供更多信息帮助问题解决
-          required: true
-        - label: 我填写了简短且清晰明确的标题，以便开发者在翻阅 Issue 列表时能快速确定大致问题。而不是“一个建议”、“卡住了”等
-          required: true
-        - label: 我使用的是当前更新版本的最新版，且已查看版本发布至今和 Pull Requests 中尚未发布的更新内容，并未提及该 Bug 已被修复的情况
-          required: true
-        - label: 我已检查了置顶议题（Pinned Issue）（公告）、活跃议题（Open Issue）、已关闭议题（Closed Issue），确认我的问题未被提及
-          required: true
   - type: textarea
     id: describe
     attributes:
-      label: 问题描述
-      description: 描述问题时请尽可能详细
+      label: 问题描述及复现步骤
+      description: 请说明运行了哪个任务、如何触发问题，以及出错的大致时间。
+      placeholder: |
+        运行的任务：
+        操作步骤：
+        预期结果：
+        实际结果：
+        出错时间：
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: version
     attributes:
-      label: Version
-      description: >-
-        请提供 MXX 版本
-      placeholder: |
-        MXX Version:
+      label: MaaNOP 版本
+      placeholder: 例如 v3.2.1
     validations:
       required: true
-  - type: textarea
-    id: logs
+  - type: dropdown
+    id: windows
     attributes:
-      label: 日志和配置文件
-      description: |
-        **请在关闭 MXX 后，上传以下 3 个文件：**
-          1. `debug` 文件夹中的 `maa.log` `maa.bak.log` 日志文件，并说明问题出现的大致时间点
-          2. `config` 文件夹中的 `maa_pi_config.json`(MaaPiCli) 配置文件
-
-        如果你在使用 MacBook，请点击屏幕左上角的“文件”，点击“打开日志文件夹”
-        **请直接将完整的文件拖拽进来，而非自己裁切或复制的片段；若文件体积过大可压缩后再上传**
-      placeholder: |
-        请确认上传文件前已关闭 MXX
+      label: Windows 版本
+      options:
+        - Windows 10
+        - Windows 11
+        - 不确定
+    validations:
+      required: true
+  - type: dropdown
+    id: pretask
+    attributes:
+      label: 出问题前，是否运行过「启动QQ大厅」前置任务？
+      description: 「准备运行环境」只准备桌面分身，不代表已执行此前置任务。「启动QQ大厅」会调整游戏窗口尺寸，即使游戏已经打开也会调整。
+      options:
+        - 已运行成功
+        - 未运行
+        - 执行失败
+        - 不确定
     validations:
       required: true
   - type: textarea
     id: configuration
     attributes:
-      label: 配置信息
+      label: 游戏窗口和任务栏
+      description: 桌面分身的分辨率和缩放由程序预设，无需填写主桌面参数或测量窗口尺寸。不确定的项目请写「不确定」。
+      placeholder: |
+        前置任务运行后（或手动打开游戏后），是否调整过游戏窗口大小、最大化窗口：
+        是否修改过任务栏大小、位置或自动隐藏设置：
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 诊断包
       description: |
-        请说明操作系统及版本、模拟器品牌、模拟器分辨率、DPI、帧率；
-        若正在使用 MuMu 12 或雷电 9，请说明截图增强是否开启；
-        最后请说明 GPU 加速推理是否开启，若开启请提供 GPU 型号。
+        出现问题后，在「设置 → 帮助与诊断 → 问题诊断」点击「导出诊断包」，上传生成的 ZIP 文件，无需先退出软件。
+        请上传完整诊断包，不要只复制日志文字或截图日志。
+        若无法导出，请填写导出时的错误提示。
     validations:
       required: true
   - type: textarea
@@ -64,20 +69,7 @@ body:
     attributes:
       label: 截图或录屏
       description: |
-        `debug` 目录下按功能分类的文件夹内，有一些自动截图的错误图片，若有相关的，请一并打包上传
-
-        可上传屏幕截图或录制以帮助解释你的问题，包括但不限于 MXX 软件截图、游戏画面截图、
-        MXX debug 截图（`debug/vision` 路径图片，在修改 `config/maa_option.json` 中 `save_draw` 为 `true` 后再次运行 MXX 获取）
-        若是**识别相关问题**，请尽可能提供模拟器自带的截图工具截取的无遮挡的**原图**（或通过 adb 截取原图）
-        用其他的工具（如QQ/微信）截取的图片包含窗口边框且长宽比、分辨率不固定，不利于我们排除bug
-        若文件体积过大可压缩后再上传
-    validations:
-      required: false
-  - type: textarea
-    id: others
-    attributes:
-      label: 还有别的吗？
-      description: |
-        任何能让我们对你所遇到的问题有更多了解的东西
+        请尽量提供出错时的软件界面，以及桌面分身的完整画面（包含游戏窗口和任务栏），便于判断窗口尺寸和位置。
+        桌面分身无法打开时，只需提供软件界面的错误提示。
     validations:
       required: false
