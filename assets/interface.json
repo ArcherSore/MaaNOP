@@ -4,7 +4,6 @@
     "label": "MaaNOP",
     "version": "v2.3.0",
     "github": "https://github.com/ArcherSore/MaaNOP",
-    "license": "locales/LICENSE_SHORT.md",
     "controller": [
         {
             "name": "Win32Desktop",
