@@ -103,12 +103,8 @@ jobs:
       - name: Install resources and bundled Python
         shell: pwsh
         env:
-          GUI_ARCHIVES: ${{ steps.download_gui.outputs.downloaded_files }}
           PACKAGE_VERSION: ${{ needs.meta.outputs.tag }}
         run: |
-          foreach ($archive in (ConvertFrom-Json $env:GUI_ARCHIVES)) {
-            Remove-Item -LiteralPath $archive
-          }
           python tools/install.py --version $env:PACKAGE_VERSION --python-version $env:PYTHON_VERSION
 
       - uses: actions/upload-artifact@v4
