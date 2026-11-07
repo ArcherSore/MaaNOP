@@ -296,12 +296,51 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 1195, 400, 144, 36 ],
+                "roi": [ 1200, 344, 129, 139 ],
                 "expected": "押送物品",
                 "threshold": 0.8
             }
         },
-        "timeout": 1800000,
+        "anchor": {
+            "CommonBattleSkipSpeed": "CommonBattleFinishSetup",
+            "CommonBattleContinue": "EscortBattleWait",
+            "CommonBattleAfterResult": "EscortResumeRoute"
+        },
+        "timeout": 180000,
+        "next": [ "EscortHoverFinishButton", "CommonBattleClickResultConfirm", "CommonBattleAutoOff", "CommonBattleAutoOn" ]
+    },
+    "EscortBattleWait": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 180000,
+        "next": [ "CommonBattleClickResultConfirm" ]
+    },
+    "EscortResumeRoute": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "EscortInProgress" ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "PreciseClick"
+            }
+        },
+        "timeout": 15000,
+        "next": [ "EscortResumed" ]
+    },
+    "EscortResumed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "EscortInProgress" ]
+            }
+        },
+        "timeout": 180000,
         "next": [ "EscortHoverFinishButton" ]
     },
     "EscortHoverFinishButton": {
@@ -409,6 +448,7 @@
                 "all_of": [ "LoginMapVisible" ]
             }
         },
+        "anchor": { "CommonBattleSkipSpeed": "", "CommonBattleContinue": "", "CommonBattleAfterResult": "" },
         "next": [ "ReturnToVillage" ]
     },
     "EscortSSRow1": {
