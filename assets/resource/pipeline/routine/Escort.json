@@ -2,6 +2,16 @@
     "Escort": {
         "pre_delay": 0,
         "post_delay": 0,
+        "next": [ "EscortSetTeam" ]
+    },
+    "EscortSetTeam": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SelectTeam",
+                "custom_action_param": 1
+            }
+        },
         "timeout": 10000,
         "next": [ "EscortOpenOrganization" ]
     },

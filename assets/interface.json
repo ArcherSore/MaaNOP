@@ -129,7 +129,8 @@
             "label": "押镖",
             "group": [ "Routine" ],
             "entry": "Escort",
-            "description": "接取一次免费 SS 级押镖并自动出发，到达终点后完成任务。免费 SS 次数用完、没有可接的 SS 且免费刷新用完，或游戏提示不在押镖活动时段时正常退出。结束后返回木叶村南。\n\n请从地图主界面开始。当前仅支持无人劫掠的正常流程。"
+            "description": "选中指定队伍后，自动接取并完成可接的免费 SS 级押镖。途中被劫时自动战斗，结算后继续押送。免费接取次数用完、没有可接的 SS 且免费刷新用完，或游戏提示不在押镖活动时段时，返回木叶村南。",
+            "option": [ "EscortTeam" ]
         },
         {
             "name": "Summon",
@@ -889,6 +890,30 @@
                     "action": {
                         "param": {
                             "custom_action_param": "{summon_team}"
+                        }
+                    }
+                }
+            }
+        },
+        "EscortTeam": {
+            "type": "input",
+            "label": "",
+            "inputs": [
+                {
+                    "name": "escort_team",
+                    "label": "出战队伍",
+                    "description": "从上到下编号（1～8）",
+                    "default": "1",
+                    "pipeline_type": "int",
+                    "verify": "^[1-8]$",
+                    "pattern_msg": "请输入 1～8 的数字"
+                }
+            ],
+            "pipeline_override": {
+                "EscortSetTeam": {
+                    "action": {
+                        "param": {
+                            "custom_action_param": "{escort_team}"
                         }
                     }
                 }
