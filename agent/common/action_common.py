@@ -1,5 +1,5 @@
 import json
-import time
+from time import monotonic
 
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
@@ -50,48 +50,36 @@ class PreciseClick(CustomAction):
 
 
 ESC_KEY = 27
-# 游戏窗口中间的空白处；点击它让窗口获得键盘焦点。
-FOCUS_BOX = (680, 400, 1, 1)
+ESC_CLOSE_TIMEOUT_SECONDS = 8
 
 
 @AgentServer.custom_action("CloseAllPopupsWithEsc")
 class CloseAllPopupsWithEsc(CustomAction):
-    """按 5 次 ESC；只对 check_node 指定的残留窗口补焦点和 ESC。"""
+    """逐次按 ESC，直到识别到目标界面或本次关闭超时。"""
 
     def run(
         self,
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
-        check_node = json.loads(argv.custom_action_param)["check_node"]
-        for _ in range(5):
-            if context.tasker.stopping:
-                return False
-            escaped = context.tasker.controller.post_click_key(ESC_KEY).wait()
-            if context.tasker.stopping or not escaped.succeeded:
-                return False
-            time.sleep(0.1)
-            if context.tasker.stopping:
-                return False
+        target_node = json.loads(argv.custom_action_param)["target_node"]
+        deadline = monotonic() + ESC_CLOSE_TIMEOUT_SECONDS
+        controller = context.tasker.controller
 
-        image = context.tasker.controller.post_screencap().wait().get()
-        if context.tasker.stopping or image is None:
-            return False
-        remain_popup = context.run_recognition(check_node, image)
-        if context.tasker.stopping or not remain_popup:
-            return False
-        if remain_popup.hit:
-            focused = click_center(context, FOCUS_BOX)
-            if context.tasker.stopping or not focused:
+        while monotonic() < deadline and not context.tasker.stopping:
+            image = controller.post_screencap().wait().get()
+            if context.tasker.stopping or image is None or monotonic() >= deadline:
                 return False
-            time.sleep(0.1)
-            if context.tasker.stopping:
+            target = context.run_recognition(target_node, image)
+            if context.tasker.stopping or not target or monotonic() >= deadline:
                 return False
-            escaped = context.tasker.controller.post_click_key(ESC_KEY).wait()
+            if target.hit:
+                return True
+            escaped = controller.post_click_key(ESC_KEY).wait()
             if context.tasker.stopping or not escaped.succeeded:
                 return False
 
-        return True
+        return False
 
 
 @AgentServer.custom_action("FalseAction")

@@ -148,7 +148,7 @@
             "param": {
                 "custom_action": "CloseAllPopupsWithEsc",
                 "custom_action_param": {
-                    "check_node": "AtClaimLevel"
+                    "target_node": "LoginScreenClear"
                 }
             }
         },
