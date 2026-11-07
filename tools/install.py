@@ -77,9 +77,15 @@ def install_payload(install: Path, version: str) -> None:
 
 
 def trim_python(install: Path) -> None:
-    """Remove what the Agent never loads; MaaFramework comes from the Worker through MAAFW_BINARY_PATH."""
+    """Share the packaged MaaFramework for every Python entry point, independently of the launcher."""
     python_dir = install / "python"
     site_packages = python_dir / "Lib/site-packages"
+    # Embedded Python enables import site. Keep this package-layout choice in MaaNOP, not in the GUI.
+    (site_packages / "sitecustomize.py").write_text(
+        "import os\nfrom pathlib import Path\nimport sys\n\n"
+        f"os.environ['MAAFW_BINARY_PATH'] = str(Path(sys.executable).resolve().parent.parent / {NATIVE!r})\n",
+        encoding="utf-8",
+    )
     removed = [site_packages / "maa/bin", python_dir / "Scripts"]
     for pattern in ("MaaAgentBinary*", "pip", "pip-*.dist-info"):
         removed += site_packages.glob(pattern)
@@ -90,13 +96,22 @@ def trim_python(install: Path) -> None:
 
 
 def verify_agent(install: Path) -> None:
-    """Import the Agent the way the Worker starts it."""
-    subprocess.run(
-        [str(install / "python/python.exe"), "-B", "-c", "import maa; from maa.agent.agent_server import AgentServer; import main; print('Packaged Python and Agent imports passed.')"],
-        cwd=install,
-        env={**os.environ, "MAAFW_BINARY_PATH": str(install / NATIVE)},
-        check=True,
+    """Check both entry points without a GUI-provided native library path."""
+    environment = os.environ.copy()
+    environment.pop("MAAFW_BINARY_PATH", None)
+    scripts = (
+        "import main; print('Packaged Agent imports passed.')",
+        "import pretask_launch; from maa.toolkit import Toolkit; "
+        "Toolkit.find_desktop_windows(); print('Packaged pretask and Toolkit passed.')",
     )
+    # AgentServer and Toolkit use different MaaFramework contexts, as in the real separate processes.
+    for script in scripts:
+        subprocess.run(
+            [str(install / "python/python.exe"), "-B", "-c", script],
+            cwd=install,
+            env=environment,
+            check=True,
+        )
 
 
 def main() -> None:
