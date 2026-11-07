@@ -1,0 +1,308 @@
+{
+    "Summon": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": {
+            "OrganizationContinue": "SummonHoverGo",
+            "CommonBattleSkipSpeed": "SummonWaitForDamage",
+            "CommonBattleOutcome": "SummonHoverReward"
+        },
+        "next": [ "SummonSetTeam" ]
+    },
+    "SummonSetTeam": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SelectTeam",
+                "custom_action_param": 1
+            }
+        },
+        "next": [ "Organization" ]
+    },
+    "SummonHoverGo": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 674, 383, 75, 22 ],
+                "only_rec": true,
+                "expected": "^组织通灵兽$"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 876, 401 ],
+                "end": [ 876, 401 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "SummonClickGo" ]
+    },
+    "SummonClickGo": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 864, 395, 24, 5 ],
+                "method": 40,
+                "lower": [ 83, 60, 205 ],
+                "upper": [ 106, 255, 255 ],
+                "count": 55
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 868, 398, 15, 7 ]
+            }
+        },
+        "timeout": 30000,
+        "next": [ "SummonHoverDialogue" ]
+    },
+    "SummonHoverDialogue": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 595, 390, 62, 17 ],
+                "only_rec": true,
+                "expected": "^组织通灵兽$"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 625, 399 ],
+                "end": [ 625, 399 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "SummonClickDialogue" ]
+    },
+    "SummonClickDialogue": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 650, 392, 20, 15 ],
+                "method": 40,
+                "lower": [ 90, 125, 120 ],
+                "upper": [ 112, 255, 255 ],
+                "count": 160
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 605, 396, 35, 7 ]
+            }
+        },
+        "next": [ "SummonCaptureTab" ]
+    },
+    "SummonCaptureTab": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 627, 169, 82, 30 ],
+                "only_rec": true,
+                "expected": "^抓捕$"
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 652, 180, 34, 12 ]
+            }
+        },
+        "next": [ "SummonHoverJoin" ]
+    },
+    "SummonHoverJoin": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 863, 491, 68, 20 ],
+                "only_rec": true,
+                "expected": "^立即参加$"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 896, 502 ],
+                "end": [ 896, 502 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "SummonClickJoin" ]
+    },
+    "SummonClickJoin": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 865, 496, 60, 14 ],
+                "method": 40,
+                "lower": [ 13, 110, 225 ],
+                "upper": [ 43, 255, 255 ],
+                "count": 125
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 879, 496, 32, 11 ]
+            }
+        },
+        "max_hit": 1,
+        "timeout": 20000,
+        "next": [ "SummonAttack" ]
+    },
+    "SummonInstanceReady": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 698, 77, 91, 22 ],
+                "only_rec": true,
+                "threshold": 0.9,
+                "expected": "^(?!00[:：]00[:：]00$)[0-9]{2}[:：][0-5][0-9][:：][0-5][0-9]$"
+            }
+        }
+    },
+    "SummonAttack": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "LoginMapVisible",
+                    "SummonInstanceReady",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 691, 98, 33, 19 ],
+                                "only_rec": true,
+                                "threshold": 0.9,
+                                "expected": "^[:：]?[1-9][0-9]*[/／][1-9][0-9]*$"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        // 不同通灵兽的头像共用这块点击区域；倒计时和剩余次数确认副本已就绪。
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 466, 80, 24, 24 ]
+            }
+        },
+        "max_hit": 2,
+        "post_delay": 0,
+        "timeout": 10000,
+        "next": [ "SummonPathfinding" ]
+    },
+    "SummonPathfinding": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 615, 103, 108, 29 ],
+                "only_rec": true,
+                "expected": "^自动寻路中$"
+            }
+        },
+        "timeout": 30000,
+        "next": [ "CommonBattleAutoOn", "CommonBattleClickAutoHover", "CommonBattleAutoOff" ]
+    },
+    "SummonWaitForDamage": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 30000,
+        "next": [ "SummonDamageDealt" ]
+    },
+    "SummonDamageDealt": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "SummonDamageDealt"
+            }
+        },
+        "next": [ "CommonBattleRetreat" ]
+    },
+    "SummonBossHealth": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 882, 121, 114, 12 ],
+                "only_rec": true,
+                "threshold": 0.9
+            }
+        }
+    },
+    "SummonHoverReward": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 656, 353, 68, 23 ],
+                "only_rec": true,
+                "expected": "^任务奖励$"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 809, 456 ],
+                "end": [ 809, 456 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "SummonClickReward" ]
+    },
+    "SummonClickReward": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 782, 448, 54, 15 ],
+                "method": 40,
+                "lower": [ 80, 90, 200 ],
+                "upper": [ 108, 255, 255 ],
+                "count": 355
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 793, 451, 32, 11 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "SummonNoAttacks", "SummonAttack" ]
+    },
+    "SummonNoAttacks": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "LoginMapVisible",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 691, 98, 33, 19 ],
+                                "only_rec": true,
+                                "threshold": 0.9,
+                                "expected": "^[:：]?0[/／][1-9][0-9]*$"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "next": [ "ReturnToVillage" ]
+    }
+}

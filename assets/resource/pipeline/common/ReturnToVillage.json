@@ -1,0 +1,66 @@
+{
+    "ReturnToVillage": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 10000,
+        "next": [ "ReturnToVillageClick" ]
+    },
+    "ReturnToVillageButton": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/map/BackToVillage.png",
+                "roi": [ 1290, 48, 50, 30 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "ReturnToVillageClick": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "LoginMapVisible",
+                    "ReturnToVillageButton"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [ 2, 2, -4, -4 ]
+            }
+        },
+        "timeout": 10000,
+        "anchor": {
+            "MouseMoveResetAnchor": "MouseMoveReset"
+        },
+        // 回村按钮的悬浮说明会遮住地图名，确认返回前先移开鼠标。
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "ReturnToVillageDone" ]
+    },
+    "ReturnToVillageDone": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "LoginMapVisible",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 1190, 74, 148, 26 ],
+                                "expected": "^木叶村南[（(]",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

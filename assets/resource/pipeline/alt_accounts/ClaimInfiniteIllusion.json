@@ -334,7 +334,7 @@
         },
         "timeout": 20000,
         // 开战倒计时可能自行结束，须同时接住已经进入战斗的状态。
-        "next": [ "[Anchor]CommonBattleOutcome", "InfiniteIllusionBattleStart", "CommonBattleAutoOn", "CommonBattleAutoOff" ]
+        "next": [ "[Anchor]CommonBattleOutcome", "InfiniteIllusionBattleStart", "CommonBattleAutoOn", "CommonBattleClickAutoHover", "CommonBattleAutoOff" ]
     },
     "InfiniteIllusionBattleStart": {
         "pre_delay": 0,

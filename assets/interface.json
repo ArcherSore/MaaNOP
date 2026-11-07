@@ -121,6 +121,14 @@
             "option": [ "WantedTeam", "WantedSoloTeam" ]
         },
         {
+            "name": "Summon",
+            "label": "组织通灵兽",
+            "group": [ "Routine" ],
+            "description": "选中指定队伍后参加组织通灵兽抓捕。每场造成伤害后撤退并确认奖励，攻击次数用完后返回木叶村南。\n\n请在活动开启后从游戏地图主界面开始。",
+            "entry": "Summon",
+            "option": [ "SummonTeam" ]
+        },
+        {
             "name": "AbundanceRoom",
             "label": "丰饶之间",
             "group": [ "Routine" ],
@@ -846,6 +854,30 @@
                     "action": {
                         "param": {
                             "custom_action_param": "{wanted_team}"
+                        }
+                    }
+                }
+            }
+        },
+        "SummonTeam": {
+            "type": "input",
+            "label": "",
+            "inputs": [
+                {
+                    "name": "summon_team",
+                    "label": "出战队伍",
+                    "description": "从上到下编号（1～8）",
+                    "default": "1",
+                    "pipeline_type": "int",
+                    "verify": "^[1-8]$",
+                    "pattern_msg": "请输入 1～8 的数字"
+                }
+            ],
+            "pipeline_override": {
+                "SummonSetTeam": {
+                    "action": {
+                        "param": {
+                            "custom_action_param": "{summon_team}"
                         }
                     }
                 }

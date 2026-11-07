@@ -3,6 +3,7 @@
     // CommonBattleStartTarget 指向自己的开战节点，兼作点击目标和重试入口；
     // CommonBattleContinue 指向结果等待，CommonBattleOutcome 只识别已有结果。
     // CommonBattleInterrupt 指向业务退出条件；不需要中途退出时绑定 CommonBattleNoInterrupt。
+    // 直接进战的任务从自动状态节点接入；倍速锁定时将 CommonBattleSkipSpeed 绑定到后续流程。
     // 不接入竞技场。
     // 开战按钮有居中单按钮和双按钮两种布局，ROI 须同时覆盖。
     // ROI 下边界避开考试「下一关」的 OCR 区域。
@@ -27,7 +28,7 @@
         },
         "timeout": 20000,
         // 只有再次识别到开战按钮才补点，进入战斗后不再点击旧位置。
-        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleAutoOn", "CommonBattleAutoOff", "[Anchor]CommonBattleStartTarget" ]
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleAutoOn", "CommonBattleClickAutoHover", "CommonBattleAutoOff", "[Anchor]CommonBattleStartTarget" ]
     },
     "CommonBattleAutoOn": {
         "pre_delay": 0,
@@ -39,17 +40,43 @@
                 "roi": [ 828, 620, 80, 80 ]
             }
         },
-        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleSpeedOn", "CommonBattleSpeedOff", "[Anchor]CommonBattleStartTarget" ]
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "[Anchor]CommonBattleSkipSpeed", "CommonBattleSpeedOn", "CommonBattleSpeedOff", "[Anchor]CommonBattleStartTarget" ]
     },
     "CommonBattleAutoOff": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
+                "template": "common/battle/AutoOff.png",
+                "roi": [ 828, 620, 80, 80 ],
+                "threshold": 0.9
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin_offset": [ 7, 7, -14, -14 ],
+                "end_offset": [ 7, 7, -14, -14 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleClickAutoHover" ]
+    },
+    "CommonBattleClickAutoHover": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOffHover.png",
+                "roi": [ 828, 620, 80, 80 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [ 7, 7, -14, -14 ]
+            }
+        },
         // 点击后等 On 验证；切换期间可能显示旧状态，不立即重复切换。
         "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleAutoOn", "[Anchor]CommonBattleStartTarget" ]
     },
@@ -86,12 +113,44 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [ "common/battle/Retreat.png", "common/battle/RetreatHover.png" ],
+                "template": [
+                    "common/battle/Retreat.png",
+                    "common/battle/RetreatHover.png"
+                ],
                 "roi": [ 1050, 610, 80, 60 ],
-                "threshold": 0.8
+                "threshold": 0.9
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 1093, 644 ],
+                "end": [ 1093, 644 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "CommonBattleClickRetreatHover" ]
+    },
+    "CommonBattleClickRetreatHover": {
+        // 撤退图标的普通态和高亮态模板分数接近，用蓝色高亮区确认就绪。
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1076, 627, 27, 26 ],
+                "method": 40,
+                "lower": [ 82, 100, 160 ],
+                "upper": [ 110, 255, 255 ],
+                "count": 110
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1090, 640, 7, 8 ]
+            }
+        },
         "timeout": 5000,
         "next": [ "CommonBattleRetreatConfirm" ]
     },
@@ -117,12 +176,43 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "CommonBattleRetreatDialogText", "CommonBattleRetreatConfirmText" ],
+                "all_of": [
+                    "CommonBattleRetreatDialogText",
+                    "CommonBattleRetreatConfirmText"
+                ],
                 "box_index": 1
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 1004, 602 ],
+                "end": [ 1004, 602 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
         "timeout": 5000,
+        "next": [ "CommonBattleClickRetreatConfirmHover" ]
+    },
+    "CommonBattleClickRetreatConfirmHover": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 985, 595, 36, 11 ],
+                "method": 40,
+                "lower": [ 83, 95, 205 ],
+                "upper": [ 106, 255, 255 ],
+                "count": 175
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 995, 598, 18, 8 ]
+            }
+        },
+        "timeout": 20000,
         "next": [ "[Anchor]CommonBattleOutcome" ]
     }
 }
