@@ -1,0 +1,50 @@
+{
+    "Organization": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 10000,
+        "next": [ "OrganizationWindow", "OrganizationOpen" ]
+    },
+    "OrganizationEntry": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindBottomEntry",
+                "custom_recognition_param": {
+                    "template": "common/entry/OrganizationEntry.png"
+                }
+            }
+        }
+    },
+    "OrganizationOpen": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "OrganizationEntry" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [ 3, 2, -6, -4 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "OrganizationWindow" ]
+    },
+    "OrganizationWindow": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/organization/WindowTitle.png",
+                "roi": [ 635, 169, 80, 48 ],
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    }
+}
