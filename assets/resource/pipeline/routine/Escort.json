@@ -449,7 +449,7 @@
             }
         },
         "anchor": { "CommonBattleSkipSpeed": "", "CommonBattleContinue": "", "CommonBattleAfterResult": "" },
-        "next": [ "ReturnToVillage" ]
+        "next": [ "EscortOpenOrganization" ]
     },
     "EscortSSRow1": {
         "pre_delay": 0,
