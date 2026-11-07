@@ -49,6 +49,10 @@
             "label": "日常任务"
         },
         {
+            "name": "Weekly",
+            "label": "周常任务"
+        },
+        {
             "name": "LimitedEvent",
             "label": "限时活动"
         }
@@ -123,8 +127,8 @@
         {
             "name": "Summon",
             "label": "组织通灵兽",
-            "group": [ "Routine" ],
-            "description": "选中指定队伍后参加组织通灵兽抓捕。每场造成伤害后撤退并确认奖励，攻击次数用完后返回木叶村南。\n\n请在活动开启后从游戏地图主界面开始。",
+            "group": [ "Weekly" ],
+            "description": "选中指定队伍后参加组织通灵兽抓捕。每场造成伤害后立刻撤退并确认奖励，攻击次数用完后返回木叶村南。\n\n",
             "entry": "Summon",
             "option": [ "SummonTeam" ]
         },
@@ -184,7 +188,7 @@
         {
             "name": "TeamDungeon",
             "label": "组队副本",
-            "group": [ "Routine" ],
+            "group": [ "Weekly" ],
             "entry": "TeamDungeon",
             "description": "**单人**挑战所选副本，自动领奖，直到本日奖励次数用完；支持途中触发的精英怪。\n\n- 请选能打过的难度，暂不处理战败。\n- 请勿勾选单人确认弹窗中的「本次登录不再提示」。\n- 活动未开放或所选难度不可用时跳过；找不到所选副本时失败。",
             "option": [ "TeamDungeonTeam", "TeamDungeonName", "TeamDungeonDifficulty" ]
@@ -192,7 +196,7 @@
         {
             "name": "PowerfulBoss",
             "label": "强者降临",
-            "group": [ "Routine" ],
+            "group": [ "Weekly" ],
             "entry": "PowerfulBoss",
             "description": "**单人**反复挑战并领奖，直到本周普通奖励次数用完。\n\n- 沿用游戏记住的难度，请提前选好能打过的难度；暂不处理战败。\n- 每场消耗 **10 点体力**和 1 次奖励次数，不会自动补充体力。",
             "option": [ "BossTeam" ]
@@ -256,7 +260,7 @@
         {
             "name": "WeekendActivities",
             "label": "周末活动",
-            "group": [ "LimitedEvent" ],
+            "group": [ "Weekly" ],
             "entry": "WeekendActivities",
             "description": "目前支持**忍者拼图**：自动完成简单、普通、困难三个难度并领奖，已领取的跳过。\n\n请从**游戏主界面**开始。"
         }
