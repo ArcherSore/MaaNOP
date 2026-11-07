@@ -203,12 +203,44 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [ "common/battle/Retreat.png", "common/battle/RetreatHover.png" ],
+                "template": [
+                    "common/battle/Retreat.png",
+                    "common/battle/RetreatHover.png"
+                ],
                 "roi": [ 1050, 610, 80, 60 ],
-                "threshold": 0.8
+                "threshold": 0.9
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 1093, 644 ],
+                "end": [ 1093, 644 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "CommonBattleClickRetreatHover" ]
+    },
+    "CommonBattleClickRetreatHover": {
+        // 撤退图标的普通态和高亮态模板分数接近，用蓝色高亮区确认就绪。
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1076, 627, 27, 26 ],
+                "method": 40,
+                "lower": [ 82, 100, 160 ],
+                "upper": [ 110, 255, 255 ],
+                "count": 110
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1090, 640, 7, 8 ]
+            }
+        },
         "timeout": 5000,
         "next": [ "CommonBattleRetreatConfirm" ]
     },
@@ -234,12 +266,43 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "CommonBattleRetreatDialogText", "CommonBattleRetreatConfirmText" ],
+                "all_of": [
+                    "CommonBattleRetreatDialogText",
+                    "CommonBattleRetreatConfirmText"
+                ],
                 "box_index": 1
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 1004, 602 ],
+                "end": [ 1004, 602 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
         "timeout": 5000,
+        "next": [ "CommonBattleClickRetreatConfirmHover" ]
+    },
+    "CommonBattleClickRetreatConfirmHover": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 985, 595, 36, 11 ],
+                "method": 40,
+                "lower": [ 83, 95, 205 ],
+                "upper": [ 106, 255, 255 ],
+                "count": 175
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 995, 598, 18, 8 ]
+            }
+        },
+        "timeout": 20000,
         "next": [ "[Anchor]CommonBattleOutcome" ]
     }
 }

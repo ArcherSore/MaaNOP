@@ -1,4 +1,5 @@
 {
+    // 调用方将 OrganizationContinue 绑定到组织窗口内的活动入口。
     "Organization": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -45,6 +46,7 @@
                 "method": 10001,
                 "threshold": 0.8
             }
-        }
+        },
+        "next": [ "[Anchor]OrganizationContinue" ]
     }
 }

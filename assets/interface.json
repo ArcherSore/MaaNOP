@@ -49,6 +49,10 @@
             "label": "日常任务"
         },
         {
+            "name": "Weekly",
+            "label": "周常任务"
+        },
+        {
             "name": "LimitedEvent",
             "label": "限时活动"
         }
@@ -128,6 +132,14 @@
             "description": "接取一次免费 SS 级押镖并自动出发，到达终点后完成任务。免费 SS 次数用完、没有可接的 SS 且免费刷新用完，或游戏提示不在押镖活动时段时正常退出。结束后返回木叶村南。\n\n请从地图主界面开始。当前仅支持无人劫掠的正常流程。"
         },
         {
+            "name": "Summon",
+            "label": "组织通灵兽",
+            "group": [ "Weekly" ],
+            "description": "选中指定队伍后参加组织通灵兽抓捕。每场造成伤害后立刻撤退并确认奖励，攻击次数用完后返回木叶村南。\n\n",
+            "entry": "Summon",
+            "option": [ "SummonTeam" ]
+        },
+        {
             "name": "AbundanceRoom",
             "label": "丰饶之间",
             "group": [ "Routine" ],
@@ -183,7 +195,7 @@
         {
             "name": "TeamDungeon",
             "label": "组队副本",
-            "group": [ "Routine" ],
+            "group": [ "Weekly" ],
             "entry": "TeamDungeon",
             "description": "**单人**挑战所选副本，自动领奖，直到本日奖励次数用完；支持途中触发的精英怪。\n\n- 请选能打过的难度，暂不处理战败。\n- 请勿勾选单人确认弹窗中的「本次登录不再提示」。\n- 活动未开放或所选难度不可用时跳过；找不到所选副本时失败。",
             "option": [ "TeamDungeonTeam", "TeamDungeonName", "TeamDungeonDifficulty" ]
@@ -191,7 +203,7 @@
         {
             "name": "PowerfulBoss",
             "label": "强者降临",
-            "group": [ "Routine" ],
+            "group": [ "Weekly" ],
             "entry": "PowerfulBoss",
             "description": "**单人**反复挑战并领奖，直到本周普通奖励次数用完。\n\n- 沿用游戏记住的难度，请提前选好能打过的难度；暂不处理战败。\n- 每场消耗 **10 点体力**和 1 次奖励次数，不会自动补充体力。",
             "option": [ "BossTeam" ]
@@ -255,7 +267,7 @@
         {
             "name": "WeekendActivities",
             "label": "周末活动",
-            "group": [ "LimitedEvent" ],
+            "group": [ "Weekly" ],
             "entry": "WeekendActivities",
             "description": "目前支持**忍者拼图**：自动完成简单、普通、困难三个难度并领奖，已领取的跳过。\n\n请从**游戏主界面**开始。"
         }
@@ -853,6 +865,30 @@
                     "action": {
                         "param": {
                             "custom_action_param": "{wanted_team}"
+                        }
+                    }
+                }
+            }
+        },
+        "SummonTeam": {
+            "type": "input",
+            "label": "",
+            "inputs": [
+                {
+                    "name": "summon_team",
+                    "label": "出战队伍",
+                    "description": "从上到下编号（1～8）",
+                    "default": "1",
+                    "pipeline_type": "int",
+                    "verify": "^[1-8]$",
+                    "pattern_msg": "请输入 1～8 的数字"
+                }
+            ],
+            "pipeline_override": {
+                "SummonSetTeam": {
+                    "action": {
+                        "param": {
+                            "custom_action_param": "{summon_team}"
                         }
                     }
                 }

@@ -21,7 +21,10 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "LoginMapVisible", "ReturnToVillageButton" ],
+                "all_of": [
+                    "LoginMapVisible",
+                    "ReturnToVillageButton"
+                ],
                 "box_index": 1
             }
         },
