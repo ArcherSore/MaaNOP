@@ -135,7 +135,7 @@
             "param": {
                 "custom_action": "CloseAllPopupsWithEsc",
                 "custom_action_param": {
-                    "check_node": "CheckRemainPopup"
+                    "target_node": "LoginScreenClear"
                 }
             }
         },
@@ -177,7 +177,7 @@
             "param": {
                 "custom_action": "CloseAllPopupsWithEsc",
                 "custom_action_param": {
-                    "check_node": "CheckRemainPopup"
+                    "target_node": "LoginScreenClear"
                 }
             }
         },
