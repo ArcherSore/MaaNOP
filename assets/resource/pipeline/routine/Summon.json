@@ -5,6 +5,7 @@
         "anchor": {
             "OrganizationContinue": "SummonHoverGo",
             "CommonBattleSkipSpeed": "SummonWaitForDamage",
+            "CommonBattleInterrupt": "CommonBattleNoInterrupt",
             "CommonBattleOutcome": "SummonHoverReward"
         },
         "next": [ "SummonSetTeam" ]
@@ -211,8 +212,7 @@
                 "expected": "^自动寻路中$"
             }
         },
-        "timeout": 30000,
-        "next": [ "CommonBattleAutoOn", "CommonBattleClickAutoHover", "CommonBattleAutoOff" ]
+        "next": [ "CommonBattleSetup" ]
     },
     "SummonWaitForDamage": {
         "pre_delay": 0,
