@@ -13,6 +13,6 @@ env:
 
 工作流参照 MaaEnd：先在 `meta` 阶段使用 `step-security/github-action-get-latest-release` 确定 GUI 版本，再将版本传给 `robinraju/release-downloader` 下载并解压。随后运行 `tools/install.py` 补齐 Python、`agent/requirements.txt` 中的依赖和 MaaNOP 资源，写入包版本及 `agent.child_exec`。MaaNOP 跟随 GUI：Agent 通过 `MAAFW_BINARY_PATH` 使用 Worker 的 MaaFramework，所以包内 `maafw` 按 Worker 的版本安装，`requirements.txt` 中的版本只用于开发环境。然后清理包内 Python 中运行不需要的文件，包括 `maa/bin`。最后使用包内 Python 验证 Agent 能否导入。
 
-.NET 运行时由 NarutoAutoGUI 的 self-contained Release 提供，MaaNOP 保留整份 GUI 和 Worker 文件。完整包仅发布 Windows x64，用户解压即可使用，无需另装 .NET 或 Python。
+MaaNOP 保留整份 GUI 和 Worker 文件，完整包仅发布 Windows x64，已带 Python。完整包不带 .NET：用户首次使用前运行 GUI 随包提供的 `DependencySetup_依赖库安装.bat`，安装 .NET 10 桌面运行库和 Visual C++ 运行库。
 
 GUI 发布新版本后，再次运行 MaaNOP 打包流程才会采用它。
