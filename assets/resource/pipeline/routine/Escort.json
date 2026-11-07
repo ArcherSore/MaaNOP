@@ -304,6 +304,7 @@
         "anchor": {
             "CommonBattleSkipSpeed": "CommonBattleFinishSetup",
             "CommonBattleContinue": "EscortBattleWait",
+            "CommonBattleOutcome": "CommonBattleClickResultConfirm",
             "CommonBattleAfterResult": "EscortResumeRoute"
         },
         "timeout": 180000,
@@ -448,7 +449,7 @@
                 "all_of": [ "LoginMapVisible" ]
             }
         },
-        "anchor": { "CommonBattleSkipSpeed": "", "CommonBattleContinue": "", "CommonBattleAfterResult": "" },
+        "anchor": { "CommonBattleSkipSpeed": "", "CommonBattleContinue": "", "CommonBattleOutcome": "", "CommonBattleAfterResult": "" },
         "next": [ "EscortOpenOrganization" ]
     },
     "EscortSSRow1": {

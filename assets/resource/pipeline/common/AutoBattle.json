@@ -1,7 +1,7 @@
 {
     // PvE 任务共用。需要公共开战时，调用方绑定以下锚点：
     // CommonBattleStartTarget 指向自己的开战节点，兼作点击目标和重试入口；
-    // CommonBattleContinue 指向结果等待，CommonBattleOutcome 只识别已有结果。
+    // CommonBattleContinue 指向结果等待，CommonBattleOutcome 指向已出现的结算入口。
     // CommonBattleInterrupt 指向业务退出条件；不需要中途退出时绑定 CommonBattleNoInterrupt。
     // 默认执行自动与倍速。关闭自动时绑定 CommonBattleSkipAuto 到 CommonBattleSetupSpeed；
     // 关闭倍速时绑定 CommonBattleSkipSpeed 到 CommonBattleFinishSetup。
@@ -47,11 +47,38 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [ "common/battle/AutoOff.png", "common/battle/AutoOffHover.png" ],
-                "roi": [ 828, 620, 80, 80 ]
+                "template": "common/battle/AutoOff.png",
+                "roi": [ 828, 620, 80, 80 ],
+                "threshold": 0.9
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin_offset": [ 7, 7, -14, -14 ],
+                "end_offset": [ 7, 7, -14, -14 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleClickAutoHover" ]
+    },
+    "CommonBattleClickAutoHover": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/AutoOffHover.png",
+                "roi": [ 828, 620, 80, 80 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [ 7, 7, -14, -14 ]
+            }
+        },
+        "pre_delay": 0,
         "next": [ "CommonBattleSetupSpeed" ]
     },
     "CommonBattleSetupSpeed": {
@@ -77,15 +104,63 @@
     },
     "CommonBattleSpeedOff": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": "common/battle/SpeedOff.png",
-                "roi": [ 870, 635, 69, 69 ]
+                "all_of": [
+                    {
+                        "sub_name": "speed_button",
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "common/battle/SpeedOff.png",
+                                "roi": [ 870, 635, 69, 69 ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "speed_button",
+                                "method": 40,
+                                "lower": [ 8, 125, 105 ],
+                                "upper": [ 35, 255, 255 ],
+                                "count": 100
+                            }
+                        }
+                    }
+                ],
+                "box_index": 0
             }
         },
-        "action": "Click",
-        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
-        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "[Anchor]CommonBattleContinue" ]
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin_offset": [ 7, 7, -14, -14 ],
+                "end_offset": [ 7, 7, -14, -14 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleClickSpeedHover" ]
+    },
+    "CommonBattleClickSpeedHover": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/battle/SpeedOffHover.png",
+                "roi": [ 870, 635, 69, 69 ],
+                "threshold": 0.85
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [ 7, 7, -14, -14 ]
+            }
+        },
+        "pre_delay": 0,
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "[Anchor]CommonBattleContinue" ]
     },
     "CommonBattleNoInterrupt": {
         "enabled": false
