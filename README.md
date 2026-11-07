@@ -53,7 +53,7 @@
 
 首次使用请先阅读[用户使用手册](https://github.com/ArcherSore/NarutoAutoGUI/blob/main/docs/USER-GUIDE.md)，按步骤保存 Windows 分身登录密码、配置 QQ 大厅自动登录，再开始任务。
 
-从 [Releases](https://github.com/ArcherSore/MaaNOP/releases/latest) 下载 **`MaaNOP-win-x86_64-*.zip`**，完整解压后运行 `NarutoAutoGUI.exe`。按界面提示准备桌面分身、登录游戏、选择任务，即可开始自动化。
+从 [Releases](https://github.com/ArcherSore/MaaNOP/releases/latest) 下载 **`MaaNOP-win-x86_64-*.zip`**，完整解压后先运行 `DependencySetup_依赖库安装.bat` 安装所需运行库（只需一次），再运行 `NarutoAutoGUI.exe`。按界面提示准备桌面分身、登录游戏、选择任务，即可开始自动化。
 
 > [!IMPORTANT]
 > - 支持 **Windows 10/11 x64**，需要管理员权限。
