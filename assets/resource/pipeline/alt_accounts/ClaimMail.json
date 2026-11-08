@@ -19,9 +19,6 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "focus": {
-            "Node.Action.Succeeded": "开始领取邮件附件"
-        },
         "next": [ "WaitMailAttachmentReady" ]
     },
     "WaitMailAttachmentReady": {
@@ -170,9 +167,6 @@
                 "all_of": [ "MailWarehouseFooter", "MailClaimButtonGray", "MailDeleteButtonBlue" ]
             }
         },
-        "focus": {
-            "Node.Recognition.Succeeded": "成功领取邮件附件"
-        },
         "next": "MailDeleteAll"
     },
     "MailDeleteAll": {
@@ -298,9 +292,6 @@
                 "upper": [ 179, 35, 180 ],
                 "count": 200
             }
-        },
-        "focus": {
-            "Node.Recognition.Succeeded": "无需领取邮件附件"
         },
         "next": [ "CloseMail" ]
     },

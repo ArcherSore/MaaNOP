@@ -30,7 +30,7 @@
                 "all_of": [ "DailyArenaOrdersText", "DailyArenaMainBright" ]
             }
         },
-        "next": [ "DailyArenaCheckOrders" ]
+        "next": [ "DailyArenaOrdersEmpty", "DailyArenaCheckClaims" ]
     },
     "DailyArenaOrdersText": {
         "pre_delay": 0,
@@ -58,18 +58,6 @@
             }
         }
     },
-    "DailyArenaCheckOrders": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "post_wait_freezes": {
-            "time": 300,
-            "target": [ 230, 313, 108, 190 ],
-            "threshold": 0.98,
-            "rate_limit": 100,
-            "timeout": 5000
-        },
-        "next": [ "DailyArenaOrdersEmpty", "DailyArenaCheckClaims" ]
-    },
     "DailyArenaOrdersEmpty": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -87,12 +75,12 @@
     "DailyArenaCheckClaims": {
         "pre_delay": 0,
         "post_delay": 0,
-        "next": [ "DailyArenaClaimTop", "DailyArenaCheckBottomClaim" ]
+        "next": [ "DailyArenaHoverClaimTop", "DailyArenaCheckBottomClaim" ]
     },
     "DailyArenaCheckBottomClaim": {
         "pre_delay": 0,
         "post_delay": 0,
-        "next": [ "DailyArenaClaimBottom", "DailyArenaCheckTopUnmet" ]
+        "next": [ "DailyArenaHoverClaimBottom", "DailyArenaCheckTopUnmet" ]
     },
     "DailyArenaCheckTopReady": {
         "pre_delay": 0,
@@ -146,12 +134,37 @@
         },
         "next": [ "DailyArenaExit" ]
     },
-    "DailyArenaClaimTop": {
+    "DailyArenaHoverClaimTop": {
+        "post_delay": 0,
+        "rate_limit": 200,
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [ 280, 369, 55, 25 ],
                 "expected": "领取"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 306, 381 ],
+                "end": [ 306, 381 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "next": [ "DailyArenaClaimTop" ]
+    },
+    // 取按钮左侧的底色识别高亮，避开中间的文字和普通态的亮边。
+    "DailyArenaClaimTop": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 288, 375, 9, 8 ],
+                "method": 4,
+                "lower": [ 0, 190, 195 ],
+                "upper": [ 150, 255, 255 ],
+                "count": 24
             }
         },
         "action": {
@@ -162,40 +175,7 @@
         },
         "max_hit": 12,
         "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
-        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaTopClaimed", "DailyArenaTasksEmpty" ]
-    },
-    // 领奖动画可能漏识别、任务卡可能重排，因此兼容提示漏字，并允许以无遮挡的双卡清空状态确认完成。
-    "DailyArenaClaimNotice": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 555, 225, 230, 100 ],
-                "expected": "完(?:成)?任务"
-            }
-        }
-    },
-    "DailyArenaTopClaimed": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "DailyArenaClaimNotice" ]
-            }
-        },
-        "next": [ "DailyArenaClaimNoticeGone" ]
-    },
-    "DailyArenaClaimNoticeGone": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "DailyArenaClaimNotice" ]
-            }
-        },
-        "inverse": true,
-        "next": [ "DailyArenaMain" ]
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaMain" ]
     },
     // OCR 会把「满」读成「溝」；仅容错满/溝，仍严格区分已和未。
     "DailyArenaTopReady": {
@@ -208,39 +188,16 @@
                 "expected": "条件已[满溝]足"
             }
         },
-        "next": [ "DailyArenaStartBattle" ]
+        "next": [ "DailyArenaHoverStartBattle" ]
     },
     "DailyArenaTopUnmet": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 280, 369, 55, 25 ],
-                "expected": "条件未满足"
-            }
-        },
-        "action": {
-            "type": "Swipe",
-            "param": {
-                "begin": [ 306, 381 ],
-                "end": [ 306, 381 ],
-                "duration": 100,
-                "only_hover": true
-            }
-        },
-        "anchor": {
-            "DailyArenaLowered": "DailyArenaTopLowered"
-        },
-        "next": [ "DailyArenaTopLowerButton" ]
-    },
-    // 按钮末两字 OCR 不稳。
-    // 同 ROI 中「降低」稳定，且领取/已满足/未满足均不含该前缀；上下按钮统一匹配此前缀。
-    "DailyArenaTopLowerButton": {
+        "post_delay": 0,
         "rate_limit": 200,
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [ 280, 369, 55, 25 ],
-                "expected": "^降低"
+                "expected": "条件未满足|^降低"
             }
         },
         "action": {
@@ -252,65 +209,14 @@
         "max_hit": 6,
         "next": [ "DailyArenaLowerDialog" ]
     },
-    "DailyArenaTopLowered": {
-        "pre_delay": 0,
+    "DailyArenaHoverClaimBottom": {
         "post_delay": 0,
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 280, 369, 55, 25 ],
-                "expected": "条件已[满溝]足"
-            }
-        },
-        "next": [ "DailyArenaMain" ]
-    },
-    "DailyArenaClaimBottom": {
+        "rate_limit": 200,
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [ 280, 456, 55, 25 ],
                 "expected": "领取"
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 291, 465, 28, 8 ]
-            }
-        },
-        "max_hit": 12,
-        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
-        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaBottomClaimed", "DailyArenaTasksEmpty" ]
-    },
-    "DailyArenaBottomClaimed": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "DailyArenaClaimNotice" ]
-            }
-        },
-        "next": [ "DailyArenaClaimNoticeGone" ]
-    },
-    "DailyArenaBottomReady": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 280, 456, 55, 25 ],
-                "expected": "条件已[满溝]足"
-            }
-        },
-        "next": [ "DailyArenaStartBattle" ]
-    },
-    "DailyArenaBottomUnmet": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 280, 456, 55, 25 ],
-                "expected": "条件未满足"
             }
         },
         "action": {
@@ -322,17 +228,49 @@
                 "only_hover": true
             }
         },
-        "anchor": {
-            "DailyArenaLowered": "DailyArenaBottomLowered"
-        },
-        "next": [ "DailyArenaBottomLowerButton" ]
+        "next": [ "DailyArenaClaimBottom" ]
     },
-    "DailyArenaBottomLowerButton": {
+    "DailyArenaClaimBottom": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 288, 462, 9, 8 ],
+                "method": 4,
+                "lower": [ 0, 190, 195 ],
+                "upper": [ 150, 255, 255 ],
+                "count": 24
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 291, 465, 28, 8 ]
+            }
+        },
+        "max_hit": 12,
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaMain" ]
+    },
+    "DailyArenaBottomReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [ 280, 456, 55, 25 ],
-                "expected": "^降低"
+                "expected": "条件已[满溝]足"
+            }
+        },
+        "next": [ "DailyArenaHoverStartBattle" ]
+    },
+    "DailyArenaBottomUnmet": {
+        "post_delay": 0,
+        "rate_limit": 200,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 280, 456, 55, 25 ],
+                "expected": "条件未满足|^降低"
             }
         },
         "action": {
@@ -344,20 +282,7 @@
         "max_hit": 6,
         "next": [ "DailyArenaLowerDialog" ]
     },
-    "DailyArenaBottomLowered": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 280, 456, 55, 25 ],
-                "expected": "条件已[满溝]足"
-            }
-        },
-        "next": [ "DailyArenaMain" ]
-    },
-    // 有无损次数时显示「余 N 次无损降低」；用完后不显示 0 次，改为「减半」收益提示。
-    // 只在正数且「确定」按钮已出现时确认；减半提示只能取消，不能消耗奖励降低难度。
+    // 无损和减半共用同一个弹窗，必须按说明分流，不能用「确定」是否高亮来选择操作。
     "DailyArenaLowerDialog": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -368,34 +293,39 @@
                 "expected": "无损降低|减半"
             }
         },
-        "next": [ "DailyArenaLowerFree", "DailyArenaLowerCheckEmpty" ]
+        "next": [ "DailyArenaHoverLowerFree", "DailyArenaLowerCheckEmpty" ]
     },
-    // 确定后鼠标会落在忍者上，技能说明遮住战令。
-    // 入口及关闭弹窗后先复用 MouseMoveReset 移到左侧空白，再识别后续画面；不增加恢复分支。
+    "DailyArenaHoverLowerFree": {
+        "post_delay": 0,
+        "rate_limit": 200,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 603, 370, 135, 20 ],
+                "expected": "[余馀]\\s*[1-9]\\s*次无损降低"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 610, 408 ],
+                "end": [ 610, 408 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "next": [ "DailyArenaLowerFree" ]
+    },
+    // 关闭弹窗后先移开鼠标，避免忍者技能说明遮住战令。
     "DailyArenaLowerFree": {
         "recognition": {
-            "type": "And",
+            "type": "ColorMatch",
             "param": {
-                "all_of": [
-                    {
-                        "recognition": {
-                            "type": "OCR",
-                            "param": {
-                                "roi": [ 603, 370, 135, 20 ],
-                                "expected": "[余馀]\\s*[1-9]\\s*次无损降低"
-                            }
-                        }
-                    },
-                    {
-                        "recognition": {
-                            "type": "OCR",
-                            "param": {
-                                "roi": [ 590, 398, 50, 22 ],
-                                "expected": "确定"
-                            }
-                        }
-                    }
-                ]
+                "roi": [ 591, 407, 9, 7 ],
+                "method": 4,
+                "lower": [ 225, 114, 0 ],
+                "upper": [ 255, 255, 140 ],
+                "count": 20
             }
         },
         "action": {
@@ -406,40 +336,44 @@
         },
         "max_hit": 3,
         "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
-        "next": [
-            "[JumpBack][Anchor]MouseMoveResetAnchor",
-            "[Anchor]DailyArenaLowered"
-        ]
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaMain" ]
     },
+    // 两种说明的 OCR 区域重叠，分开识别以免批量 OCR 干扰。
     "DailyArenaLowerCheckEmpty": {
         "pre_delay": 0,
         "post_delay": 0,
+        "next": [ "DailyArenaHoverLowerEmpty" ]
+    },
+    "DailyArenaHoverLowerEmpty": {
+        "post_delay": 0,
+        "rate_limit": 200,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 552, 359, 240, 29 ],
+                "expected": "减半"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 729, 408 ],
+                "end": [ 729, 408 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
         "next": [ "DailyArenaLowerEmpty" ]
     },
     "DailyArenaLowerEmpty": {
         "recognition": {
-            "type": "And",
+            "type": "ColorMatch",
             "param": {
-                "all_of": [
-                    {
-                        "recognition": {
-                            "type": "OCR",
-                            "param": {
-                                "roi": [ 552, 359, 240, 29 ],
-                                "expected": "减半"
-                            }
-                        }
-                    },
-                    {
-                        "recognition": {
-                            "type": "OCR",
-                            "param": {
-                                "roi": [ 704, 398, 50, 22 ],
-                                "expected": "取消"
-                            }
-                        }
-                    }
-                ]
+                "roi": [ 740, 408, 9, 7 ],
+                "method": 4,
+                "lower": [ 0, 160, 215 ],
+                "upper": [ 165, 255, 255 ],
+                "count": 26
             }
         },
         "action": {
@@ -477,7 +411,7 @@
     "DailyArenaLowerCancelled": {
         "pre_delay": 0,
         "post_delay": 0,
-        // 免费次数耗尽时，必须正向读到两张卡都是「条件未满足」或「已无可挑战任务」。
+        // 免费次数耗尽时，必须正向读到两张卡均未满足或已无可挑战任务。
         // 不能把已满足 OCR 漏识别当成没有已满足任务；领奖按钮也不能被跳过。
         "recognition": {
             "type": "And",
@@ -492,14 +426,40 @@
         },
         "next": [ "DailyArenaExit" ]
     },
-    // 三种正常结束条件共用退出；竞技场主界面可证明叉号已就绪，点击框位于图标内部。
     "DailyArenaExit": {
         "rate_limit": 200,
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "DailyArenaMain" ] }
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "alt_accounts/leveling/buttons/Close.png", "alt_accounts/leveling/buttons/CloseHover.png" ],
+                "roi": [ 1126, 81, 31, 31 ],
+                "threshold": 0.86
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 1141, 96 ],
+                "end": [ 1141, 96 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "next": [ "DailyArenaClickExitHover" ]
+    },
+    "DailyArenaClickExitHover": {
+        "rate_limit": 200,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/leveling/buttons/CloseHover.png",
+                "roi": [ 1126, 81, 31, 31 ],
+                "threshold": 0.86
+            }
         },
         "action": {
             "type": "Click",
@@ -518,35 +478,75 @@
             "param": { "all_of": [ "LoginScreenClear" ] }
         }
     },
+    "DailyArenaHoverStartBattle": {
+        "post_delay": 0,
+        "rate_limit": 200,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 414, 550, 120, 47 ],
+                "expected": "段位",
+                "replace": [ [ "/", "" ] ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 520, 576 ],
+                "end": [ 520, 576 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "next": [ "DailyArenaStartBattle" ]
+    },
+    // 靠右悬浮和点击，左侧高亮模板避开随鼠标位置变化的说明框。
     "DailyArenaStartBattle": {
         "rate_limit": 200,
         "recognition": {
-            "type": "And",
+            "type": "TemplateMatch",
             "param": {
-                "all_of": [
-                    "DailyArenaMainBright",
-                    {
-                        "recognition": {
-                            "type": "OCR",
-                            "param": {
-                                "roi": [ 414, 550, 120, 47 ],
-                                "expected": "段位",
-                                "replace": [ [ "/", "" ] ]
-                            }
-                        }
-                    }
-                ]
+                "template": "arena/RankedBattleStartHover.png",
+                "roi": [ 428, 535, 53, 44 ],
+                "threshold": 0.8
             }
         },
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 442, 567, 65, 15 ]
+                "target": [ 516, 572, 9, 9 ]
             }
         },
         "timeout": 120000,
         "max_hit": 100,
-        "next": [ "ArenaSceneLoaded", "WaitBattleEnd" ]
+        "anchor": {
+            "CommonBattleSkipSpeed": "CommonBattleFinishSetup",
+            "CommonBattleContinue": "WaitBattleEnd",
+            "CommonBattleOutcome": "WaitBattleEnd",
+            "CommonBattleInterrupt": "CommonBattleNoInterrupt"
+        },
+        "next": [ "[Anchor]CommonBattleOutcome", "CommonBattleAutoOn", "CommonBattleAutoOff" ]
+    },
+    "DailyArenaClickBattleEndHover": {
+        "rate_limit": 200,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 682, 446, 14, 10 ],
+                "method": 4,
+                "lower": [ 0, 185, 210 ],
+                "upper": [ 175, 255, 255 ],
+                "count": 60
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 658, 445, 24, 8 ]
+            }
+        },
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaResultPopup", "DailyArenaMain" ]
     },
     // 结算确定后移开鼠标，等待主界面 1 秒；超时进入 on_error，重新 OCR 确定仍在才补点。
     "DailyArenaResultPopup": {

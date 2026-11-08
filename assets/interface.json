@@ -4,6 +4,7 @@
     "label": "MaaNOP",
     "version": "v2.3.0",
     "github": "https://github.com/ArcherSore/MaaNOP",
+    "welcome": "## 新手先看\n\n- [新手使用指南](https://www.bilibili.com/video/BV1VaJU65Ebm/)：从任务配置到自动运行。\n- [真正意义上的「一键」日常](https://www.bilibili.com/video/BV13ZHT6AEYw/)：自动拉起 QQ 游戏大厅，一“键”日常。\n\n## 出问题时\n\n1. 在「设置 → 调试」打开「保存识别标注图」。它默认关闭，重启后也会**自动关闭**，请在复现前打开。\n2. 用同样的操作复现一次，再在「设置 → 调试 → 问题诊断」点「导出诊断包」。\n3. 把诊断包和问题描述发到 [GitHub Issues](https://github.com/ArcherSore/MaaNOP/issues)，也可以加 QQ：368655734。\n\n常见问题先看「帮助」页。软件免费开源，只从 [Releases](https://github.com/ArcherSore/MaaNOP/releases/latest) 下载完整整合包。",
     "controller": [
         {
             "name": "Win32Desktop",
@@ -129,8 +130,8 @@
             "label": "押镖",
             "group": [ "Routine" ],
             "entry": "Escort",
-            "description": "选中指定队伍后，自动接取并完成可接的免费 SS 级押镖。途中被劫时自动战斗，结算后继续押送。免费接取次数用完、没有可接的 SS 且免费刷新用完，或游戏提示不在押镖活动时段时，返回木叶村南。",
-            "option": [ "EscortTeam" ]
+            "description": "完成免费点券押镖，可选铜币押镖。途中被劫时自动战斗，结算后继续押送。",
+            "option": [ "EscortTeam", "EscortContinueS" ]
         },
         {
             "name": "Summon",
@@ -164,9 +165,9 @@
             "description": "自动战斗并领取竞技场日常任务奖励\n\n战令用完、任务为空，或无损次数用完且没有已满足的任务时停止。\n\n请从游戏主界面或竞技场主界面开始。",
             "option": [ "DailyArenaBattleMode" ],
             "pipeline_override": {
-                "ArenaSceneLoaded": { "pre_delay": 0, "post_delay": 0 },
-                "ArenaAutoOn": { "pre_delay": 0, "post_delay": 0 },
-                "ArenaBattleKeepWaiting": { "pre_delay": 0, "post_delay": 0 },
+                "CommonBattleFinishSetup": {
+                    "next": [ "[Anchor]CommonBattleContinue" ]
+                },
                 "WaitBattleEnd": {
                     "recognition": {
                         "type": "OCR",
@@ -176,13 +177,16 @@
                         }
                     },
                     "action": {
-                        "type": "Click",
+                        "type": "Swipe",
                         "param": {
-                            "target": [ 658, 445, 24, 8 ]
+                            "begin": [ 670, 449 ],
+                            "end": [ 670, 449 ],
+                            "duration": 100,
+                            "only_hover": true
                         }
                     },
-                    "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
-                    "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaResultPopup", "DailyArenaMain" ]
+                    "post_delay": 0,
+                    "next": [ "DailyArenaClickBattleEndHover" ]
                 }
             }
         },
@@ -670,28 +674,37 @@
                     "name": "Casual",
                     "label": "休闲战斗",
                     "pipeline_override": {
+                        "DailyArenaHoverStartBattle": {
+                            "recognition": {
+                                "type": "OCR",
+                                "param": {
+                                    "roi": [ 550, 548, 130, 50 ],
+                                    "expected": "休闲"
+                                }
+                            },
+                            "action": {
+                                "type": "Swipe",
+                                "param": {
+                                    "begin": [ 656, 576 ],
+                                    "end": [ 656, 576 ],
+                                    "duration": 100,
+                                    "only_hover": true
+                                }
+                            }
+                        },
                         "DailyArenaStartBattle": {
                             "recognition": {
-                                "type": "And",
+                                "type": "TemplateMatch",
                                 "param": {
-                                    "all_of": [
-                                        "DailyArenaMainBright",
-                                        {
-                                            "recognition": {
-                                                "type": "OCR",
-                                                "param": {
-                                                    "roi": [ 550, 548, 130, 50 ],
-                                                    "expected": "休闲"
-                                                }
-                                            }
-                                        }
-                                    ]
+                                    "template": "arena/CasualBattleStartHover.png",
+                                    "roi": [ 561, 536, 57, 46 ],
+                                    "threshold": 0.8
                                 }
                             },
                             "action": {
                                 "type": "Click",
                                 "param": {
-                                    "target": [ 580, 567, 65, 15 ]
+                                    "target": [ 652, 572, 9, 9 ]
                                 }
                             }
                         }
@@ -918,6 +931,26 @@
                     }
                 }
             }
+        },
+        "EscortContinueS": {
+            "type": "switch",
+            "label": "免费点券押镖之后",
+            "default_case": "No",
+            "cases": [
+                {
+                    "name": "No",
+                    "label": "停止"
+                },
+                {
+                    "name": "Yes",
+                    "label": "继续铜币押镖",
+                    "pipeline_override": {
+                        "EscortNoFreeSS": {
+                            "next": [ "EscortHoverAcceptSButton", "EscortHoverFreeRefreshButton", "EscortHoverAcceptAButton" ]
+                        }
+                    }
+                }
+            ]
         },
         "WantedSoloTeam": {
             "type": "switch",
