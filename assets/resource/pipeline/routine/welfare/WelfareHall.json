@@ -1,0 +1,421 @@
+{
+    "OnlineReward": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "OnlineHallOpened", "OnlineOpenHall" ]
+    },
+    "OnlineOpenHall": {
+        "rate_limit": 200,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindTopEntry",
+                "custom_recognition_param": {
+                    "template": [ "common/entry/SystemGift.png" ]
+                }
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "timeout": 10000,
+        "next": [ "OnlineHallOpened" ]
+    },
+    "OnlineHallTitle": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/welfare/HallTitle.png",
+                "roi": [ 810, 174, 110, 90 ],
+                "threshold": 0.9
+            }
+        }
+    },
+    "OnlineHallOpened": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "OnlineHallTitle" ]
+            }
+        },
+        "timeout": 8000,
+        "next": [ "OnlineTabSelected", "OnlineClickTab" ]
+    },
+    "OnlineClickTab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/welfare/TabUnselected.png",
+                "roi": [ 400, 252, 80, 35 ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "timeout": 5000,
+        "next": [ "OnlineTabSelected" ]
+    },
+    "OnlineTabSelected": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/welfare/TabSelected.png",
+                "roi": [ 375, 252, 100, 35 ],
+                "threshold": 0.9
+            }
+        },
+        "timeout": 15000,
+        "next": [ "OnlineGiftReady" ]
+    },
+    // 在线礼包的「领取」先于奖励图标出现，三张卡都出现物品格才开始检查。
+    "OnlineGiftReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    { "recognition": { "type": "ColorMatch", "param": { "roi": [ 528, 405, 29, 28 ], "method": 4, "lower": [ 0, 0, 0 ], "upper": [ 64, 64, 64 ], "count": 180 } } },
+                    { "recognition": { "type": "ColorMatch", "param": { "roi": [ 666, 405, 29, 28 ], "method": 4, "lower": [ 0, 0, 0 ], "upper": [ 64, 64, 64 ], "count": 180 } } },
+                    { "recognition": { "type": "ColorMatch", "param": { "roi": [ 805, 405, 29, 28 ], "method": 4, "lower": [ 0, 0, 0 ], "upper": [ 64, 64, 64 ], "count": 180 } } }
+                ]
+            }
+        },
+        "next": [ "WelfareScanGift1" ]
+    },
+    "WelfareClaimOrange": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "claim",
+                "roi_offset": [ 5, 5, -10, -9 ],
+                "method": 40,
+                "lower": [ 3, 190, 150 ],
+                "upper": [ 30, 255, 255 ],
+                "count": 150
+            }
+        }
+    },
+    // 高亮和点击都绑定到本次悬浮的按钮，点击后沿同一顺序进入下一项。
+    "WelfareClaimHighlight": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "[Anchor]WelfareHovered",
+                "roi_offset": [ 13, 11, -26, -12 ],
+                "method": 4,
+                "lower": [ 220, 160, 0 ],
+                "upper": [ 255, 255, 180 ],
+                "count": 55
+            }
+        }
+    },
+    "WelfareScanGift1": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "WelfareHoverGift1", "WelfareScanGift2" ]
+    },
+    "WelfareHoverGift1": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    { "sub_name": "claim", "recognition": { "type": "OCR", "param": { "roi": [ 532, 491, 60, 22 ], "only_rec": true, "expected": "^领取$" } } },
+                    "WelfareClaimOrange"
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": { "begin": [ 562, 502 ], "end": [ 562, 502 ], "duration": 100, "only_hover": true }
+        },
+        "anchor": { "WelfareHovered": "WelfareHoverGift1", "WelfareAfterClaim": "WelfareScanGift2" },
+        "next": [ "OnlineClaim" ]
+    },
+    "WelfareScanGift2": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "WelfareHoverGift2", "WelfareScanGift3" ]
+    },
+    "WelfareHoverGift2": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    { "sub_name": "claim", "recognition": { "type": "OCR", "param": { "roi": [ 669, 491, 60, 22 ], "only_rec": true, "expected": "^领取$" } } },
+                    "WelfareClaimOrange"
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": { "begin": [ 699, 502 ], "end": [ 699, 502 ], "duration": 100, "only_hover": true }
+        },
+        "anchor": { "WelfareHovered": "WelfareHoverGift2", "WelfareAfterClaim": "WelfareScanGift3" },
+        "next": [ "OnlineClaim" ]
+    },
+    "WelfareScanGift3": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "WelfareHoverGift3", "MonthlyReward" ]
+    },
+    "WelfareHoverGift3": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    { "sub_name": "claim", "recognition": { "type": "OCR", "param": { "roi": [ 806, 491, 60, 22 ], "only_rec": true, "expected": "^领取$" } } },
+                    "WelfareClaimOrange"
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": { "begin": [ 836, 502 ], "end": [ 836, 502 ], "duration": 100, "only_hover": true }
+        },
+        "anchor": { "WelfareHovered": "WelfareHoverGift3", "WelfareAfterClaim": "MonthlyReward" },
+        "next": [ "OnlineClaim" ]
+    },
+    "OnlineClaim": {
+        "pre_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "WelfareClaimHighlight" ] }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": "[Anchor]WelfareHovered", "target_offset": [ 12, 6, -24, -12 ] }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "领取在线礼包"
+        },
+        "max_hit": 3,
+        "next": [ "[Anchor]WelfareAfterClaim" ]
+    },
+    "MonthlyReward": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 375, 278, 105, 50 ],
+                "expected": [ "^每日福利$" ]
+            }
+        },
+        "timeout": 5000,
+        "next": [ "MonthlyTabSelected", "MonthlyClickTab" ]
+    },
+    // 页签 OCR 仅执行一次，再用颜色分流，避免 next 中两个 OCR 的 ROI 重叠。
+    "MonthlyTabSelected": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "MonthlyReward",
+                "roi_offset": [ 5, 2, -10, -4 ],
+                "method": 40,
+                "lower": [ 15, 0, 170 ],
+                "upper": [ 45, 125, 255 ],
+                "count": 500
+            }
+        },
+        "timeout": 15000,
+        "next": [ "MonthlyContentReady" ]
+    },
+    "MonthlyClickTab": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "MonthlyReward",
+                "roi_offset": [ 5, 2, -10, -4 ],
+                "method": 40,
+                "lower": [ 80, 30, 40 ],
+                "upper": [ 120, 220, 220 ],
+                "count": 500
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": "MonthlyReward",
+                "target_offset": [ 6, 4, -12, -8 ]
+            }
+        },
+        "timeout": 15000,
+        "next": [ "MonthlyContentReady" ]
+    },
+    "MonthlyContentReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/welfare/SmallMonthRewardIcon.png",
+                "roi": [ 530, 422, 67, 59 ],
+                "threshold": 0.9
+            }
+        },
+        "timeout": 8000,
+        "next": [ "WelfareScanSmallMonth" ]
+    },
+    "WelfareScanSmallMonth": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "WelfareHoverSmallMonth", "WelfareScanBigMonth" ]
+    },
+    "WelfareHoverSmallMonth": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    { "sub_name": "claim", "recognition": { "type": "OCR", "param": { "roi": [ 533, 504, 60, 22 ], "only_rec": true, "expected": "^领取$" } } },
+                    "WelfareClaimOrange"
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": { "begin": [ 563, 515 ], "end": [ 563, 515 ], "duration": 100, "only_hover": true }
+        },
+        "anchor": { "WelfareHovered": "WelfareHoverSmallMonth", "WelfareAfterClaim": "WelfareScanBigMonth" },
+        "next": [ "WelfareDailyClaim" ]
+    },
+    "WelfareScanBigMonth": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "WelfareHoverBigMonth", "WelfareScanMedalDaily" ]
+    },
+    "WelfareHoverBigMonth": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    { "sub_name": "claim", "recognition": { "type": "OCR", "param": { "roi": [ 667, 503, 60, 22 ], "only_rec": true, "expected": "^领取$" } } },
+                    "WelfareClaimOrange"
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": { "begin": [ 697, 514 ], "end": [ 697, 514 ], "duration": 100, "only_hover": true }
+        },
+        "anchor": { "WelfareHovered": "WelfareHoverBigMonth", "WelfareAfterClaim": "WelfareScanMedalDaily" },
+        "next": [ "WelfareDailyClaim" ]
+    },
+    "WelfareScanMedalDaily": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "WelfareHoverMedalDaily", "WelfareScanMedalWeekly" ]
+    },
+    "WelfareHoverMedalDaily": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    { "sub_name": "claim", "recognition": { "type": "OCR", "param": { "roi": [ 806, 400, 60, 22 ], "only_rec": true, "expected": "^领取$" } } },
+                    "WelfareClaimOrange"
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": { "begin": [ 836, 411 ], "end": [ 836, 411 ], "duration": 100, "only_hover": true }
+        },
+        "anchor": { "WelfareHovered": "WelfareHoverMedalDaily", "WelfareAfterClaim": "WelfareScanMedalWeekly" },
+        "next": [ "WelfareDailyClaim" ]
+    },
+    "WelfareScanMedalWeekly": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "WelfareHoverMedalWeekly", "OnlineClose" ]
+    },
+    "WelfareHoverMedalWeekly": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    { "sub_name": "claim", "recognition": { "type": "OCR", "param": { "roi": [ 806, 501, 60, 22 ], "only_rec": true, "expected": "^领取$" } } },
+                    "WelfareClaimOrange"
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": { "begin": [ 836, 512 ], "end": [ 836, 512 ], "duration": 100, "only_hover": true }
+        },
+        "anchor": { "WelfareHovered": "WelfareHoverMedalWeekly", "WelfareAfterClaim": "OnlineClose" },
+        "next": [ "WelfareDailyClaim" ]
+    },
+    "WelfareDailyClaim": {
+        "pre_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "WelfareClaimHighlight" ] }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": "[Anchor]WelfareHovered", "target_offset": [ 12, 6, -24, -12 ] }
+        },
+        "max_hit": 4,
+        "next": [ "[Anchor]WelfareAfterClaim" ]
+    },
+    "OnlineClose": {
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "alt_accounts/leveling/buttons/Close.png", "alt_accounts/leveling/buttons/CloseHover.png" ],
+                "roi": [ 949, 191, 36, 37 ],
+                "threshold": 0.86
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": { "begin": [ 967, 209 ], "end": [ 967, 209 ], "duration": 100, "only_hover": true }
+        },
+        "next": [ "OnlineCloseClick" ]
+    },
+    "OnlineCloseClick": {
+        "pre_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/leveling/buttons/CloseHover.png",
+                "roi": [ 949, 191, 36, 37 ],
+                "threshold": 0.86
+            }
+        },
+        "action": { "type": "Click", "param": { "target": [ 963, 205, 8, 8 ] } },
+        "timeout": 5000,
+        "next": [ "OnlineHallClosed" ]
+    },
+    "OnlineHallClosed": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginScreenClear" ]
+            }
+        }
+    }
+}
