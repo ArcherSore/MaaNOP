@@ -85,6 +85,45 @@
             }
         },
         "timeout": 5000,
+        "next": [ "EscortNoDailyAttempts", "EscortHasDailyAttempts" ]
+    },
+    "EscortNoDailyAttempts": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 881, 221, 45, 17 ],
+                "expected": "^0[/／][1-9][0-9]*$",
+                "only_rec": true,
+                "threshold": 0.8
+            }
+        },
+        "next": [ "EscortCloseList" ]
+    },
+    // 两种每日次数共用 ROI，正数识别放在 And 内以免进入同一批 OCR。
+    "EscortHasDailyAttempts": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 881, 221, 45, 17 ],
+                                "expected": "^[1-9][0-9]*[/／][1-9][0-9]*$",
+                                "only_rec": true,
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "timeout": 5000,
         "next": [ "EscortNoFreeSS", "EscortCheckFreeSS" ]
     },
     "EscortNoFreeSS": {
@@ -99,6 +138,7 @@
                 "threshold": 0.8
             }
         },
+        "timeout": 5000,
         "next": [ "EscortCloseList" ]
     },
     // 次数 OCR 分两阶段识别，避免同一 next 的重叠 ROI 触发批处理损坏。
@@ -138,14 +178,102 @@
             }
         },
         "post_delay": 0,
+        "anchor": [ "EscortHoveredAccept" ],
         "timeout": 5000,
-        "next": [ "EscortClickAcceptSSButton" ]
+        "next": [ "EscortClickAcceptButton" ]
     },
-    "EscortClickAcceptSSButton": {
+    "EscortHoverAcceptSButton": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "sub_name": "SGrade",
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "routine/escort/SGrade.png",
+                                "roi": [ 445, 260, 65, 231 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": "SGrade",
+                                "roi_offset": [ 369, 11, 31, -15 ],
+                                "expected": "^押送$",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "anchor": [ "EscortHoveredAccept" ],
+        "timeout": 5000,
+        "next": [ "EscortClickAcceptButton" ]
+    },
+    "EscortHoverAcceptAButton": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "EscortNoRefresh",
+                    {
+                        "sub_name": "AGrade",
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "routine/escort/AGrade.png",
+                                "roi": [ 445, 260, 65, 231 ],
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": "AGrade",
+                                "roi_offset": [ 369, 11, 31, -15 ],
+                                "expected": "^押送$",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ],
+                "box_index": 2
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "anchor": [ "EscortHoveredAccept" ],
+        "timeout": 5000,
+        "next": [ "EscortClickAcceptButton" ]
+    },
+    "EscortClickAcceptButton": {
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "EscortHoverAcceptSSButton",
+                "roi": "[Anchor]EscortHoveredAccept",
                 "roi_offset": [ -10, 1, 20, -7 ],
                 "method": 40,
                 "lower": [ 83, 60, 205 ],
@@ -156,11 +284,12 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": "EscortHoverAcceptSSButton"
+                "target": "[Anchor]EscortHoveredAccept"
             }
         },
         "post_delay": 0,
         "rate_limit": 200,
+        "max_hit": 3,
         "timeout": 10000,
         "next": [ "EscortOutsideHours", "EscortHoverDepartButton" ]
     },
@@ -177,7 +306,7 @@
         },
         "next": [ "EscortCloseList" ]
     },
-    // 与免费次数共用 ROI，用内层 OCR 避免合并进同一批识别。
+    // 与「免费刷新」共用 ROI，用内层 OCR 避免合并进同一批识别。
     "EscortNoRefresh": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -205,7 +334,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 818, 512, 82, 25 ],
-                "expected": "^免费刷新",
+                "expected": "^免费刷新[（(]?[1-4][）)]?$",
                 "threshold": 0.8
             }
         },
@@ -239,6 +368,19 @@
                 "target": [ 839, 521, 37, 8 ]
             }
         },
+        "max_hit": 4,
+        "timeout": 5000,
+        "next": [ "EscortFreeRefreshApplied" ]
+    },
+    "EscortFreeRefreshApplied": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "EscortFreeRefreshApplied"
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
         "post_wait_freezes": {
             "time": 300,
             "target": [ 430, 264, 482, 235 ],
@@ -246,7 +388,7 @@
             "timeout": 5000
         },
         "timeout": 5000,
-        "next": [ "EscortHasFreeSS" ]
+        "next": [ "EscortList" ]
     },
     "EscortCloseList": {
         "action": {

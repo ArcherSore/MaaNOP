@@ -130,8 +130,8 @@
             "label": "押镖",
             "group": [ "Routine" ],
             "entry": "Escort",
-            "description": "选中指定队伍后，自动接取并完成可接的免费 SS 级押镖。途中被劫时自动战斗，结算后继续押送。免费接取次数用完、没有可接的 SS 且免费刷新用完，或游戏提示不在押镖活动时段时，返回木叶村南。",
-            "option": [ "EscortTeam" ]
+            "description": "完成免费点券押镖，可选铜币押镖。途中被劫时自动战斗，结算后继续押送。",
+            "option": [ "EscortTeam", "EscortContinueS" ]
         },
         {
             "name": "Summon",
@@ -931,6 +931,26 @@
                     }
                 }
             }
+        },
+        "EscortContinueS": {
+            "type": "switch",
+            "label": "免费点券押镖之后",
+            "default_case": "No",
+            "cases": [
+                {
+                    "name": "No",
+                    "label": "停止"
+                },
+                {
+                    "name": "Yes",
+                    "label": "继续铜币押镖",
+                    "pipeline_override": {
+                        "EscortNoFreeSS": {
+                            "next": [ "EscortHoverAcceptSButton", "EscortHoverFreeRefreshButton", "EscortHoverAcceptAButton" ]
+                        }
+                    }
+                }
+            ]
         },
         "WantedSoloTeam": {
             "type": "switch",
