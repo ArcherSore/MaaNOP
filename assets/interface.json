@@ -165,9 +165,9 @@
             "description": "自动战斗并领取竞技场日常任务奖励\n\n战令用完、任务为空，或无损次数用完且没有已满足的任务时停止。\n\n请从游戏主界面或竞技场主界面开始。",
             "option": [ "DailyArenaBattleMode" ],
             "pipeline_override": {
-                "ArenaSceneLoaded": { "pre_delay": 0, "post_delay": 0 },
-                "ArenaAutoOn": { "pre_delay": 0, "post_delay": 0 },
-                "ArenaBattleKeepWaiting": { "pre_delay": 0, "post_delay": 0 },
+                "CommonBattleFinishSetup": {
+                    "next": [ "[Anchor]CommonBattleContinue" ]
+                },
                 "WaitBattleEnd": {
                     "recognition": {
                         "type": "OCR",
@@ -177,13 +177,16 @@
                         }
                     },
                     "action": {
-                        "type": "Click",
+                        "type": "Swipe",
                         "param": {
-                            "target": [ 658, 445, 24, 8 ]
+                            "begin": [ 670, 449 ],
+                            "end": [ 670, 449 ],
+                            "duration": 100,
+                            "only_hover": true
                         }
                     },
-                    "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
-                    "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "DailyArenaResultPopup", "DailyArenaMain" ]
+                    "post_delay": 0,
+                    "next": [ "DailyArenaClickBattleEndHover" ]
                 }
             }
         },
@@ -671,28 +674,37 @@
                     "name": "Casual",
                     "label": "休闲战斗",
                     "pipeline_override": {
+                        "DailyArenaHoverStartBattle": {
+                            "recognition": {
+                                "type": "OCR",
+                                "param": {
+                                    "roi": [ 550, 548, 130, 50 ],
+                                    "expected": "休闲"
+                                }
+                            },
+                            "action": {
+                                "type": "Swipe",
+                                "param": {
+                                    "begin": [ 656, 576 ],
+                                    "end": [ 656, 576 ],
+                                    "duration": 100,
+                                    "only_hover": true
+                                }
+                            }
+                        },
                         "DailyArenaStartBattle": {
                             "recognition": {
-                                "type": "And",
+                                "type": "TemplateMatch",
                                 "param": {
-                                    "all_of": [
-                                        "DailyArenaMainBright",
-                                        {
-                                            "recognition": {
-                                                "type": "OCR",
-                                                "param": {
-                                                    "roi": [ 550, 548, 130, 50 ],
-                                                    "expected": "休闲"
-                                                }
-                                            }
-                                        }
-                                    ]
+                                    "template": "arena/CasualBattleStartHover.png",
+                                    "roi": [ 561, 536, 57, 46 ],
+                                    "threshold": 0.8
                                 }
                             },
                             "action": {
                                 "type": "Click",
                                 "param": {
-                                    "target": [ 580, 567, 65, 15 ]
+                                    "target": [ 652, 572, 9, 9 ]
                                 }
                             }
                         }
