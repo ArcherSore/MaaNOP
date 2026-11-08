@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/mascot-avatar.png" alt="MaaNOP 看板娘" width="112" />
+  <img src="assets/mascot-avatar.png" alt="MaaNOP 看板娘" width="112" />
 </p>
 
 <h1 align="center">MaaNOP</h1>

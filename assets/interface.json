@@ -2,8 +2,13 @@
     "interface_version": 2,
     "name": "MaaNOP",
     "label": "MaaNOP",
+    "title": "MaaNOP · 火影忍者OL自动化助手",
+    "icon": "./mascot-avatar.png",
     "version": "v2.3.0",
     "github": "https://github.com/ArcherSore/MaaNOP",
+    "contact": "[GitHub Issues](https://github.com/ArcherSore/MaaNOP/issues) | QQ 368655734",
+    "license": "./locales/LICENSE_SHORT.md",
+    "description": "MaaNOP 是基于 MaaFramework 的免费开源《火影忍者 Online》自动化助手。",
     "welcome": "## 新手先看\n\n- [新手使用指南](https://www.bilibili.com/video/BV1VaJU65Ebm/)：从任务配置到自动运行。\n- [真正意义上的「一键」日常](https://www.bilibili.com/video/BV13ZHT6AEYw/)：自动拉起 QQ 游戏大厅，一“键”日常。\n\n## 出问题时\n\n1. 在「设置 → 调试」打开「保存识别标注图」。它默认关闭，重启后也会**自动关闭**，请在复现前打开。\n2. 用同样的操作复现一次，再在「设置 → 调试 → 问题诊断」点「导出诊断包」。\n3. 把诊断包和问题描述发到 [GitHub Issues](https://github.com/ArcherSore/MaaNOP/issues)，也可以加 QQ：368655734。\n\n常见问题先看「帮助」页。软件免费开源，只从 [Releases](https://github.com/ArcherSore/MaaNOP/releases/latest) 下载完整整合包。",
     "controller": [
         {

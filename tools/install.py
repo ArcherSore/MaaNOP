@@ -65,6 +65,7 @@ def install_payload(install: Path, version: str) -> None:
         dirs_exist_ok=True,
     )
     shutil.copytree(ROOT / "assets/locales", install / "locales", dirs_exist_ok=True)
+    shutil.copy2(ROOT / "assets/mascot-avatar.png", install / "mascot-avatar.png")
     for name in ("README.md", "LICENSE"):
         shutil.copy2(ROOT / name, install / name)
 
