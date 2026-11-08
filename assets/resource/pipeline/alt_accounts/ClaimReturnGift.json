@@ -10,7 +10,7 @@
         "pre_delay": 0,
         "post_delay": 0,
         "focus": {
-            "Node.Recognition.Succeeded": "回归奖励未触发，没到30级或者没满7天就登录了！！！"
+            "Node.Recognition.Succeeded": "回归奖励未触发！没到30级或者没满7天就登录了！"
         },
         "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     },
@@ -27,9 +27,6 @@
         },
         "action": {
             "type": "Click"
-        },
-        "focus": {
-            "Node.Action.Succeeded": "开始领取回归礼包"
         },
         "next": [ "SwitchToReturnGiftTab" ]
     },
@@ -149,9 +146,6 @@
             "type": "And",
             "param": { "all_of": [ "LoginScreenClear" ] }
         },
-        "focus": {
-            "Node.Recognition.Succeeded": "成功领取回归礼包"
-        },
         "next": [ "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     },
     "noClaimReturnGift": {
@@ -163,9 +157,6 @@
                 "template": "alt_accounts/return_gift/Claimed.png",
                 "roi": [ 417, 389, 139, 144 ]
             }
-        },
-        "focus": {
-            "Node.Recognition.Succeeded": "无需领取回归礼包"
         },
         "next": [ "CloseReturnGift" ]
     },

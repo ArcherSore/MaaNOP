@@ -10,7 +10,7 @@
         "pre_delay": 0,
         "post_delay": 0,
         "focus": {
-            "Node.Recognition.Succeeded": "无限幻象未解锁（52级解锁）"
+            "Node.Recognition.Succeeded": "无限幻象未解锁！52级解锁！"
         },
         "next": [ "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
     },
@@ -28,9 +28,6 @@
         },
         "action": {
             "type": "Click"
-        },
-        "focus": {
-            "Node.Action.Succeeded": "开始领取无限幻象"
         },
         "next": [ "InfiniteIllusionTrial1" ],
         "on_error": [ "ClickOnInfiniteIllusion" ]
@@ -64,9 +61,6 @@
         },
         "action": {
             "type": "Click"
-        },
-        "focus": {
-            "Node.Action.Succeeded": "成功扫荡力之试炼"
         },
         "next": [ "InfiniteIllusionSwitchTo2" ],
         "on_error": [ "InfiniteIllusionConfirm1" ]
@@ -119,9 +113,6 @@
         "action": {
             "type": "Click"
         },
-        "focus": {
-            "Node.Action.Succeeded": "成功扫荡心之试炼"
-        },
         "next": [ "InfiniteIllusionSwitchTo3" ],
         "on_error": [ "InfiniteIllusionConfirm2" ]
     },
@@ -171,9 +162,6 @@
         },
         "action": {
             "type": "Click"
-        },
-        "focus": {
-            "Node.Action.Succeeded": "成功扫荡意之试炼"
         },
         "next": [ "ExitInfiniteIllusion" ],
         "on_error": [ "InfiniteIllusionConfirm3" ]
