@@ -34,7 +34,7 @@
     "pretask": {
         "name": "LaunchNaruto",
         "label": "启动QQ大厅",
-        "description": "通过 QQ 游戏大厅启动游戏；已有游戏窗口时直接使用。须填写大厅路径和 QQ 号，且该账号已在大厅保存登录状态。",
+        "description": "通过 QQ 游戏大厅启动游戏；已有游戏窗口时直接使用。",
         "exec": "./python/python.exe",
         "args": [ "./agent/pretask_launch.py" ],
         "option": [ "LoginAccount", "GameHallPath" ]
@@ -291,7 +291,8 @@
                     "name": "path",
                     "label": "QQGame.exe 路径",
                     "default": "C:\\Program Files (x86)\\Tencent\\QQGameTempest\\QQGame.exe",
-                    "description": "QQ 游戏大厅 QQGame.exe 的完整路径，每台电脑的安装位置不同，请按实际位置填写。",
+                    "description": "QQ 游戏大厅 QQGame.exe 的完整路径。",
+                    "input_type": "file",
                     "pipeline_type": "string",
                     "verify": "(?i)^.+\\.exe$",
                     "pattern_msg": "请输入 QQGame.exe 的完整路径"

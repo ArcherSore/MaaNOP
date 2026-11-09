@@ -81,6 +81,12 @@
                     "title": "默认值",
                     "description": "输入字段的默认值"
                 },
+                "input_type": {
+                    "type": "string",
+                    "title": "输入控件类型",
+                    "enum": [ "text", "file", "directory" ],
+                    "default": "text"
+                },
                 "pipeline_type": {
                     "type": "string",
                     "title": "Pipeline 数据类型",
