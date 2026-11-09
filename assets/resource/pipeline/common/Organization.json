@@ -4,36 +4,25 @@
         "pre_delay": 0,
         "post_delay": 0,
         "timeout": 10000,
+        "anchor": { "OrganizationOpened": "OrganizationWindow" },
         "next": [ "OrganizationWindow", "OrganizationOpen" ]
     },
-    "OrganizationEntry": {
+    "OrganizationOpen": {
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
             "type": "Custom",
             "param": {
-                "custom_recognition": "FindBottomEntry",
+                "custom_recognition": "FindHoveredBottomEntry",
                 "custom_recognition_param": {
-                    "template": "common/entry/OrganizationEntry.png"
+                    "normal_template": "common/entry/OrganizationEntry.png",
+                    "hover_template": "common/entry/OrganizationEntryHover.png"
                 }
             }
-        }
-    },
-    "OrganizationOpen": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "OrganizationEntry" ]
-            }
         },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target_offset": [ 3, 2, -6, -4 ]
-            }
-        },
+        "action": "Click",
         "timeout": 10000,
-        "next": [ "OrganizationWindow" ]
+        "next": [ "[Anchor]OrganizationOpened" ]
     },
     "OrganizationWindow": {
         "pre_delay": 0,

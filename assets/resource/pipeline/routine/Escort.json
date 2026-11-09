@@ -16,20 +16,11 @@
         "next": [ "EscortOpenOrganization" ]
     },
     "EscortOpenOrganization": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "OrganizationEntry" ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target_offset": [ 3, 2, -6, -4 ]
-            }
-        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": { "OrganizationOpened": "EscortHoverGoButton" },
         "timeout": 10000,
-        "next": [ "EscortHoverGoButton" ]
+        "next": [ "OrganizationOpen" ]
     },
     "EscortHoverGoButton": {
         "recognition": {
@@ -293,6 +284,233 @@
         "timeout": 10000,
         "next": [ "EscortOutsideHours", "EscortHoverDepartButton" ]
     },
+    "EscortExtraSSRow": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "EscortExtraSSListReady",
+                    {
+                        "sub_name": "ExtraSSButton",
+                        "recognition": {
+                            "type": "Or",
+                            "param": {
+                                "any_of": [ "EscortSSRow1", "EscortSSRow2", "EscortSSRow3" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": "ExtraSSButton",
+                                "roi_offset": [ -305, -10, 92, 13 ],
+                                "expected": "[一-龥]{2,}",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        }
+    },
+    "EscortHoverExtraSS": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "EscortExtraSSRow" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "anchor": {
+            "EscortHoveredAccept": "EscortHoverExtraSS",
+            "EscortExtraSSPasswordRoute": "CommonSecondaryPasswordDialog",
+            "SecondaryPasswordAcceptedNext": "EscortHoverRetryExtraSS",
+            "SecondaryPasswordDismissedNext": "EscortExtraSSListReady"
+        },
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "EscortClickExtraSS" ]
+    },
+    "EscortClickExtraSS": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "[Anchor]EscortHoveredAccept",
+                "roi_offset": [ -7, -3, 14, 6 ],
+                "method": 40,
+                "lower": [ 83, 60, 205 ],
+                "upper": [ 106, 255, 255 ],
+                "count": 235
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": "[Anchor]EscortHoveredAccept"
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 50,
+        "timeout": 10000,
+        "next": [ "EscortOutsideHours", "EscortHoverExtraSSCost" ]
+    },
+    "EscortHoverExtraSSCost": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 552, 357, 235, 17 ],
+                                "expected": "押运许可证[（(]优先消耗[）)]或者6元",
+                                "only_rec": true,
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 584, 397, 53, 23 ],
+                                "expected": "^确定$",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 610, 409 ],
+                "end": [ 610, 409 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "EscortConfirmExtraSSCost" ]
+    },
+    "EscortConfirmExtraSSCost": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "EscortHoverExtraSSCost",
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 587, 401, 48, 16 ],
+                                "method": 40,
+                                "lower": [ 7, 100, 240 ],
+                                "upper": [ 36, 255, 255 ],
+                                "count": 120
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 598, 404, 24, 10 ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 50,
+        "timeout": 10000,
+        "next": [ "EscortExtraSSNoYuanbao", "EscortOutsideHours", "[Anchor]EscortExtraSSPasswordRoute", "EscortHoverDepartButton" ]
+    },
+    "EscortHoverRetryExtraSS": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "EscortSameExtraSS"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "anchor": {
+            "EscortHoveredAccept": "EscortHoverRetryExtraSS",
+            "EscortExtraSSPasswordRoute": ""
+        },
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "EscortClickExtraSS" ]
+    },
+    "EscortExtraSSNoYuanbao": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 626, 312, 91, 60 ],
+                                "expected": "^元宝不够$",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "元宝不够！"
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "EscortExtraSSListReady" ]
+    },
+    "EscortExtraSSListReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "EscortList",
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 933, 211, 23, 21 ],
+                                "method": 40,
+                                "lower": [ [ 0, 112, 150 ], [ 169, 112, 150 ] ],
+                                "upper": [ [ 13, 255, 255 ], [ 179, 255, 255 ] ],
+                                "count": 45
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "EscortCloseList" ]
+    },
     "EscortOutsideHours": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -371,6 +589,14 @@
         "max_hit": 4,
         "timeout": 5000,
         "next": [ "EscortFreeRefreshApplied" ]
+    },
+    "EscortReadRefreshedCount": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "EscortHoverFreeRefreshButton" ]
+            }
+        }
     },
     "EscortFreeRefreshApplied": {
         "recognition": {

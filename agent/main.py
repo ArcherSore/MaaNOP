@@ -3,10 +3,11 @@ import sys
 from maa.agent.agent_server import AgentServer
 from maa.tasker import Tasker
 
-from common import action_common, action_entry, reco_common
+from common import action_common, action_entry, reco_common, reco_secondary_password
 from login import action_login, reco_login, temp_account
 from alt_accounts.shopping_festival import action_shopping, reco_shopping
 from alt_accounts.task_merchant import core, navigation
+from routine.general_store import action_general_store
 from routine import action_survival, action_training, reco_auto_management, reco_escort, reco_ranked, reco_summon, reco_training
 from events import action_mid_autumn, action_ninjutsu_training
 from events.weekend import action_puzzle
