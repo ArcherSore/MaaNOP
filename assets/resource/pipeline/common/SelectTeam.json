@@ -7,13 +7,15 @@
         "next": [ "SelectTeamWindow", "SelectTeamOpen" ]
     },
     "SelectTeamOpen": {
-        "rate_limit": 200,
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "Custom",
             "param": {
-                "custom_recognition": "FindBottomEntry",
+                "custom_recognition": "FindHoveredBottomEntry",
                 "custom_recognition_param": {
-                    "template": "common/entry/NinjaEntry.png"
+                    "normal_template": "common/entry/NinjaEntry.png",
+                    "hover_template": "common/entry/NinjaEntryHover.png"
                 }
             }
         },

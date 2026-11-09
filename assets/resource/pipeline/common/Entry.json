@@ -144,5 +144,44 @@
                 "threshold": 0.85
             }
         }
+    },
+    "BottomEntryPrepare": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 10000,
+        "next": [ "BottomEntryHover" ]
+    },
+    "BottomEntryHover": {
+        "rate_limit": 200,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BottomEntryTemplate" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin_offset": [ 5, 4, -10, -8 ],
+                "end_offset": [ 5, 4, -10, -8 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "timeout": 10000,
+        "next": [ "BottomEntryHoverReady" ]
+    },
+    "BottomEntryHoverReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ ],
+                "roi": "BottomEntryHover",
+                "roi_offset": [ -4, -4, 8, 8 ],
+                "threshold": 0.85
+            }
+        }
     }
 }

@@ -55,6 +55,38 @@ class FindBottomEntry(CustomRecognition):
         return find_entry(context, argv, "BottomEntryTemplate")
 
 
+@AgentServer.custom_recognition("FindHoveredBottomEntry")
+class FindHoveredBottomEntry(CustomRecognition):
+    """移动鼠标并确认高亮后返回可点击框，供已确定要打开入口的节点调用。"""
+
+    def analyze(self, context: Context, argv: CustomRecognition.AnalyzeArg):
+        templates = json.loads(argv.custom_recognition_param)
+        normal = templates["normal_template"]
+        hovered = templates["hover_template"]
+        navigation = context.clone()
+        result = navigation.run_task("BottomEntryPrepare", {
+            "BottomEntryTemplate": {
+                "recognition": {"param": {"template": [normal, hovered]}},
+            },
+            "BottomEntryHoverReady": {
+                "recognition": {"param": {"template": hovered}},
+            },
+        })
+        if context.tasker.stopping or not result or not result.nodes:
+            return None
+        last = result.nodes[-1]
+        match = last.recognition
+        if context.tasker.stopping or last.name != "BottomEntryHoverReady" or not last.completed:
+            return None
+        if not match or not match.hit or match.box is None:
+            return None
+
+        x, y, w, h = match.box
+        if w <= 10 or h <= 8:
+            return None
+        return self.AnalyzeResult(box=(x + 5, y + 4, w - 10, h - 8), detail={})
+
+
 @AgentServer.custom_recognition("MatchWithout")
 class MatchWithout(CustomRecognition):
     """同一张截图上 match 节点命中、without 节点不命中时命中，返回 match 的识别框。
