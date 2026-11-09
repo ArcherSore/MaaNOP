@@ -58,24 +58,13 @@
     "GeneralStoreClickEntry": {
         "pre_delay": 0,
         "recognition": {
-            "type": "And",
+            "type": "Custom",
             "param": {
-                "all_of": [
-                    "LoginMapVisible",
-                    {
-                        "recognition": {
-                            "type": "Custom",
-                            "param": {
-                                "custom_recognition": "FindHoveredBottomEntry",
-                                "custom_recognition_param": {
-                                    "normal_template": "routine/general_store/Entry.png",
-                                    "hover_template": "routine/general_store/EntryHover.png"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "box_index": 1
+                "custom_recognition": "FindHoveredBottomEntry",
+                "custom_recognition_param": {
+                    "normal_template": "routine/general_store/Entry.png",
+                    "hover_template": "routine/general_store/EntryHover.png"
+                }
             }
         },
         "action": "Click",
@@ -246,19 +235,11 @@
             }
         }
     },
-    "GeneralStoreBeforeSignIn": {
-        "recognition": {
-            "type": "Or",
-            "param": {
-                "any_of": [ "GeneralStoreDayTabSelected", "GeneralStoreMoonTabSelected" ]
-            }
-        }
-    },
     "GeneralStoreHoverSignInTab": {
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "GeneralStoreBeforeSignIn", "GeneralStoreSignInTabBlue" ]
+                "all_of": [ "GeneralStoreSignInTabBlue" ]
             }
         },
         "action": {
@@ -279,7 +260,7 @@
             "type": "And",
             "param": {
                 // 悬停时图标仍为蓝色，金色留作切换后的选中状态。
-                "all_of": [ "GeneralStoreBeforeSignIn", "GeneralStoreSignInTabHighlighted" ]
+                "all_of": [ "GeneralStoreSignInTabHighlighted" ]
             }
         },
         "action": {
@@ -390,7 +371,7 @@
             "type": "Custom",
             "param": {
                 "custom_recognition": "GeneralStorePageProducts",
-                "custom_recognition_param": []
+                "custom_recognition_param": [ ]
             }
         },
         "pre_delay": 0,
@@ -422,10 +403,35 @@
         },
         "post_delay": 0
     },
+    "GeneralStoreBuyDisabled": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 724, 246, 48, 19 ],
+                "method": 40,
+                "lower": [ 0, 0, 80 ],
+                "upper": [ 179, 35, 170 ],
+                "count": 350
+            }
+        }
+    },
+    "GeneralStoreFundsInsufficient": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreProductVisible", "GeneralStoreBuyDisabled" ],
+                "box_index": 1
+            }
+        },
+        "post_delay": 0,
+        "focus": {
+            "Node.Recognition.Succeeded": "月之印不足，当前商品无法继续购买"
+        }
+    },
     "GeneralStoreReadProduct": {
         "post_delay": 0,
         "timeout": 4000,
-        "next": [ "GeneralStoreProductDetails" ]
+        "next": [ "GeneralStoreFundsInsufficient", "GeneralStoreProductDetails" ]
     },
     "GeneralStoreProductDetails": {
         "recognition": {
@@ -456,17 +462,6 @@
         "post_delay": 0,
         "timeout": 4000,
         "next": [ "GeneralStoreSelectQuantity" ]
-    },
-    "GeneralStoreQuantity": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 674, 246, 24, 16 ],
-                "expected": "^[1-9][0-9]*$",
-                "only_rec": true,
-                "threshold": 0.8
-            }
-        }
     },
     "GeneralStoreSelectQuantity": {
         "recognition": {
@@ -516,21 +511,7 @@
         "timeout": 4500,
         "next": [ "GeneralStoreHoverBuy" ]
     },
-    "GeneralStoreOrderReady": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "GeneralStoreProductVisible", "GeneralStoreQuantity" ]
-            }
-        }
-    },
     "GeneralStoreHoverBuy": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "GeneralStoreOrderReady" ]
-            }
-        },
         "action": {
             "type": "Swipe",
             "param": {
@@ -560,7 +541,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "GeneralStoreOrderReady", "GeneralStoreBuyHighlighted" ]
+                "all_of": [ "GeneralStoreBuyHighlighted" ]
             }
         },
         "action": {
@@ -569,7 +550,6 @@
                 "target": [ 738, 250, 20, 10 ]
             }
         },
-        "max_hit": 2,
         "post_delay": 0,
         "timeout": 10000,
         "next": [
@@ -655,7 +635,7 @@
         "max_hit": 1,
         "post_delay": 0,
         "timeout": 10000,
-        "next": [ "GeneralStorePurchaseVerified" ]
+        "next": [ "GeneralStoreFundsInsufficient", "GeneralStorePurchaseVerified" ]
     },
     "GeneralStoreProductLabel": {
         "recognition": {
@@ -716,19 +696,11 @@
             }
         }
     },
-    "GeneralStoreShopTabSelected": {
-        "recognition": {
-            "type": "Or",
-            "param": {
-                "any_of": [ "GeneralStoreMoonTabSelected", "GeneralStoreSignInTabGold" ]
-            }
-        }
-    },
     "GeneralStoreHoverClose": {
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "GeneralStoreShopTabSelected", "GeneralStoreCloseIcon" ]
+                "all_of": [ "GeneralStoreCloseIcon" ]
             }
         },
         "action": {
@@ -748,8 +720,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "GeneralStoreShopTabSelected", "GeneralStoreCloseHighlighted" ],
-                "box_index": 1
+                "all_of": [ "GeneralStoreCloseHighlighted" ]
             }
         },
         "action": {

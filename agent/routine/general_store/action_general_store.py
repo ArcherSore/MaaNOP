@@ -11,15 +11,16 @@ from maa.custom_recognition import CustomRecognition
 
 
 PAGE_TOLERANCE = 3
+PRODUCT_DONE_NODES = ("GeneralStorePurchaseVerified", "GeneralStoreFundsInsufficient")
 VK_CONTROL = 0x11
 VK_V = 0x56
 
 
-def final_recognition(context, result, expected_node):
+def final_recognition(context, result, *expected_nodes):
     if context.tasker.stopping or not result or not result.status.succeeded or not result.nodes:
         return None
     node = result.nodes[-1]
-    if node.name == expected_node and node.recognition and node.recognition.hit:
+    if node.name in expected_nodes and node.recognition and node.recognition.hit:
         return node.recognition
     return None
 
@@ -110,7 +111,6 @@ def wait_for_products(context, thumb, target_y, product_ids):
 
 
 def checkout(context, product_id, product_config, layout):
-    product_node = "GeneralStoreProduct"
     overrides = product_overrides(product_id, product_config)
     result = context.run_task("GeneralStoreFindProduct", overrides)
     if final_recognition(context, result, "GeneralStorePurchaseVerified"):
@@ -120,13 +120,16 @@ def checkout(context, product_id, product_config, layout):
         return None
 
     x, y, w, h = product.box
-    overrides[product_node]["recognition"]["param"]["roi"] = [x - 3, y - 3, w + 6, h + 6]
+    overrides["GeneralStoreProduct"]["recognition"]["param"]["roi"] = [x - 3, y - 3, w + 6, h + 6]
     stock_roi, quantity_roi, buy_roi = (
         [x + dx, y + dy, width, height] for dx, dy, width, height in
         (layout[key] for key in ("stock", "quantity", "buy"))
     )
     overrides["GeneralStoreStock"] = {"recognition": {"param": {"roi": stock_roi}}}
+    overrides["GeneralStoreBuyDisabled"] = {"recognition": {"param": {"roi": buy_roi}}}
     result = context.run_task("GeneralStoreReadProduct", overrides)
+    if final_recognition(context, result, "GeneralStoreFundsInsufficient"):
+        return result
     details = final_recognition(context, result, "GeneralStoreProductDetails")
     if not details:
         return None
@@ -137,9 +140,6 @@ def checkout(context, product_id, product_config, layout):
     bx, by, bw, bh = buy_roi
     buy_center = [bx + bw // 2, by + bh // 2]
     overrides.update({
-        "GeneralStoreQuantity": {
-            "recognition": {"param": {"roi": quantity_roi, "expected": f"^{stock}$"}},
-        },
         "GeneralStoreQuantitySelected": {"recognition": {"param": {"roi": quantity_roi}}},
         "GeneralStoreSelectQuantity": {
             "action": {"param": {"custom_action_param": [qx + qw // 2, qy + qh // 2]}},
@@ -151,8 +151,8 @@ def checkout(context, product_id, product_config, layout):
             "action": {"param": {"target": [bx + 14, by + 4, 20, 10]}},
         },
     })
-    # 子任务共享命中次数。每个商品只在开始结算时重置，二级密码重入沿用本次上限。
-    if not context.clear_hit_count("GeneralStoreClickBuy") or not context.clear_hit_count("GeneralStoreConfirm"):
+    # 子任务共享命中次数，每件商品各自确认一次。
+    if not context.clear_hit_count("GeneralStoreConfirm"):
         return None
     return context.run_task("GeneralStoreCheckout", overrides)
 
@@ -184,6 +184,11 @@ class GeneralStoreBuyItems(CustomAction):
                     if not context.override_pipeline({
                         "GeneralStoreActiveShop": {
                             "recognition": {"param": {"all_of": ["GeneralStoreSignInReady"]}},
+                        },
+                        "GeneralStoreFundsInsufficient": {
+                            "focus": {
+                                "Node.Recognition.Succeeded": "签到令不足，当前商品无法继续购买",
+                            },
                         },
                     }):
                         return False
@@ -224,7 +229,7 @@ class GeneralStoreBuyItems(CustomAction):
                 result = checkout(context, product_id, product, config["layout"])
                 if final_recognition(context, result, "LoginMapVisible"):
                     return True
-                if not final_recognition(context, result, "GeneralStorePurchaseVerified"):
+                if not final_recognition(context, result, *PRODUCT_DONE_NODES):
                     return False
 
         result = context.run_task("GeneralStoreLeave")
