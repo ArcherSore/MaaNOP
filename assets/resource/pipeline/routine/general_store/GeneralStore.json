@@ -1,0 +1,616 @@
+{
+    "GeneralStore": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "GeneralStoreBuyItems"
+            }
+        },
+        "attach": {
+            "scroll_top": 206,
+            "scroll_step": 83,
+            "track_bottom": 645,
+            "layout": {
+                "stock": [ 44, 21, 64, 15 ],
+                "quantity": [ -1, 49, 24, 16 ],
+                "buy": [ 49, 49, 48, 19 ]
+            },
+            "products": {
+                "TrainingPotion": {
+                    "page": 1,
+                    "label": "^修行药水$",
+                    "icon_roi": [ 663, 178, 60, 460 ],
+                    "label_roi": [ 686, 243, 70, 180 ]
+                },
+                "SecretScrollPage": {
+                    "page": 1,
+                    "label": "^秘卷残页$",
+                    "icon_roi": [ 803, 178, 60, 460 ],
+                    "label_roi": [ 826, 243, 70, 180 ]
+                },
+                "MantraCompound": {
+                    "page": 1,
+                    "label": "^[真直]言合剂$",
+                    "icon_roi": [ 384, 178, 60, 460 ],
+                    "label_roi": [ 406, 366, 70, 180 ]
+                },
+                "TrainingVoucher": {
+                    "page": 1,
+                    "label": "^(?:修[炼练]?|燃炼)券$",
+                    "icon_roi": [ 803, 178, 60, 460 ],
+                    "label_roi": [ 826, 489, 70, 180 ]
+                }
+            }
+        }
+    },
+    "GeneralStoreOpen": {
+        "post_delay": 0,
+        "timeout": 8000,
+        "next": [ "GeneralStoreClickEntry" ]
+    },
+    "GeneralStoreClickEntry": {
+        "pre_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "LoginMapVisible",
+                    {
+                        "recognition": {
+                            "type": "Custom",
+                            "param": {
+                                "custom_recognition": "FindHoveredBottomEntry",
+                                "custom_recognition_param": {
+                                    "normal_template": "routine/general_store/Entry.png",
+                                    "hover_template": "routine/general_store/EntryHover.png"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "post_delay": 0,
+        "timeout": 8000,
+        "next": [ "GeneralStoreHoverMoonTab" ]
+    },
+    "GeneralStoreDayTabSelected": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/general_store/DayTabSelected.png",
+                "roi": [ 884, 90, 46, 43 ],
+                "method": 10001,
+                "threshold": 0.85
+            }
+        }
+    },
+    "GeneralStoreMoonTab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/general_store/MoonTab.png",
+                "roi": [ 944, 90, 38, 42 ],
+                "method": 10001,
+                "threshold": 0.85
+            }
+        }
+    },
+    "GeneralStoreMoonTabHover": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/general_store/MoonTabHover.png",
+                "roi": [ 944, 90, 38, 42 ],
+                "method": 10001,
+                "threshold": 0.85
+            }
+        }
+    },
+    "GeneralStoreMoonTabSelected": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/general_store/MoonTabSelected.png",
+                "roi": [ 944, 90, 38, 42 ],
+                "method": 10001,
+                "threshold": 0.85
+            }
+        }
+    },
+    "GeneralStoreMoonTabAvailable": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "GeneralStoreMoonTab", "GeneralStoreMoonTabHover" ]
+            }
+        }
+    },
+    "GeneralStoreHoverMoonTab": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreDayTabSelected", "GeneralStoreMoonTabAvailable" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "duration": 100,
+                "begin": [ 965, 110 ],
+                "end": [ 965, 110 ]
+            }
+        },
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "GeneralStoreSelectMoonTab" ]
+    },
+    "GeneralStoreSelectMoonTab": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreDayTabSelected", "GeneralStoreMoonTabHover" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 959, 103, 12, 14 ]
+            }
+        },
+        "post_delay": 0,
+        "timeout": 8000,
+        "next": [ "GeneralStoreMoonReady" ]
+    },
+    "GeneralStoreThumb": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 951, 202, 4, 444 ],
+                "method": 6,
+                "lower": [ 180 ],
+                "upper": [ 255 ],
+                "count": 250,
+                "connected": true
+            }
+        }
+    },
+    "GeneralStoreMoonCurrency": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/general_store/MoonCurrency.png",
+                "roi": [ 437, 192, 28, 449 ],
+                "method": 10001,
+                "threshold": 0.93
+            }
+        }
+    },
+    "GeneralStoreMoonReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                // 页签先变色，货架稍后换成月之印商品。
+                "all_of": [ "GeneralStoreMoonTabSelected", "GeneralStoreMoonCurrency" ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "GeneralStoreReadPage": {
+        "post_delay": 0,
+        "timeout": 4500,
+        "next": [ "GeneralStorePage" ]
+    },
+    "GeneralStorePage": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreMoonReady", "GeneralStoreThumb" ],
+                "box_index": 1
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "GeneralStoreDrag": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 952, 360 ],
+                "end": [ 952, 441 ],
+                "duration": 600
+            }
+        },
+        "post_delay": 0,
+        "timeout": 4500,
+        "next": [ "GeneralStoreAtPage" ]
+    },
+    "GeneralStoreAtPage": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "GeneralStoreThumbAt",
+                "custom_recognition_param": 206
+            }
+        },
+        "post_delay": 0
+    },
+    "GeneralStoreWaitForProducts": {
+        "post_delay": 0,
+        "timeout": 4500,
+        "next": [ "GeneralStorePageProducts" ]
+    },
+    "GeneralStorePageProducts": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "GeneralStorePageProducts",
+                "custom_recognition_param": []
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "GeneralStoreFindProduct": {
+        "post_delay": 0,
+        "timeout": 4500,
+        "next": [ "GeneralStoreProductVisible", "GeneralStorePurchaseVerified" ]
+    },
+    "GeneralStoreProduct": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/general_store/TrainingPotion.png",
+                "roi": [ 663, 178, 60, 460 ],
+                "method": 10001,
+                "threshold": 0.88
+            }
+        }
+    },
+    "GeneralStoreProductVisible": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreMoonReady", "GeneralStoreProduct" ],
+                "box_index": 1
+            }
+        },
+        "post_delay": 0
+    },
+    "GeneralStoreReadProduct": {
+        "post_delay": 0,
+        "timeout": 4000,
+        "next": [ "GeneralStoreProductDetails" ]
+    },
+    "GeneralStoreProductDetails": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreProductVisible", "GeneralStoreStock" ]
+            }
+        },
+        "post_delay": 0
+    },
+    "GeneralStoreStock": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 719, 218, 64, 15 ],
+                "expected": "^库存[1-9][0-9]*$",
+                "only_rec": true,
+                "threshold": 0.8
+            }
+        }
+    },
+    "GeneralStoreCheckout": {
+        "anchor": {
+            "GeneralStorePasswordRoute": "CommonSecondaryPasswordDialog",
+            "SecondaryPasswordAcceptedNext": "GeneralStoreRetryAfterPassword",
+            "SecondaryPasswordDismissedNext": "GeneralStoreLeave"
+        },
+        "post_delay": 0,
+        "timeout": 4000,
+        "next": [ "GeneralStoreSelectQuantity" ]
+    },
+    "GeneralStoreQuantity": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 674, 246, 24, 16 ],
+                "expected": "^[1-9][0-9]*$",
+                "only_rec": true,
+                "threshold": 0.8
+            }
+        }
+    },
+    "GeneralStoreSelectQuantity": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreProductVisible" ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "GeneralStoreDoubleClick",
+                "custom_action_param": [ 686, 254 ]
+            }
+        },
+        "post_delay": 0,
+        "timeout": 4000,
+        "next": [ "GeneralStorePasteQuantity" ]
+    },
+    "GeneralStoreQuantitySelected": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 674, 246, 24, 16 ],
+                "method": 6,
+                "lower": [ 0 ],
+                "upper": [ 39 ],
+                "count": 17
+            }
+        }
+    },
+    "GeneralStorePasteQuantity": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreProductVisible", "GeneralStoreQuantitySelected" ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "GeneralStorePaste",
+                "custom_action_param": 1
+            }
+        },
+        "post_delay": 0,
+        "timeout": 4500,
+        "next": [ "GeneralStoreHoverBuy" ]
+    },
+    "GeneralStoreOrderReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreProductVisible", "GeneralStoreQuantity" ]
+            }
+        }
+    },
+    "GeneralStoreHoverBuy": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreOrderReady" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "duration": 100,
+                "begin": [ 748, 255 ],
+                "end": [ 748, 255 ]
+            }
+        },
+        "post_delay": 0,
+        "timeout": 4500,
+        "next": [ "GeneralStoreClickBuy" ]
+    },
+    "GeneralStoreBuyHighlighted": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 724, 246, 48, 19 ],
+                "method": 40,
+                "lower": [ 7, 100, 240 ],
+                "upper": [ 36, 255, 255 ],
+                "count": 90
+            }
+        }
+    },
+    "GeneralStoreClickBuy": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreOrderReady", "GeneralStoreBuyHighlighted" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 738, 250, 20, 10 ]
+            }
+        },
+        "max_hit": 2,
+        "post_delay": 0,
+        "timeout": 10000,
+        "next": [
+            "[Anchor]GeneralStorePasswordRoute",
+            "GeneralStoreHoverConfirm"
+        ]
+    },
+    "GeneralStoreRetryAfterPassword": {
+        "anchor": {
+            "GeneralStorePasswordRoute": ""
+        },
+        "post_delay": 0,
+        "timeout": 4500,
+        "next": [ "GeneralStoreHoverBuy" ]
+    },
+    "GeneralStoreConfirmText": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 565, 349, 210, 19 ],
+                "expected": "^确定购买",
+                "only_rec": true,
+                "threshold": 0.8
+            }
+        }
+    },
+    "GeneralStoreConfirmButton": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 583, 379, 55, 23 ],
+                "expected": "^确定$",
+                "only_rec": false,
+                "threshold": 0.8
+            }
+        }
+    },
+    "GeneralStoreHoverConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreConfirmText", "GeneralStoreConfirmButton" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "duration": 100,
+                "begin": [ 610, 390 ],
+                "end": [ 610, 390 ]
+            }
+        },
+        "post_delay": 0,
+        "timeout": 4500,
+        "next": [ "GeneralStoreConfirm" ]
+    },
+    "GeneralStoreConfirmHighlighted": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 585, 382, 51, 16 ],
+                "method": 40,
+                "lower": [ 7, 100, 240 ],
+                "upper": [ 36, 255, 255 ],
+                "count": 100
+            }
+        }
+    },
+    "GeneralStoreConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreConfirmText", "GeneralStoreConfirmHighlighted" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 599, 385, 23, 11 ]
+            }
+        },
+        "max_hit": 1,
+        "post_delay": 0,
+        "timeout": 10000,
+        "next": [ "GeneralStorePurchaseVerified" ]
+    },
+    "GeneralStoreProductLabel": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 686, 243, 70, 180 ],
+                "expected": "^修行药水$",
+                "threshold": 0.65
+            }
+        }
+    },
+    "GeneralStoreSoldOutSign": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/general_store/SoldOutSign.png",
+                "roi": "GeneralStoreProductLabel",
+                "roi_offset": [ -33, -93, 70, 48 ],
+                "method": 10001,
+                "threshold": 0.94
+            }
+        }
+    },
+    "GeneralStorePurchaseVerified": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                // 商品图标会消失，名称仍留在原货位。只检查该名称上方的售罄牌。
+                "all_of": [ "GeneralStoreMoonReady", "GeneralStoreProductLabel", "GeneralStoreSoldOutSign" ]
+            }
+        },
+        "post_delay": 0
+    },
+    "GeneralStoreLeave": {
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "GeneralStoreHoverClose" ]
+    },
+    "GeneralStoreCloseIcon": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "routine/general_store/Close.png", "routine/general_store/CloseHover.png" ],
+                "roi": [ 1112, 93, 32, 32 ],
+                "method": 10001,
+                "threshold": 0.86
+            }
+        }
+    },
+    "GeneralStoreCloseHighlighted": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/general_store/CloseHover.png",
+                "roi": [ 1112, 93, 32, 32 ],
+                "method": 10001,
+                "threshold": 0.9
+            }
+        }
+    },
+    "GeneralStoreHoverClose": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreMoonTabSelected", "GeneralStoreCloseIcon" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "duration": 100,
+                "begin": [ 1127, 109 ],
+                "end": [ 1127, 109 ]
+            }
+        },
+        "post_delay": 0,
+        "timeout": 4500,
+        "next": [ "GeneralStoreClose" ]
+    },
+    "GeneralStoreClose": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreMoonTabSelected", "GeneralStoreCloseHighlighted" ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [ 8, 8, -16, -16 ]
+            }
+        },
+        "post_delay": 0,
+        "timeout": 8000,
+        "next": [ "LoginMapVisible" ]
+    }
+}

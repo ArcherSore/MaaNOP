@@ -3,7 +3,6 @@ import re
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
-from maa.pipeline import JInputText
 
 
 @AgentServer.custom_recognition("EscortFreeRefreshApplied")
@@ -54,17 +53,4 @@ class EscortSameExtraSS(CustomRecognition):
         current_destination = after.best_result.sub_results[-1].best_result.text
         if abs(initial.box.y - after.box.y) <= 7 and initial_destination == current_destination:
             return after.box
-        return None
-
-
-@AgentServer.custom_recognition("EscortPasswordConfigured")
-class EscortPasswordConfigured(CustomRecognition):
-    def analyze(self, context: Context, argv: CustomRecognition.AnalyzeArg):
-        node = context.get_node_object("EscortInputSecondaryPassword")
-        if context.tasker.stopping or not node or not isinstance(node.action.param, JInputText):
-            return None
-
-        configured = re.fullmatch(r"[0-9]{6}", node.action.param.input_text) is not None
-        if configured == (argv.custom_recognition_param == "true"):
-            return argv.roi
         return None

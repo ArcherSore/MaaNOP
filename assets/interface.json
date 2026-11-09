@@ -139,6 +139,14 @@
             "option": [ "EscortTeam", "EscortContinueS" ]
         },
         {
+            "name": "GeneralStore",
+            "label": "杂货铺",
+            "group": [ "Routine" ],
+            "entry": "GeneralStore",
+            "description": "打开杂货屋，按当前库存购买勾选的商品。",
+            "option": [ "GeneralStoreItems", "EscortSecondaryPassword" ]
+        },
+        {
             "name": "Summon",
             "label": "组织通灵兽",
             "group": [ "Weekly" ],
@@ -968,6 +976,57 @@
                 }
             ]
         },
+        "GeneralStoreItems": {
+            "type": "checkbox",
+            "label": "购买商品",
+            "default_case": [ ],
+            "cases": [
+                {
+                    "name": "TrainingPotion",
+                    "label": "修行药水",
+                    "pipeline_override": {
+                        "GeneralStore": {
+                            "attach": {
+                                "TrainingPotion": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "SecretScrollPage",
+                    "label": "秘卷残页",
+                    "pipeline_override": {
+                        "GeneralStore": {
+                            "attach": {
+                                "SecretScrollPage": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "MantraCompound",
+                    "label": "真言合剂",
+                    "pipeline_override": {
+                        "GeneralStore": {
+                            "attach": {
+                                "MantraCompound": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "TrainingVoucher",
+                    "label": "修炼券",
+                    "pipeline_override": {
+                        "GeneralStore": {
+                            "attach": {
+                                "TrainingVoucher": true
+                            }
+                        }
+                    }
+                }
+            ]
+        },
         "EscortSecondaryPassword": {
             "type": "input",
             "label": "",
@@ -983,7 +1042,7 @@
                 }
             ],
             "pipeline_override": {
-                "EscortInputSecondaryPassword": {
+                "CommonInputSecondaryPassword": {
                     "action": {
                         "param": {
                             "input_text": "{escort_password}"
