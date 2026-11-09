@@ -75,7 +75,7 @@ def product_overrides(product_id, product):
 @AgentServer.custom_recognition("GeneralStorePageProducts")
 class GeneralStorePageProducts(CustomRecognition):
     def analyze(self, context: Context, argv: CustomRecognition.AnalyzeArg):
-        shop = context.run_recognition("GeneralStoreMoonReady", argv.image)
+        shop = context.run_recognition("GeneralStoreActiveShop", argv.image)
         if context.tasker.stopping or not shop or not shop.hit:
             return None
         products = context.get_node_data("GeneralStore")["attach"]["products"]
@@ -157,31 +157,55 @@ def checkout(context, product_id, product_config, layout):
     return context.run_task("GeneralStoreCheckout", overrides)
 
 
+def product_page(item):
+    product = item[1]
+    return product.get("shop", "Moon"), product["page"]
+
+
 @AgentServer.custom_action("GeneralStoreBuyItems")
 class GeneralStoreBuyItems(CustomAction):
     def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
         config = context.get_node_data(argv.node_name)["attach"]
         selected = sorted(
             (product for product in config["products"].items() if config.get(product[0]) is True),
-            key=lambda product: product[1]["page"],
+            key=product_page,
         )
         if not selected:
             return True
 
-        result = context.run_task("GeneralStoreOpen")
-        if not final_recognition(context, result, "GeneralStoreMoonReady"):
-            return False
-
         top = config["scroll_top"]
         step = config["scroll_step"]
-        for target_page, group in groupby(selected, key=lambda product: product[1]["page"]):
+        active_shop = None
+        for (shop, target_page), group in groupby(selected, key=product_page):
+            switched_shop = shop != active_shop
+            if switched_shop:
+                if shop == "SignIn":
+                    context = context.clone()
+                    if not context.override_pipeline({
+                        "GeneralStoreActiveShop": {
+                            "recognition": {"param": {"all_of": ["GeneralStoreSignInReady"]}},
+                        },
+                    }):
+                        return False
+                    if active_shop is None:
+                        result = context.run_task("GeneralStoreOpen", {
+                            "GeneralStoreClickEntry": {"next": ["GeneralStoreHoverSignInTab"]},
+                        })
+                    else:
+                        result = context.run_task("GeneralStoreSwitchSignIn")
+                else:
+                    result = context.run_task("GeneralStoreOpen")
+                if not final_recognition(context, result, f"GeneralStore{shop}Ready"):
+                    return False
+                active_shop = shop
+
             items = list(group)
             result = context.run_task("GeneralStoreReadPage")
             page = final_recognition(context, result, "GeneralStorePage")
             if not page:
                 return False
             thumb = page.box
-            if target_page == selected[0][1]["page"]:
+            if switched_shop and shop == "SignIn":
                 thumb = move_to_page(context, thumb, top)
                 if thumb is None:
                     return False

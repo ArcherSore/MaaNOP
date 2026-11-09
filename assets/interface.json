@@ -1024,6 +1024,17 @@
                             }
                         }
                     }
+                },
+                {
+                    "name": "AdvancedRefinementRune",
+                    "label": "高精",
+                    "pipeline_override": {
+                        "GeneralStore": {
+                            "attach": {
+                                "AdvancedRefinementRune": true
+                            }
+                        }
+                    }
                 }
             ]
         },

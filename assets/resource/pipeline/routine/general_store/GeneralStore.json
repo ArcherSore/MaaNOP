@@ -39,6 +39,13 @@
                     "label": "^(?:修[炼练]?|燃炼)券$",
                     "icon_roi": [ 803, 178, 60, 460 ],
                     "label_roi": [ 826, 489, 70, 180 ]
+                },
+                "AdvancedRefinementRune": {
+                    "shop": "SignIn",
+                    "page": 0,
+                    "label": "^高级精炼符$",
+                    "icon_roi": [ 384, 183, 60, 74 ],
+                    "label_roi": [ 404, 274, 76, 45 ]
                 }
             }
         }
@@ -200,6 +207,140 @@
         "pre_delay": 0,
         "post_delay": 0
     },
+    "GeneralStoreSwitchSignIn": {
+        "post_delay": 0,
+        "timeout": 8000,
+        "next": [ "GeneralStoreHoverSignInTab" ]
+    },
+    "GeneralStoreSignInTabBlue": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1010, 99, 23, 24 ],
+                "method": 40,
+                "lower": [ 85, 110, 115 ],
+                "upper": [ 110, 255, 255 ],
+                "count": 100
+            }
+        }
+    },
+    "GeneralStoreSignInTabGold": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/general_store/SignInTabSelected.png",
+                "roi": [ 1005, 91, 37, 39 ],
+                "method": 10001,
+                "threshold": 0.85
+            }
+        }
+    },
+    "GeneralStoreSignInTabHighlighted": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/general_store/SignInTabHover.png",
+                "roi": [ 1005, 91, 37, 39 ],
+                "method": 10001,
+                "threshold": 0.85
+            }
+        }
+    },
+    "GeneralStoreBeforeSignIn": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "GeneralStoreDayTabSelected", "GeneralStoreMoonTabSelected" ]
+            }
+        }
+    },
+    "GeneralStoreHoverSignInTab": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreBeforeSignIn", "GeneralStoreSignInTabBlue" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "duration": 100,
+                "begin": [ 1023, 111 ],
+                "end": [ 1023, 111 ]
+            }
+        },
+        "post_delay": 0,
+        "timeout": 5000,
+        "next": [ "GeneralStoreSelectSignInTab" ]
+    },
+    "GeneralStoreSelectSignInTab": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                // 悬停时图标仍为蓝色，金色留作切换后的选中状态。
+                "all_of": [ "GeneralStoreBeforeSignIn", "GeneralStoreSignInTabHighlighted" ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1017, 104, 12, 14 ]
+            }
+        },
+        "post_delay": 0,
+        "timeout": 8000,
+        "next": [ "GeneralStoreSignInReady" ]
+    },
+    "GeneralStoreSignInCurrency": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "routine/general_store/SignInCurrency.png",
+                                "roi": [ 436, 185, 28, 467 ],
+                                "method": 10001,
+                                "threshold": 0.95
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": "routine/general_store/SignInCurrency.png",
+                                "roi": [ 715, 185, 28, 467 ],
+                                "method": 10001,
+                                "threshold": 0.95
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "GeneralStoreSignInReady": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreSignInTabGold", "GeneralStoreSignInCurrency" ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    "GeneralStoreActiveShop": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "GeneralStoreMoonReady" ]
+            }
+        }
+    },
     "GeneralStoreReadPage": {
         "post_delay": 0,
         "timeout": 4500,
@@ -209,7 +350,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "GeneralStoreMoonReady", "GeneralStoreThumb" ],
+                "all_of": [ "GeneralStoreActiveShop", "GeneralStoreThumb" ],
                 "box_index": 1
             }
         },
@@ -275,7 +416,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "GeneralStoreMoonReady", "GeneralStoreProduct" ],
+                "all_of": [ "GeneralStoreActiveShop", "GeneralStoreProduct" ],
                 "box_index": 1
             }
         },
@@ -543,7 +684,7 @@
             "type": "And",
             "param": {
                 // 商品图标会消失，名称仍留在原货位。只检查该名称上方的售罄牌。
-                "all_of": [ "GeneralStoreMoonReady", "GeneralStoreProductLabel", "GeneralStoreSoldOutSign" ]
+                "all_of": [ "GeneralStoreActiveShop", "GeneralStoreProductLabel", "GeneralStoreSoldOutSign" ]
             }
         },
         "post_delay": 0
@@ -575,11 +716,19 @@
             }
         }
     },
+    "GeneralStoreShopTabSelected": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [ "GeneralStoreMoonTabSelected", "GeneralStoreSignInTabGold" ]
+            }
+        }
+    },
     "GeneralStoreHoverClose": {
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "GeneralStoreMoonTabSelected", "GeneralStoreCloseIcon" ]
+                "all_of": [ "GeneralStoreShopTabSelected", "GeneralStoreCloseIcon" ]
             }
         },
         "action": {
@@ -599,7 +748,7 @@
         "recognition": {
             "type": "And",
             "param": {
-                "all_of": [ "GeneralStoreMoonTabSelected", "GeneralStoreCloseHighlighted" ],
+                "all_of": [ "GeneralStoreShopTabSelected", "GeneralStoreCloseHighlighted" ],
                 "box_index": 1
             }
         },
