@@ -726,7 +726,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target_offset": [ 8, 8, -16, -16 ]
+                "target": [ 1123, 105, 9, 9 ]
             }
         },
         "post_delay": 0,
