@@ -144,7 +144,7 @@
             "group": [ "Routine" ],
             "entry": "GeneralStore",
             "description": "打开杂货屋，按当前库存购买勾选的商品。",
-            "option": [ "GeneralStoreItems", "EscortSecondaryPassword" ]
+            "option": [ "GeneralStoreItems", "SecondaryPassword" ]
         },
         {
             "name": "Summon",
@@ -963,7 +963,7 @@
                 {
                     "name": "ExtraSS",
                     "label": "额外点券",
-                    "option": [ "EscortSecondaryPassword" ],
+                    "option": [ "SecondaryPassword" ],
                     "pipeline_override": {
                         "EscortNoFreeSS": {
                             "next": [ "EscortHoverExtraSS", "EscortHoverFreeRefreshButton" ]
@@ -1038,14 +1038,14 @@
                 }
             ]
         },
-        "EscortSecondaryPassword": {
+        "SecondaryPassword": {
             "type": "input",
-            "label": "",
+            "label": "二级密码",
             "inputs": [
                 {
-                    "name": "escort_password",
+                    "name": "secondary_password",
                     "label": "二级密码",
-                    "description": "留空表示未设置二级密码。",
+                    "description": "押镖与杂货铺共用，留空表示未设置二级密码。",
                     "password": true,
                     "pipeline_type": "string",
                     "verify": "^(?:[0-9]{6})?$",
@@ -1056,7 +1056,7 @@
                 "CommonInputSecondaryPassword": {
                     "action": {
                         "param": {
-                            "input_text": "{escort_password}"
+                            "input_text": "{secondary_password}"
                         }
                     }
                 }
