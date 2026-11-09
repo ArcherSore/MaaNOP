@@ -100,12 +100,30 @@
                     "$ref": "#/definitions/i18nString",
                     "title": "校验错误信息",
                     "description": "正则校验用户输入错误时显示的信息"
+                },
+                "password": {
+                    "type": "boolean",
+                    "title": "密码字段",
+                    "default": false
                 }
             },
             "required": [
                 "name"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "if": {
+                "properties": {
+                    "password": {
+                        "const": true
+                    }
+                },
+                "required": [ "password" ]
+            },
+            "then": {
+                "not": {
+                    "required": [ "default" ]
+                }
+            }
         },
         "optionControllerResource": {
             "type": "object",

@@ -135,7 +135,7 @@
             "label": "押镖",
             "group": [ "Routine" ],
             "entry": "Escort",
-            "description": "完成免费点券押镖，可选铜币押镖。途中被劫时自动战斗，结算后继续押送。",
+            "description": "完成免费点券押镖。免费次数用完后可选择铜币、额外点券或停止。途中被劫时自动战斗，结算后继续押送。",
             "option": [ "EscortTeam", "EscortContinueS" ]
         },
         {
@@ -938,24 +938,58 @@
             }
         },
         "EscortContinueS": {
-            "type": "switch",
+            "type": "select",
             "label": "免费点券押镖之后",
-            "default_case": "No",
+            "default_case": "Stop",
             "cases": [
                 {
-                    "name": "No",
-                    "label": "停止"
-                },
-                {
-                    "name": "Yes",
-                    "label": "继续铜币押镖",
+                    "name": "S",
+                    "label": "铜币",
                     "pipeline_override": {
                         "EscortNoFreeSS": {
                             "next": [ "EscortHoverAcceptSButton", "EscortHoverFreeRefreshButton", "EscortHoverAcceptAButton" ]
                         }
                     }
+                },
+                {
+                    "name": "ExtraSS",
+                    "label": "额外点券",
+                    "option": [ "EscortSecondaryPassword" ],
+                    "pipeline_override": {
+                        "EscortNoFreeSS": {
+                            "next": [ "EscortHoverExtraSS", "EscortHoverFreeRefreshButton" ]
+                        }
+                    }
+                },
+                {
+                    "name": "Stop",
+                    "label": "停止"
                 }
             ]
+        },
+        "EscortSecondaryPassword": {
+            "type": "input",
+            "label": "",
+            "inputs": [
+                {
+                    "name": "escort_password",
+                    "label": "二级密码",
+                    "description": "留空表示未设置二级密码。",
+                    "password": true,
+                    "pipeline_type": "string",
+                    "verify": "^(?:[0-9]{6})?$",
+                    "pattern_msg": "请输入六位二级密码，未设置时留空"
+                }
+            ],
+            "pipeline_override": {
+                "EscortInputSecondaryPassword": {
+                    "action": {
+                        "param": {
+                            "input_text": "{escort_password}"
+                        }
+                    }
+                }
+            }
         },
         "WantedSoloTeam": {
             "type": "switch",
