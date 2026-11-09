@@ -147,6 +147,14 @@
             "option": [ "GeneralStoreItems", "SecondaryPassword" ]
         },
         {
+            "name": "TryYourLuck",
+            "label": "试试手气",
+            "group": [ "Routine" ],
+            "entry": "TryYourLuck",
+            "description": "从游戏主界面进入限时热点，花费 **10 元宝**购买 1 张抽奖券后退出活动。",
+            "option": [ "EscortSecondaryPassword" ]
+        },
+        {
             "name": "Summon",
             "label": "组织通灵兽",
             "group": [ "Weekly" ],

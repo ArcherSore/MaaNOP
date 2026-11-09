@@ -1,0 +1,113 @@
+{
+    "TryYourLuck": {
+        "anchor": {
+            "SecondaryPasswordAcceptedNext": "TryYourLuckHoverBuy"
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "EnterHotspotActivity",
+                "custom_action_param": {
+                    "expected": "^试试手气$"
+                }
+            }
+        },
+        "timeout": 10000,
+        "next": [ "TryYourLuckHoverBuy" ]
+    },
+    "TryYourLuckHoverBuy": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 880, 496, 21, 14 ],
+                "method": 40,
+                "lower": [ 3, 177, 125 ],
+                "upper": [ 15, 255, 204 ],
+                "count": 52
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 887, 500 ],
+                "end": [ 887, 500 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TryYourLuckClickBuy" ]
+    },
+    "TryYourLuckClickBuy": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 879, 494, 19, 15 ],
+                "method": 40,
+                "lower": [ 12, 104, 210 ],
+                "upper": [ 30, 229, 255 ],
+                "count": 68
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 880, 497, 14, 7 ]
+            }
+        },
+        "timeout": 10000,
+        "next": [ "CommonSecondaryPasswordDialog", "TryYourLuckHoverConfirm" ]
+    },
+    "TryYourLuckHoverConfirm": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 573, 353, 192, 26 ],
+                "expected": "购买\\s*抽奖券.*花费\\s*10\\s*元宝",
+                "only_rec": true,
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 618, 407 ],
+                "end": [ 618, 407 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TryYourLuckConfirm" ]
+    },
+    "TryYourLuckConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "TryYourLuckHoverConfirm",
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 591, 398, 54, 6 ],
+                                "method": 40,
+                                "lower": [ 8, 110, 234 ],
+                                "upper": [ 34, 255, 255 ],
+                                "count": 44
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 608, 403, 20, 9 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "HotspotClose" ]
+    }
+}
