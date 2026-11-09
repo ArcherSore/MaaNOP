@@ -50,6 +50,30 @@
             "rate_limit": 100,
             "timeout": 5000
         },
+        "next": [ "HotspotTabsReady" ]
+    },
+    "HotspotTabsReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 391, 212, 30, 7 ],
+                                "lower": [ 205, 170, 100 ],
+                                "upper": [ 255, 255, 255 ],
+                                "count": 150
+                            }
+                        }
+                    },
+                    "CloseHotspotWindow"
+                ]
+            }
+        },
         "next": [ "ClickHotspotEntry", "HoverHotspotScrollDown", "HotspotTabsBottom", "HotspotTabsSinglePage" ]
     },
     "ClickHotspotEntry": {
@@ -108,7 +132,7 @@
             "timeout": 5000
         },
         "timeout": 5000,
-        "next": [ "ClickHotspotEntry", "HoverHotspotScrollDown", "HotspotTabsBottom", "HotspotTabsSinglePage" ]
+        "next": [ "HotspotTabsReady" ]
     },
     // 灰箭头模板须与可点击态区分，阈值高于可点击态的得分。
     "HotspotTabsBottom": {
