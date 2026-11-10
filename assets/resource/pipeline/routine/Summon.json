@@ -180,6 +180,9 @@
                 "threshold": 0.8
             }
         },
+        "focus": {
+            "Node.Recognition.Succeeded": "组织通灵兽未开放"
+        },
         "action": {
             "type": "Swipe",
             "param": {

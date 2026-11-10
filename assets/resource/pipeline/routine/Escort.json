@@ -522,6 +522,9 @@
                 "threshold": 0.8
             }
         },
+        "focus": {
+            "Node.Recognition.Succeeded": "押镖时间未到"
+        },
         "next": [ "EscortCloseList" ]
     },
     // 与「免费刷新」共用 ROI，用内层 OCR 避免合并进同一批识别。

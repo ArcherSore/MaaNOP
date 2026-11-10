@@ -26,6 +26,9 @@
                 "count": 40
             }
         },
+        "focus": {
+            "Node.Recognition.Succeeded": "无需购买"
+        },
         "pre_delay": 0,
         "post_delay": 0,
         "next": [ "HotspotClose" ]
@@ -135,6 +138,9 @@
                 "expected": "^购买成功$",
                 "threshold": 0.8
             }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "试试手气购买成功"
         },
         "pre_delay": 0,
         "post_delay": 0,
