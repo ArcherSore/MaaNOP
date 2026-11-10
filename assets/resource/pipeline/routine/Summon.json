@@ -114,7 +114,21 @@
                 "target": [ 652, 180, 34, 12 ]
             }
         },
-        "next": [ "SummonHoverJoin" ]
+        "next": [ "SummonCaptureReady" ]
+    },
+    "SummonCaptureReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 912, 271, 68, 36 ],
+                "only_rec": true,
+                "expected": "^[0-9]+[/／][1-9][0-9]*$",
+                "threshold": 0.8
+            }
+        },
+        "next": [ "SummonHoverJoin", "SummonHoverCloseUnavailable" ]
     },
     "SummonHoverJoin": {
         "recognition": {
@@ -156,6 +170,47 @@
         "max_hit": 1,
         "timeout": 20000,
         "next": [ "SummonAttack" ]
+    },
+    "SummonHoverCloseUnavailable": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 786, 316, 197, 29 ],
+                "expected": "^组织(?:已经计划在|收到密报[，,]有大型通灵兽出现)",
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 999, 197 ],
+                "end": [ 999, 197 ],
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "SummonClickCloseUnavailable" ]
+    },
+    "SummonClickCloseUnavailable": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/popup/RedCloseHover.png",
+                "roi": [ 979, 176, 43, 43 ],
+                "method": 10001,
+                "threshold": 0.86
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 995, 193, 9, 9 ]
+            }
+        },
+        "post_delay": 0,
+        "timeout": 10000,
+        // 深作对话仍在时可以回村，直接等公共回村节点确认按钮可用。
+        "next": [ "ReturnToVillageClick" ]
     },
     "SummonInstanceReady": {
         "recognition": {
