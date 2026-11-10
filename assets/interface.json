@@ -120,7 +120,7 @@
             "label": "游戏托管",
             "group": [ "Routine" ],
             "entry": "AutoManagement",
-            "description": "按游戏内的**托管设置**执行一轮后退出。\n\n- 请先在游戏里勾选要做的项目；每天首次托管消耗 **1 张托管卡**。\n- 请勿勾选「空闲时自动停靠在温泉」；设置了二级密码时，也请勿勾选「兑换商人」。"
+            "description": "按游戏内的**托管设置**执行一轮后退出。\n\n- 请先在游戏里勾选要做的项目；每天首次托管消耗 **1 张托管卡**。\n- 请勿勾选「空闲时自动停靠在温泉」；设置了二级密码时，也请勿勾选「兑换商人」。\n - 手动扫荡忍考的弹窗需要提前关闭！务必使用托管的忍考扫荡！"
         },
         {
             "name": "WantedTask",
@@ -145,6 +145,14 @@
             "entry": "GeneralStore",
             "description": "打开杂货屋，按当前库存购买勾选的商品。",
             "option": [ "GeneralStoreItems", "SecondaryPassword" ]
+        },
+        {
+            "name": "TryYourLuck",
+            "label": "试试手气",
+            "group": [ "Routine" ],
+            "entry": "TryYourLuck",
+            "description": "从游戏主界面进入限时热点，花费 **10 元宝**购买 1 张抽奖券后退出活动。",
+            "option": [ "SecondaryPassword" ]
         },
         {
             "name": "Summon",

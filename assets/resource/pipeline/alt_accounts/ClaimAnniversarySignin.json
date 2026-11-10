@@ -5,7 +5,7 @@
             "param": {
                 "custom_action": "EnterHotspotActivity",
                 "custom_action_param": {
-                    "expected": "薪火签到"
+                    "expected": "薪火签[到至]"
                 }
             }
         },

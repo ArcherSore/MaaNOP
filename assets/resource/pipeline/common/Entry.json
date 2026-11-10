@@ -3,9 +3,9 @@
     "HotspotEntry": {
         "pre_delay": 0,
         "post_delay": 0,
-        "next": [ "OpenHotspot" ]
+        "next": [ "HoverHotspotEntry" ]
     },
-    "OpenHotspot": {
+    "HoverHotspotEntry": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -14,7 +14,33 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Swipe",
+            "param": {
+                "begin_offset": [ 4, 4, -8, -8 ],
+                "end_offset": [ 4, 4, -8, -8 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "OpenHotspot" ]
+    },
+    "OpenHotspot": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/hotspot/HotspotHover.png",
+                "roi": [ 295, 40, 116, 117 ],
+                "method": 10001,
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": "HoverHotspotEntry",
+                "target_offset": [ 4, 4, -8, -8 ]
+            }
         },
         // 打开和翻页后先等侧栏稳定，再识别标签或箭头。
         "post_wait_freezes": {
@@ -24,7 +50,31 @@
             "rate_limit": 100,
             "timeout": 5000
         },
-        "next": [ "ClickHotspotEntry", "ScrollHotspotActivityTabs", "HotspotTabsBottom", "HotspotTabsSinglePage" ]
+        "next": [ "HotspotTabsReady" ]
+    },
+    "HotspotTabsReady": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 391, 212, 30, 7 ],
+                                "lower": [ 205, 170, 100 ],
+                                "upper": [ 255, 255, 255 ],
+                                "count": 150
+                            }
+                        }
+                    },
+                    "CloseHotspotWindow"
+                ]
+            }
+        },
+        "next": [ "ClickHotspotEntry", "HoverHotspotScrollDown", "HotspotTabsBottom", "HotspotTabsSinglePage" ]
     },
     "ClickHotspotEntry": {
         "recognition": {
@@ -38,7 +88,7 @@
             "type": "Click"
         }
     },
-    "ScrollHotspotActivityTabs": {
+    "HoverHotspotScrollDown": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -48,7 +98,31 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Swipe",
+            "param": {
+                "begin": [ 435, 542 ],
+                "end": [ 435, 542 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "ScrollHotspotActivityTabs" ]
+    },
+    "ScrollHotspotActivityTabs": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/hotspot/ScrollDownHover.png",
+                "roi": [ 415, 528, 40, 32 ],
+                "threshold": 0.95
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 432, 538, 6, 7 ]
+            }
         },
         "post_wait_freezes": {
             "time": 300,
@@ -58,7 +132,7 @@
             "timeout": 5000
         },
         "timeout": 5000,
-        "next": [ "ClickHotspotEntry", "ScrollHotspotActivityTabs", "HotspotTabsBottom", "HotspotTabsSinglePage" ]
+        "next": [ "HotspotTabsReady" ]
     },
     // 灰箭头模板须与可点击态区分，阈值高于可点击态的得分。
     "HotspotTabsBottom": {
@@ -93,13 +167,15 @@
         "post_delay": 0,
         "next": [ "CloseHotspotWindow", "HotspotWindowClosed" ]
     },
-    // 充值页和周末福利页的关闭叉位置不同，ROI 兼容两者，点击框向内缩。
+    // 关闭叉的位置随活动变化；亮度敏感匹配排除被弹窗遮住时的关闭叉。
     "CloseHotspotWindow": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "template": "common/hotspot/CloseX.png",
-                "roi": [ 900, 195, 65, 48 ]
+                "roi": [ 900, 195, 65, 48 ],
+                "method": 10001,
+                "threshold": 0.85
             }
         },
         "action": {

@@ -678,7 +678,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [ "routine/general_store/Close.png", "routine/general_store/CloseHover.png" ],
+                "template": [ "common/popup/RedClose.png", "common/popup/RedCloseHover.png" ],
                 "roi": [ 1112, 93, 32, 32 ],
                 "method": 10001,
                 "threshold": 0.86
@@ -689,7 +689,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "routine/general_store/CloseHover.png",
+                "template": "common/popup/RedCloseHover.png",
                 "roi": [ 1112, 93, 32, 32 ],
                 "method": 10001,
                 "threshold": 0.9
