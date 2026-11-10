@@ -108,6 +108,21 @@
             }
         },
         "post_delay": 0,
+        "rate_limit": 50,
+        "timeout": 10000,
+        "next": [ "TryYourLuckPurchaseSucceeded" ]
+    },
+    "TryYourLuckPurchaseSucceeded": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 610, 328, 92, 60 ],
+                "expected": "^购买成功$",
+                "threshold": 0.8
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
         "next": [ "HotspotClose" ]
     }
 }
