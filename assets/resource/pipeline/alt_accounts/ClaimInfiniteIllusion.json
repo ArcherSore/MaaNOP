@@ -475,8 +475,17 @@
                 "all_of": [ "IllusionLowRewardWarning", "IllusionWarningConfirmText" ]
             }
         },
-        // 已勾选时直接确认，不再次点击小框将其取消。
-        "next": [ "IllusionWarningChecked", "IllusionWarningUnchecked" ]
+        "next": [ "InfiniteIllusionSweepResultVisible", "CloseConfirmPopup", "CheckIllusionWarning" ]
+    },
+    "InfiniteIllusionSweepResultVisible": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "InfiniteIllusionConfirm1" ]
+            }
+        }
     },
     "IllusionWarningChecked": {
         "pre_delay": 0,
@@ -490,8 +499,7 @@
                 "upper": [ 85, 255, 255 ],
                 "count": 20
             }
-        },
-        "next": "CloseConfirmPopup"
+        }
     },
     "IllusionWarningUnchecked": {
         "pre_delay": 0,
@@ -499,15 +507,13 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                // 这里只分流，点击前仍重验正文。
                 "roi": [ 572, 430, 7, 8 ],
                 "method": 4,
                 "lower": [ 10, 10, 10 ],
                 "upper": [ 60, 60, 60 ],
                 "count": 40
             }
-        },
-        "next": "CheckIllusionWarning"
+        }
     },
     "CheckIllusionWarning": {
         "recognition": {
@@ -523,7 +529,7 @@
             }
         },
         "timeout": 5000,
-        "next": [ "CloseConfirmPopup" ]
+        "next": [ "InfiniteIllusionSweepResultVisible", "CloseConfirmPopup" ]
     },
     "CloseConfirmPopup": {
         "recognition": {

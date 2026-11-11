@@ -78,7 +78,7 @@
         "post_delay": 2000 // 等待次数耗尽提示消退。
     },
     "SurvivalClaim": {
-        "rate_limit": 200,
+        "rate_limit": 50,
         "action": {
             "type": "Click",
             "param": {
