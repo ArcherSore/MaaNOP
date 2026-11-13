@@ -10,8 +10,7 @@ from maa.custom_action import CustomAction
 
 
 PAGE_TOLERANCE = 3
-MAX_DRAGS = 4
-MAX_STALLED_DRAGS = 2
+MAX_DRAGS = 5
 PRODUCT_DONE_NODES = ("GeneralStorePurchaseVerified", "GeneralStoreFundsInsufficient")
 VK_CONTROL = 0x11
 VK_V = 0x56
@@ -34,20 +33,9 @@ def drag_action(thumb, target_y):
 
 def move_to_page(context, thumb, target_y):
     """每次拖动后重读滑块，按剩余偏差补拖；拖动可能被打断，不能假设一次到位。"""
-    previous_error = None
-    stalled = 0
     for _ in range(MAX_DRAGS):
-        error = abs(thumb.y - target_y)
-        if error <= PAGE_TOLERANCE:
+        if abs(thumb.y - target_y) <= PAGE_TOLERANCE:
             return thumb
-        if previous_error is not None and error >= previous_error:
-            stalled += 1
-            if stalled >= MAX_STALLED_DRAGS:
-                return None
-        else:
-            stalled = 0
-        previous_error = error
-
         result = context.run_task("GeneralStoreDrag", {"GeneralStoreDrag": drag_action(thumb, target_y)})
         page = final_recognition(context, result, "GeneralStorePage")
         if not page:
