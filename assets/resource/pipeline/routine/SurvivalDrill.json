@@ -116,14 +116,22 @@
         "post_delay": 500,
         "next": [ "SurvivalAfterClaim" ]
     },
+    "SurvivalClaimNothingText": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 565, 285, 195, 135 ],
+                "expected": [ "没有可以领取" ]
+            }
+        }
+    },
     "SurvivalClaimNothing": {
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
-            "type": "OCR",
+            "type": "And",
             "param": {
-                "roi": [ 440, 229, 460, 122 ],
-                "expected": [ "没有可以领取" ]
+                "all_of": [ "SurvivalClaimNothingText" ]
             }
         },
         "next": [ "SurvivalAfterClaim" ]
