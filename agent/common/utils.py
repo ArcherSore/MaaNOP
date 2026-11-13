@@ -229,4 +229,6 @@ def recognize_server(context: Context, image, server_id: int, region_type: str):
             }
         },
     )
-    return find_server_ocr_result(reco_detail, server_id, region_type)
+    matched_result, match_mode = find_server_ocr_result(reco_detail, server_id, region_type)
+    entries = _build_server_ocr_entries(getattr(reco_detail, "all_results", []) if reco_detail else [])
+    return matched_result, match_mode, _infer_server_grid_base(entries, region_type)
