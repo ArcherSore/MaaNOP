@@ -48,10 +48,11 @@
 
 首次使用请先阅读[用户使用手册](https://github.com/ArcherSore/NarutoAutoGUI/blob/main/docs/USER-GUIDE.md)，按步骤保存 Windows 分身登录密码、配置 QQ 大厅自动登录，再开始任务。
 
-从 [Releases](https://github.com/ArcherSore/MaaNOP/releases/latest) 下载 **`MaaNOP-win-x86_64-*.zip`**，完整解压后运行 `NarutoAutoGUI.exe`。按界面提示准备桌面分身、登录游戏、选择任务，即可开始自动化。
+从 [Releases](https://github.com/ArcherSore/MaaNOP/releases/latest) 下载 **`MaaNOP-win-x86_64-*.zip`**，完整解压后运行 `Bunshin.exe`。按界面提示准备桌面分身、登录游戏、选择任务，即可开始自动化。
 
 > [!IMPORTANT]
 > - 支持 **Windows 10/11 x64**，需要管理员权限。
+> - 首次启动若提示缺少 .NET 或运行库，运行目录里的「DependencySetup_依赖库安装」即可（需要 .NET 10 桌面运行库）。
 > - 仅支持《火影忍者 Online》**QQ 游戏大厅**客户端，不支持官方微端、360 游戏大厅等其他客户端。
 > - 挂机期间可以隐藏桌面分身，但电脑不能进入睡眠或休眠。
 
@@ -92,7 +93,7 @@
 
 如果 MaaNOP 对你有帮助，欢迎 [在爱发电支持项目](https://afdian.com/a/archersore)，或者为仓库点个 Star ⭐。
 
-感谢 [MaaFramework](https://github.com/MaaXYZ/MaaFramework)、[NarutoAutoGUI](https://github.com/ArcherSore/NarutoAutoGUI) 和 [BetterGI](https://github.com/babalae/better-genshin-impact) 等开源项目提供的基础与参考。
+感谢 [MaaFramework](https://github.com/MaaXYZ/MaaFramework)、[Bunshin](https://github.com/ArcherSore/NarutoAutoGUI) 和 [BetterGI](https://github.com/babalae/better-genshin-impact) 等开源项目提供的基础与参考。
 
 ## 📄 许可与免责声明
 

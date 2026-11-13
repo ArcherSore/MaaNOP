@@ -123,9 +123,9 @@ def main() -> None:
     args = parser.parse_args()
     install = args.install.resolve()
 
-    for name in ("NarutoAutoGUI.exe", "worker/NarutoAutoWorker.exe"):
+    for name in ("Bunshin.exe", "worker/Bunshin.Worker.exe"):
         if not (install / name).is_file():
-            raise FileNotFoundError(f"Extract the NarutoAutoGUI Windows x64 release first: missing {name}")
+            raise FileNotFoundError(f"Extract the Bunshin Windows x64 release first: missing {name}")
 
     install_python(install, args.python_version, worker_framework_version(install))
     install_payload(install, args.version)
