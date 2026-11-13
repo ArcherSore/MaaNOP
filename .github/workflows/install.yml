@@ -2,7 +2,7 @@ name: install
 
 env:
   # GUI 版本留空自动选择上游版本；填写 Release tag 则使用指定版本。
-  NARUTO_VERSION: ""
+  BUNSHIN_VERSION: ""
   PYTHON_VERSION: "3.12.9"
 
 on:
@@ -61,9 +61,9 @@ jobs:
           echo is_release=$is_release | tee -a $GITHUB_OUTPUT
           echo is_prerelease=$is_prerelease | tee -a $GITHUB_OUTPUT
 
-      - name: Get NarutoAutoGUI release
+      - name: Get Bunshin release
         id: gui_latest_release
-        if: env.NARUTO_VERSION == ''
+        if: env.BUNSHIN_VERSION == ''
         uses: step-security/github-action-get-latest-release@v0.8.2
         with:
           repository: ArcherSore/NarutoAutoGUI
@@ -73,7 +73,7 @@ jobs:
       tag: ${{ steps.set_tag.outputs.tag }}
       is_release: ${{ steps.set_tag.outputs.is_release }}
       is_prerelease: ${{ steps.set_tag.outputs.is_prerelease }}
-      gui_version: ${{ env.NARUTO_VERSION || steps.gui_latest_release.outputs.release }}
+      gui_version: ${{ env.BUNSHIN_VERSION || steps.gui_latest_release.outputs.release }}
 
   install:
     needs: meta
@@ -89,12 +89,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Download NarutoAutoGUI
+      - name: Download Bunshin
         id: download_gui
         uses: robinraju/release-downloader@v1
         with:
           repository: ArcherSore/NarutoAutoGUI
-          fileName: "NarutoAutoGUI-win-x64-*.zip"
+          fileName: "Bunshin-win-x64-*.zip"
           tag: ${{ needs.meta.outputs.gui_version }}
           out-file-path: "install"
           extract: true
