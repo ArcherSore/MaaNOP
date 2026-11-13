@@ -7,10 +7,11 @@ from pathlib import Path
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_action import CustomAction
-from maa.custom_recognition import CustomRecognition
 
 
 PAGE_TOLERANCE = 3
+MAX_DRAGS = 4
+MAX_STALLED_DRAGS = 2
 PRODUCT_DONE_NODES = ("GeneralStorePurchaseVerified", "GeneralStoreFundsInsufficient")
 VK_CONTROL = 0x11
 VK_V = 0x56
@@ -25,18 +26,6 @@ def final_recognition(context, result, *expected_nodes):
     return None
 
 
-@AgentServer.custom_recognition("GeneralStoreThumbAt")
-class GeneralStoreThumbAt(CustomRecognition):
-    def analyze(self, context: Context, argv: CustomRecognition.AnalyzeArg):
-        page = context.run_recognition("GeneralStorePage", argv.image)
-        expected_y = int(argv.custom_recognition_param)
-        if context.tasker.stopping or not page or not page.hit:
-            return None
-        if abs(page.box.y - expected_y) <= PAGE_TOLERANCE:
-            return page.box
-        return None
-
-
 def drag_action(thumb, target_y):
     x = thumb.x + thumb.w // 2
     y = thumb.y + thumb.h // 2
@@ -44,16 +33,27 @@ def drag_action(thumb, target_y):
 
 
 def move_to_page(context, thumb, target_y):
-    if abs(thumb.y - target_y) <= PAGE_TOLERANCE:
-        return thumb
-    result = context.run_task("GeneralStoreDrag", {
-        "GeneralStoreDrag": drag_action(thumb, target_y),
-        "GeneralStoreAtPage": {
-            "recognition": {"param": {"custom_recognition_param": target_y}},
-        },
-    })
-    page = final_recognition(context, result, "GeneralStoreAtPage")
-    return page.box if page else None
+    """每次拖动后重读滑块，按剩余偏差补拖；拖动可能被打断，不能假设一次到位。"""
+    previous_error = None
+    stalled = 0
+    for _ in range(MAX_DRAGS):
+        error = abs(thumb.y - target_y)
+        if error <= PAGE_TOLERANCE:
+            return thumb
+        if previous_error is not None and error >= previous_error:
+            stalled += 1
+            if stalled >= MAX_STALLED_DRAGS:
+                return None
+        else:
+            stalled = 0
+        previous_error = error
+
+        result = context.run_task("GeneralStoreDrag", {"GeneralStoreDrag": drag_action(thumb, target_y)})
+        page = final_recognition(context, result, "GeneralStorePage")
+        if not page:
+            return None
+        thumb = page.box
+    return thumb if abs(thumb.y - target_y) <= PAGE_TOLERANCE else None
 
 
 def product_overrides(product_id, product):
@@ -64,50 +64,10 @@ def product_overrides(product_id, product):
                 "roi": product["icon_roi"],
             }},
         },
-        "GeneralStoreProductLabel": {
-            "recognition": {"param": {
-                "expected": product["label"],
-                "roi": product["label_roi"],
-            }},
+        "GeneralStoreSoldOutSign": {
+            "recognition": {"param": {"roi": product["sold_roi"]}},
         },
     }
-
-
-@AgentServer.custom_recognition("GeneralStorePageProducts")
-class GeneralStorePageProducts(CustomRecognition):
-    def analyze(self, context: Context, argv: CustomRecognition.AnalyzeArg):
-        shop = context.run_recognition("GeneralStoreActiveShop", argv.image)
-        if context.tasker.stopping or not shop or not shop.hit:
-            return None
-        products = context.get_node_data("GeneralStore")["attach"]["products"]
-        sold_out = []
-        for product_id in json.loads(argv.custom_recognition_param):
-            overrides = product_overrides(product_id, products[product_id])
-            available = context.run_recognition("GeneralStoreProduct", argv.image, overrides)
-            if context.tasker.stopping:
-                return None
-            if available and available.hit:
-                continue
-            verified = context.run_recognition("GeneralStorePurchaseVerified", argv.image, overrides)
-            if context.tasker.stopping or not verified or not verified.hit:
-                return None
-            sold_out.append(product_id)
-        return self.AnalyzeResult(box=shop.box, detail={"sold_out": sold_out})
-
-
-def wait_for_products(context, thumb, target_y, product_ids):
-    overrides = {
-        "GeneralStorePageProducts": {
-            "recognition": {"param": {"custom_recognition_param": product_ids}},
-        },
-    }
-    entry = "GeneralStoreWaitForProducts"
-    if abs(thumb.y - target_y) > PAGE_TOLERANCE:
-        entry = "GeneralStoreDrag"
-        overrides[entry] = drag_action(thumb, target_y)
-        overrides[entry]["next"] = ["GeneralStorePageProducts"]
-    result = context.run_task(entry, overrides)
-    return final_recognition(context, result, "GeneralStorePageProducts")
 
 
 def checkout(context, product_id, product_config, layout):
@@ -134,7 +94,7 @@ def checkout(context, product_id, product_config, layout):
     if not details:
         return None
     _, stock_result = details.best_result.sub_results
-    stock = int(stock_result.best_result.text.removeprefix("库存"))
+    stock = int(stock_result.best_result.text)
 
     qx, qy, qw, qh = quantity_roi
     bx, by, bw, bh = buy_roi
@@ -219,13 +179,10 @@ class GeneralStoreBuyItems(CustomAction):
                 thumb = move_to_page(context, thumb, thumb.y + step)
                 if thumb is None:
                     return False
-            ready = wait_for_products(context, thumb, target_y, [product_id for product_id, _ in items])
-            if not ready:
+            thumb = move_to_page(context, thumb, target_y)
+            if thumb is None:
                 return False
-            sold_out = ready.best_result.detail["sold_out"]
             for product_id, product in items:
-                if product_id in sold_out:
-                    continue
                 result = checkout(context, product_id, product, config["layout"])
                 if final_recognition(context, result, "LoginMapVisible"):
                     return True
