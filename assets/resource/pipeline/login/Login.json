@@ -318,14 +318,28 @@
             }
         }
     },
-    // 滑块高度随列表长度变化；roi 排除上下箭头（同为灰色），须覆盖滑块全部可达位置。
-    "ServerListThumb": {
+    "ServerListThumbAdvanced": {
         "pre_delay": 0,
         "post_delay": 0,
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [ 897, 287, 8, 233 ],
+                "roi": [ 902, 287, 3, 233 ],
+                "method": 6,
+                "lower": [ 150 ],
+                "upper": [ 215 ],
+                "count": 20,
+                "connected": true
+            }
+        }
+    },
+    "ServerListThumbBasic": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 891, 298, 4, 212 ],
                 "method": 6,
                 "lower": [ 150 ],
                 "upper": [ 215 ],

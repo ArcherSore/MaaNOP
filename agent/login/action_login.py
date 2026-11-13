@@ -8,7 +8,8 @@ from login.constants import (
     SERVER_AIM_ROW,
     SERVER_GRID_COLUMNS,
     SERVER_SCROLL_MAX_DRAGS,
-    SERVER_THUMB_TRACK,
+    SERVER_THUMB_OVERSHOOT,
+    SERVER_THUMB_TRACKS,
     SERVER_VISIBLE_ROWS,
 )
 
@@ -43,6 +44,7 @@ class ScrollToTargetServer(CustomAction):
 
         ids_per_px = None
         last = None
+        pushed = None
         for drag_count in range(SERVER_SCROLL_MAX_DRAGS + 1):
             image = context.tasker.controller.post_screencap().wait().get()
             if context.tasker.stopping:
@@ -57,10 +59,15 @@ class ScrollToTargetServer(CustomAction):
             if drag_count == SERVER_SCROLL_MAX_DRAGS:
                 break
 
-            thumb = context.run_recognition("ServerListThumb", image)
-            if context.tasker.stopping:
+            for thumb_node, track in SERVER_THUMB_TRACKS.items():
+                thumb = context.run_recognition(thumb_node, image)
+                if context.tasker.stopping:
+                    return False
+                if thumb and thumb.hit:
+                    break
+            else:
                 return False
-            if grid_base is None or not thumb or not thumb.hit:
+            if grid_base is None:
                 return False
             x, y, w, h = thumb.box
             center_y = y + h // 2
@@ -75,11 +82,20 @@ class ScrollToTargetServer(CustomAction):
             last = (center_y, grid_base)
 
             aim_base = target_server_id + SERVER_AIM_ROW * SERVER_GRID_COLUMNS + 1
-            track_top, track_bottom = SERVER_THUMB_TRACK
-            end_y = round(center_y + (grid_base - aim_base) / ids_per_px)
-            end_y = max(track_top + h // 2, min(track_bottom - h // 2, end_y))
-            if end_y == center_y:
-                return False
+            track_top, track_bottom = track
+            estimated_y = round(center_y + (grid_base - aim_base) / ids_per_px)
+            end_y = max(track_top + h // 2, min(track_bottom - h // 2, estimated_y))
+            if end_y != estimated_y:
+                # 目标在列表头或尾：终点拖过端点才能真正推到头；已推过一次仍没看到目标就失败。
+                direction = 1 if estimated_y > end_y else -1
+                if pushed == direction:
+                    return False
+                pushed = direction
+                end_y += direction * SERVER_THUMB_OVERSHOOT
+            else:
+                pushed = None
+                if end_y == center_y:
+                    return False
 
             begin_x = x + w // 2
             result = context.run_task(
