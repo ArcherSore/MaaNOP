@@ -173,7 +173,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "common/hotspot/CloseX.png",
-                "roi": [ 900, 195, 65, 48 ],
+                "roi": [ 896, 150, 108, 120 ],
                 "method": 10001,
                 "threshold": 0.85
             }
