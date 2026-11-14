@@ -11,41 +11,38 @@
             "scroll_step": 83,
             "track_bottom": 645,
             "layout": {
-                "stock": [ 44, 21, 64, 15 ],
+                "stock": [ 64, 21, 40, 15 ],
                 "quantity": [ -1, 49, 24, 16 ],
                 "buy": [ 49, 49, 48, 19 ]
             },
+            // sold_roi 是货位固定位置上的售罄牌搜索范围，货位固定、售完不顶替，位置即商品身份。
+            // 范围以点击滑块归位后的真实位置为中心；货架没有归位属于异常，应当识别失败，不要放宽来吸收。
             "products": {
                 "TrainingPotion": {
                     "page": 1,
-                    "label": "^修行药水$",
                     "icon_roi": [ 663, 178, 60, 460 ],
-                    "label_roi": [ 686, 243, 70, 180 ]
+                    "sold_roi": [ 664, 180, 110, 61 ]
                 },
                 "SecretScrollPage": {
                     "page": 1,
-                    "label": "^[秘松]卷残页$",
                     "icon_roi": [ 803, 178, 60, 460 ],
-                    "label_roi": [ 826, 243, 70, 180 ]
+                    "sold_roi": [ 804, 180, 110, 61 ]
                 },
                 "MantraCompound": {
                     "page": 1,
-                    "label": "^[真直]言合剂$",
                     "icon_roi": [ 384, 178, 60, 460 ],
-                    "label_roi": [ 406, 366, 70, 180 ]
+                    "sold_roi": [ 385, 303, 110, 61 ]
                 },
                 "TrainingVoucher": {
                     "page": 1,
-                    "label": "^(?:修[炼练]?|燃炼)券$",
                     "icon_roi": [ 803, 178, 60, 460 ],
-                    "label_roi": [ 826, 489, 70, 180 ]
+                    "sold_roi": [ 804, 425, 110, 61 ]
                 },
                 "AdvancedRefinementRune": {
                     "shop": "SignIn",
                     "page": 0,
-                    "label": "^高级精炼符$",
                     "icon_roi": [ 384, 183, 60, 74 ],
-                    "label_roi": [ 407, 266, 70, 43 ]
+                    "sold_roi": [ 385, 191, 110, 61 ]
                 }
             }
         }
@@ -348,34 +345,32 @@
             }
         },
         "post_delay": 0,
+        "post_wait_freezes": {
+            "time": 200,
+            "target": [ 945, 200, 16, 450 ],
+            "timeout": 3000
+        },
         "timeout": 4500,
-        "next": [ "GeneralStoreAtPage" ]
+        "next": [ "GeneralStoreClickThumb" ]
     },
-    "GeneralStoreAtPage": {
+    "GeneralStoreClickThumb": {
+        // 拖动结束后货架并未对齐滑块，点一下滑块才会严格归位
         "recognition": {
-            "type": "Custom",
+            "type": "And",
             "param": {
-                "custom_recognition": "GeneralStoreThumbAt",
-                "custom_recognition_param": 206
+                "all_of": [ "GeneralStoreActiveShop", "GeneralStoreThumb" ],
+                "box_index": 1
             }
         },
-        "post_delay": 0
-    },
-    "GeneralStoreWaitForProducts": {
+        "action": "Click",
         "post_delay": 0,
-        "timeout": 4500,
-        "next": [ "GeneralStorePageProducts" ]
-    },
-    "GeneralStorePageProducts": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "GeneralStorePageProducts",
-                "custom_recognition_param": [ ]
-            }
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 270, 200, 400, 430 ],
+            "timeout": 3000
         },
-        "pre_delay": 0,
-        "post_delay": 0
+        "timeout": 4500,
+        "next": [ "GeneralStorePage" ]
     },
     "GeneralStoreFindProduct": {
         "post_delay": 0,
@@ -446,8 +441,8 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 719, 218, 64, 15 ],
-                "expected": "^库存[1-9][0-9]*$",
+                "roi": [ 739, 218, 40, 15 ],
+                "expected": "^[1-9][0-9]*$",
                 "only_rec": true,
                 "threshold": 0.8
             }
@@ -637,23 +632,12 @@
         "timeout": 10000,
         "next": [ "GeneralStoreFundsInsufficient", "GeneralStorePurchaseVerified" ]
     },
-    "GeneralStoreProductLabel": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 686, 243, 70, 180 ],
-                "expected": "^修行药水$",
-                "threshold": 0.65
-            }
-        }
-    },
     "GeneralStoreSoldOutSign": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "template": "routine/general_store/SoldOutSign.png",
-                "roi": "GeneralStoreProductLabel",
-                "roi_offset": [ -33, -93, 70, 48 ],
+                "roi": [ 664, 180, 110, 61 ],
                 "method": 10001,
                 "threshold": 0.94
             }
@@ -663,8 +647,8 @@
         "recognition": {
             "type": "And",
             "param": {
-                // 商品图标会消失，名称仍留在原货位。只检查该名称上方的售罄牌。
-                "all_of": [ "GeneralStoreActiveShop", "GeneralStoreProductLabel", "GeneralStoreSoldOutSign" ]
+                // 商品图标会消失，只能在货位固定位置找售罄牌
+                "all_of": [ "GeneralStoreActiveShop", "GeneralStoreSoldOutSign" ]
             }
         },
         "post_delay": 0
