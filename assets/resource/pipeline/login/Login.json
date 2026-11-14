@@ -318,17 +318,51 @@
             }
         }
     },
-    "FindDownArrow": {
+    "ServerListThumbAdvanced": {
         "pre_delay": 0,
         "post_delay": 0,
-        // QQ 大厅高级模式为实心三角，基础模式为 V 形；保留两种渲染的模板。
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "ColorMatch",
             "param": {
-                "roi": [ 867, 436, 98, 107 ],
-                "template": [ "login/DownArrow.png", "login/DownArrowBasic.png" ],
-                "threshold": 0.8
+                "roi": [ 902, 287, 3, 233 ],
+                "method": 6,
+                "lower": [ 150 ],
+                "upper": [ 215 ],
+                "count": 20,
+                "connected": true
             }
+        }
+    },
+    "ServerListThumbBasic": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 891, 298, 4, 212 ],
+                "method": 6,
+                "lower": [ 150 ],
+                "upper": [ 215 ],
+                "count": 20,
+                "connected": true
+            }
+        }
+    },
+    "ServerListDrag": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 901, 296 ],
+                "end": [ 901, 296 ],
+                "duration": 600
+            }
+        },
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 432, 277, 447, 250 ],
+            "timeout": 3000
         }
     },
     "ChooseServerButton": {

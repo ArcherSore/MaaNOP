@@ -1,5 +1,3 @@
-import time
-
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
@@ -7,15 +5,12 @@ from maa.context import Context
 from common.utils import click_center, get_latest_detail, recognize_server
 from login.server_session import clear_server_session
 from login.constants import (
-    SERVER_1000_SCROLL_CLICKS_PER_ATTEMPT,
-    SERVER_1000_SEARCH_ATTEMPTS,
-    SERVER_1_999_SCROLL_CLICKS_PER_ATTEMPT,
-    SERVER_1_999_SEARCH_ATTEMPTS,
-    SERVER_ALLIANCE_SCROLL_CLICKS_PER_ATTEMPT,
-    SERVER_ALLIANCE_SEARCH_ATTEMPTS,
-    SERVER_NON_WIPE_SCROLL_CLICKS_PER_ATTEMPT,
-    SERVER_NON_WIPE_SEARCH_ATTEMPTS,
-    SERVER_SCROLL_CLICK_INTERVAL,
+    SERVER_AIM_ROW,
+    SERVER_GRID_COLUMNS,
+    SERVER_SCROLL_MAX_DRAGS,
+    SERVER_THUMB_OVERSHOOT,
+    SERVER_THUMB_TRACKS,
+    SERVER_VISIBLE_ROWS,
 )
 
 
@@ -34,6 +29,8 @@ class RefreshLoginPage(CustomAction):
 
 @AgentServer.custom_action("ScrollToTargetServer")
 class ScrollToTargetServer(CustomAction):
+    """读屏幕上的服号，按滑块与服号的线性关系拖到目标所在位置；拖完重读，只补剩余偏差。"""
+
     def run(
         self,
         context: Context,
@@ -45,46 +42,71 @@ class ScrollToTargetServer(CustomAction):
         target_server_id = server["server_id"]
         region_type = server["region_type"]
 
-        if region_type == "alliance":
-            max_search_attempts = SERVER_ALLIANCE_SEARCH_ATTEMPTS
-            scroll_clicks_per_attempt = SERVER_ALLIANCE_SCROLL_CLICKS_PER_ATTEMPT
-        elif region_type == "non_wipe":
-            max_search_attempts = SERVER_NON_WIPE_SEARCH_ATTEMPTS
-            scroll_clicks_per_attempt = SERVER_NON_WIPE_SCROLL_CLICKS_PER_ATTEMPT
-        elif target_server_id >= 1000:
-            max_search_attempts = SERVER_1000_SEARCH_ATTEMPTS
-            scroll_clicks_per_attempt = SERVER_1000_SCROLL_CLICKS_PER_ATTEMPT
-        else:
-            max_search_attempts = SERVER_1_999_SEARCH_ATTEMPTS
-            scroll_clicks_per_attempt = SERVER_1_999_SCROLL_CLICKS_PER_ATTEMPT
-
-        for attempt in range(max_search_attempts):
-            if context.tasker.stopping:
-                return False
+        ids_per_px = None
+        last = None
+        pushed = None
+        for drag_count in range(SERVER_SCROLL_MAX_DRAGS + 1):
             image = context.tasker.controller.post_screencap().wait().get()
             if context.tasker.stopping:
                 return False
-            matched_result, _ = recognize_server(
+            matched_result, _, grid_base = recognize_server(
                 context, image, target_server_id, region_type
             )
             if context.tasker.stopping:
                 return False
             if matched_result:
                 return True
-
-            if attempt == max_search_attempts - 1:
+            if drag_count == SERVER_SCROLL_MAX_DRAGS:
                 break
 
-            down_arrow = context.run_recognition("FindDownArrow", image)
-            if not down_arrow or not down_arrow.hit:
-                return False
-
-            for _ in range(scroll_clicks_per_attempt):
+            for thumb_node, track in SERVER_THUMB_TRACKS.items():
+                thumb = context.run_recognition(thumb_node, image)
                 if context.tasker.stopping:
                     return False
-                if not click_center(context, down_arrow.box):
+                if thumb and thumb.hit:
+                    break
+            else:
+                return False
+            if grid_base is None:
+                return False
+            x, y, w, h = thumb.box
+            center_y = y + h // 2
+
+            # 滑块高度与可见比例成正比，先验误差约 2-5%；拖动后改用实测比例，列表变长到滑块被夹成最小高度时也不会失准。
+            if last and abs(center_y - last[0]) >= 15 and last[1] != grid_base:
+                measured = (last[1] - grid_base) / (center_y - last[0])
+                if measured > 0:
+                    ids_per_px = measured
+            if ids_per_px is None:
+                ids_per_px = SERVER_GRID_COLUMNS * SERVER_VISIBLE_ROWS / h
+            last = (center_y, grid_base)
+
+            aim_base = target_server_id + SERVER_AIM_ROW * SERVER_GRID_COLUMNS + 1
+            track_top, track_bottom = track
+            estimated_y = round(center_y + (grid_base - aim_base) / ids_per_px)
+            end_y = max(track_top + h // 2, min(track_bottom - h // 2, estimated_y))
+            if end_y != estimated_y:
+                # 目标在列表头或尾：终点拖过端点才能真正推到头；已推过一次仍没看到目标就失败。
+                direction = 1 if estimated_y > end_y else -1
+                if pushed == direction:
                     return False
-                time.sleep(SERVER_SCROLL_CLICK_INTERVAL)
+                pushed = direction
+                end_y += direction * SERVER_THUMB_OVERSHOOT
+            else:
+                pushed = None
+                if end_y == center_y:
+                    return False
+
+            begin_x = x + w // 2
+            result = context.run_task(
+                "ServerListDrag",
+                {"ServerListDrag": {"action": {"param": {
+                    "begin": [begin_x, center_y],
+                    "end": [begin_x, end_y],
+                }}}},
+            )
+            if context.tasker.stopping or not result or not result.status.succeeded:
+                return False
 
         return False
 

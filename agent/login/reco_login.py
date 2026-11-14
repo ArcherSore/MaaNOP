@@ -153,7 +153,7 @@ class LocateServerButton(CustomRecognition):
             return None
         target_server_id, region_type = target
 
-        matched_result, match_mode = recognize_server(
+        matched_result, match_mode, _ = recognize_server(
             context, argv.image, target_server_id, region_type
         )
         if matched_result is None:
