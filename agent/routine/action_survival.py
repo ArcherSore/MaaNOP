@@ -23,11 +23,13 @@ STAGES = [
 
 def read_score(context: Context) -> Optional[tuple[int, int]]:
     """主界面的演习积分 (当前, 总数)。"""
-    image = context.tasker.controller.post_screencap().wait().get()
-    detail = context.run_recognition("SurvivalScoreOCR", image)
-    if not detail or not detail.hit:
+    task = context.run_task("SurvivalScoreOCR")
+    if context.tasker.stopping or not task or not task.nodes:
         return None
-    for result in detail.all_results:
+    node = task.nodes[-1]
+    if node.name != "SurvivalScoreOCR" or not node.recognition:
+        return None
+    for result in node.recognition.all_results:
         match = SCORE_PATTERN.search(result.text)
         if match:
             return int(match.group(1)), int(match.group(2))

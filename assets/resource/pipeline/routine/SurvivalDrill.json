@@ -19,6 +19,8 @@
     },
 
     "SurvivalScoreOCR": {
+        "pre_delay": 0,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
