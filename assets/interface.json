@@ -1025,7 +1025,7 @@
                 },
                 {
                     "name": "AdvancedRefinementRune",
-                    "label": "高精",
+                    "label": "高精(签到)",
                     "pipeline_override": {
                         "GeneralStore": {
                             "attach": {
