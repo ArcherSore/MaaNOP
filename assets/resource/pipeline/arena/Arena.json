@@ -1,31 +1,14 @@
 {
     "ArenaRankGrind": {
-        "next": [ "WaitArenaMain", "GotoArena" ]
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": { "RegularArenaMainRoute": "ArenaRankGrindCheck" },
+        "next": [ "RegularArenaEntry" ]
     },
-    "GotoArena": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "FindTopEntry",
-                "custom_recognition_param": {
-                    "template": "arena/ArenaEntry.png"
-                }
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "next": [ "WaitArenaMain" ]
-    },
-    "WaitArenaMain": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "arena/ArenaMainFlag.png",
-                "roi": [ 217, 501, 79, 73 ]
-            }
-        },
-        "next": [ "[JumpBack]CloseArenaPopup", "CheckRank", "RankNotReached" ]
+    "ArenaRankGrindCheck": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "CheckRank", "RegularArenaHoverStartBattle" ]
     },
     "CheckRank": {
         "recognition": {
@@ -37,46 +20,67 @@
         },
         "next": [ "RankReached" ]
     },
-    "RankNotReached": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "arena/RankRikudouFlag.png",
-                "roi": [ 231, 173, 91, 98 ]
-            }
+    "RankReached": {
+        "focus": {
+            "Node.Action.Succeeded": "六道段位达成"
         },
-        "inverse": true,
-        "next": [ "StartFormalBattle" ]
+        "next": [ "RegularArenaExit" ]
     },
-    "StartFormalBattle": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "arena/ButtonFormalBattleStart.png",
-                "roi": [ 399, 535, 160, 83 ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "next": [ "ArenaSceneLoaded" ]
+
+    "RegularArenaEntry": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "[JumpBack]CloseArenaPopup", "RegularArenaMain", "RegularArenaOpen" ]
     },
-    "BattleResultPopup": {
+    "RegularArenaOpen": {
         "recognition": {
             "type": "Custom",
             "param": {
-                "custom_recognition": "MatchPopup",
+                "custom_recognition": "FindTopEntry",
                 "custom_recognition_param": {
-                    "popups": [
-                        { "name": "战斗胜利", "template": "arena/BattleWinPopup.png", "roi": [ 555, 185, 201, 103 ], "target": [ 647, 485, 30, 13 ] },
-                        { "name": "新增试用忍者", "template": "arena/AddNewTrialNinja.png", "roi": [ 548, 186, 233, 96 ], "target": [ 763, 477, 34, 9 ] },
-                        { "name": "战斗失败", "template": "arena/BattleLosePopup.png", "roi": [ 561, 190, 209, 92 ], "target": [ 649, 472, 44, 13 ] },
-                        { "name": "成为六道", "template": "arena/RankRikudouPopup.png", "roi": [ 557, 184, 206, 101 ], "target": [ 644, 467, 38, 13 ] }
-                    ]
+                    "template": "arena/ArenaEntry.png"
                 }
             }
         },
-        "action": "Click"
+        "action": "Click",
+        "next": [ "[JumpBack]CloseArenaPopup", "RegularArenaMain" ]
+    },
+    "RegularArenaMain": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "RegularArenaOrdersText", "RegularArenaMainBright" ]
+            }
+        },
+        "next": [ "[Anchor]RegularArenaMainRoute" ]
+    },
+    "RegularArenaOrdersText": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 680, 205, 75, 25 ],
+                "expected": "战令\\s*[:：]?\\s*\\d+"
+            }
+        }
+    },
+    // OCR 在遮罩下仍能读到主界面，需同时确认亮度，不能提前点击背景按钮。
+    "RegularArenaMainBright": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 685, 212, 55, 18 ],
+                "method": 4,
+                "lower": [ 170, 140, 40 ],
+                "upper": [ 255, 255, 220 ],
+                "count": 40
+            }
+        }
     },
     "CloseArenaPopup": {
         "recognition": {
@@ -93,10 +97,167 @@
             }
         }
     },
-    "RankReached": {
-        "focus": {
-            "Node.Action.Succeeded": "六道段位达成"
+    "RegularArenaExit": {
+        "rate_limit": 200,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [ "alt_accounts/leveling/buttons/Close.png", "alt_accounts/leveling/buttons/CloseHover.png" ],
+                "roi": [ 1126, 81, 31, 31 ],
+                "threshold": 0.86
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 1141, 96 ],
+                "end": [ 1141, 96 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "next": [ "RegularArenaClickExitHover" ]
+    },
+    "RegularArenaClickExitHover": {
+        "rate_limit": 200,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "alt_accounts/leveling/buttons/CloseHover.png",
+                "roi": [ 1126, 81, 31, 31 ],
+                "threshold": 0.86
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": { "target": [ 1137, 92, 8, 8 ] }
+        },
+        "next": [ "RegularArenaExited" ]
+    },
+    "RegularArenaExited": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": { "all_of": [ "LoginScreenClear" ] }
         }
+    },
+    "RegularArenaHoverStartBattle": {
+        "post_delay": 0,
+        "rate_limit": 200,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 414, 550, 120, 47 ],
+                "expected": "段位",
+                "replace": [ [ "/", "" ] ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 520, 576 ],
+                "end": [ 520, 576 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "next": [ "RegularArenaStartBattle" ]
+    },
+    // 靠右悬浮和点击，左侧高亮模板避开随鼠标位置变化的说明框。
+    "RegularArenaStartBattle": {
+        "rate_limit": 200,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "arena/RankedBattleStartHover.png",
+                "roi": [ 428, 535, 53, 44 ],
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 516, 572, 9, 9 ]
+            }
+        },
+        "timeout": 120000,
+        "anchor": {
+            "CommonBattleSkipSpeed": "RegularArenaWaitBattleEnd",
+            "CommonBattleOutcome": "RegularArenaBattleEnd",
+            "CommonBattleInterrupt": "CommonBattleNoInterrupt"
+        },
+        "next": [ "[Anchor]CommonBattleOutcome", "CommonBattleAutoOn", "CommonBattleAutoOff" ]
+    },
+    "RegularArenaWaitBattleEnd": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": -1,
+        "next": [ "RegularArenaBattleEnd" ]
+    },
+    "RegularArenaBattleEnd": {
+        "rate_limit": 200,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 620, 430, 100, 35 ],
+                "expected": "确认"
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 670, 449 ],
+                "end": [ 670, 449 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "RegularArenaClickBattleEndHover" ]
+    },
+    "RegularArenaClickBattleEndHover": {
+        "rate_limit": 200,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 682, 446, 14, 10 ],
+                "method": 4,
+                "lower": [ 0, 185, 210 ],
+                "upper": [ 175, 255, 255 ],
+                "count": 60
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 658, 445, 24, 8 ]
+            }
+        },
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "RegularArenaResultPopup", "RegularArenaMain" ]
+    },
+    // 结算确定后移开鼠标，等待主界面 1 秒；超时进入 on_error，重新 OCR 确定仍在才补点。
+    "RegularArenaResultPopup": {
+        "rate_limit": 200,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 620, 460, 190, 55 ],
+                "expected": "确[定认]"
+            }
+        },
+        "action": "Click",
+        "timeout": 1000,
+        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "RegularArenaMain" ],
+        "on_error": [ "RegularArenaResultPopup" ]
     },
 
     "ThemeArena": {
@@ -170,7 +331,6 @@
         "action": "Click"
     },
 
-    // 两个竞技场任务共用战斗节点。
     "ArenaSceneLoaded": {
         "recognition": {
             "type": "And",
@@ -247,6 +407,6 @@
         "action": {
             "type": "Click"
         },
-        "next": [ "[JumpBack]BattleResultPopup", "WaitArenaMain" ]
+        "next": [ "[JumpBack]ThemeBattleResultPopup", "WaitThemeMain" ]
     }
 }

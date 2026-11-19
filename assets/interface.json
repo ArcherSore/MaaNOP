@@ -99,7 +99,7 @@
             "name": "ArenaRankGrind",
             "label": "竞技场一键六道",
             "entry": "ArenaRankGrind",
-            "description": "连续挑战竞技场，达到**六道段位**后停止。\n\n请从竞技场主界面或地图界面开始。"
+            "description": "连续挑战竞技场，达到**六道段位**后关闭竞技场并停止。\n\n请从竞技场主界面或地图界面开始。"
         },
         {
             "name": "ThemeArena",
@@ -107,12 +107,7 @@
             "group": [ "LimitedEvent" ],
             "entry": "ThemeArena",
             "description": "自动挑战并托管，达到所选目标后停止；选择「九胜」时，以九胜奖励可领取为准。\n\n请从**主题竞技场主界面**开始。",
-            "option": [ "ThemeArenaEndCondition" ],
-            "pipeline_override": {
-                "WaitBattleEnd": {
-                    "next": [ "[JumpBack]ThemeBattleResultPopup", "WaitThemeMain" ]
-                }
-            }
+            "option": [ "ThemeArenaEndCondition" ]
         },
         {
             "name": "ShoppingFestivalTask",
@@ -193,28 +188,16 @@
             "description": "自动战斗并领取竞技场日常任务奖励\n\n战令用完、任务为空，或无损次数用完且没有已满足的任务时停止。\n\n请从游戏主界面或竞技场主界面开始。",
             "option": [ "DailyArenaBattleMode" ],
             "pipeline_override": {
-                "CommonBattleFinishSetup": {
-                    "next": [ "[Anchor]CommonBattleContinue" ]
+                "RegularArenaStartBattle": {
+                    "max_hit": 100
                 },
-                "WaitBattleEnd": {
-                    "recognition": {
-                        "type": "OCR",
-                        "param": {
-                            "roi": [ 620, 430, 100, 35 ],
-                            "expected": "确认"
-                        }
-                    },
-                    "action": {
-                        "type": "Swipe",
-                        "param": {
-                            "begin": [ 670, 449 ],
-                            "end": [ 670, 449 ],
-                            "duration": 100,
-                            "only_hover": true
-                        }
-                    },
-                    "post_delay": 0,
-                    "next": [ "DailyArenaClickBattleEndHover" ]
+                "RegularArenaResultPopup": {
+                    "max_hit": 20
+                },
+                "RegularArenaExited": {
+                    "focus": {
+                        "Node.Action.Succeeded": "「竞技场」任务结束"
+                    }
                 }
             }
         },
@@ -703,7 +686,7 @@
                     "name": "Casual",
                     "label": "休闲战斗",
                     "pipeline_override": {
-                        "DailyArenaHoverStartBattle": {
+                        "RegularArenaHoverStartBattle": {
                             "recognition": {
                                 "type": "OCR",
                                 "param": {
@@ -721,7 +704,7 @@
                                 }
                             }
                         },
-                        "DailyArenaStartBattle": {
+                        "RegularArenaStartBattle": {
                             "recognition": {
                                 "type": "TemplateMatch",
                                 "param": {
@@ -1042,7 +1025,7 @@
                 },
                 {
                     "name": "AdvancedRefinementRune",
-                    "label": "高精",
+                    "label": "高精(签到)",
                     "pipeline_override": {
                         "GeneralStore": {
                             "attach": {
