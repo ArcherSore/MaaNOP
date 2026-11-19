@@ -53,13 +53,40 @@ class ParseServerRange(CustomRecognition):
 
         initialize_server_session(
             argv.task_detail.task_id,
-            server_list,
-            region_type=region_type,
+            [(region_type, server_id) for server_id in server_list],
         )
 
         return CustomRecognition.AnalyzeResult(
             box=(0, 0, 100, 100),
             detail={"server_list": server_list, "region_type": region_type},
+        )
+
+
+@AgentServer.custom_recognition("ParseRegionServers")
+class ParseRegionServers(CustomRecognition):
+    """按 公测 → 不删档 → 联盟 的固定顺序展开本节点 attach 中各大区的服务器范围。"""
+
+    REGION_ORDER = ("public", "non_wipe", "alliance")
+
+    def analyze(
+        self,
+        context: Context,
+        argv: CustomRecognition.AnalyzeArg,
+    ) -> CustomRecognition.AnalyzeResult:
+        ranges = context.get_node_data(argv.node_name)["attach"]
+        servers = [
+            (region_type, server_id)
+            for region_type in self.REGION_ORDER
+            for server_id in parse_server_range_string(ranges.get(region_type, ""))
+        ]
+        if not servers:
+            return None
+
+        initialize_server_session(argv.task_detail.task_id, servers)
+
+        return CustomRecognition.AnalyzeResult(
+            box=(0, 0, 0, 0),
+            detail={"servers": servers},
         )
 
 

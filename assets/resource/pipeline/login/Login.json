@@ -36,7 +36,23 @@
     "BatchLoginEntry": {
         "pre_delay": 0,
         "post_delay": 0,
-        "next": "SetServerRegion"
+        "next": "ParseBatchServers"
+    },
+    "ParseBatchServers": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "ParseRegionServers"
+            }
+        },
+        "attach": {
+            "public": "",
+            "non_wipe": "",
+            "alliance": ""
+        },
+        "next": [ "GetNextServer" ]
     },
     "SingleLoginDone": {
         "action": {
