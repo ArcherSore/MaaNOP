@@ -153,14 +153,35 @@
     },
     "EquipGearFirst": {
         "timeout": 5000,
+        // 装备提示文字早于引导高亮出现，此时一键装备可能还不可点击。
         "recognition": {
-            "type": "Custom",
+            "type": "And",
             "param": {
-                "custom_recognition": "MatchWithout",
-                "custom_recognition_param": {
-                    "match": "EquipGearButton",
-                    "without": "LevelUpModal"
-                }
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": [ 1155, 589, 70, 33 ],
+                                "lower": [ 185, 150, 0 ],
+                                "upper": [ 255, 255, 105 ],
+                                "count": 80
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "Custom",
+                            "param": {
+                                "custom_recognition": "MatchWithout",
+                                "custom_recognition_param": {
+                                    "match": "EquipGearButton",
+                                    "without": "LevelUpModal"
+                                }
+                            }
+                        }
+                    }
+                ]
             }
         },
         "action": {
@@ -173,8 +194,14 @@
     "AcceptMainTask_新忍者登记": {
         "timeout": 5000,
         "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "QuestDialogAccept" ] }
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "QuestDialogAccept",
+                    "without": "EquipGearButton"
+                }
+            }
         },
         "action": {
             "type": "Click"
