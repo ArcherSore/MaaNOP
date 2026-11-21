@@ -71,7 +71,7 @@
             }
         },
         "post_delay": 0,
-        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleClickAutoHover" ]
+        "next": [ "[Anchor]CommonBattleOutcome", "[Anchor]CommonBattleInterrupt", "CommonBattleAutoOn", "CommonBattleClickAutoHover" ]
     },
     "CommonBattleClickAutoHover": {
         "recognition": {
