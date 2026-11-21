@@ -85,7 +85,7 @@
             "group": [ "AltAccount" ],
             "entry": "AccountLeveling",
             "description": "依次在所选服务器注册角色并练到 **16 级**，请勿提前注册。\n\n某服登录失败时停止整个任务。",
-            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "AccountNamePrefix" ]
+            "option": [ "LoginAccount", "BatchServerRegions", "AccountNamePrefix" ]
         },
         {
             "name": "AccountClaims",
@@ -93,7 +93,7 @@
             "group": [ "AltAccount" ],
             "entry": "AccountClaims",
             "description": "依次登录所选服务器，领取勾选的奖励。请先完成各服角色的注册和练级。\n\n某服登录失败时停止整个任务。\n\n- **等级经验**：用铜币找回 50% 经验，适合 16～30 级小号，请备足铜币。\n- **邮件附件**：领取邮件中的附件。\n- **幻象奖励**：52 级解锁后使用，请先手动完成首次伤害。每周运行一次即可，重复运行会再次扫荡。\n- **回归奖励**：领取 30 级及以上角色连续 7 天未登录后触发的回归点券。",
-            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift", "ClaimAnniversarySignin" ]
+            "option": [ "LoginAccount", "BatchServerRegions", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift", "ClaimAnniversarySignin" ]
         },
         {
             "name": "ArenaRankGrind",
@@ -115,7 +115,7 @@
             "group": [ "AltAccount" ],
             "entry": "ShoppingFestivalTask",
             "description": "依次登录所选服务器，在**木叶购物节**消费 **1500 点券**，再将获得的字赠送给指定大号。\n\n- 大号须保持在线，并已被各小号加为好友。\n- 首页四个商品中，须至少有一个单价能整除 1500；不会向下翻找商品。\n- 每个小号每天只运行一次，重复运行会再次购买。\n- 某服登录失败时停止整个任务。",
-            "option": [ "LoginAccount", "ServerRegionType", "ServerRange", "ShoppingFriendName" ]
+            "option": [ "LoginAccount", "BatchServerRegions", "ShoppingFriendName" ]
         },
         {
             "name": "AutoManagement",
@@ -523,28 +523,92 @@
                 }
             }
         },
-        "ServerRange": {
+        "BatchServerRegions": {
+            "type": "checkbox",
+            "label": "服务器大区",
+            "description": "勾选要处理的大区，并分别填写服务器范围。按 公测 → 不删档 → 联盟 的顺序依次登录。",
+            "default_case": [ "Public" ],
+            "min_count": 1,
+            "cases": [
+                {
+                    "name": "Public",
+                    "label": "公测",
+                    "option": [ "PublicServerRange" ]
+                },
+                {
+                    "name": "NonWipe",
+                    "label": "不删档",
+                    "option": [ "NonWipeServerRange" ]
+                },
+                {
+                    "name": "Alliance",
+                    "label": "联盟",
+                    "option": [ "AllianceServerRange" ]
+                }
+            ]
+        },
+        "PublicServerRange": {
             "type": "input",
-            "label": "服务器选择",
+            "label": "公测服务器",
             "inputs": [
                 {
                     "name": "server_range",
                     "label": "服务器范围",
-                    "description": "输入服务器范围, 格式如: 10-16,18-20",
-                    "default": "978-1012",
+                    "description": "格式如: 1002,1005-1012",
+                    "default": "976-1012",
                     "pipeline_type": "string",
                     "verify": "^(?:\\d+(?:-\\d+)?)(?:,\\d+(?:-\\d+)?)*$",
                     "pattern_msg": "请输入正确格式, 如: 10-16,18-20"
                 }
             ],
             "pipeline_override": {
-                "ParseServer": {
-                    "recognition": {
-                        "type": "Custom",
-                        "param": {
-                            "custom_recognition": "ParseServerRange",
-                            "custom_recognition_param": "{server_range}"
-                        }
+                "ParseBatchServers": {
+                    "attach": {
+                        "non_wipe": "{server_range}"
+                    }
+                }
+            }
+        },
+        "NonWipeServerRange": {
+            "type": "input",
+            "label": "不删档服务器",
+            "inputs": [
+                {
+                    "name": "server_range",
+                    "label": "服务器范围",
+                    "description": "格式如: 1002,1005-1012",
+                    "default": "976-1012",
+                    "pipeline_type": "string",
+                    "verify": "^(?:\\d+(?:-\\d+)?)(?:,\\d+(?:-\\d+)?)*$",
+                    "pattern_msg": "请输入正确格式, 如: 1002,1005-1012"
+                }
+            ],
+            "pipeline_override": {
+                "ParseBatchServers": {
+                    "attach": {
+                        "non_wipe": "{server_range}"
+                    }
+                }
+            }
+        },
+        "AllianceServerRange": {
+            "type": "input",
+            "label": "联盟服务器",
+            "inputs": [
+                {
+                    "name": "server_range",
+                    "label": "服务器范围",
+                    "description": "格式如: 1002,1005-1012",
+                    "default": "976-1012",
+                    "pipeline_type": "string",
+                    "verify": "^(?:\\d+(?:-\\d+)?)(?:,\\d+(?:-\\d+)?)*$",
+                    "pattern_msg": "请输入正确格式, 如: 1002,1005-1012"
+                }
+            ],
+            "pipeline_override": {
+                "ParseBatchServers": {
+                    "attach": {
+                        "alliance": "{server_range}"
                     }
                 }
             }

@@ -468,7 +468,7 @@
                         "recognition": {
                             "type": "OCR",
                             "param": {
-                                "roi": [ 626, 312, 91, 60 ],
+                                "roi": [ 626, 297, 91, 90 ],
                                 "expected": "^元宝不够$",
                                 "threshold": 0.8
                             }

@@ -98,7 +98,8 @@
         "next": [ "EnsureClaimLevel" ]
     },
     "EnsureClaimLevel": {
-        "rate_limit": 200,
+        "rate_limit": 50,
+        "post_delay": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -113,7 +114,32 @@
                 "target": [ 595, 405, 30, 5 ]
             }
         },
-        "next": [ "ClaimLevelConfirmed", "ClaimLevelUpgradePopup" ]
+        "next": [ "ClaimLevelResult", "ClaimLevelUpgradePopup" ]
+    },
+    "ClaimLevelResult": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Or",
+            "param": {
+                // 浮字和结果行的 OCR 区域重叠，在同一节点中按优先级判断。
+                "any_of": [ "ClaimLevelInsufficientCoins", "ClaimLevelConfirmed" ]
+            }
+        },
+        "next": [ "ExitClaimLevel" ]
+    },
+    "ClaimLevelInsufficientCoins": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 618, 293, 104, 108 ],
+                "expected": "^铜币不够[！!]?$",
+                "threshold": 0.8
+            }
+        },
+        "next": [ "ExitClaimLevel" ]
     },
     "ClaimLevelUpgradePopup": {
         "pre_delay": 0,

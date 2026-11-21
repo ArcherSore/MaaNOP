@@ -7,13 +7,15 @@
             "ServerSelected": "LoginPopupAppears",
             "LoginComplete": "SingleLoginDone"
         },
-        "next": "SetServerRegion"
+        "next": [ "SetServerRegion" ]
     },
     "AccountLeveling": {
         "pre_delay": 0,
         "post_delay": 0,
-        "anchor": { "ServerSelected": "LevelingEntry" },
-        "next": "BatchLoginEntry"
+        "anchor": {
+            "ServerSelected": "LevelingEntry"
+        },
+        "next": [ "BatchLoginEntry" ]
     },
     "AccountClaims": {
         "pre_delay": 0,
@@ -22,7 +24,7 @@
             "ServerSelected": "LoginPopupAppears",
             "LoginComplete": "ClaimingTasks"
         },
-        "next": "BatchLoginEntry"
+        "next": [ "BatchLoginEntry" ]
     },
     "ShoppingFestivalTask": {
         "pre_delay": 0,
@@ -31,24 +33,42 @@
             "ServerSelected": "LoginPopupAppears",
             "LoginComplete": "ShoppingFestivalEntry"
         },
-        "next": "BatchLoginEntry"
+        "next": [ "BatchLoginEntry" ]
     },
     "BatchLoginEntry": {
         "pre_delay": 0,
         "post_delay": 0,
-        "next": "SetServerRegion"
+        "next": [ "ParseBatchServers" ]
+    },
+    "ParseBatchServers": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "ParseRegionServers"
+            }
+        },
+        "attach": {
+            "public": "",
+            "non_wipe": "",
+            "alliance": ""
+        },
+        "next": [ "GetNextServer" ]
     },
     "SingleLoginDone": {
         "action": {
             "type": "Custom",
-            "param": { "custom_action": "ClearServerSession" }
+            "param": {
+                "custom_action": "ClearServerSession"
+            }
         }
     },
     // 只由本服业务出口进入；先推进并判断完成，最后一服不刷新。
     "BatchServerDone": {
         "pre_delay": 0,
         "post_delay": 0,
-        "next": "GetNextServer"
+        "next": [ "GetNextServer" ]
     },
     "SetServerRegion": {
         "pre_delay": 0,
@@ -60,7 +80,7 @@
                 "custom_recognition_param": "public"
             }
         },
-        "next": "ParseServer"
+        "next": [ "ParseServer" ]
     },
     "ParseServer": {
         "pre_delay": 0,
@@ -71,7 +91,7 @@
                 "custom_recognition": "ParseServerRange"
             }
         },
-        "next": "GetNextServer"
+        "next": [ "GetNextServer" ]
     },
     "RefreshPage": {
         "recognition": {
@@ -88,7 +108,7 @@
             }
         },
         "post_delay": 500,
-        "next": "WebLogin"
+        "next": [ "WebLogin" ]
     },
     "ReChooseServer": {
         "max_hit": 3,
@@ -155,8 +175,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 437, 198, 107, 18 ],
-                "expected": "set in code"
+                "roi": [ 437, 198, 107, 18 ]
             }
         }
     },
@@ -166,8 +185,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 546, 198, 108, 18 ],
-                "expected": "set in code"
+                "roi": [ 546, 198, 108, 18 ]
             }
         }
     },
@@ -177,8 +195,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 655, 198, 107, 18 ],
-                "expected": "set in code"
+                "roi": [ 655, 198, 107, 18 ]
             }
         }
     },
@@ -195,7 +212,7 @@
                 "custom_action": "PreciseClick"
             }
         },
-        "next": "ScrollToTarget"
+        "next": [ "ScrollToTarget" ]
     },
     "ScrollToTarget": {
         "action": {
@@ -204,7 +221,7 @@
                 "custom_action": "ScrollToTargetServer"
             }
         },
-        "next": "ChooseServer"
+        "next": [ "ChooseServer" ]
     },
     "ChooseServer": {
         "recognition": {
@@ -231,18 +248,44 @@
                 "custom_recognition": "MatchPopup",
                 "custom_recognition_param": {
                     "popups": [
-                        { "name": "试用到期", "expected": "上阵忍者.*试用.*自动下阵", "roi": [ 555, 355, 230, 30 ], "target": [ 591, 398, 36, 10 ] },
-                        { "name": "公告", "template": "common/popup/Announcement.png", "roi": [ 647, 288, 196, 89 ], "target": [ 962, 310, 13, 12 ] },
-                        { "name": "回归", "template": "common/popup/Return.png", "roi": [ 671, 161, 260, 136 ], "target": [ 901, 212, 13, 12 ] },
-                        { "name": "福利", "template": "common/popup/Welfare.png", "roi": [ 797, 165, 121, 86 ], "target": [ 961, 203, 13, 12 ] },
-                        { "name": "组织", "template": "common/popup/Organization.png", "roi": [ 617, 557, 101, 66 ] }
+                        {
+                            "name": "试用到期",
+                            "expected": "上阵忍者.*试用.*自动下阵",
+                            "roi": [ 555, 355, 230, 30 ],
+                            "target": [ 591, 398, 36, 10 ]
+                        },
+                        {
+                            "name": "公告",
+                            "template": "common/popup/Announcement.png",
+                            "roi": [ 647, 288, 196, 89 ],
+                            "target": [ 962, 310, 13, 12 ]
+                        },
+                        {
+                            "name": "回归",
+                            "template": "common/popup/Return.png",
+                            "roi": [ 671, 161, 260, 136 ],
+                            "target": [ 901, 212, 13, 12 ]
+                        },
+                        {
+                            "name": "福利",
+                            "template": "common/popup/Welfare.png",
+                            "roi": [ 797, 165, 121, 86 ],
+                            "target": [ 961, 203, 13, 12 ]
+                        },
+                        {
+                            "name": "组织",
+                            "template": "common/popup/Organization.png",
+                            "roi": [ 617, 557, 101, 66 ]
+                        }
                     ]
                 }
             }
         },
         "pre_delay": 0,
         "post_delay": 1000, // 弹窗点中后很快消失，等待后再识别，避免补点到地图。
-        "action": { "type": "Click" },
+        "action": {
+            "type": "Click"
+        },
         "next": [ "LoginPopupAppears", "LoginScreenClear" ]
     },
     "LoginScreenClear": {
@@ -252,7 +295,10 @@
             "type": "Custom",
             "param": {
                 "custom_recognition": "MatchWithout",
-                "custom_recognition_param": { "match": "LoginMapVisible", "without": "WalkLoading" }
+                "custom_recognition_param": {
+                    "match": "LoginMapVisible",
+                    "without": "WalkLoading"
+                }
             }
         },
         // 体力标签出现时 LOADING 仍未消失，须同帧排除加载。
@@ -277,17 +323,25 @@
         "post_delay": 0,
         "recognition": {
             "type": "And",
-            "param": { "all_of": [ "LoginScreenClear" ] }
+            "param": {
+                "all_of": [ "LoginScreenClear" ]
+            }
         },
         "next": [ "LoginHidePlayers", "LoginPlayersHidden" ]
     },
     "LoginHidePlayers": {
         "recognition": {
             "type": "And",
-            "param": { "all_of": [ "HidePlayersIcon" ] }
+            "param": {
+                "all_of": [ "HidePlayersIcon" ]
+            }
         },
-        "action": { "type": "Click" },
-        "anchor": { "MouseMoveResetAnchor": "MouseMoveReset" },
+        "action": {
+            "type": "Click"
+        },
+        "anchor": {
+            "MouseMoveResetAnchor": "MouseMoveReset"
+        },
         "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "LoginPlayersHidden" ]
     },
     "LoginPlayersHidden": {
@@ -301,12 +355,19 @@
                 "threshold": 0.85
             }
         },
-        "next": "[Anchor]LoginComplete"
+        "next": [ "[Anchor]LoginComplete" ]
     },
     "ClaimingTasks": {
         "pre_delay": 0,
         "post_delay": 0,
-        "next": [ "ClaimReturnGiftEntry", "ClaimInfiniteIllusionEntry", "ClaimMailEntry", "ClaimLevelEntry", "ClaimAnniversarySigninEntry", "BatchServerDone" ]
+        "next": [
+            "ClaimReturnGiftEntry",
+            "ClaimInfiniteIllusionEntry",
+            "ClaimMailEntry",
+            "ClaimLevelEntry",
+            "ClaimAnniversarySigninEntry",
+            "BatchServerDone"
+        ]
     },
     "AllServerCompleted": {
         "pre_delay": 0,
@@ -370,18 +431,11 @@
         "post_delay": 0,
         "recognition": {
             "type": "OCR",
-            "param": {
-                "roi": [ 0, 0, 0, 0 ],
-                "expected": [ "set in code" ]
-            }
+            "param": {}
         }
     },
     "LoginMsg": {
         "pre_delay": 0,
-        "post_delay": 0,
-        "focus": {
-            "Node.Action.Succeeded": "Action msg set in code",
-            "Node.Recognition.Succeeded": "Recognition msg set in code"
-        }
+        "post_delay": 0
     }
 }
