@@ -302,7 +302,7 @@
             }
         },
         "timeout": 60000,
-        "next": [ "WantedAutoStart" ]
+        "next": [ "WantedAutoStartHover" ]
     },
     "WantedAlreadyDone": {
         "recognition": {
@@ -370,7 +370,6 @@
         },
         "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "WantedInVillage" ]
     },
-    // 自动完成按钮仅蓝色面可点击，两端尖角不可点。
     "WantedRemainLabel": {
         "recognition": {
             "type": "TemplateMatch",
@@ -381,11 +380,34 @@
             }
         }
     },
-    "WantedAutoStart": {
+    "WantedAutoStartHover": {
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [ "WantedRemainLabel" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 815, 270, 42, 11 ],
+                "end": [ 815, 270, 42, 11 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "WantedAutoStart" ]
+    },
+    "WantedAutoStart": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 850, 270, 17, 11 ],
+                "method": 40,
+                "lower": [ 90, 145, 205 ],
+                "upper": [ 110, 255, 255 ],
+                "count": 30
             }
         },
         "action": {
