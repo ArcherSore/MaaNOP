@@ -1,6 +1,21 @@
 {
     "CloseBottomRightPopups": {
         "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "BottomRightPopupCloseButton",
+                    "without": []
+                }
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
+    },
+    "BottomRightPopupCloseButton": {
+        "recognition": {
             "type": "And",
             "param": {
                 "all_of": [
@@ -30,9 +45,6 @@
                 ],
                 "box_index": 1
             }
-        },
-        "action": {
-            "type": "Click"
         }
     }
 }

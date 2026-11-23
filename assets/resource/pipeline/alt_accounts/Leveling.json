@@ -175,7 +175,7 @@
                             "param": {
                                 "custom_recognition": "MatchWithout",
                                 "custom_recognition_param": {
-                                    "match": "EquipGearButton",
+                                    "match": "EquipGearPanel",
                                     "without": "LevelUpModal"
                                 }
                             }
@@ -199,7 +199,7 @@
                 "custom_recognition": "MatchWithout",
                 "custom_recognition_param": {
                     "match": "QuestDialogAccept",
-                    "without": "EquipGearButton"
+                    "without": "EquipGearPanel"
                 }
             }
         },
@@ -753,7 +753,7 @@
                             "param": {
                                 "custom_recognition": "MatchWithout",
                                 "custom_recognition_param": {
-                                    "match": "EquipGearButton",
+                                    "match": "EquipGearPanel",
                                     "without": "LevelUpModal"
                                 }
                             }
@@ -777,7 +777,7 @@
                 "custom_recognition": "MatchWithout",
                 "custom_recognition_param": {
                     "match": "QuestDialogAccept",
-                    "without": "EquipGearButton"
+                    "without": "EquipGearPanel"
                 }
             }
         },
@@ -855,7 +855,7 @@
             "param": {
                 "custom_recognition": "MatchWithout",
                 "custom_recognition_param": {
-                    "match": "EquipGearButton",
+                    "match": "EquipGearPanel",
                     "without": "LevelUpModal"
                 }
             }
@@ -1352,7 +1352,7 @@
                             "param": {
                                 "custom_recognition": "MatchWithout",
                                 "custom_recognition_param": {
-                                    "match": "EquipGearButton",
+                                    "match": "EquipGearPanel",
                                     "without": "LevelUpModal"
                                 }
                             }
@@ -1378,7 +1378,7 @@
                 "custom_recognition": "MatchWithout",
                 "custom_recognition_param": {
                     "match": "QuestDialogAccept",
-                    "without": "EquipGearButton"
+                    "without": "EquipGearPanel"
                 }
             }
         },
@@ -4703,7 +4703,7 @@
     // 升级/新系统遮罩下装备提示仍可读，但点击被吞，须先排除遮挡。
     // 装备与任务对话框可同时出现，装备优先，因此不排除任务对话框。
     // 按钮小字模板跨设备不稳，OCR 也会误读；识别上方提示，固定点击按钮内部。
-    "EquipGearButton": {
+    "EquipGearPanel": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -4727,7 +4727,7 @@
             "param": {
                 "custom_recognition": "MatchWithout",
                 "custom_recognition_param": {
-                    "match": "EquipGearButton",
+                    "match": "EquipGearPanel",
                     "without": "LevelUpModal"
                 }
             }
