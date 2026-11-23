@@ -142,53 +142,25 @@
         "timeout": 5000,
         "recognition": {
             "type": "And",
-            "param": { "all_of": [ "QuestDialogComplete" ] }
+            "param": {
+                "all_of": [ "QuestDialogComplete" ]
+            }
         },
         "action": {
             "type": "Click"
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_踏上忍者之路" ],
-        "next": [ "[JumpBack]ServerBusy", "EquipGearFirst", "[JumpBack]CloseBottomRightPopups" ]
+        "anchor": {
+            "EquipGearResult": "EquipGearFirst"
+        },
+        "next": [ "[JumpBack]ServerBusy", "HoverEquipGear", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearFirst": {
         "timeout": 5000,
-        // 装备提示文字早于引导高亮出现，此时一键装备可能还不可点击。
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    {
-                        "recognition": {
-                            "type": "ColorMatch",
-                            "param": {
-                                "roi": [ 1155, 589, 70, 33 ],
-                                "lower": [ 185, 150, 0 ],
-                                "upper": [ 255, 255, 105 ],
-                                "count": 80
-                            }
-                        }
-                    },
-                    {
-                        "recognition": {
-                            "type": "Custom",
-                            "param": {
-                                "custom_recognition": "MatchWithout",
-                                "custom_recognition_param": {
-                                    "match": "EquipGearPanel",
-                                    "without": "LevelUpModal"
-                                }
-                            }
-                        }
-                    }
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": { "target": [ 1238, 599, 30, 12 ] }
-        },
-        "on_error": [ "EquipGearFirst" ],
+        "pre_delay": 0,
+        "post_delay": 0,
+        "on_error": [ "HoverEquipGear" ],
         "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_新忍者登记" ]
     },
     "AcceptMainTask_新忍者登记": {
@@ -721,52 +693,25 @@
         "timeout": 5000,
         "recognition": {
             "type": "And",
-            "param": { "all_of": [ "QuestDialogComplete" ] }
+            "param": {
+                "all_of": [ "QuestDialogComplete" ]
+            }
         },
         "action": {
             "type": "Click"
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_木叶丸的行踪" ],
-        "next": [ "[JumpBack]ServerBusy", "EquipGearSecond", "[JumpBack]CloseBottomRightPopups" ]
+        "anchor": {
+            "EquipGearResult": "EquipGearSecond"
+        },
+        "next": [ "[JumpBack]ServerBusy", "HoverEquipGear", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearSecond": {
         "timeout": 5000,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    {
-                        "recognition": {
-                            "type": "ColorMatch",
-                            "param": {
-                                "roi": [ 1155, 589, 70, 33 ],
-                                "lower": [ 185, 150, 0 ],
-                                "upper": [ 255, 255, 105 ],
-                                "count": 80
-                            }
-                        }
-                    },
-                    {
-                        "recognition": {
-                            "type": "Custom",
-                            "param": {
-                                "custom_recognition": "MatchWithout",
-                                "custom_recognition_param": {
-                                    "match": "EquipGearPanel",
-                                    "without": "LevelUpModal"
-                                }
-                            }
-                        }
-                    }
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": { "target": [ 1238, 599, 30, 12 ] }
-        },
-        "on_error": [ "EquipGearSecond" ],
+        "pre_delay": 0,
+        "post_delay": 0,
+        "on_error": [ "HoverEquipGear" ],
         "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_向伊鲁卡报告" ]
     },
     "AcceptMainTask_向伊鲁卡报告": {
@@ -845,33 +790,29 @@
             "Node.Recognition.Succeeded": "Level 5"
         },
         "on_error": [ "ConfirmMainCharLevel5" ],
-        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseNewSystemPopups",
-            "EquipGearThird", "[JumpBack]CloseBottomRightPopups" ]
+        "anchor": {
+            "EquipGearResult": "EquipGearThird"
+        },
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseNewSystemPopups", "HoverEquipGear", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearThird": {
+        "timeout": 5000,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "on_error": [ "HoverEquipGear" ],
+        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_初遇佐助", "ClickOnMainTask_初遇佐助" ]
+    },
+    "ClickOnMainTask_初遇佐助": {
         "timeout": 5000,
         "recognition": {
             "type": "Custom",
             "param": {
                 "custom_recognition": "MatchWithout",
                 "custom_recognition_param": {
-                    "match": "EquipGearPanel",
-                    "without": "LevelUpModal"
+                    "match": "QuestHudIdle",
+                    "without": "EquipGearPanel"
                 }
             }
-        },
-        "action": {
-            "type": "Click",
-            "param": { "target": [ 1238, 599, 30, 12 ] }
-        },
-        "on_error": [ "EquipGearThird" ],
-        "next": [ "[JumpBack]ServerBusy", "AcceptMainTask_初遇佐助", "ClickOnMainTask_初遇佐助" ]
-    },
-    "ClickOnMainTask_初遇佐助": {
-        "timeout": 5000,
-        "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "QuestHudIdle" ] }
         },
         "action": {
             "type": "Click",
@@ -886,8 +827,14 @@
         "timeout": 5000,
         "post_delay": 1000,
         "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "QuestDialogAccept" ] }
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "QuestDialogAccept",
+                    "without": "EquipGearPanel"
+                }
+            }
         },
         "action": {
             "type": "Click"
@@ -1320,52 +1267,25 @@
         "timeout": 5000,
         "recognition": {
             "type": "And",
-            "param": { "all_of": [ "QuestDialogComplete" ] }
+            "param": {
+                "all_of": [ "QuestDialogComplete" ]
+            }
         },
         "action": {
             "type": "Click"
         },
         "post_delay": 1000,
         "on_error": [ "CompleteMainTask_开始修炼" ],
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter开始修炼", "[JumpBack]CloseBottomRightPopups" ]
+        "anchor": {
+            "EquipGearResult": "EquipGearAfter开始修炼"
+        },
+        "next": [ "[JumpBack]ServerBusy", "HoverEquipGear", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter开始修炼": {
         "timeout": 5000,
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    {
-                        "recognition": {
-                            "type": "ColorMatch",
-                            "param": {
-                                "roi": [ 1155, 589, 70, 33 ],
-                                "lower": [ 185, 150, 0 ],
-                                "upper": [ 255, 255, 105 ],
-                                "count": 80
-                            }
-                        }
-                    },
-                    {
-                        "recognition": {
-                            "type": "Custom",
-                            "param": {
-                                "custom_recognition": "MatchWithout",
-                                "custom_recognition_param": {
-                                    "match": "EquipGearPanel",
-                                    "without": "LevelUpModal"
-                                }
-                            }
-                        }
-                    }
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": { "target": [ 1238, 599, 30, 12 ] }
-        },
-        "on_error": [ "EquipGearAfter开始修炼" ],
+        "pre_delay": 0,
+        "post_delay": 0,
+        "on_error": [ "HoverEquipGear" ],
         "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseBottomRightPopups", "AcceptMainTask_击退来袭狼群" ]
     },
     /* ---------------------------------------- main task 击退来袭狼群 start ---------------------------------------- */
@@ -1753,32 +1673,39 @@
         "timeout": 5000,
         "recognition": {
             "type": "And",
-            "param": { "all_of": [ "QuestDialogComplete" ] }
+            "param": {
+                "all_of": [ "QuestDialogComplete" ]
+            }
         },
         "action": {
             "type": "Click"
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_击退来袭狼群" ],
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter击退来袭狼群", "[JumpBack]CloseBottomRightPopups" ]
+        "anchor": {
+            "EquipGearResult": "EquipGearAfter击退来袭狼群"
+        },
+        "next": [ "[JumpBack]ServerBusy", "HoverEquipGear", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter击退来袭狼群": {
-        "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "EquipGear" ] }
-        },
-        "action": {
-            "type": "Click",
-            "param": { "target": [ 1238, 599, 30, 12 ] }
-        },
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter击退来袭狼群", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_联系阿斯玛" ]
+        "timeout": 5000,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "on_error": [ "HoverEquipGear" ],
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_联系阿斯玛" ]
     },
     /* ---------------------------------------- main task 联系阿斯玛 start ---------------------------------------- */
     "ClickOnMainTask_联系阿斯玛": {
         "timeout": 5000,
         "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "QuestHudIdle" ] }
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "QuestHudIdle",
+                    "without": "EquipGearPanel"
+                }
+            }
         },
         "action": {
             "type": "Click",
@@ -2004,32 +1931,39 @@
         "timeout": 5000,
         "recognition": {
             "type": "And",
-            "param": { "all_of": [ "QuestDialogComplete" ] }
+            "param": {
+                "all_of": [ "QuestDialogComplete" ]
+            }
         },
         "action": {
             "type": "Click"
         },
         "post_delay": 700,
         "on_error": [ "CompleteMainTask_合战演练" ],
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter合战演练", "[JumpBack]CloseBottomRightPopups" ]
+        "anchor": {
+            "EquipGearResult": "EquipGearAfter合战演练"
+        },
+        "next": [ "[JumpBack]ServerBusy", "HoverEquipGear", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter合战演练": {
-        "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "EquipGear" ] }
-        },
-        "action": {
-            "type": "Click",
-            "param": { "target": [ 1238, 599, 30, 12 ] }
-        },
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter合战演练", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_前往生存试炼场" ]
+        "timeout": 5000,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "on_error": [ "HoverEquipGear" ],
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseBottomRightPopups", "ClickOnMainTask_前往生存试炼场" ]
     },
     /* ----------------------------------- main task 前往生存试炼场 start ----------------------------------- */
     "ClickOnMainTask_前往生存试炼场": {
         "timeout": 5000,
         "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "QuestHudIdle" ] }
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "QuestHudIdle",
+                    "without": "EquipGearPanel"
+                }
+            }
         },
         "action": {
             "type": "Click",
@@ -2727,24 +2661,29 @@
             "Node.Recognition.Succeeded": "Level 11"
         },
         "on_error": [ "ConfirmMainCharLevel11" ],
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter护送达兹纳", "[JumpBack]CloseBottomRightPopups" ]
+        "anchor": {
+            "EquipGearResult": "EquipGearAfter护送达兹纳"
+        },
+        "next": [ "[JumpBack]ServerBusy", "HoverEquipGear", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter护送达兹纳": {
-        "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "EquipGear" ] }
-        },
-        "action": {
-            "type": "Click",
-            "param": { "target": [ 1238, 599, 30, 12 ] }
-        },
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter护送达兹纳", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_谨慎前行" ]
+        "timeout": 5000,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "on_error": [ "HoverEquipGear" ],
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_谨慎前行" ]
     },
     "ClickOnCopy_谨慎前行": {
         "timeout": 5000,
         "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "QuestHudIdle" ] }
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "QuestHudIdle",
+                    "without": "EquipGearPanel"
+                }
+            }
         },
         "action": {
             "type": "Click",
@@ -3086,30 +3025,37 @@
         "post_delay": 1000,
         "recognition": {
             "type": "And",
-            "param": { "all_of": [ "SkipDialogueButton" ] }
+            "param": {
+                "all_of": [ "SkipDialogueButton" ]
+            }
         },
         "action": {
             "type": "Click"
         },
         "on_error": [ "SkipDialogue_MainTask鬼人再不斩" ],
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter谨慎前行", "[JumpBack]CloseBottomRightPopups" ]
+        "anchor": {
+            "EquipGearResult": "EquipGearAfter谨慎前行"
+        },
+        "next": [ "[JumpBack]ServerBusy", "HoverEquipGear", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter谨慎前行": {
-        "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "EquipGear" ] }
-        },
-        "action": {
-            "type": "Click",
-            "param": { "target": [ 1238, 599, 30, 12 ] }
-        },
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter谨慎前行", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_鬼人再不斩" ]
+        "timeout": 5000,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "on_error": [ "HoverEquipGear" ],
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_鬼人再不斩" ]
     },
     "ClickOnCopy_鬼人再不斩": {
         "timeout": 5000,
         "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "QuestHudIdle" ] }
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "QuestHudIdle",
+                    "without": "EquipGearPanel"
+                }
+            }
         },
         "action": {
             "type": "Click",
@@ -3290,24 +3236,29 @@
             "Node.Recognition.Succeeded": "Level 13"
         },
         "on_error": [ "ConfirmMainCharLevel13" ],
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter鬼人再不斩", "[JumpBack]CloseBottomRightPopups" ]
+        "anchor": {
+            "EquipGearResult": "EquipGearAfter鬼人再不斩"
+        },
+        "next": [ "[JumpBack]ServerBusy", "HoverEquipGear", "[JumpBack]CloseBottomRightPopups" ]
     },
     "EquipGearAfter鬼人再不斩": {
-        "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "EquipGear" ] }
-        },
-        "action": {
-            "type": "Click",
-            "param": { "target": [ 1238, 599, 30, 12 ] }
-        },
-        "next": [ "[JumpBack]ServerBusy", "EquipGearAfter鬼人再不斩", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_保护大桥" ]
+        "timeout": 5000,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "on_error": [ "HoverEquipGear" ],
+        "next": [ "[JumpBack]ServerBusy", "[JumpBack]CloseBottomRightPopups", "ClickOnCopy_保护大桥" ]
     },
     "ClickOnCopy_保护大桥": {
         "timeout": 5000,
         "recognition": {
-            "type": "And",
-            "param": { "all_of": [ "QuestHudIdle" ] }
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "QuestHudIdle",
+                    "without": "EquipGearPanel"
+                }
+            }
         },
         "action": {
             "type": "Click",
@@ -4700,15 +4651,57 @@
             "type": "Click"
         }
     },
-    // 升级/新系统遮罩下装备提示仍可读，但点击被吞，须先排除遮挡。
-    // 装备与任务对话框可同时出现，装备优先，因此不排除任务对话框。
-    // 按钮小字模板跨设备不稳，OCR 也会误读；识别上方提示，固定点击按钮内部。
+    // 提示早于按钮加载完成，保留面板和等待穿戴完成都只检查提示。
     "EquipGearPanel": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [ 1185, 574, 145, 23 ],
                 "expected": [ "新装备.*提升战斗力" ]
+            }
+        }
+    },
+    "EquipGearButton": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1218, 594, 74, 23 ],
+                "expected": [ "^一键装备$" ]
+            }
+        }
+    },
+    "HoverEquipGear": {
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "EquipGearButton",
+                    "without": "LevelUpModal"
+                }
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 1238, 599, 30, 12 ],
+                "end": [ 1238, 599, 30, 12 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "next": [ "EquipGear" ]
+    },
+    "EquipGearHoverReady": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1227, 606, 54, 4 ],
+                "method": 40,
+                "lower": [ 89, 120, 205 ],
+                "upper": [ 118, 255, 255 ],
+                "count": 70
             }
         }
     },
@@ -4727,15 +4720,19 @@
             "param": {
                 "custom_recognition": "MatchWithout",
                 "custom_recognition_param": {
-                    "match": "EquipGearPanel",
+                    "match": "EquipGearHoverReady",
                     "without": "LevelUpModal"
                 }
             }
         },
         "action": {
             "type": "Click",
-            "param": { "target": [ 1238, 599, 30, 12 ] }
-        }
+            "param": {
+                "target": [ 1238, 599, 30, 12 ]
+            }
+        },
+        "on_error": [ "HoverEquipGear" ],
+        "next": [ "[Anchor]EquipGearResult" ]
     },
     "HandleStartBattleButton": {
         "timeout": 5000,
