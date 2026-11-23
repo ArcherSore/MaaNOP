@@ -564,7 +564,7 @@
             "pipeline_override": {
                 "ParseBatchServers": {
                     "attach": {
-                        "non_wipe": "{server_range}"
+                        "public": "{server_range}"
                     }
                 }
             }
