@@ -205,6 +205,46 @@
             }
         }
     },
+    "DailyJoinHover": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "DailyJoinAvailable" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 834, 473, 40, 13 ],
+                "end": [ 834, 473, 40, 13 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "DailyJoinClick" ]
+    },
+    // 调用方绑定点击后的画面识别，并在选中详情后处理灰态。
+    "DailyJoinClick": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 834, 474, 40, 13 ],
+                "method": 40,
+                "lower": [ 15, 100, 215 ],
+                "upper": [ 35, 255, 255 ],
+                "count": 110
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 834, 473, 40, 13 ]
+            }
+        },
+        "timeout": 60000,
+        "next": [ "[Anchor]DailyJoinAfterClick" ]
+    },
     "DailyJoinKnown": {
         "recognition": {
             "type": "Or",
