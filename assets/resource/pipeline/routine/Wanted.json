@@ -257,7 +257,10 @@
                 }
             }
         },
-        "next": [ "WantedJoin", "WantedAlreadyDone" ]
+        "anchor": {
+            "DailyJoinAfterClick": "WantedAutoStartHover"
+        },
+        "next": [ "DailyJoinHover", "WantedAlreadyDone" ]
     },
     "WantedMapClear": {
         "recognition": {
@@ -287,22 +290,6 @@
                 "threshold": 0.85
             }
         }
-    },
-    "WantedJoin": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [ "DailyJoinAvailable" ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 834, 473, 40, 13 ]
-            }
-        },
-        "timeout": 60000,
-        "next": [ "WantedAutoStart" ]
     },
     "WantedAlreadyDone": {
         "recognition": {
@@ -370,7 +357,6 @@
         },
         "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "WantedInVillage" ]
     },
-    // 自动完成按钮仅蓝色面可点击，两端尖角不可点。
     "WantedRemainLabel": {
         "recognition": {
             "type": "TemplateMatch",
@@ -381,11 +367,34 @@
             }
         }
     },
-    "WantedAutoStart": {
+    "WantedAutoStartHover": {
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [ "WantedRemainLabel" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 815, 270, 42, 11 ],
+                "end": [ 815, 270, 42, 11 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "WantedAutoStart" ]
+    },
+    "WantedAutoStart": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 850, 270, 17, 11 ],
+                "method": 40,
+                "lower": [ 90, 145, 205 ],
+                "upper": [ 110, 255, 255 ],
+                "count": 30
             }
         },
         "action": {
@@ -394,9 +403,9 @@
                 "target": [ 815, 270, 42, 11 ]
             }
         },
-        "next": [ "WantedSoloConfirm" ]
+        "next": [ "WantedSoloConfirmHover" ]
     },
-    "WantedSoloText": {
+    "WantedSoloConfirmHover": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -404,14 +413,28 @@
                 "roi": [ 545, 344, 130, 40 ],
                 "threshold": 0.8
             }
-        }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 598, 404, 36, 9 ],
+                "end": [ 598, 404, 36, 9 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "WantedSoloConfirm" ]
     },
-    // 确认按钮仅两侧卷纹之间可点击；确认框立即消失，任务窗口稍后才关闭。
     "WantedSoloConfirm": {
         "recognition": {
-            "type": "And",
+            "type": "ColorMatch",
             "param": {
-                "all_of": [ "WantedSoloText" ]
+                "roi": [ 598, 404, 36, 9 ],
+                "method": 40,
+                "lower": [ 15, 100, 210 ],
+                "upper": [ 35, 255, 255 ],
+                "count": 55
             }
         },
         "action": {
