@@ -89,10 +89,9 @@ class FindHoveredBottomEntry(CustomRecognition):
 
 @AgentServer.custom_recognition("MatchWithout")
 class MatchWithout(CustomRecognition):
-    """同一张截图上 match 节点命中、without 节点不命中时命中，返回 match 的识别框。
+    """同帧命中 match 且未命中任何 without 节点时，返回 match 的识别框。
 
-    pipeline 里「A 且非 B」只能拆成两个节点，分别在两帧上判断；两帧之间画面变了（比如切地图的加载画面）就会误判。
-    custom_recognition_param: {"match": "节点名", "without": "节点名"}
+    without 接受单个节点名或节点名列表。空列表允许所有 match 命中。
     """
 
     def analyze(
@@ -104,9 +103,13 @@ class MatchWithout(CustomRecognition):
         matched = context.run_recognition(param["match"], argv.image)
         if not matched or not matched.hit:
             return None
-        excluded = context.run_recognition(param["without"], argv.image)
-        if excluded and excluded.hit:
-            return None
+        without = param["without"]
+        if isinstance(without, str):
+            without = [without]
+        for node in without:
+            excluded = context.run_recognition(node, argv.image)
+            if excluded and excluded.hit:
+                return None
         return CustomRecognition.AnalyzeResult(box=matched.box, detail={})
 
 
