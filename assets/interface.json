@@ -54,10 +54,6 @@
     },
     "group": [
         {
-            "name": "AltAccount",
-            "label": "练小号"
-        },
-        {
             "name": "Routine",
             "label": "日常任务"
         },
@@ -68,6 +64,14 @@
         {
             "name": "LimitedEvent",
             "label": "限时活动"
+        },
+        {
+            "name": "AltAccount",
+            "label": "练小号"
+        },
+        {
+            "name": "StaminaPotion",
+            "label": "体力药水"
         }
     ],
     "task": [
@@ -159,6 +163,19 @@
             "entry": "GeneralStore",
             "description": "打开杂货屋，按当前库存购买勾选的商品。",
             "option": [ "GeneralStoreItems", "SecondaryPassword" ]
+        },
+        {
+            "name": "BlackMarket",
+            "label": "黑市商人",
+            "group": [ "StaminaPotion" ],
+            "entry": "BlackMarket",
+            "description": "配合定时任务蹲体力药水",
+            "option": [ "SecondaryPassword" ],
+            "pipeline_override": {
+                "ReturnToVillageDone": {
+                    "next": [ "BlackMarketFindEntry" ]
+                }
+            }
         },
         {
             "name": "TryYourLuck",
@@ -1119,7 +1136,7 @@
                 {
                     "name": "secondary_password",
                     "label": "二级密码",
-                    "description": "押镖与杂货铺共用，留空表示未设置二级密码。",
+                    "description": "留空表示未设置二级密码。",
                     "password": true,
                     "pipeline_type": "string",
                     "verify": "^(?:[0-9]{6})?$",

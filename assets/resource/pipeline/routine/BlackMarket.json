@@ -1,0 +1,286 @@
+{
+    "BlackMarket": {
+        "next": [ "ReturnToVillage" ]
+    },
+    "BlackMarketFindEntry": {
+        "post_delay": 0,
+        "next": [ "BlackMarketClickEntry", "BlackMarketDragList" ]
+    },
+    "BlackMarketClickEntry": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 0, 160, 141, 115 ],
+                "expected": "商人"
+            }
+        },
+        "action": "Click",
+        "post_delay": 0,
+        "on_error": [ "BlackMarketFindEntry" ],
+        "next": [ "BlackMarketShopReady" ]
+    },
+    "BlackMarketDragList": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 141, 200, 6, 30 ],
+                "method": 40,
+                "lower": [ 95, 150, 150 ],
+                "upper": [ 120, 255, 255 ],
+                "count": 80
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 143, 215 ],
+                "end": [ 143, 255 ],
+                "duration": 600
+            }
+        },
+        "post_delay": 0,
+        "post_wait_freezes": {
+            "time": 300,
+            "target": [ 5, 165, 135, 110 ],
+            "timeout": 3000
+        },
+        "next": [ "BlackMarketClickEntry" ]
+    },
+    "BlackMarketShopReady": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/black_market/ShopTitle.png",
+                "roi": [ 600, 170, 150, 45 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketShopSoldOut", "BlackMarketTargetItem", "BlackMarketWrongItem" ]
+    },
+    "BlackMarketBuyPresent": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 540, 353, 62, 20 ],
+                "method": 40,
+                "lower": [ 5, 150, 200 ],
+                "upper": [ 20, 255, 255 ],
+                "count": 150
+            }
+        }
+    },
+    "BlackMarketShopSoldOut": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/black_market/SoldOutSign.png",
+                "roi": [ 545, 320, 80, 65 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketHoverClose" ]
+    },
+    "BlackMarketTargetItem": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "BlackMarketBuyPresent",
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 450, 274, 125, 26 ],
+                                "expected": "体力药水",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "anchor": {
+            "BlackMarketPasswordRoute": "CommonSecondaryPasswordDialog",
+            "SecondaryPasswordAcceptedNext": "BlackMarketRetryAfterPassword",
+            "SecondaryPasswordDismissedNext": "BlackMarketHoverClose"
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketHoverBuy" ]
+    },
+    "BlackMarketWrongItem": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BlackMarketBuyPresent" ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketHoverClose" ]
+    },
+    "BlackMarketHoverBuy": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BlackMarketBuyPresent" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "duration": 100,
+                "begin": [ 570, 363 ],
+                "end": [ 570, 363 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketClickBuy" ]
+    },
+    "BlackMarketClickBuy": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 540, 353, 62, 20 ],
+                "method": 40,
+                "lower": [ 7, 100, 240 ],
+                "upper": [ 36, 255, 255 ],
+                "count": 100
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 556, 359, 28, 8 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "[Anchor]BlackMarketPasswordRoute", "BlackMarketHoverConfirm" ]
+    },
+    "BlackMarketRetryAfterPassword": {
+        "anchor": {
+            "BlackMarketPasswordRoute": ""
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketHoverBuy" ]
+    },
+    "BlackMarketHoverConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 560, 358, 260, 28 ],
+                                "expected": "^确定使用",
+                                "only_rec": true,
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 580, 390, 56, 26 ],
+                                "expected": "^确定$",
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "duration": 100,
+                "begin": [ 608, 403 ],
+                "end": [ 608, 403 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketConfirm" ]
+    },
+    "BlackMarketConfirm": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 588, 395, 41, 16 ],
+                "method": 40,
+                "lower": [ 7, 100, 240 ],
+                "upper": [ 36, 255, 255 ],
+                "count": 100
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 597, 398, 24, 9 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketInsufficient", "BlackMarketShopSoldOut" ]
+    },
+    "BlackMarketInsufficient": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 540, 340, 260, 60 ],
+                "expected": "不足", // 待实测
+                "threshold": 0.8
+            }
+        },
+        // ColorMatch 待测：只凭 OCR 识别到文字就点击，弹窗按钮可能尚未加载完成，点击会被吞。
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 716, 398, 26, 8 ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "黑市商人有体力药水，但点券不足，购买失败！！！"
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketHoverClose" ]
+    },
+    "BlackMarketHoverClose": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/popup/RedClose.png",
+                "roi": [ 940, 190, 60, 45 ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "duration": 100,
+                "begin": [ 967, 214 ],
+                "end": [ 967, 214 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketClose" ]
+    },
+    "BlackMarketClose": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/popup/RedCloseHover.png",
+                "roi": [ 940, 190, 60, 45 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 961, 209, 12, 12 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "LoginMapVisible" ]
+    }
+}
