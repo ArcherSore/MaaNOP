@@ -3,7 +3,7 @@
         "pre_delay": 0,
         "post_delay": 0,
         "timeout": 10000,
-        "next": [ "ReturnToVillageClick" ]
+        "next": [ "ReturnToVillageDone", "ReturnToVillageClick" ]
     },
     "ReturnToVillageButton": {
         "pre_delay": 0,

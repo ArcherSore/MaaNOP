@@ -320,42 +320,8 @@
             }
         },
         "inverse": true,
-        "next": [ "WantedInVillage", "WantedBackToVillage" ]
-    },
-    // 完成后停在野外，需回木叶村南，避免后续任务长途寻路超时。
-    // 回村图标会触发加载；已在木叶村南时点击仍会重新加载。
-    "WantedInVillage": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "routine/wanted/VillageName.png",
-                "roi": [ 1190, 74, 148, 26 ],
-                "threshold": 0.9
-            }
-        },
-        "focus": {
-            "Node.Recognition.Succeeded": "通缉任务完成，已在木叶村南"
-        }
-    },
-    "WantedBackToVillage": {
-        "rate_limit": 200,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/map/BackToVillage.png",
-                "roi": [ 1290, 48, 50, 30 ],
-                "threshold": 0.8
-            }
-        },
-        "action": "Click",
-        "timeout": 10000,
-        // 回村图标的悬浮说明会遮住地图名，确认前需移开鼠标。
-        "anchor": {
-            "MouseMoveResetAnchor": "MouseMoveReset"
-        },
-        "next": [ "[JumpBack][Anchor]MouseMoveResetAnchor", "WantedInVillage" ]
+        // 完成后停在野外，需回木叶村南，避免后续任务长途寻路超时。
+        "next": [ "ReturnToVillage" ]
     },
     "WantedRemainLabel": {
         "recognition": {
