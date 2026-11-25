@@ -232,7 +232,7 @@
             }
         },
         "post_delay": 0,
-        "next": [ "[Anchor]BlackMarketPasswordRoute", "BlackMarketHoverConfirm" ]
+        "next": [ "[Anchor]BlackMarketPasswordRoute", "BlackMarketPurchaseDialog" ]
     },
     "BlackMarketRetryAfterPassword": {
         "anchor": {
@@ -241,33 +241,26 @@
         "post_delay": 0,
         "next": [ "BlackMarketHoverBuy" ]
     },
+    "BlackMarketPurchaseDialog": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 560, 358, 260, 28 ],
+                "expected": [ "^确定使用", "不足" ],
+                "only_rec": true,
+                "threshold": 0.8
+            }
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketHoverConfirm", "BlackMarketInsufficient" ]
+    },
     "BlackMarketHoverConfirm": {
         "recognition": {
-            "type": "And",
+            "type": "OCR",
             "param": {
-                "all_of": [
-                    {
-                        "recognition": {
-                            "type": "OCR",
-                            "param": {
-                                "roi": [ 560, 358, 260, 28 ],
-                                "expected": "^确定使用",
-                                "only_rec": true,
-                                "threshold": 0.8
-                            }
-                        }
-                    },
-                    {
-                        "recognition": {
-                            "type": "OCR",
-                            "param": {
-                                "roi": [ 580, 390, 56, 26 ],
-                                "expected": "^确定$",
-                                "threshold": 0.8
-                            }
-                        }
-                    }
-                ]
+                "roi": [ 580, 390, 56, 26 ],
+                "expected": "^确定$",
+                "threshold": 0.8
             }
         },
         "action": {
@@ -316,12 +309,35 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 540, 340, 260, 60 ],
-                "expected": "不足", // 待实测
+                "roi": [ 595, 355, 150, 27 ],
+                "expected": "不足",
+                "only_rec": true,
                 "threshold": 0.8
             }
         },
-        // ColorMatch 待测：只凭 OCR 识别到文字就点击，弹窗按钮可能尚未加载完成，点击会被吞。
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "duration": 100,
+                "begin": [ 729, 402 ],
+                "end": [ 729, 402 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketCancelInsufficient" ]
+    },
+    "BlackMarketCancelInsufficient": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 709, 395, 40, 16 ],
+                "method": 40,
+                "lower": [ 85, 70, 230 ],
+                "upper": [ 110, 255, 255 ],
+                "count": 100
+            }
+        },
         "action": {
             "type": "Click",
             "param": {
@@ -339,7 +355,10 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "common/popup/RedClose.png",
-                "roi": [ 940, 190, 60, 45 ]
+                "roi": [ 940, 190, 60, 45 ],
+                // 遮罩会压暗关闭按钮，悬停和点击都用对亮度敏感的模板匹配。
+                "method": 10001,
+                "threshold": 0.8
             }
         },
         "action": {
@@ -359,7 +378,9 @@
             "type": "TemplateMatch",
             "param": {
                 "template": "common/popup/RedCloseHover.png",
-                "roi": [ 940, 190, 60, 45 ]
+                "roi": [ 940, 190, 60, 45 ],
+                "method": 10001,
+                "threshold": 0.8
             }
         },
         "action": {
