@@ -80,7 +80,7 @@
             "label": "进入游戏",
             "group": [ "Routine" ],
             "entry": "GameEntry",
-            "description": "刷新页面并登录所选服务器，处理进入游戏时的弹窗。\n\n请放在其他任务之前；使用快捷登录时，QQ 须已在电脑上登录。",
+            "description": "请放在其他任务之前",
             "option": [ "LoginAccount", "ServerRegionType", "SingleServer" ]
         },
         {
@@ -88,7 +88,7 @@
             "label": "注册并练级",
             "group": [ "AltAccount" ],
             "entry": "AccountLeveling",
-            "description": "依次在所选服务器注册角色并练到 **16 级**，请勿提前注册。\n\n某服登录失败时停止整个任务。",
+            "description": "依次在所选服务器注册角色并练到 **16 级**，请勿提前注册。\n\n某服失败时停止整个任务。",
             "option": [ "LoginAccount", "BatchServerRegions", "AccountNamePrefix" ],
             "pipeline_override": {
                 "CloseBottomRightPopups": {
@@ -108,14 +108,14 @@
             "label": "批量领取",
             "group": [ "AltAccount" ],
             "entry": "AccountClaims",
-            "description": "依次登录所选服务器，领取勾选的奖励。请先完成各服角色的注册和练级。\n\n某服登录失败时停止整个任务。\n\n- **等级经验**：用铜币找回 50% 经验，适合 16～30 级小号，请备足铜币。\n- **邮件附件**：领取邮件中的附件。\n- **幻象奖励**：52 级解锁后使用，请先手动完成首次伤害。每周运行一次即可，重复运行会再次扫荡。\n- **回归奖励**：领取 30 级及以上角色连续 7 天未登录后触发的回归点券。",
+            "description": "**等级经验**：用铜币找回 50% 经验，适合 16～30 级小号。\n\n**幻象奖励**：52 级解锁后使用。每周运行一次即可，重复运行会再次扫荡。\n\n**回归奖励**：领取 30 级及以上角色连续 7 天未登录后触发的回归点券。",
             "option": [ "LoginAccount", "BatchServerRegions", "ClaimLevelExp", "ClaimMail", "ClaimInfiniteIllusion", "ClaimReturnGift", "ClaimAnniversarySignin" ]
         },
         {
             "name": "ArenaRankGrind",
             "label": "竞技场一键六道",
             "entry": "ArenaRankGrind",
-            "description": "连续挑战竞技场，达到**六道段位**后关闭竞技场并停止。\n\n请从竞技场主界面或地图界面开始。"
+            "description": "达到**六道段位**后关闭竞技场。"
         },
         {
             "name": "ThemeArena",
@@ -130,7 +130,7 @@
             "label": "购物节送字（微端）",
             "group": [ "AltAccount" ],
             "entry": "ShoppingFestivalTask",
-            "description": "依次登录所选服务器，在**木叶购物节**消费 **1500 点券**，再将获得的字赠送给指定大号。\n\n- 大号须保持在线，并已被各小号加为好友。\n- 首页四个商品中，须至少有一个单价能整除 1500；不会向下翻找商品。\n- 每个小号每天只运行一次，重复运行会再次购买。\n- 某服登录失败时停止整个任务。",
+            "description": "每次消费1500点券，重复运行会出错。\n\n大号须保持在线，并已被各小号加为好友。\n\n首页四个商品中，须至少有一个单价能整除 1500；不会向下翻找商品。",
             "option": [ "LoginAccount", "BatchServerRegions", "ShoppingFriendName" ]
         },
         {
@@ -138,14 +138,13 @@
             "label": "游戏托管",
             "group": [ "Routine" ],
             "entry": "AutoManagement",
-            "description": "按游戏内的**托管设置**执行一轮后退出。\n\n- 请先在游戏里勾选要做的项目；每天首次托管消耗 **1 张托管卡**。\n- 请勿勾选「空闲时自动停靠在温泉」；设置了二级密码时，也请勿勾选「兑换商人」。\n - 手动扫荡忍考的弹窗需要提前关闭！务必使用托管的忍考扫荡！"
+            "description": "请勿勾选「空闲时自动停靠在温泉」\n\n手动扫荡忍考的弹窗需要提前关闭！务必使用托管的忍考扫荡！"
         },
         {
             "name": "WantedTask",
             "label": "通缉任务",
             "group": [ "Routine" ],
             "entry": "WantedTask",
-            "description": "**单人**自动完成今天剩余的通缉任务，约需十分钟。中断后会检查完成情况，仍有剩余时再次启动。\n\n请使用能打过的队伍，运行期间**勿操作角色**，以免打断自动完成。",
             "option": [ "WantedTeam", "WantedSoloTeam" ]
         },
         {
@@ -153,7 +152,7 @@
             "label": "押镖",
             "group": [ "Routine" ],
             "entry": "Escort",
-            "description": "完成免费点券押镖。免费次数用完后可选择铜币、额外点券或停止。途中被劫时自动战斗，结算后继续押送。",
+            "description": "完成免费点券押镖。免费次数用完后可选择铜币、额外点券或停止。",
             "option": [ "EscortTeam", "EscortContinueS" ]
         },
         {
@@ -161,7 +160,6 @@
             "label": "杂货铺",
             "group": [ "Routine" ],
             "entry": "GeneralStore",
-            "description": "打开杂货屋，按当前库存购买勾选的商品。",
             "option": [ "GeneralStoreItems", "SecondaryPassword" ]
         },
         {
@@ -182,14 +180,12 @@
             "label": "试试手气",
             "group": [ "Routine" ],
             "entry": "TryYourLuck",
-            "description": "从游戏主界面进入限时热点，花费 **10 元宝**购买 1 张抽奖券后退出活动。",
             "option": [ "SecondaryPassword" ]
         },
         {
             "name": "Summon",
             "label": "组织通灵兽",
             "group": [ "Weekly" ],
-            "description": "选中指定队伍后参加组织通灵兽抓捕。每场造成伤害后立刻撤退并确认奖励，攻击次数用完后返回木叶村南。\n\n",
             "entry": "Summon",
             "option": [ "SummonTeam" ]
         },
@@ -198,7 +194,7 @@
             "label": "丰饶之间",
             "group": [ "Routine" ],
             "entry": "AbundanceRoom",
-            "description": "刷铜币专用，不打经验试炼。\n\n每场消耗 **10 点体力**，请备足体力，不会自动补充。",
+            "description": "刷铜币专用",
             "option": [ "AbundanceTeam" ]
         },
         {
@@ -206,7 +202,7 @@
             "label": "生存演习",
             "group": [ "Routine" ],
             "entry": "SurvivalDrill",
-            "description": "打完当前一轮并领奖；当天还有重置次数时，再重置并按所选难度打一轮。每轮打到积分满或挑战次数用完。\n\n选择**极限**但尚未解锁时，会消耗**极限之卷**解锁；卷不足则改打精英。",
+            "description": "选择**极限**但尚未解锁时，会消耗**极限之卷**解锁；不足则改打精英。",
             "option": [ "SurvivalLevel" ]
         },
         {
@@ -214,7 +210,7 @@
             "label": "竞技场",
             "group": [ "Routine" ],
             "entry": "DailyArena",
-            "description": "自动战斗并领取竞技场日常任务奖励\n\n战令用完、任务为空，或无损次数用完且没有已满足的任务时停止。\n\n请从游戏主界面或竞技场主界面开始。",
+            "description": "自动战斗并领取竞技场日常任务奖励\n\n战令用完、任务为空，或无损次数用完且没有已满足的任务时停止。",
             "option": [ "DailyArenaBattleMode" ],
             "pipeline_override": {
                 "RegularArenaStartBattle": {
@@ -235,14 +231,14 @@
             "label": "排位战",
             "group": [ "Routine" ],
             "entry": "RankedBattle",
-            "description": "挑战当前剩余次数，每场优先选择识别到的最低战斗力对手。\n\n沿用当前攻防阵容，出战不足 4 人时仍会确认挑战。"
+            "description": "挑战当前剩余次数，每场优先选择识别到的最低战斗力对手。"
         },
         {
             "name": "TeamDungeon",
             "label": "组队副本",
             "group": [ "Weekly" ],
             "entry": "TeamDungeon",
-            "description": "**单人**挑战所选副本，自动领奖，直到本日奖励次数用完；支持途中触发的精英怪。\n\n- 请选能打过的难度，暂不处理战败。\n- 请勿勾选单人确认弹窗中的「本次登录不再提示」。\n- 活动未开放或所选难度不可用时跳过；找不到所选副本时失败。",
+            "description": "**单人**挑战所选副本，直到本日奖励次数用完",
             "option": [ "TeamDungeonTeam", "TeamDungeonName", "TeamDungeonDifficulty" ]
         },
         {
@@ -250,7 +246,7 @@
             "label": "强者降临",
             "group": [ "Weekly" ],
             "entry": "PowerfulBoss",
-            "description": "**单人**反复挑战并领奖，直到本周普通奖励次数用完。\n\n- 沿用游戏记住的难度，请提前选好能打过的难度；暂不处理战败。\n- 每场消耗 **10 点体力**和 1 次奖励次数，不会自动补充体力。",
+            "description": "**单人**反复挑战并领奖，直到本周普通奖励次数用完。\n\n沿用游戏记住的难度，请提前选好能打过的难度；不会自动补充体力。",
             "option": [ "BossTeam" ]
         },
         {
@@ -258,21 +254,21 @@
             "label": "忍者测验",
             "group": [ "Routine" ],
             "entry": "NinjaQuiz",
-            "description": "完成 10 道题并领奖，**每题固定选第一项，不保证答对**。今天已完成时跳过。\n\n角色走向考官时请勿操作角色，以免打断寻路。"
+            "description": "每题固定选第一项，不保证答对。"
         },
         {
             "name": "TrainingJournal",
             "label": "修行录领取",
             "group": [ "Routine" ],
             "entry": "TrainingJournal",
-            "description": "领取**忍者修行录「任务」页签**中所有可领奖励，包括领取后解锁的可领奖励；不领取「奖励」页签。"
+            "description": "只领取「任务」页签，不领取「奖励」页签。"
         },
         {
             "name": "OnlineReward",
             "label": "福利大厅",
             "group": [ "Routine" ],
             "entry": "OnlineReward",
-            "description": "领取当前可领的**在线礼包**，分别检查**小月卡、大月卡、勋章礼包**；未激活仅跳过对应项目。勋章礼包领取当前档位可领的每日、每周奖励。"
+            "description": "领取**在线礼包**和**小月卡、大月卡、勋章礼包**。"
         },
         {
             "name": "TaskMerchant",
@@ -314,7 +310,7 @@
             "label": "周末活动",
             "group": [ "Weekly" ],
             "entry": "WeekendActivities",
-            "description": "目前支持**忍者拼图**：自动完成简单、普通、困难三个难度并领奖，已领取的跳过。\n\n请从**游戏主界面**开始。"
+            "description": "目前支持**忍者拼图**。"
         }
     ],
     "option": {
@@ -365,7 +361,6 @@
                     "name": "uin",
                     "label": "QQ 号",
                     "default": "",
-                    "description": "启动游戏大厅时用作启动参数；普通登录和批量切服时用于网页快捷登录。",
                     "pipeline_type": "string",
                     "verify": "^$|^[1-9][0-9]{4,11}$",
                     "pattern_msg": "请输入 5～12 位 QQ 号，或留空手动登录"
