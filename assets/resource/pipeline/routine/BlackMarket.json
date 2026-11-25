@@ -8,13 +8,85 @@
     },
     "BlackMarketClickEntry": {
         "recognition": {
-            "type": "OCR",
+            "type": "Or",
             "param": {
-                "roi": [ 8, 166, 109, 98 ],
-                "expected": "商人"
+                "any_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 8, 246, 109, 16 ],
+                                "expected": "^黑市.人",
+                                "only_rec": true,
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 8, 230, 109, 16 ],
+                                "expected": "^黑市.人",
+                                "only_rec": true,
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 8, 214, 109, 16 ],
+                                "expected": "^黑市.人",
+                                "only_rec": true,
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 8, 198, 109, 16 ],
+                                "expected": "^黑市.人",
+                                "only_rec": true,
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 8, 182, 109, 16 ],
+                                "expected": "^黑市.人",
+                                "only_rec": true,
+                                "threshold": 0.8
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 8, 166, 109, 16 ],
+                                "expected": "^黑市.人",
+                                "only_rec": true,
+                                "threshold": 0.8
+                            }
+                        }
+                    }
+                ]
             }
         },
-        "action": "Click",
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": true,
+                "target_offset": [ 12, 6, -79, -12 ]
+            }
+        },
         "post_delay": 0,
         "on_error": [ "BlackMarketFindEntry" ],
         "next": [ "BlackMarketShopReady" ]
@@ -257,7 +329,7 @@
             }
         },
         "focus": {
-            "Node.Action.Succeeded": "黑市商人有体力药水，但点券不足，购买失败！！！"
+            "Node.Action.Succeeded": "体力药水！！！点券不足！！！"
         },
         "post_delay": 0,
         "next": [ "BlackMarketHoverClose" ]
