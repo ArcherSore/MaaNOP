@@ -10,7 +10,7 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [ 0, 160, 141, 115 ],
+                "roi": [ 8, 166, 109, 98 ],
                 "expected": "商人"
             }
         },
@@ -91,7 +91,7 @@
                             "type": "OCR",
                             "param": {
                                 "roi": [ 450, 274, 125, 26 ],
-                                "expected": "体力药水",
+                                "expected": "^体力药水(?:[（(]小[）)])?$",
                                 "threshold": 0.8
                             }
                         }
@@ -103,6 +103,12 @@
             "BlackMarketPasswordRoute": "CommonSecondaryPasswordDialog",
             "SecondaryPasswordAcceptedNext": "BlackMarketRetryAfterPassword",
             "SecondaryPasswordDismissedNext": "BlackMarketHoverClose"
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BlackMarketSetPurchaseMessage"
+            }
         },
         "post_delay": 0,
         "next": [ "BlackMarketHoverBuy" ]
@@ -222,7 +228,17 @@
             }
         },
         "post_delay": 0,
-        "next": [ "BlackMarketInsufficient", "BlackMarketShopSoldOut" ]
+        "next": [ "BlackMarketInsufficient", "BlackMarketPurchaseSucceeded" ]
+    },
+    "BlackMarketPurchaseSucceeded": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "BlackMarketShopSoldOut" ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "BlackMarketHoverClose" ]
     },
     "BlackMarketInsufficient": {
         "recognition": {
