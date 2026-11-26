@@ -198,6 +198,18 @@
             "option": [ "AbundanceTeam" ]
         },
         {
+            "name": "TreasureRoom",
+            "label": "藏宝之间",
+            "group": [ "Routine" ],
+            "entry": "TreasureRoom",
+            "description": "压级专用",
+            "pipeline_override": {
+                "ReturnToVillageDone": {
+                    "next": [ "NinjaEntryOpen" ]
+                }
+            }
+        },
+        {
             "name": "SurvivalDrill",
             "label": "生存演习",
             "group": [ "Routine" ],

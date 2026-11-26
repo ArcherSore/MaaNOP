@@ -209,6 +209,23 @@
             }
         }
     },
+    "NinjaEntryOpen": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "FindHoveredBottomEntry",
+                "custom_recognition_param": {
+                    "normal_template": "common/entry/NinjaEntry.png",
+                    "hover_template": "common/entry/NinjaEntryHover.png"
+                }
+            }
+        },
+        "action": "Click",
+        "timeout": 10000,
+        "next": [ "[Anchor]NinjaEntryOpened" ]
+    },
     "BottomEntryTemplate": {
         "pre_delay": 0,
         "post_delay": 0,

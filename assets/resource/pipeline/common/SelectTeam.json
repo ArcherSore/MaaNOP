@@ -4,24 +4,10 @@
         "pre_delay": 0,
         "post_delay": 0,
         "timeout": 10000,
-        "next": [ "SelectTeamWindow", "SelectTeamOpen" ]
-    },
-    "SelectTeamOpen": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "FindHoveredBottomEntry",
-                "custom_recognition_param": {
-                    "normal_template": "common/entry/NinjaEntry.png",
-                    "hover_template": "common/entry/NinjaEntryHover.png"
-                }
-            }
+        "anchor": {
+            "NinjaEntryOpened": "SelectTeamWindow"
         },
-        "action": "Click",
-        "timeout": 10000,
-        "next": [ "SelectTeamWindow" ]
+        "next": [ "SelectTeamWindow", "NinjaEntryOpen" ]
     },
     "SelectTeamWindow": {
         "pre_delay": 0,

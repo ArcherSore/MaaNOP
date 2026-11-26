@@ -1,0 +1,233 @@
+{
+    "TreasureRoom": {
+        "anchor": {
+            "NinjaEntryOpened": "TreasureRoomHoverCultivate"
+        },
+        "next": [ "ReturnToVillage" ]
+    },
+    "TreasureRoomHoverCultivate": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/treasure_room/Cultivate.png",
+                "roi": [ 968, 67, 56, 53 ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "begin": [ 988, 85, 12, 14 ],
+                "end": [ 988, 85, 12, 14 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomClickCultivate" ]
+    },
+    "TreasureRoomClickCultivate": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 976, 75, 34, 33 ],
+                "method": 40,
+                "lower": [ 83, 45, 210 ],
+                "upper": [ 124, 255, 255 ],
+                "count": 80
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 988, 85, 12, 14 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomHoverBreakthrough" ]
+    },
+    "TreasureRoomHoverBreakthrough": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/treasure_room/Breakthrough.png",
+                "roi": [ 550, 569, 52, 55 ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "begin": [ 568, 588, 13, 13 ],
+                "end": [ 568, 588, 13, 13 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomClickBreakthrough" ]
+    },
+    "TreasureRoomClickBreakthrough": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/treasure_room/BreakthroughHover.png",
+                "roi": [ 550, 569, 52, 55 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 568, 588, 13, 13 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomHoverCabinet" ]
+    },
+    "TreasureRoomHoverCabinet": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 979, 216, 47, 17 ],
+                "expected": "^技能书柜$",
+                "only_rec": true,
+                "threshold": 0.85
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "begin": [ 990, 220, 22, 10 ],
+                "end": [ 990, 220, 22, 10 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomClickCabinet" ]
+    },
+    "TreasureRoomClickCabinet": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 972, 220, 10, 11 ],
+                "method": 40,
+                "lower": [ 85, 145, 222 ],
+                "upper": [ 120, 255, 255 ],
+                "count": 55
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 990, 220, 22, 10 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomHoverBookInfo" ]
+    },
+    "TreasureRoomHoverBookInfo": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/treasure_room/CabinetTitle.png",
+                "roi": [ 600, 172, 137, 36 ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "begin": [ 603, 232, 7, 7 ],
+                "end": [ 603, 232, 7, 7 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomClickBookInfo" ]
+    },
+    "TreasureRoomClickBookInfo": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 600, 230, 13, 13 ],
+                "method": 40,
+                "lower": [ 83, 50, 210 ],
+                "upper": [ 124, 255, 255 ],
+                "count": 65
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 603, 232, 7, 7 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomClickMentor" ]
+    },
+    "TreasureRoomClickMentor": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 584, 386, 114, 16 ],
+                "expected": "^技能突破导师.*交换",
+                "only_rec": true,
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 601, 392, 38, 5 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomHoverOption" ]
+    },
+    "TreasureRoomHoverOption": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 592, 407, 64, 21 ],
+                "expected": "^藏宝之[间问]$",
+                "only_rec": true,
+                "threshold": 0.85
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "begin": [ 601, 414, 24, 9 ],
+                "end": [ 601, 414, 24, 9 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomClickOption" ]
+    },
+    "TreasureRoomClickOption": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 642, 413, 27, 12 ],
+                "method": 40,
+                "lower": [ 90, 120, 128 ],
+                "upper": [ 122, 255, 255 ],
+                "count": 100
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 601, 414, 24, 9 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomOpened" ]
+    },
+    "TreasureRoomOpened": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "routine/treasure_room/TreasureTitle.png",
+                "roi": [ 607, 196, 126, 34 ]
+            }
+        },
+        "post_delay": 0
+    }
+}
