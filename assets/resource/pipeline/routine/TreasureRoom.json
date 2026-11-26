@@ -1,8 +1,5 @@
 {
     "TreasureRoom": {
-        "anchor": {
-            "NinjaEntryOpened": "TreasureRoomHoverCultivate"
-        },
         "next": [ "ReturnToVillage" ]
     },
     "TreasureRoomSetTeam": {
@@ -12,6 +9,14 @@
                 "custom_action": "SelectTeam",
                 "custom_action_param": 1
             }
+        },
+        "next": [ "TreasureRoomOpenNinja" ]
+    },
+    "TreasureRoomOpenNinja": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": {
+            "NinjaEntryOpened": "TreasureRoomHoverCultivate"
         },
         "next": [ "NinjaEntryOpen" ]
     },
@@ -175,7 +180,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 584, 386, 114, 16 ],
-                "expected": "^技能突破导师.*交换",
+                "expected": "^技能.破导师.*交换",
                 "only_rec": true,
                 "threshold": 0.8
             }
