@@ -1,0 +1,114 @@
+{
+    "preset": [
+        {
+            "name": "Daily",
+            "label": "一键日常",
+            "pretask": [
+                {
+                    "name": "LaunchNaruto"
+                }
+            ],
+            "task": [
+                {
+                    "name": "GameEntry"
+                },
+                {
+                    "name": "AutoManagement"
+                },
+                {
+                    "name": "WantedTask"
+                },
+                {
+                    "name": "AbundanceRoom"
+                },
+                {
+                    "name": "SurvivalDrill"
+                },
+                {
+                    "name": "DailyArena"
+                },
+                {
+                    "name": "RankedBattle"
+                },
+                {
+                    "name": "Escort"
+                },
+                {
+                    "name": "Summon"
+                },
+                {
+                    "name": "NinjaQuiz"
+                },
+                {
+                    "name": "GeneralStore"
+                },
+                {
+                    "name": "TeamDungeon"
+                },
+                {
+                    "name": "PowerfulBoss"
+                },
+                {
+                    "name": "TryYourLuck"
+                },
+                {
+                    "name": "WeekendActivities"
+                },
+                {
+                    "name": "TrainingJournal"
+                },
+                {
+                    "name": "OnlineReward"
+                }
+            ]
+        },
+        {
+            "name": "StaminaPotion",
+            "label": "蹲体力药水",
+            "pretask": [
+                {
+                    "name": "LaunchNaruto"
+                }
+            ],
+            "task": [
+                {
+                    "name": "GameEntry"
+                },
+                {
+                    "name": "BlackMarket"
+                },
+                {
+                    "name": "WanderingMerchant"
+                }
+            ]
+        },
+        {
+            "name": "AltAccountReturn",
+            "label": "小号回归",
+            "pretask": [
+                {
+                    "name": "LaunchNaruto"
+                }
+            ],
+            "task": [
+                {
+                    "name": "AccountClaims"
+                }
+            ]
+        },
+        {
+            "name": "ShoppingFestivalGifts",
+            "label": "购物节送字",
+            "pretask": [
+                {
+                    "name": "LaunchNaruto"
+                }
+            ],
+            "task": [
+                {
+                    "name": "ShoppingFestivalTask"
+                }
+            ]
+        }
+    ]
+}
