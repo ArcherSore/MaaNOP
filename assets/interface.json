@@ -469,7 +469,7 @@
                     "name": "server_id",
                     "label": "服务器编号",
                     "description": "小号所在的服务器编号，如 1006。",
-                    "default": "1",
+                    "default": "1000",
                     "pipeline_type": "string",
                     "verify": "^[1-9][0-9]*$",
                     "pattern_msg": "请输入一个正整数服务器编号"
@@ -548,7 +548,7 @@
                     "name": "server_id",
                     "label": "服务器编号",
                     "description": "只输入一个服务器编号，如 1006。",
-                    "default": "1",
+                    "default": "1000",
                     "pipeline_type": "string",
                     "verify": "^[1-9][0-9]*$",
                     "pattern_msg": "请输入一个正整数服务器编号"
@@ -1084,7 +1084,7 @@
         "GeneralStoreItems": {
             "type": "checkbox",
             "label": "购买商品",
-            "default_case": [ ],
+            "default_case": [ "TrainingPotion", "SecretScrollPage", "MantraCompound", "TrainingVoucher", "AdvancedRefinementRune" ],
             "cases": [
                 {
                     "name": "TrainingPotion",
