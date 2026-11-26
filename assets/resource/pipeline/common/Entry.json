@@ -78,14 +78,118 @@
     },
     "ClickHotspotEntry": {
         "recognition": {
-            "type": "OCR",
+            "type": "Or",
             "param": {
-                "roi": [ 352, 241, 109, 268 ],
-                "expected": [ "(?!)" ]
+                "any_of": [
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 374, 249, 78, 20 ],
+                                "only_rec": true,
+                                "expected": [ "(?!)" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 374, 276, 78, 20 ],
+                                "only_rec": true,
+                                "expected": [ "(?!)" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 374, 302, 78, 20 ],
+                                "only_rec": true,
+                                "expected": [ "(?!)" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 374, 329, 78, 20 ],
+                                "only_rec": true,
+                                "expected": [ "(?!)" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 374, 355, 78, 20 ],
+                                "only_rec": true,
+                                "expected": [ "(?!)" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 374, 382, 78, 20 ],
+                                "only_rec": true,
+                                "expected": [ "(?!)" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 374, 408, 78, 20 ],
+                                "only_rec": true,
+                                "expected": [ "(?!)" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 374, 435, 78, 20 ],
+                                "only_rec": true,
+                                "expected": [ "(?!)" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 374, 461, 78, 20 ],
+                                "only_rec": true,
+                                "expected": [ "(?!)" ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [ 374, 488, 78, 20 ],
+                                "only_rec": true,
+                                "expected": [ "(?!)" ]
+                            }
+                        }
+                    }
+                ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": true,
+                "target_offset": [ 4, 3, -18, -6 ]
+            }
         }
     },
     "HoverHotspotScrollDown": {

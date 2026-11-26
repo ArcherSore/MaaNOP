@@ -49,6 +49,9 @@ class EnterDailyTask(CustomAction):
         return bool(nodes and nodes[-1].name == "DailyTaskReady")
 
 
+HOTSPOT_TAB_YS = (249, 276, 302, 329, 355, 382, 408, 435, 461, 488)
+
+
 @AgentServer.custom_action("EnterHotspotActivity")
 class EnterHotspotActivity(CustomAction):
     """查找限时热点活动；确认缺席时关闭，业务后继由调用方识别。"""
@@ -62,8 +65,22 @@ class EnterHotspotActivity(CustomAction):
             pipeline_override={
                 "ClickHotspotEntry": {
                     "recognition": {
-                        "type": "OCR",
-                        "param": {"expected": expected},
+                        "type": "Or",
+                        "param": {
+                            "any_of": [
+                                {
+                                    "recognition": {
+                                        "type": "OCR",
+                                        "param": {
+                                            "roi": [374, y, 78, 20],
+                                            "only_rec": True,
+                                            "expected": expected,
+                                        },
+                                    }
+                                }
+                                for y in HOTSPOT_TAB_YS
+                            ]
+                        },
                     }
                 }
             },
