@@ -24,89 +24,17 @@
         }
     },
     "WeekendHub": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "next": [ "OpenWeekendHotspot" ]
-    },
-    "OpenWeekendHotspot": {
-        "recognition": {
-            "type": "TemplateMatch",
+        "action": {
+            "type": "Custom",
             "param": {
-                "template": "common/hotspot/Hotspot.png",
-                "roi": [ 295, 9, 116, 117 ]
+                "custom_action": "EnterHotspotActivity",
+                "custom_action_param": {
+                    "expected": [ "周末活动" ]
+                }
             }
         },
-        "action": "Click",
-        "pre_delay": 0,
-        // 打开和翻页后先等侧栏稳定，再识别标签或箭头。
-        "post_wait_freezes": {
-            "time": 300,
-            "target": [ 352, 241, 109, 268 ],
-            "threshold": 0.98,
-            "rate_limit": 100,
-            "timeout": 5000
-        },
-        "timeout": 8000,
-        "next": [ "FindWeekendTab", "ScrollHotspotTabs", "WeekendTabsBottom", "WeekendTabsSinglePage" ]
-    },
-    "FindWeekendTab": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 352, 241, 109, 268 ],
-                "expected": [ "周末活动" ]
-            }
-        },
-        "action": "Click",
-        "next": [ "WeekendHubPage" ]
-    },
-    "ScrollHotspotTabs": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/hotspot/ScrollDown.png",
-                "roi": [ 415, 528, 40, 32 ],
-                "threshold": 0.9
-            }
-        },
-        "action": "Click",
-        "post_wait_freezes": {
-            "time": 300,
-            "target": [ 352, 241, 109, 268 ],
-            "threshold": 0.98,
-            "rate_limit": 100,
-            "timeout": 5000
-        },
-        "timeout": 5000,
-        "next": [ "FindWeekendTab", "ScrollHotspotTabs", "WeekendTabsBottom", "WeekendTabsSinglePage" ]
-    },
-    // 灰箭头模板须与可点击态区分，阈值高于可点击态的得分。
-    "WeekendTabsBottom": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/hotspot/ScrollDownDisabled.png",
-                "roi": [ 415, 528, 40, 32 ],
-                "threshold": 0.8
-            }
-        },
-        "next": [ "WeekendTabMissing" ]
-    },
-    // 活动不足一页时不显示翻页箭头，需识别单页底边确认列表已完整显示。
-    "WeekendTabsSinglePage": {
-        "pre_delay": 0,
-        "post_delay": 0,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/hotspot/TabsSinglePageFooter.png",
-                "roi": [ 337, 504, 138, 36 ],
-                "threshold": 0.85
-            }
-        },
-        "next": [ "WeekendTabMissing" ]
+        "timeout": 10000,
+        "next": [ "WeekendHubPage", "WeekendTabMissing" ]
     },
     "WeekendHubPage": {
         "pre_delay": 0,
@@ -181,16 +109,19 @@
         },
         "next": [ "[Anchor]WeekendNext" ]
     },
-    // 确认列表已遍历后，才允许跳过缺席活动。
+    // EnterHotspotActivity 确认缺席并关窗回到主界面后命中此节点。
     "WeekendTabMissing": {
         "pre_delay": 0,
         "post_delay": 0,
-        "anchor": {
-            "WeekendNext": "WeekendFinished"
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginMapVisible" ]
+            }
         },
         "focus": {
             "Node.Action.Succeeded": "限时热点里没有「周末活动」"
         },
-        "next": [ "WeekendActivityDone" ]
+        "next": [ "WeekendFinished" ]
     }
 }
