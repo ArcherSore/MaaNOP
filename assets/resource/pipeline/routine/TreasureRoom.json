@@ -10,7 +10,17 @@
                 "custom_action_param": 1
             }
         },
-        "next": [ "TreasureRoomOpenNinja" ]
+        "next": [ "TreasureRoomLoop" ]
+    },
+    "TreasureRoomLoop": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "TreasureRoomDispatch"
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomHoverCloseRoom" ]
     },
     "TreasureRoomOpenNinja": {
         "pre_delay": 0,
@@ -180,7 +190,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 584, 386, 114, 16 ],
-                "expected": "^技能.破导师.*交换",
+                "expected": "交换",
                 "only_rec": true,
                 "threshold": 0.8
             }
@@ -241,6 +251,240 @@
             "param": {
                 "template": "routine/treasure_room/TreasureTitle.png",
                 "roi": [ 607, 196, 126, 34 ]
+            }
+        },
+        "post_delay": 0
+    },
+    "TreasureRoomReadQuota": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 609, 328, 29, 18 ],
+                "expected": "^[0-3] */ *3$",
+                "only_rec": true,
+                "threshold": 0.8
+            }
+        },
+        "post_delay": 0
+    },
+    "TreasureRoomHoverCard": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "TreasureRoomOpened" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "begin": [ 574, 306, 14, 10 ],
+                "end": [ 574, 306, 14, 10 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomClickCard" ]
+    },
+    "TreasureRoomClickCard": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 500, 320, 145, 24 ],
+                "method": 40,
+                "lower": [ 0, 120, 185 ],
+                "upper": [ 27, 255, 255 ],
+                "count": 400
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 574, 306, 14, 10 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomBattleStart" ]
+    },
+    "TreasureRoomBattleStart": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "CommonBattleStartButton" ]
+            }
+        },
+        "anchor": {
+            "CommonBattleStartTarget": "TreasureRoomBattleStart",
+            "CommonBattleOutcome": "TreasureRoomHoverSettleReturn",
+            "CommonBattleContinue": "TreasureRoomBattleWait",
+            "CommonBattleInterrupt": "CommonBattleNoInterrupt"
+        },
+        "next": [ "CommonBattleClickStart" ]
+    },
+    "TreasureRoomBattleWait": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "timeout": 600000,
+        "next": [ "TreasureRoomHoverSettleReturn", "TreasureRoomBattleStart" ]
+    },
+    "TreasureRoomHoverSettleReturn": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "OCR",
+                        "roi": [ 639, 553, 55, 20 ],
+                        "expected": "^返回游戏$",
+                        "only_rec": true,
+                        "threshold": 0.8
+                    },
+                    {
+                        "recognition": "OCR",
+                        "roi": [ 717, 553, 55, 20 ],
+                        "expected": "^返回游戏",
+                        "only_rec": true,
+                        "threshold": 0.8
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "begin_offset": [ 9, 4, -21, -10 ],
+                "end_offset": [ 9, 4, -21, -10 ]
+            }
+        },
+        "post_delay": 2000,
+        "next": [ "TreasureRoomClickSettleReturn" ]
+    },
+    "TreasureRoomClickSettleReturn": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "TreasureRoomHoverSettleReturn",
+                "roi_offset": [ -4, 3, -42, -8 ],
+                "method": 40,
+                "lower": [ 83, 110, 195 ],
+                "upper": [ 115, 255, 255 ],
+                "count": 70
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": "TreasureRoomHoverSettleReturn",
+                "target_offset": [ 9, 4, -21, -10 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomBattleReturned" ]
+    },
+    "TreasureRoomBattleReturned": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "LoginMapVisible" ]
+            }
+        },
+        "post_delay": 0
+    },
+    "TreasureRoomCloseRoomButton": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/popup/RedClose.png",
+                "roi": [ 890, 211, 38, 35 ],
+                "threshold": 0.8
+            }
+        }
+    },
+    "TreasureRoomHoverCloseRoom": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "TreasureRoomOpened", "TreasureRoomCloseRoomButton" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "begin": [ 904, 225, 8, 7 ],
+                "end": [ 904, 225, 8, 7 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomClickCloseRoom" ]
+    },
+    "TreasureRoomClickCloseRoom": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/popup/RedCloseHover.png",
+                "roi": [ 890, 211, 38, 35 ],
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 904, 225, 8, 7 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomHoverCloseMentor" ]
+    },
+    "TreasureRoomHoverCloseMentor": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/popup/RedClose.png",
+                "roi": [ 813, 282, 40, 37 ],
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "begin": [ 828, 295, 8, 7 ],
+                "end": [ 828, 295, 8, 7 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomClickCloseMentor" ]
+    },
+    "TreasureRoomClickCloseMentor": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/popup/RedCloseHover.png",
+                "roi": [ 813, 282, 40, 37 ],
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 828, 295, 8, 7 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "TreasureRoomFinished" ]
+    },
+    "TreasureRoomFinished": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchWithout",
+                "custom_recognition_param": {
+                    "match": "LoginMapVisible",
+                    "without": "TreasureRoomHoverOption"
+                }
             }
         },
         "post_delay": 0
