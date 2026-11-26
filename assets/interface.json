@@ -222,7 +222,7 @@
             "label": "藏宝之间",
             "group": [ "Routine" ],
             "entry": "TreasureRoom",
-            "description": "压级专用",
+            "description": "压级专用；**技能书柜**至少有一本技能书",
             "option": [ "TreasureTeam" ],
             "pipeline_override": {
                 "ReturnToVillageDone": {
