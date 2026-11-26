@@ -5,6 +5,16 @@
         },
         "next": [ "ReturnToVillage" ]
     },
+    "TreasureRoomSetTeam": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "SelectTeam",
+                "custom_action_param": 1
+            }
+        },
+        "next": [ "NinjaEntryOpen" ]
+    },
     "TreasureRoomHoverCultivate": {
         "recognition": {
             "type": "TemplateMatch",

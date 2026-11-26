@@ -203,9 +203,10 @@
             "group": [ "Routine" ],
             "entry": "TreasureRoom",
             "description": "压级专用",
+            "option": [ "TreasureTeam" ],
             "pipeline_override": {
                 "ReturnToVillageDone": {
-                    "next": [ "NinjaEntryOpen" ]
+                    "next": [ "TreasureRoomSetTeam" ]
                 }
             }
         },
@@ -919,6 +920,30 @@
                     "action": {
                         "param": {
                             "custom_action_param": "{abundance_team}"
+                        }
+                    }
+                }
+            }
+        },
+        "TreasureTeam": {
+            "type": "input",
+            "label": "",
+            "inputs": [
+                {
+                    "name": "treasure_team",
+                    "label": "出战队伍",
+                    "description": "从上到下编号（1～8）",
+                    "default": "1",
+                    "pipeline_type": "int",
+                    "verify": "^[1-8]$",
+                    "pattern_msg": "请输入 1～8 的数字"
+                }
+            ],
+            "pipeline_override": {
+                "TreasureRoomSetTeam": {
+                    "action": {
+                        "param": {
+                            "custom_action_param": "{treasure_team}"
                         }
                     }
                 }
