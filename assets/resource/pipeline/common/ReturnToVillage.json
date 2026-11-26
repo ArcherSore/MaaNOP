@@ -2,7 +2,6 @@
     "ReturnToVillage": {
         "pre_delay": 0,
         "post_delay": 0,
-        "timeout": 10000,
         "next": [ "ReturnToVillageDone", "ReturnToVillageClick" ]
     },
     "ReturnToVillageButton": {
@@ -34,7 +33,6 @@
                 "target_offset": [ 2, 2, -4, -4 ]
             }
         },
-        "timeout": 10000,
         "anchor": {
             "MouseMoveResetAnchor": "MouseMoveReset"
         },
