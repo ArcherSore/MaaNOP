@@ -180,13 +180,17 @@
             "label": "行脚商人",
             "group": [ "StaminaPotion" ],
             "entry": "WanderingMerchant",
-            "description": "前往木叶村东并点击行脚商人。",
+            "description": "配合定时任务蹲体力药水",
+            "option": [ "SecondaryPassword" ],
             "pipeline_override": {
                 "ReturnToVillageDone": {
                     "next": [ "MapHoverWorldButton" ]
                 },
                 "MapKonohaEastArrived": {
                     "next": [ "WanderingMerchantPark" ]
+                },
+                "CommonMerchantPurchaseDialog": {
+                    "next": [ "CommonMerchantInsufficient", "CommonMerchantHoverConfirm" ]
                 }
             }
         },

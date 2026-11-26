@@ -39,6 +39,163 @@
             "param": {
                 "target": [ 618, 310, 1, 1 ]
             }
+        },
+        "next": [ "WanderingMerchantShopReady" ]
+    },
+    "WanderingMerchantShopReady": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 565, 171, 214, 41 ],
+                "expected": "^神秘的行脚商人$",
+                "threshold": 0.8
+            }
+        },
+        "post_delay": 0,
+        "next": [ "WanderingMerchantPurchaseSlots" ]
+    },
+    "WanderingMerchantPurchaseSlots": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "WanderingMerchantPurchaseSlots",
+                "custom_action_param": {
+                    "slots": [ [ 410, 386 ], [ 759, 386 ] ]
+                }
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0
+    },
+    // 调用方传入本轮货位原点，识别和点击共用相对偏移。
+    "WanderingMerchantInspectSlot": {
+        "anchor": {
+            "WanderingMerchantSlot": "WanderingMerchantInspectSlot",
+            "CommonMerchantAfterBuy": "CommonMerchantWaitBuyDialog",
+            "CommonMerchantConfirmNext": "WanderingMerchantSlotSoldOut",
+            "SecondaryPasswordAcceptedNext": "WanderingMerchantRetryBuy",
+            "SecondaryPasswordDismissedNext": "CommonMerchantHoverClose"
+        },
+        "post_delay": 0,
+        "next": [ "WanderingMerchantSlotSoldOut", "WanderingMerchantHoverBuy", "WanderingMerchantOtherItem" ]
+    },
+    "WanderingMerchantSlotSoldOut": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": "[Anchor]WanderingMerchantSlot",
+                "roi_offset": [ 0, 19, 159, 85 ],
+                "template": "common/popup/MerchantSoldOut.png"
+            }
+        },
+        "post_delay": 0
+    },
+    "WanderingMerchantBuyPresent": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "[Anchor]WanderingMerchantSlot",
+                "roi_offset": [ 84, 76, 59, 19 ],
+                "method": 40,
+                "lower": [ 5, 150, 200 ],
+                "upper": [ 20, 255, 255 ],
+                "count": 45
+            }
         }
+    },
+    "WanderingMerchantItemName": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": "[Anchor]WanderingMerchantSlot",
+                "roi_offset": [ 0, 0, 113, 21 ],
+                "expected": ".+",
+                "threshold": 0.8
+            }
+        }
+    },
+    "WanderingMerchantPotionName": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": "[Anchor]WanderingMerchantSlot",
+                "roi_offset": [ 0, 0, 113, 21 ],
+                "expected": "^体力药水(?:[（(]小[）)])?$",
+                "threshold": 0.8
+            }
+        }
+    },
+    "WanderingMerchantOtherItem": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "WanderingMerchantBuyPresent",
+                    {
+                        "recognition": {
+                            "type": "Custom",
+                            "param": {
+                                "custom_recognition": "MatchWithout",
+                                "custom_recognition_param": {
+                                    "match": "WanderingMerchantItemName",
+                                    "without": "WanderingMerchantPotionName"
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "post_delay": 0
+    },
+    "WanderingMerchantHoverBuy": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [ "WanderingMerchantBuyPresent", "WanderingMerchantPotionName" ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "only_hover": true,
+                "duration": 100,
+                "begin": "[Anchor]WanderingMerchantSlot",
+                "begin_offset": [ 105, 80, 20, 9 ],
+                "end": "[Anchor]WanderingMerchantSlot",
+                "end_offset": [ 105, 80, 20, 9 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "WanderingMerchantClickBuy" ]
+    },
+    "WanderingMerchantClickBuy": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "[Anchor]WanderingMerchantSlot",
+                "roi_offset": [ 84, 76, 59, 19 ],
+                "method": 40,
+                "lower": [ 7, 100, 240 ],
+                "upper": [ 36, 255, 255 ],
+                "count": 100
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": "[Anchor]WanderingMerchantSlot",
+                "target_offset": [ 105, 80, 20, 9 ]
+            }
+        },
+        "post_delay": 0,
+        "next": [ "[Anchor]CommonMerchantAfterBuy" ]
+    },
+    "WanderingMerchantRetryBuy": {
+        "anchor": {
+            "CommonMerchantAfterBuy": "CommonMerchantPurchaseDialog"
+        },
+        "post_delay": 0,
+        "next": [ "WanderingMerchantHoverBuy" ]
     }
 }
