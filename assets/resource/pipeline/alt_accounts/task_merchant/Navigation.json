@@ -652,17 +652,6 @@
         },
         "next": [ "TaskMerchantEnterSelected" ]
     },
-    "TaskMerchantOpenWorldMap": {
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [ 1255, 67, 1, 1 ],
-                "duration": 100
-            }
-        },
-        "next": [ "TaskMerchantWorldMapReady" ],
-        "timeout": 10000
-    },
     "TaskMerchantWorldMapReady": {
         "pre_delay": 0,
         "post_delay": 0,
@@ -697,17 +686,6 @@
                 "order_by": "Score"
             }
         }
-    },
-    "TaskMerchantOpenKonohaMap": {
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [ 500, 521, 1, 1 ],
-                "duration": 100
-            }
-        },
-        "next": [ "TaskMerchantKonohaMapReady" ],
-        "timeout": 10000
     },
     "TaskMerchantKonohaMapReady": {
         "pre_delay": 0,

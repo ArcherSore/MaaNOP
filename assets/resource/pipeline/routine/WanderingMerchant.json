@@ -1,0 +1,44 @@
+{
+    "WanderingMerchant": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "next": [ "ReturnToVillage" ]
+    },
+    "WanderingMerchantPark": {
+        "action": {
+            "type": "LongPress",
+            "param": {
+                "target": [ 1268, 153, 1, 1 ],
+                "duration": 100
+            }
+        },
+        "next": [ "WanderingMerchantParked" ]
+    },
+    "WanderingMerchantParked": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1190, 74, 148, 26 ],
+                "expected": "[（(]146[^0-9]+120[）)]$",
+                "threshold": 0.8
+            }
+        },
+        "post_wait_freezes": {
+            "target": [ 1248, 81, 44, 17 ],
+            "time": 400,
+            "rate_limit": 100,
+            "timeout": 4000
+        },
+        "next": [ "WanderingMerchantClickName" ]
+    },
+    "WanderingMerchantClickName": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 618, 310, 1, 1 ]
+            }
+        }
+    }
+}

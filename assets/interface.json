@@ -176,6 +176,21 @@
             }
         },
         {
+            "name": "WanderingMerchant",
+            "label": "行脚商人",
+            "group": [ "StaminaPotion" ],
+            "entry": "WanderingMerchant",
+            "description": "前往木叶村东并点击行脚商人。",
+            "pipeline_override": {
+                "ReturnToVillageDone": {
+                    "next": [ "MapHoverWorldButton" ]
+                },
+                "MapKonohaEastArrived": {
+                    "next": [ "WanderingMerchantPark" ]
+                }
+            }
+        },
+        {
             "name": "TryYourLuck",
             "label": "试试手气",
             "group": [ "Routine" ],
