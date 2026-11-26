@@ -184,7 +184,7 @@
             "option": [ "SecondaryPassword" ],
             "pipeline_override": {
                 "ReturnToVillageDone": {
-                    "next": [ "MapHoverWorldButton" ]
+                    "next": [ "[Anchor]WanderingMerchantAfterReturn" ]
                 },
                 "MapKonohaEastArrived": {
                     "next": [ "WanderingMerchantPark" ]

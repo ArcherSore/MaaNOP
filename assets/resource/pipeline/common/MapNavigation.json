@@ -64,7 +64,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 489, 512, 30, 12 ]
+                "target": [ 500, 521, 1, 1 ]
             }
         },
         "next": [ "MapHoverKonohaEast" ]
@@ -101,7 +101,7 @@
         "action": {
             "type": "Click",
             "param": {
-                "target": [ 774, 347, 65, 55 ]
+                "target": [ 805, 371, 1, 1 ]
             }
         },
         "timeout": 45000,

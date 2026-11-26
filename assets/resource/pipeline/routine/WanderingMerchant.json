@@ -2,6 +2,9 @@
     "WanderingMerchant": {
         "pre_delay": 0,
         "post_delay": 0,
+        "anchor": {
+            "WanderingMerchantAfterReturn": "MapHoverWorldButton"
+        },
         "next": [ "ReturnToVillage" ]
     },
     "WanderingMerchantPark": {
@@ -64,6 +67,14 @@
                 }
             }
         },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "anchor": {
+            "WanderingMerchantAfterReturn": "WanderingMerchantFinished"
+        },
+        "next": [ "ReturnToVillage" ]
+    },
+    "WanderingMerchantFinished": {
         "pre_delay": 0,
         "post_delay": 0
     },
