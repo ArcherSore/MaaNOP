@@ -1,0 +1,122 @@
+{
+    "MapHoverWorldButton": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 1256, 70, 1, 1 ],
+                "end": [ 1256, 70, 1, 1 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "MapOpenWorld" ]
+    },
+    "MapOpenWorld": {
+        // 提示框可能盖到按钮边缘，只识别图标内部的高亮并点按钮下半部。
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [ 1251, 64, 8, 6 ],
+                "method": 40,
+                "lower": [ 0, 0, 232 ],
+                "upper": [ 180, 55, 255 ],
+                "count": 24
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 1256, 70, 1, 1 ]
+            }
+        },
+        "next": [ "MapHoverKonoha" ]
+    },
+    "MapHoverKonoha": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 476, 515, 53, 23 ],
+                "expected": "^木叶村$",
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 500, 521, 1, 1 ],
+                "end": [ 500, 521, 1, 1 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "MapOpenKonoha" ]
+    },
+    "MapOpenKonoha": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/map/WorldMapKonohaHover.png",
+                "roi": [ 520, 484, 27, 26 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 500, 521, 1, 1 ]
+            }
+        },
+        "next": [ "MapHoverKonohaEast" ]
+    },
+    "MapHoverKonohaEast": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 794, 346, 21, 59 ],
+                "expected": "^木叶村东$",
+                "threshold": 0.8
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [ 805, 371, 1, 1 ],
+                "end": [ 805, 371, 1, 1 ],
+                "duration": 100,
+                "only_hover": true
+            }
+        },
+        "post_delay": 0,
+        "next": [ "MapEnterKonohaEast" ]
+    },
+    "MapEnterKonohaEast": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "common/map/KonohaMapEastHover.png",
+                "roi": [ 724, 328, 36, 64 ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [ 805, 371, 1, 1 ]
+            }
+        },
+        "timeout": 45000,
+        "next": [ "MapKonohaEastArrived" ]
+    },
+    "MapKonohaEastArrived": {
+        "pre_delay": 0,
+        "post_delay": 0,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [ 1190, 74, 148, 26 ],
+                "expected": "^木叶村东[（(]",
+                "threshold": 0.8
+            }
+        }
+    }
+}

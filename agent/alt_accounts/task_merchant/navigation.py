@@ -64,7 +64,8 @@ def _pos(coords):
 
 
 def _map_box(context, entry, ready):
-    opened = context.run_task(entry)
+    # 调用方已通过卷轴判断当前地图，后继识别仍须返回卷轴框供选点。
+    opened = context.run_task(entry, {entry: {"recognition": "DirectHit", "next": [ready]}})
     node = next((n for n in opened.nodes if n.name == ready), None) if opened else None
     return node.recognition.box if node else None
 
@@ -136,14 +137,14 @@ class TaskMerchantPrepareNavigation(CustomAction):
     def run(self, context, argv):
         config = json.loads(argv.custom_action_param)
         profiles = config["profiles"]
-        box = _map_box(context, "TaskMerchantOpenWorldMap", "TaskMerchantWorldMapReady")
+        box = _map_box(context, "MapOpenWorld", "TaskMerchantWorldMapReady")
         if context.tasker.stopping or box is None:
             return False
         landmarks = config["world"]
         name = _region(box, landmarks)
         # 世界地图上木叶村只是入口，商人实际在子地图的木叶村东 / 木叶村北 / 妙木山后山。
         if name == "木叶村":
-            box = _map_box(context, "TaskMerchantOpenKonohaMap", "TaskMerchantKonohaMapReady")
+            box = _map_box(context, "MapOpenKonoha", "TaskMerchantKonohaMapReady")
             if context.tasker.stopping or box is None:
                 return False
             landmarks = config["submap"]

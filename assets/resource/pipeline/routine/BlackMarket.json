@@ -145,12 +145,12 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": "routine/black_market/SoldOutSign.png",
+                "template": "common/popup/MerchantSoldOut.png",
                 "roi": [ 545, 320, 80, 65 ]
             }
         },
         "post_delay": 0,
-        "next": [ "BlackMarketHoverClose" ]
+        "next": [ "CommonMerchantHoverClose" ]
     },
     "BlackMarketTargetItem": {
         "recognition": {
@@ -172,9 +172,10 @@
             }
         },
         "anchor": {
-            "BlackMarketPasswordRoute": "CommonSecondaryPasswordDialog",
+            "CommonMerchantAfterBuy": "CommonMerchantWaitBuyDialog",
+            "CommonMerchantConfirmNext": "BlackMarketPurchaseSucceeded",
             "SecondaryPasswordAcceptedNext": "BlackMarketRetryAfterPassword",
-            "SecondaryPasswordDismissedNext": "BlackMarketHoverClose"
+            "SecondaryPasswordDismissedNext": "CommonMerchantHoverClose"
         },
         "action": {
             "type": "Custom",
@@ -193,7 +194,7 @@
             }
         },
         "post_delay": 0,
-        "next": [ "BlackMarketHoverClose" ]
+        "next": [ "CommonMerchantHoverClose" ]
     },
     "BlackMarketHoverBuy": {
         "recognition": {
@@ -232,68 +233,14 @@
             }
         },
         "post_delay": 0,
-        "next": [ "[Anchor]BlackMarketPasswordRoute", "BlackMarketPurchaseDialog" ]
+        "next": [ "[Anchor]CommonMerchantAfterBuy" ]
     },
     "BlackMarketRetryAfterPassword": {
         "anchor": {
-            "BlackMarketPasswordRoute": ""
+            "CommonMerchantAfterBuy": "CommonMerchantPurchaseDialog"
         },
         "post_delay": 0,
         "next": [ "BlackMarketHoverBuy" ]
-    },
-    "BlackMarketPurchaseDialog": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 560, 358, 260, 28 ],
-                "expected": [ "^确定使用", "不足" ],
-                "only_rec": true,
-                "threshold": 0.8
-            }
-        },
-        "post_delay": 0,
-        "next": [ "BlackMarketHoverConfirm", "BlackMarketInsufficient" ]
-    },
-    "BlackMarketHoverConfirm": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 580, 390, 56, 26 ],
-                "expected": "^确定$",
-                "threshold": 0.8
-            }
-        },
-        "action": {
-            "type": "Swipe",
-            "param": {
-                "only_hover": true,
-                "duration": 100,
-                "begin": [ 608, 403 ],
-                "end": [ 608, 403 ]
-            }
-        },
-        "post_delay": 0,
-        "next": [ "BlackMarketConfirm" ]
-    },
-    "BlackMarketConfirm": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": [ 588, 395, 41, 16 ],
-                "method": 40,
-                "lower": [ 7, 100, 240 ],
-                "upper": [ 36, 255, 255 ],
-                "count": 100
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 597, 398, 24, 9 ]
-            }
-        },
-        "post_delay": 0,
-        "next": [ "BlackMarketInsufficient", "BlackMarketPurchaseSucceeded" ]
     },
     "BlackMarketPurchaseSucceeded": {
         "recognition": {
@@ -303,93 +250,6 @@
             }
         },
         "post_delay": 0,
-        "next": [ "BlackMarketHoverClose" ]
-    },
-    "BlackMarketInsufficient": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [ 595, 355, 150, 27 ],
-                "expected": "不足",
-                "only_rec": true,
-                "threshold": 0.8
-            }
-        },
-        "action": {
-            "type": "Swipe",
-            "param": {
-                "only_hover": true,
-                "duration": 100,
-                "begin": [ 729, 402 ],
-                "end": [ 729, 402 ]
-            }
-        },
-        "post_delay": 0,
-        "next": [ "BlackMarketCancelInsufficient" ]
-    },
-    "BlackMarketCancelInsufficient": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": [ 709, 395, 40, 16 ],
-                "method": 40,
-                "lower": [ 85, 70, 230 ],
-                "upper": [ 110, 255, 255 ],
-                "count": 100
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 716, 398, 26, 8 ]
-            }
-        },
-        "focus": {
-            "Node.Action.Succeeded": "体力药水！！！点券不足！！！"
-        },
-        "post_delay": 0,
-        "next": [ "BlackMarketHoverClose" ]
-    },
-    "BlackMarketHoverClose": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/popup/RedClose.png",
-                "roi": [ 940, 190, 60, 45 ],
-                // 遮罩会压暗关闭按钮，悬停和点击都用对亮度敏感的模板匹配。
-                "method": 10001,
-                "threshold": 0.8
-            }
-        },
-        "action": {
-            "type": "Swipe",
-            "param": {
-                "only_hover": true,
-                "duration": 100,
-                "begin": [ 967, 214 ],
-                "end": [ 967, 214 ]
-            }
-        },
-        "post_delay": 0,
-        "next": [ "BlackMarketClose" ]
-    },
-    "BlackMarketClose": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "common/popup/RedCloseHover.png",
-                "roi": [ 940, 190, 60, 45 ],
-                "method": 10001,
-                "threshold": 0.8
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [ 961, 209, 12, 12 ]
-            }
-        },
-        "post_delay": 0,
-        "next": [ "LoginMapVisible" ]
+        "next": [ "CommonMerchantHoverClose" ]
     }
 }
