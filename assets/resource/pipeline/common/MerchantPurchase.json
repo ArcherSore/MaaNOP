@@ -10,8 +10,7 @@
             "param": {
                 "roi": [ 560, 358, 260, 28 ],
                 "expected": [ "^确定使用", "不足" ],
-                "only_rec": true,
-                "threshold": 0.8
+                "only_rec": true
             }
         },
         "post_delay": 0,
@@ -22,8 +21,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 580, 390, 56, 26 ],
-                "expected": "^确定$",
-                "threshold": 0.8
+                "expected": "^确定$"
             }
         },
         "action": {
@@ -64,8 +62,7 @@
             "param": {
                 "roi": [ 595, 355, 150, 27 ],
                 "expected": "不足",
-                "only_rec": true,
-                "threshold": 0.8
+                "only_rec": true
             }
         },
         "action": {

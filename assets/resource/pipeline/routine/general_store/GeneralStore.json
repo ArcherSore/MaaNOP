@@ -566,8 +566,7 @@
             "param": {
                 "roi": [ 565, 349, 210, 19 ],
                 "expected": "^确定购买",
-                "only_rec": true,
-                "threshold": 0.8
+                "only_rec": true
             }
         }
     },
@@ -577,8 +576,7 @@
             "param": {
                 "roi": [ 583, 379, 55, 23 ],
                 "expected": "^确定$",
-                "only_rec": false,
-                "threshold": 0.8
+                "only_rec": false
             }
         }
     },

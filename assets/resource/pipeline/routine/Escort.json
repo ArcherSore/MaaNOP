@@ -86,8 +86,7 @@
             "param": {
                 "roi": [ 881, 221, 45, 17 ],
                 "expected": "^0[/／][1-9][0-9]*$",
-                "only_rec": true,
-                "threshold": 0.8
+                "only_rec": true
             }
         },
         "next": [ "EscortCloseList" ]
@@ -106,8 +105,7 @@
                             "param": {
                                 "roi": [ 881, 221, 45, 17 ],
                                 "expected": "^[1-9][0-9]*[/／][1-9][0-9]*$",
-                                "only_rec": true,
-                                "threshold": 0.8
+                                "only_rec": true
                             }
                         }
                     }
@@ -125,8 +123,7 @@
             "param": {
                 "roi": [ 817, 239, 112, 19 ],
                 "expected": "^免费接取SS级任务次数[：:]?0[/／]?[1-9][0-9]*$",
-                "only_rec": true,
-                "threshold": 0.8
+                "only_rec": true
             }
         },
         "timeout": 5000,
@@ -147,8 +144,7 @@
             "param": {
                 "roi": [ 817, 239, 112, 19 ],
                 "expected": "^免费接取SS级任务次数[：:]?[1-9][0-9]*[/／]?[1-9][0-9]*$",
-                "only_rec": true,
-                "threshold": 0.8
+                "only_rec": true
             }
         },
         "timeout": 5000,
@@ -195,8 +191,7 @@
                             "param": {
                                 "roi": "SGrade",
                                 "roi_offset": [ 369, 11, 31, -15 ],
-                                "expected": "^押送$",
-                                "threshold": 0.8
+                                "expected": "^押送$"
                             }
                         }
                     }
@@ -239,8 +234,7 @@
                             "param": {
                                 "roi": "AGrade",
                                 "roi_offset": [ 369, 11, 31, -15 ],
-                                "expected": "^押送$",
-                                "threshold": 0.8
+                                "expected": "^押送$"
                             }
                         }
                     }
@@ -305,8 +299,7 @@
                             "param": {
                                 "roi": "ExtraSSButton",
                                 "roi_offset": [ -305, -10, 92, 13 ],
-                                "expected": "[一-龥]{2,}",
-                                "threshold": 0.8
+                                "expected": "[一-龥]{2,}"
                             }
                         }
                     }
@@ -373,8 +366,7 @@
                             "param": {
                                 "roi": [ 552, 357, 235, 17 ],
                                 "expected": "押运许可证[（(]优先消耗[）)]或者6元",
-                                "only_rec": true,
-                                "threshold": 0.8
+                                "only_rec": true
                             }
                         }
                     },
@@ -383,8 +375,7 @@
                             "type": "OCR",
                             "param": {
                                 "roi": [ 584, 397, 53, 23 ],
-                                "expected": "^确定$",
-                                "threshold": 0.8
+                                "expected": "^确定$"
                             }
                         }
                     }
@@ -469,8 +460,7 @@
                             "type": "OCR",
                             "param": {
                                 "roi": [ 626, 297, 91, 90 ],
-                                "expected": "^元宝不够$",
-                                "threshold": 0.8
+                                "expected": "^元宝不够$"
                             }
                         }
                     }
@@ -518,8 +508,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 531, 326, 279, 23 ],
-                "expected": "不在活动时间内.*不能接受押镖任务",
-                "threshold": 0.8
+                "expected": "不在活动时间内.*不能接受押镖任务"
             }
         },
         "focus": {
@@ -540,8 +529,7 @@
                             "type": "OCR",
                             "param": {
                                 "roi": [ 818, 512, 82, 25 ],
-                                "expected": "^立即刷新$",
-                                "threshold": 0.8
+                                "expected": "^立即刷新$"
                             }
                         }
                     }
@@ -555,8 +543,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 818, 512, 82, 25 ],
-                "expected": "^免费刷新[（(]?[1-4][）)]?$",
-                "threshold": 0.8
+                "expected": "^免费刷新[（(]?[1-4][）)]?$"
             }
         },
         "action": {
@@ -634,8 +621,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 569, 505, 70, 27 ],
-                "expected": "^出发$",
-                "threshold": 0.8
+                "expected": "^出发$"
             }
         },
         "action": {
@@ -678,8 +664,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 1200, 344, 129, 139 ],
-                "expected": "押送物品",
-                "threshold": 0.8
+                "expected": "押送物品"
             }
         },
         "anchor": {
@@ -730,8 +715,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 709, 441, 88, 31 ],
-                "expected": "^完成任务$",
-                "threshold": 0.8
+                "expected": "^完成任务$"
             }
         },
         "action": {
@@ -778,8 +762,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 580, 335, 186, 33 ],
-                "expected": "获得额外物品奖励",
-                "threshold": 0.8
+                "expected": "获得额外物品奖励"
             }
         },
         "action": {
@@ -855,8 +838,7 @@
                             "type": "OCR",
                             "param": {
                                 "roi": [ 827, 275, 69, 26 ],
-                                "expected": "^押送$",
-                                "threshold": 0.8
+                                "expected": "^押送$"
                             }
                         }
                     }
@@ -887,8 +869,7 @@
                             "type": "OCR",
                             "param": {
                                 "roi": [ 827, 358, 69, 26 ],
-                                "expected": "^押送$",
-                                "threshold": 0.8
+                                "expected": "^押送$"
                             }
                         }
                     }
@@ -919,8 +900,7 @@
                             "type": "OCR",
                             "param": {
                                 "roi": [ 827, 441, 69, 26 ],
-                                "expected": "^押送$",
-                                "threshold": 0.8
+                                "expected": "^押送$"
                             }
                         }
                     }

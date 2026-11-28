@@ -17,8 +17,7 @@
                             "param": {
                                 "roi": [ 8, 246, 109, 16 ],
                                 "expected": "黑..人",
-                                "only_rec": true,
-                                "threshold": 0.8
+                                "only_rec": true
                             }
                         }
                     },
@@ -28,8 +27,7 @@
                             "param": {
                                 "roi": [ 8, 230, 109, 16 ],
                                 "expected": "黑..人",
-                                "only_rec": true,
-                                "threshold": 0.8
+                                "only_rec": true
                             }
                         }
                     },
@@ -39,8 +37,7 @@
                             "param": {
                                 "roi": [ 8, 214, 109, 16 ],
                                 "expected": "黑..人",
-                                "only_rec": true,
-                                "threshold": 0.8
+                                "only_rec": true
                             }
                         }
                     },
@@ -50,8 +47,7 @@
                             "param": {
                                 "roi": [ 8, 198, 109, 16 ],
                                 "expected": "黑..人",
-                                "only_rec": true,
-                                "threshold": 0.8
+                                "only_rec": true
                             }
                         }
                     },
@@ -61,8 +57,7 @@
                             "param": {
                                 "roi": [ 8, 182, 109, 16 ],
                                 "expected": "黑..人",
-                                "only_rec": true,
-                                "threshold": 0.8
+                                "only_rec": true
                             }
                         }
                     },
@@ -72,8 +67,7 @@
                             "param": {
                                 "roi": [ 8, 166, 109, 16 ],
                                 "expected": "黑..人",
-                                "only_rec": true,
-                                "threshold": 0.8
+                                "only_rec": true
                             }
                         }
                     }

@@ -82,8 +82,7 @@
             "param": {
                 "roi": [ 573, 353, 192, 26 ],
                 "expected": "购买\\s*抽奖券.*花费\\s*10\\s*元宝",
-                "only_rec": true,
-                "threshold": 0.8
+                "only_rec": true
             }
         },
         "action": {
@@ -135,8 +134,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 610, 328, 92, 60 ],
-                "expected": "^购买成功$",
-                "threshold": 0.8
+                "expected": "^购买成功$"
             }
         },
         "focus": {
