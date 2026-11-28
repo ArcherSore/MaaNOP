@@ -111,8 +111,7 @@
             "param": {
                 "roi": [ 979, 216, 47, 17 ],
                 "expected": "^技能书柜$",
-                "only_rec": true,
-                "threshold": 0.85
+                "only_rec": true
             }
         },
         "action": {
@@ -191,8 +190,7 @@
             "param": {
                 "roi": [ 584, 386, 114, 16 ],
                 "expected": "交换",
-                "only_rec": true,
-                "threshold": 0.8
+                "only_rec": true
             }
         },
         "action": {
@@ -210,8 +208,7 @@
             "param": {
                 "roi": [ 592, 407, 64, 21 ],
                 "expected": "^藏宝之[间问]$",
-                "only_rec": true,
-                "threshold": 0.85
+                "only_rec": true
             }
         },
         "action": {
@@ -261,8 +258,7 @@
             "param": {
                 "roi": [ 609, 328, 29, 18 ],
                 "expected": "^[0-3] */ *3$",
-                "only_rec": true,
-                "threshold": 0.8
+                "only_rec": true
             }
         },
         "post_delay": 0
@@ -337,15 +333,13 @@
                         "recognition": "OCR",
                         "roi": [ 639, 553, 55, 20 ],
                         "expected": "^返回游戏$",
-                        "only_rec": true,
-                        "threshold": 0.8
+                        "only_rec": true
                     },
                     {
                         "recognition": "OCR",
                         "roi": [ 717, 553, 55, 20 ],
                         "expected": "^返回游戏",
-                        "only_rec": true,
-                        "threshold": 0.8
+                        "only_rec": true
                     }
                 ]
             }

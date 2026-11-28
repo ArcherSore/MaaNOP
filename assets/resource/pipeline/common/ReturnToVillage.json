@@ -52,8 +52,7 @@
                             "type": "OCR",
                             "param": {
                                 "roi": [ 1190, 74, 148, 26 ],
-                                "expected": "^木叶村南[（(]",
-                                "threshold": 0.8
+                                "expected": "^木叶村南[（(]"
                             }
                         }
                     }

@@ -186,8 +186,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 638, 440, 65, 24 ],
-                "expected": "^确认$",
-                "threshold": 0.8
+                "expected": "^确认$"
             }
         },
         "action": {

@@ -135,8 +135,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 618, 293, 104, 108 ],
-                "expected": "^铜币不够[！!]?$",
-                "threshold": 0.8
+                "expected": "^铜币不够[！!]?$"
             }
         },
         "next": [ "ExitClaimLevel" ]

@@ -24,8 +24,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 1190, 74, 148, 26 ],
-                "expected": "[（(]146[^0-9]+120[）)]$",
-                "threshold": 0.8
+                "expected": "[（(]146[^0-9]+120[）)]$"
             }
         },
         "post_wait_freezes": {
@@ -50,8 +49,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 565, 171, 214, 41 ],
-                "expected": "^神秘的行脚商人$",
-                "threshold": 0.8
+                "expected": "^神秘的行脚商人$"
             }
         },
         "post_delay": 0,
@@ -114,14 +112,14 @@
             }
         }
     },
+    // 仅确认商品名已渲染，不提高阈值，避免生僻字小字识别分偏低时落入死区。
     "WanderingMerchantItemName": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": "[Anchor]WanderingMerchantSlot",
                 "roi_offset": [ 0, 0, 113, 21 ],
-                "expected": ".+",
-                "threshold": 0.8
+                "expected": ".+"
             }
         }
     },

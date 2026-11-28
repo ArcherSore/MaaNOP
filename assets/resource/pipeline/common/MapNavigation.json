@@ -37,8 +37,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 476, 515, 53, 23 ],
-                "expected": "^木叶村$",
-                "threshold": 0.8
+                "expected": "^木叶村$"
             }
         },
         "action": {
@@ -74,8 +73,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 794, 346, 21, 59 ],
-                "expected": "^木叶村东$",
-                "threshold": 0.8
+                "expected": "^木叶村东$"
             }
         },
         "action": {
@@ -114,8 +112,7 @@
             "type": "OCR",
             "param": {
                 "roi": [ 1190, 74, 148, 26 ],
-                "expected": "^木叶村东[（(]",
-                "threshold": 0.8
+                "expected": "^木叶村东[（(]"
             }
         }
     }
